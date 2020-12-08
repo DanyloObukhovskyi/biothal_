@@ -117,9 +117,9 @@ $(document).on("click", '#btn-del', function () {
 
 //counter
 $(document).ready(function () {
-    $('.minus .down').click(function () {
+    $('.down').click(function () {
         var $input = $(this).parent().find('input');
-        console.log($input);
+        // console.log($input);
         var count = parseInt($input.val()) - 1;
         count = count < 1 ? 1 : count;
         $input.val(count);
@@ -128,6 +128,7 @@ $(document).ready(function () {
     });
     $('.up').click(function () {
         var $input = $(this).parent().find('input');
+        // console.log($input);
         $input.val(parseInt($input.val()) + 1);
         $input.change();
         return false;
@@ -149,31 +150,26 @@ function openTabs(evt, tabsName) {
     evt.currentTarget.className += " active";
 }
 
-
-//нова пошта
 $(document).ready(function () {
+    $('#cities').keyup(function () {
+     let cities = $('#cities').val();
     $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: 'https://api.novaposhta.ua/v2.0/json/',
-        data: JSON.stringify({
-            modelName: 'Address',
-            calledMethod: 'searchSettlements',
-            methodProperties: {
-                CityName: 'ки',
-                Limit: 555
-            },
-            apiKey: '3290bef07476a0a0d06726d54cec7d34'
-        }),
-        headers: {
-            'Content-Type': 'application/json'
+        url: '/checkout', method: 'POST',
+        data: {
+            "cities": cities,
         },
-        xhrFields: {
-            withCredentials: false
-        },
-        success: function(texts) {
-            console.log(texts);
-        },
-    });
+        error: function (xhr, status, error) {
 
+        },
+        success: function (responce) {
+            console.log(responce)
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Товар удален из корзины',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // });
+        }
+    })
+    })
 });

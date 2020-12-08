@@ -24,7 +24,7 @@
                         <span class="active"></span>
                         <span class="active"></span>
                         <span></span>
-                        5 отзывов
+                        7 отзывов
                     </div>
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
@@ -34,7 +34,7 @@
                     <span style="font-size: 11px; margin-top: 0px; color:#87c8d7">В наличии</span>
                     <p>Количество</p>
                     <div class="amount">
-                        <span class="minus down">-</span>
+                        <span class="down">-</span>
                         <input id="valCount" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
                         <span class="plus up">+</span>
                     </div>

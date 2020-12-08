@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
 use App\Models\Cart_Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use LisDev\Delivery\NovaPoshtaApi2;
+
 
 class CartController extends Controller
 {
@@ -75,10 +76,30 @@ class CartController extends Controller
         return response()->json(['success' => 1]);
     }
 
-    public function checkout(Request $request)
+    public function setCheck(Request $request)
     {
-//        $np = new NovaPoshtaApi2('3290bef07476a0a0d06726d54cec7d34');
-//        dd($np);
-        return view('checkout');
+          return view('checkout');
     }
+
+    public function checkout(Request $request){
+        $cities = $request->input('cities');
+//        dd($cities);
+        $http = new Client();
+        $resp = $http->request('POST', 'https://api.novaposhta.ua/v2.0/json/', [
+            'json' => [
+                'apiKey' => '3290bef07476a0a0d06726d54cec7d34',
+                'modelName' => 'Address',
+                'calledMethod' => 'searchSettlements',
+                'methodProperties' => [
+                    "Description"=> $cities,
+//                    'Limit' => 10
+                ],
+            ]
+        ]);
+
+//        dd(json_decode($resp->getBody()->getContents(), true));
+
+        return response()->json(['data' => json_decode($resp->getBody()->getContents(), true)]);
+    }
+
 }

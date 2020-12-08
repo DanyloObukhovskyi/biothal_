@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.nav')
     <div style="padding: 35px">
-        {{--        --}}
+
     </div>
 
     <div class="container">
@@ -27,10 +27,8 @@
                         <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Область">
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput2">Выберите город*</label>
-                        <select id="inputState" class="colorInput form-control">
-                            <option id="getCheckout" selected>Город</option>
-                        </select>
+                        <label for="formGroupExampleInput2">Введите город*</label>
+                        <input type="text" class="colorInput form-control" id="cities" placeholder="Введите город">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2" id="checkout">Выберите отделение Новой Почты*</label>
@@ -38,17 +36,17 @@
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите способ оплаты*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Оплата">
+                        <select id="inputState" class="colorInput form-control">
+                            <option id="getCheckout" selected>Оплата при получении</option>
+                        </select>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-sm-5">
                             <a href="/checkout"><button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
                         </div>
                         <div class="col-sm-5">
-                            <a href="/checkout"><button id="" type="submit" class="btn btn-link"
-                                                        style="padding-left: 0px!important; color:#9ea2a4; margin-top: 10px">Оформить в 1 клик</button></a>
+                            <a href="/checkout"><button id="" type="submit" class="btn btn-link" style="padding-left: 0px!important; color:#9ea2a4; margin-top: 10px">Оформить в 1 клик</button></a>
                         </div>
-
                     </div>
                 </div>
                 <div class="col">
