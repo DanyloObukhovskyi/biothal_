@@ -7,6 +7,7 @@ use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\ProductsAttributes;
 use App\Models\Cart_Product;
 use App\Models\Categories;
+use App\Models\Region;
 use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -63,7 +64,7 @@ class TestServiceProvider extends ServiceProvider
                 ->leftJoin('products', 'cart_products.product_id', '=', 'products.id')
                 ->get();
 
-
+            $region = Region::select('region')->get();
             $sum = 0;
             $sumAll = 0;
             $sum_sale = 0;
@@ -79,6 +80,7 @@ class TestServiceProvider extends ServiceProvider
                 'delivery' => $delivery,
 //                'product_price' => $product_price,
 //                'product_sale' => $product_sale,
+                'region' => $region,
                 'cart_products' => Cart_Product::all(),
                 'categories' => Categories::all(),
                 'accessories' => Accessories::all(),

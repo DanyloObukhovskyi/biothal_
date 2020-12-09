@@ -142,7 +142,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <a href="/checkout"><button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
+                        <a href="/setCheck"><button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
                     </div>
                     @endif
                     <div class="row justify-content-center">

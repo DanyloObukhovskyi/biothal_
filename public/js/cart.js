@@ -83,7 +83,6 @@ $(document).on("click", '#btn-buyHome', function () {
 // Удаление товара из корзины
 $(document).on("click", '#btn-del', function () {
     var product_id = $(this).val();
-    // console.log($(this).val());
     $.ajax({
         url: '/delCart', method: 'POST',
         data: {
@@ -114,12 +113,61 @@ $(document).on("click", '#btn-del', function () {
     })
 });
 
+// Оформление товаров со страницы setCheck
+$(document).on("click", '#check', function () {
+    let phone = $('#phone').val();
+    let name = $('#name').val();
+    let LastName = $('#LastName').val();
+    let region = $('#region').val();
+    let cities = $('#cities').val();
+    let department = $('#department').val();
+    let payment = $('#payment').val();
+    let valCount = $('#valCount').val();
+    let btndel = $('#btn-del').val();
+
+    $.ajax({
+        url: '/check',
+        method: 'POST',
+        data: {
+            "phone": phone,
+            "name": name,
+            "LastName": LastName,
+            "region": region,
+            "cities": cities,
+            "department": department,
+            "payment": payment,
+            "valCount": valCount,
+            "btn-del": btndel,
+        },
+        error: function (xhr, status, error) {
+            var errors = xhr.responseJSON.errors, errorMessage = "";
+            $.each(errors, function (index, value) {
+                $.each(value, function (key, message) {
+                    errorMessage += message + " ";
+                })
+            })
+            $('#check').attr("disabled", false);
+            Swal.fire({
+                icon: 'error',
+                title: errorMessage,
+                showConfirmButton: true,
+            })
+        },
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Товар оформлен, спасибо за покупку!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    })
+});
 
 //counter
 $(document).ready(function () {
     $('.down').click(function () {
         var $input = $(this).parent().find('input');
-        // console.log($input);
         var count = parseInt($input.val()) - 1;
         count = count < 1 ? 1 : count;
         $input.val(count);
@@ -128,7 +176,6 @@ $(document).ready(function () {
     });
     $('.up').click(function () {
         var $input = $(this).parent().find('input');
-        // console.log($input);
         $input.val(parseInt($input.val()) + 1);
         $input.change();
         return false;
@@ -152,24 +199,26 @@ function openTabs(evt, tabsName) {
 
 $(document).ready(function () {
     $('#cities').keyup(function () {
-     let cities = $('#cities').val();
-    $.ajax({
-        url: '/checkout', method: 'POST',
-        data: {
-            "cities": cities,
-        },
-        error: function (xhr, status, error) {
+        let cities = $('#cities').val();
+        let region = $('#region').val();
+        $.ajax({
+            url: '/checkout', method: 'POST',
+            data: {
+                "cities": cities,
+                "region": region,
+            },
+            error: function (xhr, status, error) {
 
-        },
-        success: function (responce) {
-            console.log(responce)
-            // Swal.fire({
-            //     icon: 'success',
-            //     title: 'Товар удален из корзины',
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
-        }
-    })
+            },
+            success: function (response) {
+                console.log(response)
+                if( response.data.data.length != null) {
+                    $("#department").empty();
+                    response.data.data.forEach((item) => {
+                        $("#department").prepend('<option>'  + item.ShortAddressRu + ' '  + '</option>');
+                    })
+                }
+            }
+        })
     })
 });

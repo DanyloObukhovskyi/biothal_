@@ -78,28 +78,32 @@ class CartController extends Controller
 
     public function setCheck(Request $request)
     {
-          return view('checkout');
+       return view('checkout');
     }
 
     public function checkout(Request $request){
         $cities = $request->input('cities');
-//        dd($cities);
+        $region = $request->input('region');
         $http = new Client();
         $resp = $http->request('POST', 'https://api.novaposhta.ua/v2.0/json/', [
             'json' => [
                 'apiKey' => '3290bef07476a0a0d06726d54cec7d34',
-                'modelName' => 'Address',
-                'calledMethod' => 'searchSettlements',
+                'modelName' => 'AddressGeneral',
+                'calledMethod' => 'getWarehouses',
                 'methodProperties' => [
-                    "Description"=> $cities,
-//                    'Limit' => 10
+
+                    "RegionsDescription"=> $region,
+                    "Language" => "ru",
+                    "Limit" => 20,
+                    "CityName"=> $cities,
+
                 ],
             ]
         ]);
 
-//        dd(json_decode($resp->getBody()->getContents(), true));
-
         return response()->json(['data' => json_decode($resp->getBody()->getContents(), true)]);
     }
-
+    public function check(Request $request){
+        //
+    }
 }

@@ -29,4 +29,5 @@ Route::post('buyCart', 'CartController@insInCart');
 Route::post('delCart', 'CartController@delCart');
 Route::get('setCheck', 'CartController@setCheck');
 Route::post('checkout', 'CartController@checkout');
+Route::post('check', 'CartController@check');
 

@@ -5,47 +5,58 @@
     <div style="padding: 35px">
 
     </div>
-
     <div class="container">
         <form>
             <div class="form-row">
                 <div class="col">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Введите номер телефона*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput" placeholder="+38(___) ___ - __ - __">
+                        <input type="text" class="colorInput form-control" id="phone" placeholder="+38(___) ___ - __ - __">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Введите имя*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Имя">
+                        <input type="text" class="colorInput form-control" id="name" placeholder="Имя">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Введите фамилию*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Фамилия">
+                        <input type="text" class="colorInput form-control" id="LastName" placeholder="Фамилия">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите область*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Область">
+                        <select id="region" class="colorInput form-control">
+                            @foreach($region as $reg)
+                            <option selected>
+                                {{$reg->region}}
+                            </option>
+                            @endforeach
+                            <option selected>
+                                {{'Выберите область'}}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Введите город*</label>
                         <input type="text" class="colorInput form-control" id="cities" placeholder="Введите город">
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput2" id="checkout">Выберите отделение Новой Почты*</label>
-                        <input type="text" class="colorInput form-control" id="formGroupExampleInput2" placeholder="Область">
+                        <label for="formGroupExampleInput2">Выберите отделение Новой Почты*</label>
+                        <select id="department" class="colorInput form-control">
+                            <option selected>Отделение</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите способ оплаты*</label>
-                        <select id="inputState" class="colorInput form-control">
-                            <option id="getCheckout" selected>Оплата при получении</option>
+                        <select id="payment" class="colorInput form-control">
+                            <option id="" selected>Доставка курьером</option>
+                            <option id="" selected>Оплата при получении</option>
                         </select>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-sm-5">
-                            <a href="/checkout"><button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
+                            <a href="/check"><button id="check" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
                         </div>
                         <div class="col-sm-5">
-                            <a href="/checkout"><button id="" type="submit" class="btn btn-link" style="padding-left: 0px!important; color:#9ea2a4; margin-top: 10px">Оформить в 1 клик</button></a>
+                            <a href="/"><button id="" type="submit" class="btn btn-link" style="padding-left: 0px!important; color:#9ea2a4; margin-top: 10px">Оформить в 1 клик</button></a>
                         </div>
                     </div>
                 </div>
