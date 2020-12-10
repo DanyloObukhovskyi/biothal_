@@ -9,7 +9,7 @@ class ShoppingCart extends Model
     protected $table = 'shopping_cart';
 
     protected $fillable = [
-        'uuid', 'user_id'
+        'uuid', 'user_id', 'order_type_id'
     ];
 
     public const ACTIVE = 'active';
@@ -28,5 +28,10 @@ class ShoppingCart extends Model
     {
         return $this->belongsToMany('App\Models\Admin\Products\Product','cart_products','cart_id','product_id')
             ->withPivot('count');
+    }
+
+    public function orderTypes()
+    {
+        return $this->belongsTo(OrderType::class,'order_type_id');
     }
 }

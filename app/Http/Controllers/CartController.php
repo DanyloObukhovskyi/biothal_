@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
 use App\Models\Cart_Product;
@@ -63,7 +64,7 @@ class CartController extends Controller
             $cartProduct = Cart_Product::create(['cart_id' => $cart->id,  'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
         }
         else {
-            $cartProduct = Cart_Product::where([['cart_id', $cart->id],['product_id', '=', $request->input('product_id')]])->update([
+            $cartProduct = Cart_Product::where([['cart_id', '=', $cart->id],['product_id', '=', $request->input('product_id')]])->update([
                 'count' => ($cartProduct['count'] + $request->input('count'))
             ]);
         }
@@ -103,7 +104,28 @@ class CartController extends Controller
 
         return response()->json(['data' => json_decode($resp->getBody()->getContents(), true)]);
     }
+
     public function check(Request $request){
-        //
+        $cart = ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->first();
+
+        ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->update([ 'order_type_id' =>  $request->input('order_type')]);
+
+        $cartProduct = UserOrderAddress::create([
+            'phone' => $request->input('phone'),
+            'name' => $request->input('name'),
+            'LastName' => $request->input('LastName'),
+            'region' => $request->input('region'),
+            'cities' => $request->input('cities'),
+            'department' => $request->input('department'),
+            'shopping_id' =>  $cart->id,
+        ]);
+
+        return response()->json(['success' => 1]);
     }
 }

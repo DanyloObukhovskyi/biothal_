@@ -64,7 +64,8 @@ class TestServiceProvider extends ServiceProvider
                 ->leftJoin('products', 'cart_products.product_id', '=', 'products.id')
                 ->get();
 
-            $region = Region::select('region')->get();
+            $region = Region::select('region', 'id')->get()->toArray();
+            $region = array_merge([['region' => 'Выберите область']], $region);
             $sum = 0;
             $sumAll = 0;
             $sum_sale = 0;

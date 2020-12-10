@@ -24,14 +24,11 @@
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите область*</label>
                         <select id="region" class="colorInput form-control">
-                            @foreach($region as $reg)
-                            <option selected>
-                                {{$reg->region}}
+                            @foreach($region as $key => $reg)
+                            <option @if($key === 0) selected disabled value="" @else value="{{$reg['id']}}" @endif">
+                                {{$reg['region']}}
                             </option>
                             @endforeach
-                            <option selected>
-                                {{'Выберите область'}}
-                            </option>
                         </select>
                     </div>
                     <div class="form-group">

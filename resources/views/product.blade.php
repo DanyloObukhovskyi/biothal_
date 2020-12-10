@@ -35,7 +35,7 @@
                     <p>Количество</p>
                     <div class="amount">
                         <span class="down">-</span>
-                        <input id="valCount" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
+                        <input id="count_products" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
                         <span class="plus up">+</span>
                     </div>
                     <button id="btn-buy" type="submit" class="btn btn-myBuy">Купить</button>

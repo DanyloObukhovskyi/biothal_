@@ -9,8 +9,8 @@ $(function () {
 
 // Добавление товаров в корзину со страницы продуктов
     $(document).on("click", '#btn-buy', function () {
-        var product_id = $('#product_id').val();
-        var count = $('#valCount').val();
+        let product_id = $('#product_id').val();
+        let count = $('#count_products').val();
         $.ajax({
             url: '/buyCart',
             method: 'POST',
@@ -121,9 +121,6 @@ $(document).on("click", '#check', function () {
     let region = $('#region').val();
     let cities = $('#cities').val();
     let department = $('#department').val();
-    let payment = $('#payment').val();
-    let valCount = $('#valCount').val();
-    let btndel = $('#btn-del').val();
 
     $.ajax({
         url: '/check',
@@ -135,9 +132,8 @@ $(document).on("click", '#check', function () {
             "region": region,
             "cities": cities,
             "department": department,
-            "payment": payment,
-            "valCount": valCount,
-            "btn-del": btndel,
+            "order_type": 2,
+
         },
         error: function (xhr, status, error) {
             var errors = xhr.responseJSON.errors, errorMessage = "";
