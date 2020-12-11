@@ -133,7 +133,6 @@ $(document).on("click", '#check', function () {
             "cities": cities,
             "department": department,
             "order_type": 2,
-
         },
         error: function (xhr, status, error) {
             var errors = xhr.responseJSON.errors, errorMessage = "";

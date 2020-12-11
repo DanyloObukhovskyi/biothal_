@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
+use App\Http\Requests\Cart\ValidFormCheckoutRequest;
 use App\Models\Cart_Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
@@ -105,7 +106,7 @@ class CartController extends Controller
         return response()->json(['data' => json_decode($resp->getBody()->getContents(), true)]);
     }
 
-    public function check(Request $request){
+    public function check(ValidFormCheckoutRequest $request){
         $cart = ShoppingCart::where([
             ['uuid', '=', session('uuid')],
             ['user_id', '=', Auth::id()],

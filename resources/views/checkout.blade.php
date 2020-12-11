@@ -3,7 +3,6 @@
 @section('content')
     @include('layouts.nav')
     <div style="padding: 35px">
-
     </div>
     <div class="container">
         <form>
@@ -11,11 +10,11 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Введите номер телефона*</label>
-                        <input type="text" class="colorInput form-control" id="phone" placeholder="+38(___) ___ - __ - __">
+                        <input type="text" value="" class="colorInput form-control" id="phone" placeholder="+38(___) ___ - __ - __">
                     </div>
-                    <div class="form-group">
+                    <div  class="form-group">
                         <label for="formGroupExampleInput2">Введите имя*</label>
-                        <input type="text" class="colorInput form-control" id="name" placeholder="Имя">
+                        <input type="text" value="" class="colorInput form-control" id="name" placeholder="Имя">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Введите фамилию*</label>
@@ -38,7 +37,7 @@
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите отделение Новой Почты*</label>
                         <select id="department" class="colorInput form-control">
-                            <option selected>Отделение</option>
+                            <option selected value="">Отделение</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -109,6 +108,7 @@
                 </div>
             </div>
         </form>
+
 
         <div style="margin-bottom: 35px; text-align: center">
             <h2>Рекомендуемые товары</h2>
