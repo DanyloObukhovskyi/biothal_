@@ -16,7 +16,7 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Категории
                 </a>
-                <div class="dropdown-menu" style="column-count: 2;" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($categories as $value)
                         @if($value['parent_id'] == null)
                             <a class="dropdown-item" style="margin-top: 10px" href=""
@@ -36,7 +36,7 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Потребности
                 </a>
-                <div class="dropdown-menu" style="column-count: 2;" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" style="column-count: auto" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($accessories as $value)
                         @if($value['parent_id'] == null)
                             <a class="dropdown-item" style="margin-top: 10px" href=""
@@ -59,8 +59,9 @@
             </li>
         </ul>
     </div>
+
     <div class="col-sm-2" style="display: flex; justify-content: space-evenly">
-        <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor"
+        <svg data-toggle="modal" data-target="#exampleModal" width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
                   d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -79,14 +80,14 @@
         </span>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal2 -->
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
          aria-hidden="true">
         <div style="margin-right: 0px!important; margin-top: 0px!important;" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Корзина ({{$countAll}})</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" style="margin-right: 5px" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -95,8 +96,12 @@
                         <div class="row justify-content-center">
                             @foreach($cart_join as $cart)
                                 <div class="col-6">
+{{--                                    @foreach($cart_image as $image)--}}
+{{--                                        @dd($cart_image)--}}
                                     <img style="height: auto!important; padding: 10px" class="img-fluid"
                                          src="{{Storage::url('img/tonik.png')}}">
+{{--                                    @endforeach--}}
+
                                 </div>
                                 <div style="margin-top: 10px" class="col-6">
                                     <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
@@ -151,8 +156,8 @@
 
                     <div class="row justify-content-center">
                         <div class="col-5">
-                            @foreach($products as $value)
-                                @if($value['sale_id'] == null)
+                            @foreach($product_sale as $value)
+{{--                                @if($value['sale_id'] == null)--}}
                                     <div style="margin-bottom: 20px">
                                         <div class="text-center" style="width: 12rem;">
                                             <a href="product/{{$value->id}}"><img
@@ -169,13 +174,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endif
+{{--                                @endif--}}
                             @endforeach
                         </div>
 
                         <div class="col-5">
-                            @foreach($products as $value)
-                                @if($value['sale_id'] != null)
+                            @foreach($product_price as $value)
+{{--                                @if($value['sale_id'] != null)--}}
                                     <div style="margin-bottom: 20px">
                                         <div class="text-center" style="width: 12rem;">
                                             <a href="product/{{$value->id}}"><img class="img-fluid"
@@ -192,7 +197,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endif
+{{--                                @endif--}}
                             @endforeach
                         </div>
                     </div>

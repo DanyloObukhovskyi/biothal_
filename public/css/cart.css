@@ -132,8 +132,9 @@ body {
 }
 
 .btn-myBuy:hover {
-    background: #59b6cb;
+    background: #000000;
     border-color: transparent;
+    color: white;
 }
 
 .btn-myCall {

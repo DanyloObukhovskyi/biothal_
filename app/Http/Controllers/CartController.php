@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cart\ValidFormModalCheckRequest;
 use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
@@ -33,17 +34,17 @@ class CartController extends Controller
         ])->first();
 
         if (empty($cartProduct)) {
-            $cartProduct = Cart_Product::create(['cart_id' => $cart->id,  'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
-        }
-        else {
-            $cartProduct = Cart_Product::where([['cart_id', $cart->id],['product_id', '=', $request->input('product_id')]])->update([
+            $cartProduct = Cart_Product::create(['cart_id' => $cart->id, 'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        } else {
+            $cartProduct = Cart_Product::where([['cart_id', $cart->id], ['product_id', '=', $request->input('product_id')]])->update([
                 'count' => ($cartProduct['count'] + $request->input('count'))
             ]);
         }
         return response()->json(['success' => 1]);
     }
 
-    public function insInCart(ValidCartRequest $request){
+    public function insInCart(ValidCartRequest $request)
+    {
         $cart = ShoppingCart::where([
             ['uuid', '=', session('uuid')],
             ['user_id', '=', Auth::id()],
@@ -62,10 +63,9 @@ class CartController extends Controller
         ])->first();
 
         if (empty($cartProduct)) {
-            $cartProduct = Cart_Product::create(['cart_id' => $cart->id,  'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
-        }
-        else {
-            $cartProduct = Cart_Product::where([['cart_id', '=', $cart->id],['product_id', '=', $request->input('product_id')]])->update([
+            $cartProduct = Cart_Product::create(['cart_id' => $cart->id, 'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        } else {
+            $cartProduct = Cart_Product::where([['cart_id', '=', $cart->id], ['product_id', '=', $request->input('product_id')]])->update([
                 'count' => ($cartProduct['count'] + $request->input('count'))
             ]);
         }
@@ -80,10 +80,11 @@ class CartController extends Controller
 
     public function setCheck(Request $request)
     {
-       return view('checkout');
+        return view('checkout');
     }
 
-    public function checkout(Request $request){
+    public function checkout(Request $request)
+    {
         $cities = $request->input('cities');
         $region = $request->input('region');
         $http = new Client();
@@ -94,10 +95,10 @@ class CartController extends Controller
                 'calledMethod' => 'getWarehouses',
                 'methodProperties' => [
 
-                    "RegionsDescription"=> $region,
+                    "RegionsDescription" => $region,
                     "Language" => "ru",
                     "Limit" => 20,
-                    "CityName"=> $cities,
+                    "CityName" => $cities,
 
                 ],
             ]
@@ -106,7 +107,8 @@ class CartController extends Controller
         return response()->json(['data' => json_decode($resp->getBody()->getContents(), true)]);
     }
 
-    public function check(ValidFormCheckoutRequest $request){
+    public function check(ValidFormCheckoutRequest $request)
+    {
         $cart = ShoppingCart::where([
             ['uuid', '=', session('uuid')],
             ['user_id', '=', Auth::id()],
@@ -115,17 +117,72 @@ class CartController extends Controller
         ShoppingCart::where([
             ['uuid', '=', session('uuid')],
             ['user_id', '=', Auth::id()],
-        ])->update([ 'order_type_id' =>  $request->input('order_type')]);
+        ])->update(['order_type_id' => $request->input('order_type')]);
 
-        $cartProduct = UserOrderAddress::create([
-            'phone' => $request->input('phone'),
-            'name' => $request->input('name'),
-            'LastName' => $request->input('LastName'),
-            'region' => $request->input('region'),
-            'cities' => $request->input('cities'),
-            'department' => $request->input('department'),
-            'shopping_id' =>  $cart->id,
-        ]);
+        $UserOrderAddress = UserOrderAddress::where([
+            ['phone', '=', $request->input('phone')],
+            ['name', '=', $request->input('name')],
+            ['LastName', '=', $request->input('LastName')],
+            ['region', '=', $request->input('region')],
+            ['cities', '=', $request->input('cities')],
+            ['department', '=', $request->input('department')],
+        ])->first();
+
+        if (empty($UserOrderAddress)) {
+            $user_order_address = UserOrderAddress::create([
+                'phone' => $request->input('phone'),
+                'name' => $request->input('name'),
+                'LastName' => $request->input('LastName'),
+                'region' => $request->input('region'),
+                'cities' => $request->input('cities'),
+                'department' => $request->input('department'),
+                'shopping_id' => $cart->id,
+            ]);
+        } else {
+            Cart_Product::where([['cart_id', '=', $UserOrderAddress->shopping_id]])->update(['cart_id' => $cart->id]);
+            $user_order_address = UserOrderAddress::where([
+                ['phone', '=', $request->input('phone')],
+                ['name', '=', $request->input('name')],
+                ['LastName', '=', $request->input('LastName')],
+                ['region', '=', $request->input('region')],
+                ['cities', '=', $request->input('cities')],
+                ['department', '=', $request->input('department')],
+            ])->update(['shopping_id' => $cart->id]);
+        }
+
+        return response()->json(['success' => 1]);
+    }
+
+    public function checkModalOneClick(ValidFormModalCheckRequest $request)
+    {
+        $cart = ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->first();
+
+        ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->update(['order_type_id' => $request->input('order_type')]);
+
+        $UserOrderAddress = UserOrderAddress::where([
+            ['phone', '=', $request->input('phone')],
+            ['name', '=', $request->input('name')],
+        ])->first();
+
+        if (empty($UserOrderAddress)) {
+            $user_order_address = UserOrderAddress::create([
+                'phone' => $request->input('phone'),
+                'name' => $request->input('name'),
+                'shopping_id' => $cart->id,
+            ]);
+        } else {
+            Cart_Product::where([['cart_id', '=', $UserOrderAddress->shopping_id]])->update(['cart_id' => $cart->id]);
+            $user_order_address = UserOrderAddress::where([
+                ['phone', '=', $request->input('phone')],
+                ['name', '=', $request->input('name')],
+            ])->update(['shopping_id' => $cart->id]);
+        }
 
         return response()->json(['success' => 1]);
     }

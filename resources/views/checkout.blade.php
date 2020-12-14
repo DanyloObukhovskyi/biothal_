@@ -43,27 +43,27 @@
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Выберите способ оплаты*</label>
                         <select id="payment" class="colorInput form-control">
-                            <option id="" selected>Доставка курьером</option>
-                            <option id="" selected>Оплата при получении</option>
+                            <option id="" selected>Оплата при доставке курьером Новой Почты</option>
+                            <option id="" selected>Оплата при получении в отделении Новой Почты</option>
                         </select>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-sm-5">
-                            <a href="/check"><button id="check" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
+                           <span rel="/check" id="check" type="submit" style="margin-top: 10px; padding: 10px" class="btn btn-myBuy">Оформить заказ</span>
                         </div>
                         <div class="col-sm-5">
-                            <a href="/"><button id="" type="submit" class="btn btn-link" style="padding-left: 0px!important; color:#9ea2a4; margin-top: 10px">Оформить в 1 клик</button></a>
-                        </div>
+                            <span data-toggle="modal" data-target="#modalOneClick"  class="btn btn-link" style="color:#9ea2a4; margin-top: 10px; padding: 10px">Оформить в 1 клик</span>                       </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row justify-content-center verticalscroll">
                         @foreach($cart_join as $cart)
                             <div class="col-6">
-                                <img style="height: auto!important; padding: 10px" class="img-fluid"
+                                <img style="padding: 10px" class=""
                                      src="{{Storage::url('img/tonik.png')}}">
                             </div>
-                            <div style="margin-top: 10px" class="col-6">
+                        <div class="col-6">
+                            <div style="margin-top: 10px" class="">
                                 <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
                                 <span>Количество</span>
                                 <div class="">
@@ -86,7 +86,8 @@
                                     Удалить из корзины
                                 </button>
                             </div>
-                            @if((($cart->price_with_sale) == null))
+                        </div>
+                             @if((($cart->price_with_sale) == null))
                                 <input type="hidden" value="{{$sum += (($cart->price * $cart->count))}}">
                             @endif
                             @if((($cart->price_with_sale) != null))
@@ -109,6 +110,37 @@
             </div>
         </form>
 
+        <!-- Modal -->
+        <div class="modal fade" id="modalOneClick" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="margin-top: 10%" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form>
+                            <div class="row justify-content-center" style="margin-top: 10px">
+                               <p><b>Оформить заказ в 1 клик</b></p>
+                                <p align="center">Наш менеджер свяжется с вами в течении<br>
+                                    30 минут в рабочее время<p>
+                                <p></p>
+                            </div>
+                            <div class="container">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Введите имя</label>
+                                    <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="nameModal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-phone" class="col-form-label">Введите номер телефона</label>
+                                    <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                            <span rel="/checkModalOneClick" id="checkModalOneClick" type="submit" style="margin-top: 10px; width: 225px; padding: 10px" class="btn btn-myBuy">Оформить быстрый заказ</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div style="margin-bottom: 35px; text-align: center">
             <h2>Рекомендуемые товары</h2>

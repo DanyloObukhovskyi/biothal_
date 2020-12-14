@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Admin\Accessories\Accessories;
-use App\Models\Categories;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,8 +11,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        $categories = Categories::all();
-//        $accessories = Accessories::all();
         return view('home');
     }
 }

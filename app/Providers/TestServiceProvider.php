@@ -48,21 +48,29 @@ class TestServiceProvider extends ServiceProvider
                 $uuid = session('uuid');
             }
 
-//            $product_price = Product::where('sale_id', '!=', null)->take(2)->get();
-//            $product_sale = Product::where('sale_id', '=', null)->take(2)->get();
+            $product_price = Product::where('sale_id', '!=', null)->take(2)->get();
+            $product_sale = Product::where('sale_id', '=', null)->take(2)->get();
 
             $cart_prod_count = [];
             $countAll = 0;
             $shopping_card = ShoppingCart::where('uuid', $uuid)->first();
+            $cart_join = [];
+//            $cart_image = [];
             if (!empty($shopping_card)) {
                 $cart_prod_count = Cart_Product::where([['cart_id', '=', $shopping_card->id]])->get();
                 foreach ($cart_prod_count as $key => $value) {
                     $countAll += $value['count'];
                 }
+                $cart_join = DB::table('cart_products')
+                    ->leftJoin('products', 'cart_products.product_id', '=', 'products.id')
+                    ->where([['cart_id', '=', $shopping_card->id]])
+                    ->get();
+
+//                $cart_image = DB::table('image')
+//                    ->leftJoin('products', 'image.id', '=', 'products.image_id')
+////                    ->where([['image_id', '=', 'id']])
+//                    ->get();
             }
-            $cart_join = DB::table('cart_products')
-                ->leftJoin('products', 'cart_products.product_id', '=', 'products.id')
-                ->get();
 
             $region = Region::select('region', 'id')->get()->toArray();
             $region = array_merge([['region' => 'Выберите область']], $region);
@@ -79,14 +87,15 @@ class TestServiceProvider extends ServiceProvider
                 'sumAll' => $sumAll,
                 'sum_sale' => $sum_sale,
                 'delivery' => $delivery,
-//                'product_price' => $product_price,
-//                'product_sale' => $product_sale,
+                'product_price' => $product_price,
+                'product_sale' => $product_sale,
                 'region' => $region,
                 'cart_products' => Cart_Product::all(),
                 'categories' => Categories::all(),
                 'accessories' => Accessories::all(),
                 'count_sale_product' => $count_sale_product,
                 'cart_join' => $cart_join,
+//                'cart_image' => $cart_image,
             ]);
         });
     }

@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index')->name('home');
@@ -30,4 +32,5 @@ Route::post('delCart', 'CartController@delCart');
 Route::get('setCheck', 'CartController@setCheck');
 Route::post('checkout', 'CartController@checkout');
 Route::post('check', 'CartController@check');
+Route::post('checkModalOneClick', 'CartController@checkModalOneClick');
 

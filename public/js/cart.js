@@ -159,6 +159,45 @@ $(document).on("click", '#check', function () {
     })
 });
 
+// Оформление товаров со страницы setCheck с модалки "Оформить в 1 клик"
+$(document).on("click", '#checkModalOneClick', function () {
+    let phone = $('#phoneModal').val();
+    let name = $('#nameModal').val();
+
+    $.ajax({
+        url: '/checkModalOneClick',
+        method: 'POST',
+        data: {
+            "phone": phone,
+            "name": name,
+            "order_type": 1,
+        },
+        error: function (xhr, status, error) {
+            var errors = xhr.responseJSON.errors, errorMessage = "";
+            $.each(errors, function (index, value) {
+                $.each(value, function (key, message) {
+                    errorMessage += message + " ";
+                })
+            })
+            $('#checkModalOneClick').attr("disabled", false);
+            Swal.fire({
+                icon: 'error',
+                title: errorMessage,
+                showConfirmButton: true,
+            })
+        },
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Спасибо за покупку, с Вами свяжется наш оператор!',
+                showConfirmButton: true,
+                timer: 1500
+            });
+            $('#modalOneClick').modal('hide')
+        }
+    })
+});
+
 //counter
 $(document).ready(function () {
     $('.down').click(function () {
