@@ -16,7 +16,7 @@ class AttributesController extends Controller
     // Получаем атрибуты для таба "Данные"
     public function getAttributesForProduct(Request $request)
     {
-        $product = Product::find($request->id) ? Product::find($request->id)->productsAttributes : [];
+        $product = Product::find($request->id)->with('getImage') ? Product::find($request->id)->with('getImage')->productsAttributes : [];
 
         return Datatables::of($product)
             ->addColumn('change', function ($row) {

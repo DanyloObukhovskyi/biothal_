@@ -3,6 +3,7 @@
 namespace App\Models\Admin\Products;
 
 use App\Models\Categories;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -29,7 +30,7 @@ class Product extends Model
 
     public function getImage()
     {
-        return $this->hasOne('App\Models\Image','id','image_id');
+        return $this->belongsTo(Image::class,'image_id','id');
     }
 
     public function getSale()

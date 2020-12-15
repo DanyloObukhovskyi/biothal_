@@ -9,7 +9,7 @@ class Image extends Model
     protected $table = 'image';
 
     protected $fillable = [
-        'name',
+        'name', 'id'
     ];
 
     public $timestamps = false;

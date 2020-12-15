@@ -37,7 +37,7 @@ class TestServiceProvider extends ServiceProvider
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
         View::composer(['home', 'product', 'checkout'], function($view) {
-            $view->with(['products' => Product::all()]);
+            $view->with(['products' => Product::with('getImage')->get()]);
         });
 
         View::composer(['home', 'product', 'checkout'], function($view) {
@@ -48,8 +48,8 @@ class TestServiceProvider extends ServiceProvider
                 $uuid = session('uuid');
             }
 
-            $product_price = Product::where('sale_id', '!=', null)->take(2)->get();
-            $product_sale = Product::where('sale_id', '=', null)->take(2)->get();
+            $product_price = Product::with('getImage')->where('sale_id', '!=', null)->take(2)->get();
+            $product_sale = Product::with('getImage')->where('sale_id', '=', null)->take(2)->get();
 
             $cart_prod_count = [];
             $countAll = 0;
@@ -77,7 +77,7 @@ class TestServiceProvider extends ServiceProvider
             $sum = 0;
             $sumAll = 0;
             $sum_sale = 0;
-            $count_sale_product = Product::where('sale_id', '!=', null)->count();
+            $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
             $delivery = 40;
             $view->with([
                 'uuid' => $uuid,

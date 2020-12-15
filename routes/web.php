@@ -34,3 +34,7 @@ Route::post('checkout', 'CartController@checkout');
 Route::post('check', 'CartController@check');
 Route::post('checkModalOneClick', 'CartController@checkModalOneClick');
 
+Route::get('getxml', 'XmlController@getXml');
+
+
+

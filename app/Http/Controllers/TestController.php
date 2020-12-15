@@ -29,7 +29,7 @@ class TestController extends Controller
 
     public function getProducts()
     {
-        return Product::all();
+        return Product::query()->with('getImage');
     }
 
     public function getCategories()
@@ -39,12 +39,12 @@ class TestController extends Controller
 
     public function getProduct($id)
     {
-        return Product::find($id);
+        return Product::with('getImage')->find($id);
     }
 
     public function getProductAttributes($productId)
     {
-        return Product::find($productId)->productsAttributes;
+        return Product::with('getImage')->find($productId)->productsAttributes;
     }
 
     // Тестовые кнопки
@@ -231,19 +231,19 @@ class TestController extends Controller
 
     public function paginatiOn()
     {
-        $products = Product::paginate(5);
+        $products = Product::with('getImage')->paginate(5);
         return view('home', ['products' => $products]);
     }
 
     public function sortByBig($value)
     {
-        $products = Product::orderBy($value, 'desc')->get();
+        $products = Product::with('getImage')->orderBy($value, 'desc')->get();
         return $products;
     }
 
     public function sortByCost($min, $max, $sort)
     {
-        $products = Product::where([
+        $products = Product::with('getImage')->where([
             ['price', '>', $min],
             ['price', '<', $max]
         ])
@@ -254,13 +254,13 @@ class TestController extends Controller
 
     public function sortByLow($value)
     {
-        $products = Product::orderBy($value, 'asc')->get();
+        $products = Product::with('getImage')->orderBy($value, 'asc')->get();
         return $products;
     }
 
     public function sortWhere($column, $value)
     {
-        $products = Product::where($column, $value)->get();
+        $products = Product::with('getImage')->where($column, $value)->get();
         return $products;
     }
 }

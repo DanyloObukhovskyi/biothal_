@@ -36,7 +36,7 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Потребности
                 </a>
-                <div class="dropdown-menu" style="column-count: auto" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($accessories as $value)
                         @if($value['parent_id'] == null)
                             <a class="dropdown-item" style="margin-top: 10px" href=""
@@ -78,6 +78,37 @@
                 {{$countAll}}
             @endif
         </span>
+    </div>
+
+    <!-- Modal1 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Личный кабинет</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row justify-content-center modal-body">
+                    <div class="btn-group-vertical">
+                        @if ((Auth::check() == false))
+                        <a href="{{route('login')}}">
+                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Войти</button>
+                        </a>
+                        <a href="{{route('register')}}">
+                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Зарегистрироваться</button>
+                        </a>
+                        @endif
+                        @if (Auth::check())
+                        <a href="{{route('logout')}}">
+                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Выйти</button>
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal2 -->

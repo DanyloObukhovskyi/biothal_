@@ -47,7 +47,7 @@
                 @if($value['sale_id'] != null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                         <div class="card text-center" style="width: 18rem;">
-                            <a href="product/{{$value->id}}"><img class="img-fluid card-img-top" src="{{Storage::url('img/tonik.png')}}"></a>
+                            <a href="product/{{$value->id}}"><img class="img-fluid card-img-top" src = "{{ asset('/img/'.$value->getImage['name'])}}"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
@@ -80,13 +80,12 @@
             @foreach($products as $value)
                 @if($value['sale_id'] == null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
-                        <div class="card text-center" style="width: 18rem;">
-                            <a href="product/{{$value->id}}"><img src="{{Storage::url('img/tonik.png')}}"
-                                                                  class="card-img-top" alt="..."></a>
+                        <div class="card text-center" style="">
+                            <a href="product/{{$value->id}}"><img style="" src="{{ asset('/img/'.$value->getImage['name'])}}"
+                                                                  class="card-img-top img-fluid"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-{{--                                <p class="card-text">{!!$value->price_with_sale!!}грн.</p>--}}
                                 <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484"
                                         class="btn btn-success rounded-pill" value="{{$value->id}}">Купить
                                 </button>

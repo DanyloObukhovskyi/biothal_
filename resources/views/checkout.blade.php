@@ -150,7 +150,7 @@
                 @if($value['sale_id'] == null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                         <div class="card text-center" style="width: 18rem;">
-                            <a href="product/{{$value->id}}"><img src="{{Storage::url('img/tonik.png')}}" class="card-img-top" alt="..."></a>
+                            <a href="product/{{$value->id}}"><img src="{{ asset('/img/'.$value->getImage['name'])}}" class="card-img-top"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
