@@ -12,7 +12,7 @@
                 @foreach($products as $value)
                     @if($value['id'] == $id)
                         <div class="card text-center" style="width: 18rem; margin-left: auto; margin-right: auto">
-                            <img class="img-fluid card-img-top" src="{{Storage::url('img/tonik.png')}}">
+                            <img class="img-fluid card-img-top" src="{{ asset('/img/'.$value->getImage['name'])}}">
                         </div>
             </div>
             <div class="col-md-6">

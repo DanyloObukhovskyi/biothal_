@@ -9,6 +9,7 @@ use App\Models\Cart_Product;
 use App\Models\Categories;
 use App\Models\Region;
 use App\Models\ShoppingCart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -36,7 +37,7 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'product', 'checkout'], function($view) {
+        View::composer(['home', 'product', 'checkout', 'layouts.nav'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
@@ -53,9 +54,13 @@ class TestServiceProvider extends ServiceProvider
 
             $cart_prod_count = [];
             $countAll = 0;
-            $shopping_card = ShoppingCart::where('uuid', $uuid)->first();
+
+            $shopping_card = ShoppingCart::where([
+                ['uuid', '=', session('uuid')],
+                ['user_id', '=', Auth::id()],
+            ])->first();
+
             $cart_join = [];
-//            $cart_image = [];
             if (!empty($shopping_card)) {
                 $cart_prod_count = Cart_Product::where([['cart_id', '=', $shopping_card->id]])->get();
                 foreach ($cart_prod_count as $key => $value) {
@@ -65,11 +70,6 @@ class TestServiceProvider extends ServiceProvider
                     ->leftJoin('products', 'cart_products.product_id', '=', 'products.id')
                     ->where([['cart_id', '=', $shopping_card->id]])
                     ->get();
-
-//                $cart_image = DB::table('image')
-//                    ->leftJoin('products', 'image.id', '=', 'products.image_id')
-////                    ->where([['image_id', '=', 'id']])
-//                    ->get();
             }
 
             $region = Region::select('region', 'id')->get()->toArray();
@@ -95,7 +95,6 @@ class TestServiceProvider extends ServiceProvider
                 'accessories' => Accessories::all(),
                 'count_sale_product' => $count_sale_product,
                 'cart_join' => $cart_join,
-//                'cart_image' => $cart_image,
             ]);
         });
     }

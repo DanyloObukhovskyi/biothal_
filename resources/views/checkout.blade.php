@@ -58,10 +58,14 @@
                 <div class="col">
                     <div class="row justify-content-center verticalscroll">
                         @foreach($cart_join as $cart)
+                            @foreach($products as $value)
+                                @if($value->id == $cart->id)
                             <div class="col-6">
                                 <img style="padding: 10px" class=""
-                                     src="{{Storage::url('img/tonik.png')}}">
+                                     src="{{ asset('/img/'.$value->getImage['name'])}}">
                             </div>
+                                @endif
+                            @endforeach
                         <div class="col-6">
                             <div style="margin-top: 10px" class="">
                                 <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>

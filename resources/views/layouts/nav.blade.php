@@ -2,8 +2,8 @@
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="row col-sm-3">
-        <a class="navbar-brand" href="/"><img class="img-fluid" style="margin-left: 30px" src="{{Storage::url('img/new-logo.png')}}"
-                                              width="127"></a>
+        <a class="navbar-brand" href="/">
+            <img class="img-fluid" style="margin-left: 30px" src="{{Storage::url('img/new-logo.png')}}" width="127"></a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,8 @@
     </div>
 
     <div class="col-sm-2" style="display: flex; justify-content: space-evenly">
-        <svg data-toggle="modal" data-target="#exampleModal" width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor"
+        <svg data-toggle="modal" data-target="#exampleModal" width="1.2em" height="1.2em" viewBox="0 0 16 16"
+             class="bi bi-person" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
                   d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -81,7 +82,8 @@
     </div>
 
     <!-- Modal1 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,17 +95,23 @@
                 <div class="row justify-content-center modal-body">
                     <div class="btn-group-vertical">
                         @if ((Auth::check() == false))
-                        <a href="{{route('login')}}">
-                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Войти</button>
-                        </a>
-                        <a href="{{route('register')}}">
-                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Зарегистрироваться</button>
-                        </a>
+                            <a href="{{route('login')}}">
+                                <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">
+                                    Войти
+                                </button>
+                            </a>
+                            <a href="{{route('register')}}">
+                                <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">
+                                    Зарегистрироваться
+                                </button>
+                            </a>
                         @endif
                         @if (Auth::check())
-                        <a href="{{route('logout')}}">
-                        <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">Выйти</button>
-                        </a>
+                            <a href="{{route('logout')}}">
+                                <button style="margin-bottom: 15px; width: 200px" type="button" class="btn btn-info">
+                                    Выйти
+                                </button>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -118,7 +126,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Корзина ({{$countAll}})</h5>
-                    <button type="button" class="close" style="margin-right: 5px" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" style="margin-right: 5px" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -127,12 +136,12 @@
                         <div class="row justify-content-center">
                             @foreach($cart_join as $cart)
                                 <div class="col-6">
-{{--                                    @foreach($cart_image as $image)--}}
-{{--                                        @dd($cart_image)--}}
-                                    <img style="height: auto!important; padding: 10px" class="img-fluid"
-                                         src="{{Storage::url('img/tonik.png')}}">
-{{--                                    @endforeach--}}
-
+                                    @foreach($products as $value)
+                                        @if($value->id == $cart->id)
+                                            <img style="height: auto!important; padding: 10px" class="img-fluid"
+                                                 src="{{ asset('/img/'.$value->getImage['name'])}}">
+                                        @endif
+                                    @endforeach
                                 </div>
                                 <div style="margin-top: 10px" class="col-6">
                                     <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
@@ -158,10 +167,11 @@
                                     </button>
                                 </div>
                                 @if((($cart->price_with_sale) == null))
-                               <input type="hidden" value="{{$sum += (($cart->price * $cart->count))}}">
+                                    <input type="hidden" value="{{$sum += (($cart->price * $cart->count))}}">
                                 @endif
                                 @if((($cart->price_with_sale) != null))
-                               <input type="hidden" value="{{$sum_sale += (($cart->price_with_sale * $cart->count))}}">
+                                    <input type="hidden"
+                                           value="{{$sum_sale += (($cart->price_with_sale * $cart->count))}}">
                                 @endif
                                 <input type="hidden" value="{{$sumAll = (($sum + $sum_sale))}}">
                             @endforeach
@@ -170,15 +180,18 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 @if((!empty($sumAll)))
-                                <span>Стоимость товаров: {{$sumAll}} грн.</span><br>
-                                <span>Стоимость доставки: {{$delivery . ' '}}грн.</span><br>
-                                <span>Итого к оплате: <b>{{$sumAll + $delivery . ' '}}</b>грн.</span><br>
+                                    <span>Стоимость товаров: {{$sumAll}} грн.</span><br>
+                                    <span>Стоимость доставки: {{$delivery . ' '}}грн.</span><br>
+                                    <span>Итого к оплате: <b>{{$sumAll + $delivery . ' '}}</b>грн.</span><br>
                             </div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
-                        <a href="/setCheck"><button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button></a>
+                        <a href="/setCheck">
+                            <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ
+                            </button>
+                        </a>
                     </div>
                     @endif
                     <div class="row justify-content-center">
@@ -188,47 +201,51 @@
                     <div class="row justify-content-center">
                         <div class="col-5">
                             @foreach($product_sale as $value)
-{{--                                @if($value['sale_id'] == null)--}}
-                                    <div style="margin-bottom: 20px">
-                                        <div class="text-center" style="width: 12rem;">
-                                            <a href="product/{{$value->id}}"><img
-                                                    src="{{Storage::url('img/tonik.png')}}"
-                                                    class="img-fluid" alt="..."></a>
-                                            <div class="card-body">
-                                                <span class="card-title">{!!$value->name!!}</span>
-                                                <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                                <button id="btn-buyHome"
-                                                        style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                        class="btn btn-success rounded-pill" value="{{$value->id}}">
-                                                    Добавить
-                                                </button>
+                                <div style="margin-bottom: 20px">
+                                    @foreach($products as $val)
+                                        @if($val->id == $value->id)
+                                            <div class="text-center" style="width: 12rem;">
+                                                <a href="product/{{$value->id}}">
+                                                    <img src="{{ asset('/img/'.$value->getImage['name'])}}"
+                                                         class="img-fluid" alt="...">
+                                                </a>
+                                                @endif
+                                                @endforeach
+                                                <div class="card-body">
+                                                    <span class="card-title">{!!$value->name!!}</span>
+                                                    <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
+                                                    <button id="btn-buyHome"
+                                                            style="width: auto; background-color: #2f7484; border-color: #2f7484"
+                                                            class="btn btn-success rounded-pill" value="{{$value->id}}">
+                                                        Добавить
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-{{--                                @endif--}}
+                                </div>
                             @endforeach
                         </div>
-
                         <div class="col-5">
                             @foreach($product_price as $value)
-{{--                                @if($value['sale_id'] != null)--}}
-                                    <div style="margin-bottom: 20px">
-                                        <div class="text-center" style="width: 12rem;">
-                                            <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                                                  src="{{Storage::url('img/tonik.png')}}"></a>
-                                            <div class="card-body">
-                                                <span>{!!$value->name!!}</span>
-                                                <span style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span>
-                                                <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
-                                                <button id="btn-buyHome"
-                                                        style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                        class="btn btn-success rounded-pill" value="{{$value->id}}">
-                                                    Добавить
-                                                </button>
+                                <div style="margin-bottom: 20px">
+                                    @foreach($products as $val)
+                                        @if($val->id == $value->id)
+                                            <div class="text-center" style="width: 12rem;">
+                                                <a href="product/{{$value->id}}"><img class="img-fluid"
+                                                                                      src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
+                                                @endif
+                                                @endforeach
+                                                <div class="card-body">
+                                                    <span>{!!$value->name!!}</span>
+                                                    <span style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span>
+                                                    <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
+                                                    <button id="btn-buyHome"
+                                                            style="width: auto; background-color: #2f7484; border-color: #2f7484"
+                                                            class="btn btn-success rounded-pill" value="{{$value->id}}">
+                                                        Добавить
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-{{--                                @endif--}}
+                                </div>
                             @endforeach
                         </div>
                     </div>
