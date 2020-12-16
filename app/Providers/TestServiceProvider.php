@@ -7,6 +7,7 @@ use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\ProductsAttributes;
 use App\Models\Cart_Product;
 use App\Models\Categories;
+use App\Models\CategoryProducts;
 use App\Models\Region;
 use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Auth;
@@ -37,11 +38,11 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'product', 'checkout', 'layouts.nav'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['home', 'product', 'checkout'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);

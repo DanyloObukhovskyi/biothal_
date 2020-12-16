@@ -9,18 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
+    protected $primaryKey = 'id';
 
-    protected $fillable = [
-        'name',
-        'meta_description',
-        'description',
-        'link',
-        'meta_keywords',
-        'image_id',
-        'sale_id',
-        'composition',
-        'price',
-        'price_with_sale'
+    protected $guarded = [
+//        'name',
+//        'meta_description',
+//        'description',
+//        'link',
+//        'meta_keywords',
+//        'image_id',
+//        'sale_id',
+//        'composition',
+//        'price',
+//        'price_with_sale'
     ];
 
     public function productsAttributes()

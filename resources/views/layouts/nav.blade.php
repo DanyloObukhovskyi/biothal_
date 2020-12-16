@@ -19,11 +19,11 @@
                 <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($categories as $value)
                         @if($value['parent_id'] == null)
-                            <a class="dropdown-item" style="margin-top: 10px" href=""
+                            <a class="dropdown-item" style="margin-top: 10px" href="/category/{{$value['id']}}"
                                id="categories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
                             @foreach($categories as $child)
                                 @if($child['parent_id'] == $value['id'] )
-                                    <a class="dropdown-item" href=""
+                                    <a class="dropdown-item" href="/category/{{$child['id']}}"
                                        id="categories_{{$child['id']}}">{{$child['title']}}</a>
                                 @endif
                             @endforeach

@@ -229,6 +229,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'XmlTo1c' => App\Libraries\Helpers\XmlTo1c::class,
     ],
 
 ];

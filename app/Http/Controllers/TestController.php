@@ -8,7 +8,7 @@ use App\Models\Admin\Products\Sale;
 use App\Models\Categories;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 

@@ -5,7 +5,8 @@
         },
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "app/Libraries"
         ]
     },
     "autoload-dev": {
@@ -38,12 +39,13 @@
     "require": {
         "php": "^7.2.5",
         "ext-curl": "*",
+        "ext-simplexml": "*",
         "cviebrock/eloquent-sluggable": "^7.0",
         "doctrine/dbal": "^2.12",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "giggsey/libphonenumber-for-php": "^8.12",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.2",
         "laravel/cashier": "^12.4",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
@@ -51,7 +53,7 @@
         "laravelcollective/html": "^6.1",
         "stripe/stripe-php": "^7.61",
         "yajra/laravel-datatables-oracle": "^9.11",
-      "ext-simplexml": "*"
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

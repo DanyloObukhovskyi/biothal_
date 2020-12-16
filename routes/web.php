@@ -8,7 +8,8 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index')->name('home');
-Route::get('category', 'HomeController@Category')->name('category');
+//Route::get('category', 'HomeController@Category')->name('category');
+Route::get('category/{id}', 'CategoryController@getCategory')->name('category');
 
 Route::get('product/{id}', 'ProductController@getProduct');
 
@@ -35,6 +36,7 @@ Route::post('check', 'CartController@check');
 Route::post('checkModalOneClick', 'CartController@checkModalOneClick');
 
 Route::get('getxml', 'XmlController@getXml');
+Route::get('xmlto1c', 'XmlController@xmlto1c');
 
 
 
