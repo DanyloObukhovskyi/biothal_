@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Products\Add as ProductAddRequest;
 use App\Http\Requests\Products\GetForChange as IdValidationRequest;
 use App\Http\Requests\Products\Change as ProductChangeRequest;
+use App\Models\AccessoryProducts;
+use App\Models\Admin\Accessories\Accessories;
 use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\Sale;
 use App\Models\Categories;
@@ -67,12 +69,14 @@ class ProductsController extends Controller
             $imagesAll = null;
         }
         $categories = Categories::all();
+        $accessories = Accessories::all();
 
         return view('admin.products.index', [
             'images' => $imagesAll,
             'products' => $products,
             'sales' => $sales,
             'categories' => $categories,
+            'accessories' => $accessories,
         ]);
     }
 
@@ -120,6 +124,10 @@ class ProductsController extends Controller
         CategoryProducts::insert([
 
             'category_id' => $request->categories,
+            'product_id' => $id_products
+        ]);
+        AccessoryProducts::insert([
+            'accessory_id' => $request->accessories,
             'product_id' => $id_products
         ]);
 
@@ -178,6 +186,11 @@ class ProductsController extends Controller
 
         CategoryProducts::insert([
             'category_id' => $request->categories,
+            'product_id' => $request->product_id
+        ]);
+        AccessoryProducts::where('product_id', '=', $request->product_id)->delete();
+        AccessoryProducts::insert([
+            'accessory_id' => $request->accessories,
             'product_id' => $request->product_id
         ]);
 

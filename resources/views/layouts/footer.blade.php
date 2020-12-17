@@ -3,7 +3,14 @@
     a {
         color: #000000;
     }
+    @media (min-width:0px) and (max-width:500px) {
+        footer {
+            background-color: #000000 !important;
+            color: white;
+        }
+    }
 </style>
+
 <footer class="page-footer font-small mdb-color pt-4">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">

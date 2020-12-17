@@ -10,24 +10,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="fix image output  15.12.20">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Libraries/Helpers/XmlTo1c.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/biothal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/biothal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="my library XmlTo1c  16.12.20">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AccessoryController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/AccessoryProducts.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_17_115954_create_accessory_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/accessory.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/allcategory.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/XmlController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/XmlController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Admin/Accessories/Accessories.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Accessories/Accessories.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Admin/Products/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Products/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CategoryProducts.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CategoryProducts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/name.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -177,18 +172,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
+      <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
-      <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
     </key>
   </component>
   <component name="RunManager">
@@ -231,7 +227,9 @@
       <workItem from="1608054656533" duration="7884000" />
       <workItem from="1608105046709" duration="2568000" />
       <workItem from="1608107807888" duration="25132000" />
-      <workItem from="1608141049955" duration="6279000" />
+      <workItem from="1608141049955" duration="6422000" />
+      <workItem from="1608191987800" duration="28363000" />
+      <workItem from="1608225765531" duration="6021000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -289,11 +287,28 @@
       <option name="project" value="LOCAL" />
       <updated>1608062532173</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="my library XmlTo1c  16.12.20">
+      <created>1608147407974</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1608147407974</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -316,25 +331,27 @@
     <MESSAGE value="modal  CheckOneClick  14.12.20" />
     <MESSAGE value="modal  Auth and relationship image  15.12.20" />
     <MESSAGE value="fix image output  15.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix image output  15.12.20" />
+    <MESSAGE value="my library XmlTo1c  16.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="my library XmlTo1c  16.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="267" y="19" key="#Inspections/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608118378078" />
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1608126193871">
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1608213114476">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608126193871" />
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608213114476" />
     <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680@0.0.1280.680" timestamp="1608057621105" />
     <state x="418" y="253" width="444" height="264" key="ComposerInitDialogKey" timestamp="1607430995988">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="418" y="253" width="444" height="264" key="ComposerInitDialogKey/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607430995988" />
-    <state x="93" y="93" width="1095" height="495" key="DiffContextDialog" timestamp="1607863098189">
+    <state x="93" y="93" width="1095" height="495" key="DiffContextDialog" timestamp="1608205700440">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="93" y="93" width="1095" height="495" key="DiffContextDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608205700440" />
     <state x="93" y="93" width="1095" height="495" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1607863098189" />
     <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1607449698771">
       <screen x="0" y="0" width="1280" height="680" />
@@ -353,11 +370,11 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608062544557">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608147484454">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607425242869" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608062544557" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608147484454" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -380,9 +397,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607970378328" />
-    <state x="297" y="-6" width="670" height="676" key="search.everywhere.popup" timestamp="1607629920057">
+    <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup" timestamp="1608229424081">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="297" y="-6" width="670" height="676" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1607629920057" />
+    <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1608229424081" />
   </component>
 </project>

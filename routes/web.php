@@ -8,9 +8,10 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index')->name('home');
-//Route::get('category', 'HomeController@Category')->name('category');
-Route::get('category/{id}', 'CategoryController@getCategory')->name('category');
-
+Route::get('category/{id}', 'CategoryController@getParentCategory');
+Route::get('category/{parent_id}/{id}', 'CategoryController@getCategory')->name('category');
+Route::get('accessory/{id}', 'AccessoryController@getParentAccessory');
+Route::get('accessory/{parent_id}/{id}', 'AccessoryController@getAccessory')->name('accessory');
 Route::get('product/{id}', 'ProductController@getProduct');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {

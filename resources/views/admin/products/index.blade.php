@@ -54,6 +54,19 @@
                                     @endif
                                 </select>
                             </div>
+                            <div class="input-group mb-3" id="tastingo">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="">Потребность</label>
+                                </div>
+                                <select class="custom-select" id="" name="accessories">
+                                    <option value="NoAccessory">Выберите потребность</option>
+                                    @if($accessories != null)
+                                        @foreach($accessories as $accessory)
+                                             <option value="{{$accessory->id}}">{{$accessory->title}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Описание:</span>

@@ -23,7 +23,7 @@
                                id="categories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
                             @foreach($categories as $child)
                                 @if($child['parent_id'] == $value['id'] )
-                                    <a class="dropdown-item" href="/category/{{$child['id']}}"
+                                    <a class="dropdown-item" href="/category/{{$child['parent_id']. '/'. $child['id']}}"
                                        id="categories_{{$child['id']}}">{{$child['title']}}</a>
                                 @endif
                             @endforeach
@@ -39,12 +39,18 @@
                 <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($accessories as $value)
                         @if($value['parent_id'] == null)
-                            <a class="dropdown-item" style="margin-top: 10px" href=""
-                               id="categories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                            <div
+                                style="height: auto!important;display: flex; flex-wrap: nowrap; break-before: column; ">
+                                <a class="dropdown-item" style="margin-top: 10px" href="/accessory/{{$value['id']}}"
+                                   id="accessories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                            </div>
                             @foreach($accessories as $child)
                                 @if($child['parent_id'] == $value['id'] )
-                                    <a class="dropdown-item" href=""
-                                       id="categories_{{$child['id']}}">{{$child['title']}}</a>
+                                    <div style="display: flex; flex-wrap: wrap;">
+                                        <a class="dropdown-item"
+                                           href="/accessory/{{$child['parent_id']. '/'. $child['id']}}"
+                                           id="accessories_{{$child['id']}}">{{$child['title']}}</a>
+                                    </div>
                                 @endif
                             @endforeach
                         @endif
@@ -229,22 +235,22 @@
                                 <div style="margin-bottom: 20px">
                                     @foreach($products as $val)
                                         @if($val->id == $value->id)
-                                            <div class="text-center" style="width: 12rem;">
-                                                <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                                                      src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
-                                                @endif
-                                                @endforeach
-                                                <div class="card-body">
-                                                    <span>{!!$value->name!!}</span>
-                                                    <span style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span>
-                                                    <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
-                                                    <button id="btn-buyHome"
-                                                            style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                            class="btn btn-success rounded-pill" value="{{$value->id}}">
-                                                        Добавить
-                                                    </button>
-                                                </div>
+                                        <div class="text-center" style="width: 12rem;">
+                                            <a href="product/{{$value->id}}"><img class="img-fluid"
+                                                                                  src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
+                                            @endif
+                                            @endforeach
+                                            <div class="card-body">
+                                                <span>{!!$value->name!!}</span>
+                                                <span style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span>
+                                                <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
+                                                <button id="btn-buyHome"
+                                                        style="width: auto; background-color: #2f7484; border-color: #2f7484"
+                                                        class="btn btn-success rounded-pill" value="{{$value->id}}">
+                                                    Добавить
+                                                </button>
                                             </div>
+                                        </div>
                                 </div>
                             @endforeach
                         </div>

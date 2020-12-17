@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Products;
 
+use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
@@ -11,18 +12,7 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
 
-    protected $guarded = [
-//        'name',
-//        'meta_description',
-//        'description',
-//        'link',
-//        'meta_keywords',
-//        'image_id',
-//        'sale_id',
-//        'composition',
-//        'price',
-//        'price_with_sale'
-    ];
+    protected $guarded = [];
 
     public function productsAttributes()
     {
@@ -42,6 +32,11 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Categories::class,'category_products','product_id','category_id');
+    }
+
+    public function accessories()
+    {
+        return $this->belongsToMany(Accessories::class,'accessory_products','product_id','accessory_id');
     }
 }
 
