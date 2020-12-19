@@ -3,22 +3,23 @@
     a {
         color: #000000;
     }
-    @media (min-width:0px) and (max-width:500px) {
+    @media (min-width:0px) and (max-width:573px) {
         footer {
             background-color: #000000 !important;
             color: white;
+            word-break: break-all;
         }
     }
 </style>
 
-<footer class="page-footer font-small mdb-color pt-4">
+<footer class="page-footer font-small mdb-color pt-4" >
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <!-- Footer links -->
         <div class="row text-center text-md-left mt-3 pb-3">
             <!-- Grid column -->
             <div style="text-align: justify" class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-4">
-                <h6 class="text-uppercase mb-4 font-weight-bold"><a  href="/"><img style="margin-left: 30px" src="{{Storage::url('img/new-logo.png')}}" width="127"></a></h6>
+                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img class="img-fluid" src="{{Storage::url('img/new-logo.png')}}"></a></h6>
                 <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам.</p>
             </div>
             <!-- Grid column -->

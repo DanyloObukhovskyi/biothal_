@@ -10,21 +10,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="my library XmlTo1c  16.12.20">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AccessoryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/AccessoryProducts.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_17_115954_create_accessory_products_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/accessory.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/allcategory.blade.php" afterDir="false" />
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="menu+page category &amp; accessory 17.12.20">
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_19_134116_add_column_not_call_for_user_order_address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/allaccessory.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Admin/Accessories/Accessories.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Accessories/Accessories.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Admin/Products/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Products/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccessoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccessoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/checkout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,14 +173,14 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -229,7 +225,10 @@
       <workItem from="1608107807888" duration="25132000" />
       <workItem from="1608141049955" duration="6422000" />
       <workItem from="1608191987800" duration="28363000" />
-      <workItem from="1608225765531" duration="6021000" />
+      <workItem from="1608225765531" duration="6196000" />
+      <workItem from="1608277974936" duration="3183000" />
+      <workItem from="1608281322144" duration="25105000" />
+      <workItem from="1608377265632" duration="10840000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -294,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608147407974</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="menu+page category &amp; accessory 17.12.20">
+      <created>1608232332072</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1608232332073</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,17 +338,18 @@
     <MESSAGE value="modal  Auth and relationship image  15.12.20" />
     <MESSAGE value="fix image output  15.12.20" />
     <MESSAGE value="my library XmlTo1c  16.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="my library XmlTo1c  16.12.20" />
+    <MESSAGE value="menu+page category &amp; accessory 17.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="menu+page category &amp; accessory 17.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="267" y="19" key="#Inspections/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608118378078" />
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1608213114476">
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1608279298067">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608213114476" />
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608279298067" />
     <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680@0.0.1280.680" timestamp="1608057621105" />
     <state x="418" y="253" width="444" height="264" key="ComposerInitDialogKey" timestamp="1607430995988">
       <screen x="0" y="0" width="1280" height="680" />
@@ -370,19 +377,23 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608147484454">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608232366853">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607425242869" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608147484454" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608232366853" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1607863098190" />
-    <state x="348" y="73" width="585" height="592" key="find.popup" timestamp="1608044667057">
+    <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608388851061">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="348" y="73" width="585" height="592" key="find.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608044667057" />
+    <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1608388851061" />
+    <state x="348" y="73" width="585" height="592" key="find.popup" timestamp="1608291193692">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="348" y="73" width="585" height="592" key="find.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608291193692" />
     <state x="348" y="73" width="585" height="592" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1607799392533" />
     <state x="522" y="112" width="878" height="906" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607969708727" />
     <state x="441" y="242" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1607424468299">
@@ -397,9 +408,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607970378328" />
-    <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup" timestamp="1608229424081">
+    <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup" timestamp="1608288595761">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608288595761" />
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1608229424081" />
   </component>
 </project>

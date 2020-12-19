@@ -2,6 +2,30 @@
 
 @section('content')
     @include('layouts.nav')
+<style>
+    @media screen and (max-width:768px) {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 95%;
+        }
+        #sales {
+            column-count: 2!important;
+        }
+    }
+    @media screen and (max-width:340px) {
+        #sales {
+            column-count: 1!important;
+        }
+        #heightCart{
+            min-height: 375px!important;
+        }
+
+    }
+</style>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class=""></li>
@@ -37,22 +61,22 @@
         </a>
     </div>
         @if($count_sale_product > 0)
-            <div style="padding: 35px; text-align: center">
+            <div style="padding: 25px; text-align: center">
                 <h2>ПОДАРКИ И СКИДКИ</h2>
             </div>
         @endif
-    <div class="container">
+    <div id="sales" class="container" style="">
         <div class="row justify-content-center">
             @foreach($products as $value)
                 @if($value['sale_id'] != null)
-                    <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
-                        <div class="card text-center" style="width: 18rem;">
-                            <a href="/product/{{$value->id}}"><img class="img-fluid card-img-top" src = "{{ asset('/img/'.$value->getImage['name'])}}"></a>
-                            <div class="card-body">
+                    <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
+                        <div class="card text-center">
+                            <div id="heightCart" class="card-body" style="min-height: 425px">
+                                <a href="/product/{{$value->id}}"><img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px; margin-right: 7px; justify-content: center;" src = "{{ asset('/img/'.$value->getImage['name'])}}"></a>
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
                                 <p class="card-text"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
-                                <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484"
+                                <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484"
                                         class="btn btn-success rounded-pill" value="{{$value->id}}">Купить
                                 </button>
                             </div>
@@ -61,10 +85,11 @@
                 @endif
             @endforeach
         </div>
+    </div>
 
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6"><img class="img-fluid" style="margin-top: 30px"
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center"><img class="img-fluid" style="margin-top: 30px"
                                            src="{{Storage::url('img/lico.png')}}"
                                            height="250"></div>
                 <div class="col-md-6"><img class="img-fluid" style="margin-top: 30px"
@@ -73,22 +98,20 @@
             </div>
         </div>
 
-        <div style="padding: 35px; text-align: center">
+        <div style="padding: 25px; text-align: center">
             <h2>БЕСТСЕЛЛЕРЫ</h2>
         </div>
+    <div class="container">
         <div class="row">
             @foreach($products as $value)
                 @if($value['sale_id'] == null)
-                    <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
+                    <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
                         <div class="card text-center" style="">
-                            <a href="product/{{$value->id}}"><img style="" src="{{ asset('/img/'.$value->getImage['name'])}}"
-                                                                  class="card-img-top img-fluid"></a>
+                            <a href="product/{{$value->id}}"><img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px" src="{{ asset('/img/'.$value->getImage['name'])}}" ></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484"
-                                        class="btn btn-success rounded-pill" value="{{$value->id}}">Купить
-                                </button>
+                                <button id="btn-buyHome" style="width: 50%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill" value="{{$value->id}}">Купить</button>
                             </div>
                         </div>
                     </div>
@@ -96,11 +119,11 @@
             @endforeach
         </div>
     </div>
-    <div style="padding: 35px; text-align: center">
+    <div style="padding: 25px; text-align: center">
         <h2>ИНТЕРНЕТ-МАГАЗИН BIOTHAL</h2>
     </div>
     <div class="container">
-        <div class="row" style="text-align: justify">
+        <div class="row" style="text-align: justify;">
             <div class="col-md-1"></div>
             <div class="col-md-5" style="padding: 10px">
                 <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа, крупнейшая
@@ -147,7 +170,7 @@
         </div>
     </div>
 
-    <div class="row" style="height: 80px; background-color: #2f7484;">
+    <div class="row" style="height: 80px; background-color: #2f7484; word-break: break-all">
         <div class="col-md-2"></div>
         <div class="hut col-md-4">Узнавайте первыми о распродажах и новинках!</div>
         <div class="hut col-md-4">Электронный адрес</div>

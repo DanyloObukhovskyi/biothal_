@@ -1,11 +1,17 @@
 <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
-
-<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="row col-sm-3">
-        <a class="navbar-brand" href="/">
-            <img class="img-fluid" style="margin-left: 30px" src="{{Storage::url('img/new-logo.png')}}" width="127"></a>
+<style>
+    @media screen and (max-width:573px) {
+        div.dropdown-menu{
+            column-count: auto!important;
+        }
+    }
+</style>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light" style="display: flex">
+    <div id="logo" class="row col-sm-3">
+         <a class="navbar-brand" href="/">
+            <img class="img-fluid" style="margin-left: 30px; margin-right: auto; width: 7em" src="{{Storage::url('img/new-logo.png')}}" width="127"></a>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    <button id="navtreeline"class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,20 +45,21 @@
                 <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLink">
                     @foreach($accessories as $value)
                         @if($value['parent_id'] == null)
-                            <div
-                                style="height: auto!important;display: flex; flex-wrap: nowrap; break-before: column; ">
-                                <a class="dropdown-item" style="margin-top: 10px" href="/accessory/{{$value['id']}}"
-                                   id="accessories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                            <div style="display: flex; flex-direction: column;">
+                                <div>
+                                    <a class="dropdown-item" style="margin-top: 10px; margin-bottom: 15px" href="/accessory/{{$value['id']}}"
+                                       id="accessories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                                </div>
+                                @foreach($accessories as $child)
+                                    @if($child['parent_id'] == $value['id'] )
+                                        <div>
+                                            <a class="dropdown-item"
+                                               href="/accessory/{{$child['parent_id']. '/'. $child['id']}}"
+                                               id="accessories_{{$child['id']}}">{{$child['title']}}</a>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                            @foreach($accessories as $child)
-                                @if($child['parent_id'] == $value['id'] )
-                                    <div style="display: flex; flex-wrap: wrap;">
-                                        <a class="dropdown-item"
-                                           href="/accessory/{{$child['parent_id']. '/'. $child['id']}}"
-                                           id="accessories_{{$child['id']}}">{{$child['title']}}</a>
-                                    </div>
-                                @endif
-                            @endforeach
                         @endif
                     @endforeach
                 </div>

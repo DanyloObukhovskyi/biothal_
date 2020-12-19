@@ -121,7 +121,7 @@ $(document).on("click", '#check', function () {
     let region = $('#region').val();
     let cities = $('#cities').val();
     let department = $('#department').val();
-
+    let not_call = $('#not_call_0').is(':checked');
     $.ajax({
         url: '/check',
         method: 'POST',
@@ -133,6 +133,7 @@ $(document).on("click", '#check', function () {
             "cities": cities,
             "department": department,
             "order_type": 2,
+            "not_call": not_call,
         },
         error: function (xhr, status, error) {
             var errors = xhr.responseJSON.errors, errorMessage = "";

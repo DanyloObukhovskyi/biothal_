@@ -126,7 +126,7 @@ class CartController extends Controller
             ['region', '=', $request->input('region')],
             ['cities', '=', $request->input('cities')],
             ['department', '=', $request->input('department')],
-        ])->first();
+          ])->first();
 
         if (empty($UserOrderAddress)) {
             $user_order_address = UserOrderAddress::create([
@@ -136,6 +136,7 @@ class CartController extends Controller
                 'region' => $request->input('region'),
                 'cities' => $request->input('cities'),
                 'department' => $request->input('department'),
+                'not_call' => $request->input('not_call'),
                 'shopping_id' => $cart->id,
             ]);
         } else {
@@ -147,7 +148,7 @@ class CartController extends Controller
                 ['region', '=', $request->input('region')],
                 ['cities', '=', $request->input('cities')],
                 ['department', '=', $request->input('department')],
-            ])->update(['shopping_id' => $cart->id]);
+            ])->update(['shopping_id' => $cart->id, 'not_call' => $request->input('not_call')]);
         }
 
         return response()->json(['success' => 1]);
