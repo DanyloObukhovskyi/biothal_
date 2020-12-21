@@ -2,30 +2,7 @@
 
 @section('content')
     @include('layouts.nav')
-<style>
-    @media screen and (max-width:768px) {
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-size: 95%;
-        }
-        #sales {
-            column-count: 2!important;
-        }
-    }
-    @media screen and (max-width:340px) {
-        #sales {
-            column-count: 1!important;
-        }
-        #heightCart{
-            min-height: 375px!important;
-        }
 
-    }
-</style>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class=""></li>
@@ -35,19 +12,19 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/1.jpg')}}" height="400" class="d-block w-100"
-                     alt="1" style="width:100%;">
+                <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/1.jpg')}}" height="400" alt="1"
+                     style="width:100%;">
             </div>
             <div class="carousel-item active">
-                <img class="img-fluid" src="{{Storage::url('img/2.jpg')}}" height="400"
-                     class="d-block w-100" alt="2" style="width:100%;">
-            </div>
-            <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/3.jpg')}}" class="d-block w-100" height="400" alt="3"
+                <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/2.jpg')}}" height="400" alt="2"
                      style="width:100%;">
             </div>
             <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/4.jpg')}}" class="d-block w-100" height="400" alt="4"
+                <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/3.jpg')}}" height="400" alt="3"
+                     style="width:100%;">
+            </div>
+            <div class="carousel-item">
+                <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/4.jpg')}}" height="400" alt="4"
                      style="width:100%;">
             </div>
         </div>
@@ -123,7 +100,7 @@
         <h2>ИНТЕРНЕТ-МАГАЗИН BIOTHAL</h2>
     </div>
     <div class="container">
-        <div class="row" style="text-align: justify;">
+        <div class="row" style="text-align: justify; padding: 20px">
             <div class="col-md-1"></div>
             <div class="col-md-5" style="padding: 10px">
                 <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа, крупнейшая
@@ -170,12 +147,6 @@
         </div>
     </div>
 
-    <div class="row" style="height: 80px; background-color: #2f7484; word-break: break-all">
-        <div class="col-md-2"></div>
-        <div class="hut col-md-4">Узнавайте первыми о распродажах и новинках!</div>
-        <div class="hut col-md-4">Электронный адрес</div>
-        <div class="col-md-2"></div>
-    </div>
     @include('layouts.footer')
 
     {{--                    <div class="card-body">--}}
@@ -191,5 +162,6 @@
     {{--                        @endif--}}
     {{--                    @endif--}}
     {{--                </div>--}}
+
 @endsection
 

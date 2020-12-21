@@ -42,7 +42,7 @@ class TestServiceProvider extends ServiceProvider
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer2'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);
@@ -73,11 +73,27 @@ class TestServiceProvider extends ServiceProvider
                     ->get();
             }
 
+            $sum = 0;
+            $sum_sale = 0;
+            $sumAll = 0;
+
+            foreach ($cart_join as $cart)
+            {
+                if ((($cart->price_with_sale) == null))
+                {
+                    $sum += ($cart->price * $cart->count);
+                }
+                else {
+                    $sum_sale += ($cart->price_with_sale * $cart->count);
+                }
+                $sumAll = ($sum + $sum_sale);
+            }
+
             $region = Region::select('region', 'id')->get()->toArray();
             $region = array_merge([['region' => 'Выберите область']], $region);
-            $sum = 0;
-            $sumAll = 0;
-            $sum_sale = 0;
+//            $sum = 0;
+//            $sumAll = 0;
+//            $sum_sale = 0;
             $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
             $delivery = 40;
             $view->with([

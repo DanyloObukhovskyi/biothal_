@@ -80,7 +80,94 @@
 .compare:after {content: "\f079";}
 
 .hut {
-    text-align: center;
+    text-align: left;
     color: #ffffff;
-    margin: 30px 0;
+    margin: 25px 0;
+    word-wrap: break-all;
+    width: auto;
+}
+.hut2 {
+    color: #ffffff;
+    margin: 25px 0;
+
+}
+/* Common Styles */
+.content {
+    color: #fff;
+    font: 100 14px/100px sans-serif;
+    height: content-box;
+    text-align: center;
+}
+
+.content div {
+    height: 50%;
+    width: 50%;
+}
+.content1 div {
+    margin-left: 0;
+}
+
+.present {
+    height: content-box;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.present div {
+    height: 50%;
+    width: 50%;
+
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cont {
+    color: #fff;
+    height: content-box;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.cont {
+    display: flex;
+    flex-wrap: wrap;
+}
+.cont div {
+    height: 50%;
+    width: 50%;
+}
+@media screen and (max-width:1000px) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 95%;
+    }
+    #sales {
+        column-count: 2!important;
+    }
+    /*img.img-fluid {*/
+    /*    height: 175px!important;*/
+    /*    width: 100%!important;*/
+    /*}*/
+    .cont, .content{
+        font-size: calc(13px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));
+    }
+}
+@media screen and (max-width:340px) {
+    #sales {
+        column-count: 1!important;
+    }
+    #heightCart{
+        min-height: 375px!important;
+    }
+    .myHeight {
+        height: 75px!important;
+    }
+
 }

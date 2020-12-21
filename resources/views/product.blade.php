@@ -93,16 +93,6 @@
         @endforeach
     </div>
 
-    <div class="row" style="height: 80px; background-color: #2f7484;">
-        <div class="col-md-1"></div>
-        <div class="hut col-md-5">Узнавайте первыми о распродажах и новинках!</div>
-        <div class="hut col-md-4">Электронный адрес</div>
-        <div class="col-md-2"></div>
-    </div>
-    <script>
-
-    </script>
-
     @include('layouts.footer')
 @endsection
 
