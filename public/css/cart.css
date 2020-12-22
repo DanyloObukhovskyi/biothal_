@@ -189,9 +189,9 @@ div.verticalscroll {
         margin-left: 2.8em!important;
     }
 
-    .img-fluid {
-        width: 7em !important;
-    }
+    /*.img-fluid {*/
+    /*    width: 7em !important;*/
+    /*}*/
 }
 
 .progress-bar {

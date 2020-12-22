@@ -139,7 +139,15 @@
     height: 50%;
     width: 50%;
 }
-@media screen and (max-width:1000px) {
+
+@media (min-width:1001px){
+    .textMobile {
+        display: none;
+    }
+}
+
+
+@media (min-width:0px) and (max-width:1000px) {
     h1,
     h2,
     h3,
@@ -148,17 +156,21 @@
     h6 {
         font-size: 95%;
     }
-    #sales {
+    .sales {
         column-count: 2!important;
     }
-    /*img.img-fluid {*/
-    /*    height: 175px!important;*/
-    /*    width: 100%!important;*/
-    /*}*/
+    img.myHeight {
+        height: 175px!important;
+        width: 100%!important;
+    }
     .cont, .content{
         font-size: calc(13px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));
     }
+    .textPc {
+        display: none;
+    }
 }
+
 @media screen and (max-width:340px) {
     #sales {
         column-count: 1!important;
@@ -166,8 +178,9 @@
     #heightCart{
         min-height: 375px!important;
     }
-    .myHeight {
-        height: 75px!important;
+    img.myHeight {
+        height: 125px!important;
     }
 
 }
+

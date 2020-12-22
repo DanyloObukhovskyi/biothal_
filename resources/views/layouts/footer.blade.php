@@ -42,7 +42,7 @@
     <div class="container text-center text-md-left">
         <div class="row text-center text-md-left mt-3 pb-3">
             <div style="text-align: justify" class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-4">
-                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img id="logo" class="img-fluid" src="{{Storage::url('img/new-logo.png')}}"></a></h6>
+                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img id="logo" style="height: 3em!important; width: 6em!important;" class="img-fluid" src="{{Storage::url('img/new-logo.png')}}"></a></h6>
                 <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам.</p>
             </div>
             <hr class="w-100 clearfix d-md-none">
@@ -65,7 +65,7 @@
                     <a href="#!">- Производство</a>
                 </p>
                 <p>
-                    <a href="#!">- Философия</a>
+                    <a href="/about">- Философия</a>
                 </p>
                 <p>
                     <a href="#!">- Море</a>

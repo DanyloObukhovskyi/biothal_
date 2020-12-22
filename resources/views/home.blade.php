@@ -42,7 +42,7 @@
                 <h2>ПОДАРКИ И СКИДКИ</h2>
             </div>
         @endif
-    <div id="sales" class="container" style="">
+    <div class="container sales">
         <div class="row justify-content-center">
             @foreach($products as $value)
                 @if($value['sale_id'] != null)
@@ -65,30 +65,32 @@
     </div>
 
         <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 d-flex justify-content-center"><img class="img-fluid" style="margin-top: 30px"
-                                           src="{{Storage::url('img/lico.png')}}"
-                                           height="250"></div>
-                <div class="col-md-6"><img class="img-fluid" style="margin-top: 30px"
-                                           src="{{Storage::url('img/telo.png')}}"
-                                           height="250"></div>
+            <div class="row justify-content-center">
+                <div>
+                    <img class="img-fluid" style="margin-top: 30px; padding: 7px" src="{{Storage::url('img/lico.png')}}" height="250">
+                </div>
+                <div>
+                    <img class="img-fluid" style="margin-top: 30px; padding: 7px" src="{{Storage::url('img/telo.png')}}" height="250">
+                </div>
             </div>
         </div>
 
         <div style="padding: 25px; text-align: center">
             <h2>БЕСТСЕЛЛЕРЫ</h2>
         </div>
-    <div class="container">
+    <div class="container sales">
         <div class="row">
             @foreach($products as $value)
                 @if($value['sale_id'] == null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
-                        <div class="card text-center" style="">
-                            <a href="product/{{$value->id}}"><img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px" src="{{ asset('/img/'.$value->getImage['name'])}}" ></a>
+                        <div class="card text-center">
+                            <a href="product/{{$value->id}}">
+                                <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px" src="{{ asset('/img/'.$value->getImage['name'])}}">
+                            </a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                <button id="btn-buyHome" style="width: 50%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill" value="{{$value->id}}">Купить</button>
+                                <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill" value="{{$value->id}}">Купить</button>
                             </div>
                         </div>
                     </div>
@@ -96,13 +98,14 @@
             @endforeach
         </div>
     </div>
-    <div style="padding: 25px; text-align: center">
-        <h2>ИНТЕРНЕТ-МАГАЗИН BIOTHAL</h2>
-    </div>
-    <div class="container">
-        <div class="row" style="text-align: justify; padding: 20px">
+
+    <div class="container textPc">
+        <div style="padding-top: 25px; text-align: center">
+            <h2>ИНТЕРНЕТ-МАГАЗИН BIOTHAL</h2>
+        </div>
+        <div class="row" style="text-align: justify; padding: 10px">
             <div class="col-md-1"></div>
-            <div class="col-md-5" style="padding: 10px">
+            <div style="padding: 10px; column-count: 2">
                 <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа, крупнейшая
                     долина и историческое место сбора водорослей в Европе.</p>
                 <p>На протяжении многих лет здесь производят косметику на основе морских ингредиентов.</p>
@@ -111,6 +114,7 @@
                     услуг, ухода за кожей лица и тела. Успешное сочетание натуральных ингредиентов с современными
                     технологиями позволило нам создать уникальные средства для продления молодости кожи с максимальным
                     терапевтическим эффектом.</p>
+                <div id="myHide">
                 <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы,
                     который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам
                     качества. Тысячи женщин уже оценили профессиональный подход марки и высокую эффективность продуктов
@@ -121,8 +125,6 @@
                 <p>Бурая водоросль ламинария, произрастающая в морских водах, обладает целым комплексом минералов и активных
                     элементов, необходимых нашей коже. Экстракт ламинарии регулирует работу сальных желёз, способствует
                     выводу лишней жидкости, а также оказывают дезинфицирующее действие, убивая болезнетворные бактерии.</p>
-            </div>
-            <div class="col-md-5">
                 <p>Высокое содержание йода способствует нормализации функции щитовидной железы, активизирует все виды обмена
                     веществ, нормализует обмен жиров и способствует липолизу, повышает потребление кислорода клетками,
                     снижает вязкость крови, повышает тонус сосудов.</p>
@@ -142,13 +144,32 @@
                     Также витамины Е и С. Морской латук богат кальцием, железом и магнием.</p>
                 <p>Насыщенная хлорофиллом зеленая водоросль, действующая как увлажняющий и противовоспалительный компонент.
                     Экстракт оказывает на кожу омолаживающее воздействие, придаёт эластичность и выводит токсины.</p>
+                <p id="hide"><b>Скрыть часть текста</b></p>
             </div>
+                <p id="show"><b>Читать далее</b></p>
             <div class="col-md-1"></div>
         </div>
     </div>
+    </div>
+
+    <!-- Text mobile -->
+    <section class="textMobile">
+        <div class="container-fluid" style="background-color: #F7F7F7; height: content-box; padding: 5px">
+            <div class="container">
+                <div class="row">
+                    <div style="padding: 20px;"><b>Интернет-магазин косметики Biothal</b></div>
+                    <div style="padding-left: 20px; padding-right: 20px; text-align: justify">
+                        Хоть раз открыв каталог интернет-магазина BIOTHAL уже не захочется
+                        тратить время на походы по торговым центрам – каталог косметики и парфюмерии,
+                        представленный здесь, превосходит даже смелые ожидания и удовлетворяет любые требования. Добавьте к этому понятный интерфейс, универсальную систему поиска, возможность получить свой заказ на дом в удобное время и вы получите идеальный ресурс, который постоянно совершенствуется уже 10 лет – с 2009 года.
+                    <div style="margin-top: 20px; margin-bottom: 20px"><a style="color: #000000" href="/about"><b>Читать далее</b></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     @include('layouts.footer')
-
     {{--                    <div class="card-body">--}}
     {{--                        @if (session('status'))--}}
     {{--                            <div class="alert alert-success" role="alert">--}}
@@ -162,6 +183,15 @@
     {{--                        @endif--}}
     {{--                    @endif--}}
     {{--                </div>--}}
-
+    <script>
+        $(document).ready(function(){
+            $("#hide").click(function(){
+                $("#myHide").hide();
+            });
+            $("#show").click(function(){
+                $("#myHide").show();
+            });
+        });
+    </script>
 @endsection
 

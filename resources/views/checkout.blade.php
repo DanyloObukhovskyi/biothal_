@@ -55,6 +55,22 @@
     <div style="padding: 35px">
     </div>
     <div class="container">
+        <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
+        @if(empty($sumAll))
+            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы 2000грн</div>
+        @endif
+        @if($sumAll_sale < 2000 && $sumAll_sale > 0)
+            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
+                грн и сработает скидка 50%</div>
+        @endif
+        @if($sumAll_sale <= 0 )
+            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
+        @endif
+        <input type="hidden" class="progress-count">
+        <div class="progress-bar" style="margin-bottom: 20px">
+            <div style="width: 0%"></div>
+        </div>
+
         <form>
             <div class="form-row">
                 <div class="col">
@@ -130,7 +146,7 @@
                         </div>
                         <div class="col-sm-5">
                             <span data-toggle="modal" data-target="#modalOneClick" class="btn btn-link"
-                                  style="color:#9ea2a4; margin-top: 10px; padding: 10px">Оформить в 1 клик</span></div>
+                                  style="color:#020202; margin-top: 10px; padding: 10px"><b>Оформить в 1 клик</b></span></div>
                     </div>
                 </div>
                 <div class="col">
@@ -175,15 +191,22 @@
                             @if((($cart->price_with_sale) != null))
                                 <input type="hidden" value="{{$sum_sale += (($cart->price_with_sale * $cart->count))}}">
                             @endif
-                            <input type="hidden" value="{{$sumAll = (($sum + $sum_sale))}}">
+                            <input type="hidden" value="{{$sumAll}}">
                         @endforeach
                     </div>
                     <div class="row">
                         <div class="col-sm-12" style="padding: 20px">
-                            @if((!empty($sumAll)))
-                                <span>Стоимость товаров: {{$sumAll}} грн.</span><br>
-                                <span>Стоимость доставки: {{$delivery . ' '}}грн.</span><br>
-                                <span>Итого к оплате: <b>{{$sumAll + $delivery . ' '}}</b>грн.</span><br>
+{{--                            <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">--}}
+                            @if((!empty($sumAll)) && ($sumAll_sale > 0))
+                                <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
+                                <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
+                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.</div>
+
+                            @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
+                                <div>Ваша скидка 50%</div>
+                                <div>Стоимость товаров: <span>{{$sumAll/2}} грн.</span></div>
+                                <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
+                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.</div>
                             @endif
                         </div>
                     </div>
@@ -253,7 +276,29 @@
             @endforeach
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            let sumAll = $('.sumAll').html();
+            let percent = (+sumAll)*100/2000;
+            function incrementProgress(barSelector, countSelector, incrementor) {
+                var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
+                    curWidth = parseFloat(bar.style.width),
+                    newWidth = curWidth + incrementor;
+                if (newWidth > 100) {
+                    newWidth = 0;
+                } else if (newWidth < 0) {
+                    newWidth = 100;
+                }
+                bar.style.width = newWidth + '%';
+                document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
+            }
 
+            function incrementProgressLoop() {
+                incrementProgress('.progress-bar', '.progress-count', percent);
+            }
+            incrementProgressLoop();
+        })
+    </script>
     @include('layouts.footer')
 @endsection
 

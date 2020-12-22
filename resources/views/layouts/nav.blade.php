@@ -145,14 +145,23 @@
                         </button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body" style="margin-right: 30px;">
                         <div class="container">
-                            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale = 2000-$sumAll}} грн и сработает скидка 50%</div>
+                            <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
+                            @if(empty($sumAll))
+                                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы 2000грн</div>
+                            @endif
+                                @if($sumAll_sale < 2000 && $sumAll_sale > 0)
+                            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
+                                    грн и сработает скидка 50%</div>
+                            @endif
+                            @if($sumAll_sale <= 0 )
+                                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
+                            @endif
+                            <input type="hidden" class="progress-count">
                             <div class="progress-bar">
                                 <div style="width: 0%"></div>
                             </div>
-                            <div class="progress-count">0%</div>
-
                             <div class="row justify-content-center">
                                 @foreach($cart_join as $cart)
                                     <div class="col-6">
@@ -199,12 +208,12 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    @if((!empty($sumAll)) && ($sumAll_sale < 2000))
+                                    @if((!empty($sumAll)) && ($sumAll_sale > 0))
                                         <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
                                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
                                         <div>Итого к оплате: <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.</div>
 
-                                    @elseif((!empty($sumAll)) && ($sumAll_sale >= 2000))
+                                    @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
                                         <div>Стоимость товаров: <span>{{$sumAll/2}} грн.</span></div>
                                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
                                         <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.</div>
@@ -222,12 +231,12 @@
                         </div>
 
                         <div class="row justify-content-center">
-                            <div class="col-md-6 " style="margin-top: 20px; margin-bottom: 20px;">Рекомендуемые товары
+                            <div class="col-md-6 " style="text-align: center; margin-top: 20px; margin-bottom: 20px;">Рекомендуемые товары
                             </div>
                         </div>
 
-                        <div class="row justify-content-center">
-                            <div class="col-5">
+                        <div class="row">
+                            <div class="col-5" style="padding-right: 10px">
                                 @foreach($product_sale as $value)
                                     <div style="margin-bottom: 20px">
                                         @foreach($products as $val)
