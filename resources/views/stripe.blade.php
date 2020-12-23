@@ -137,15 +137,6 @@
                 valid = true;
             $errorMessage.addClass('hide');
 
-            console.log(e);
-
-            console.log('scatchek');
-            console.log($form);
-            console.log(inputSelector);
-            console.log($inputs);
-            console.log($errorMessage);
-            console.log('endScatchek');
-
             $('.has-error').removeClass('has-error');
             $inputs.each(function (i, el) {
 

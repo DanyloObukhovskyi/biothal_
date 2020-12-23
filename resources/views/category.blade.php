@@ -2,42 +2,10 @@
 
 @section('content')
     @include('layouts.nav')
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-            <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-            <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/1.jpg')}}" height="400" class="d-block w-100"
-                     alt="1" style="width:100%;">
-            </div>
-            <div class="carousel-item active">
-                <img class="img-fluid" src="{{Storage::url('img/2.jpg')}}" height="400"
-                     class="d-block w-100" alt="2" style="width:100%;">
-            </div>
-            <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/3.jpg')}}" class="d-block w-100" height="400" alt="3"
-                     style="width:100%;">
-            </div>
-            <div class="carousel-item">
-                <img class="img-fluid" src="{{Storage::url('img/4.jpg')}}" class="d-block w-100" height="400" alt="4"
-                     style="width:100%;">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+    @include('layouts.carousel')
+
         @if($products_count > 0)
-            <div style="padding: 35px; text-align: center">
+            <div style="padding: 25px; text-align: center">
                 <h2>
                     @foreach($categoriesProducts as $products)
                         {{mb_strtoupper('Категория'.' '.($products['title']))}}
@@ -49,7 +17,7 @@
         <div class="row justify-content-center">
             @foreach($categoriesProducts as $products)
                 @foreach($products['products'] as $value)
-                    <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
+                    <div class="col-md-4 col-sm-12" style="margin-left: 20px; margin-right: 20px; margin-bottom: 20px;">
                         <div class="card text-center" style="width: 18rem;">
                             <a href="/product/{{$value->id}}"><img class="img-fluid card-img-top" src = "{{ asset('/img/'.$value->getImage['name'])}}"></a>
                             <div class="card-body">

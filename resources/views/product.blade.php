@@ -71,7 +71,7 @@
             </div>
             <div class="col-sm-2"></div>
         </div>
-        <div class="row" style="margin-top: 40px">
+        <div class="row" style="margin-top: 20px">
         </div>
     </div>
     <div class="container">

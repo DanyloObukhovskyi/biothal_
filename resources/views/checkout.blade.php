@@ -2,72 +2,22 @@
 
 @section('content')
     @include('layouts.nav')
-    <style>
-        .icon {
-            display: inline-block; /* Строчно-блочный элемент */
-            position: relative; /* Относительное позиционирование */
-        }
-        .icon:hover::after {
-            content: attr(data-title); /* Выводим текст */
-            position: absolute; /* Абсолютное позиционирование */
-            left: auto; top: auto; /* Положение подсказки */
-            z-index: 1; /* Отображаем подсказку поверх других элементов */
-            background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
-            font-family: Arial, sans-serif; /* Гарнитура шрифта */
-            font-size: 13px; /* Размер текста подсказки */
-            padding: 5px 10px; /* Поля */
-            border: 1px solid #333; /* Параметры рамки */
-            width: 18em;
-            text-align: center;
 
-        }
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .pulse {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 1.3em;
-            height: 1em;
-            color:gray;
-            background: white;
-            border-radius: 50%;
-            animation: radial-pulse 3s infinite;
-        }
-        .wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes radial-pulse {
-            0% {
-                box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.5);
-            }
-
-            100% {
-                box-shadow: 0 0 0 40px rgba(0, 0, 0, 0);
-            }
-        }
-    </style>
-    <div style="padding: 35px">
-    </div>
     <div class="container">
+        <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b></div>
         <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
         @if(empty($sumAll))
             <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы 2000грн</div>
         @endif
         @if($sumAll_sale < 2000 && $sumAll_sale > 0)
-            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
+            <div class="row justify-content-center" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
                 грн и сработает скидка 50%</div>
         @endif
         @if($sumAll_sale <= 0 )
             <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
         @endif
         <input type="hidden" class="progress-count">
-        <div class="progress-bar" style="margin-bottom: 20px">
+        <div class="progress-bar" style="margin-bottom: 20px" >
             <div style="width: 0%"></div>
         </div>
 
@@ -155,13 +105,12 @@
                             @foreach($products as $value)
                                 @if($value->id == $cart->id)
                                     <div class="col-6">
-                                        <img style="padding: 10px" class=""
-                                             src="{{ asset('/img/'.$value->getImage['name'])}}">
+                                        <img style="" src="{{ asset('/img/'.$value->getImage['name'])}}">
                                     </div>
                                 @endif
                             @endforeach
                             <div class="col-6">
-                                <div style="margin-top: 10px" class="">
+                                <div style="margin-top: 10px; margin-left: 20px" class="">
                                     <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
                                     <span>Количество</span>
                                     <div class="">
