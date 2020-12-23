@@ -192,10 +192,6 @@ $(function () {
         }
     });
 
-    //#endregion
-
-    //#region Main
-
     // Открыть модальное окно для создания нового продукта
     $('#create_product').on('click', function () {
         initModal('add_product');
@@ -286,6 +282,48 @@ $(function () {
             }
         });
     });
+
+    // Добавление глобальной скидки
+    $(document).on("click", '#global_sale', function () {
+        $('#global_sale').attr("disabled", true);
+        let sum_modal = $('#sum_modal').val();
+        let procent_modal = $('#procent_modal').val();
+
+        $.ajax({
+            url: '/admin/products/add/globalsale',
+            method: 'POST',
+            data: {
+                "sum_modal": sum_modal,
+                "procent_modal": procent_modal,
+            },
+            error: function (xhr, status, error) {
+                var errors = xhr.responseJSON.errors, errorMessage = "";
+                $.each(errors, function (index, value) {
+                    $.each(value, function (key, message) {
+                        errorMessage += message + " ";
+                    })
+                })
+                $('#global_sale').attr("disabled", false);
+                Swal.fire({
+                    icon: 'error',
+                    title: errorMessage,
+                    showConfirmButton: true,
+                })
+            },
+            success: function (resp) {
+                if (resp['message']){
+                    $('#global_sale').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: resp['message'],
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        });
+    })
+
 
     // Открыть атрибут для редактирования
     $(document).on('click', '[id^=b_attribute_change_]', function () {
@@ -649,6 +687,8 @@ $(function () {
         });
     }
 
+
+
 // Delete func
     function deleteItems(buttonId) {
         if (buttonId == 'delete_products') {
@@ -715,3 +755,4 @@ $(function () {
         });
     }
 });
+

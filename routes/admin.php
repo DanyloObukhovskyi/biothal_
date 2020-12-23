@@ -98,6 +98,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
                 Route::post('sale', 'SalesController@addSale')
                     ->name('admin.products.add.sale');
+
+                Route::post('globalsale', 'SalesController@addGlobalSale')
+                    ->name('admin.products.globalsale');
             });
 
             // Изменение

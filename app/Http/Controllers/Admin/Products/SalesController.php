@@ -8,6 +8,7 @@ use App\Http\Requests\Products\Sales\Prepare as IdValidRequest;
 use App\Http\Requests\Products\Sales\SetSale as SetSaleRequest;
 use App\Http\Requests\Products\Sales\Delete as DeleteRequest;
 use App\Http\Requests\Products\Sales\Clear as ClearRequest;
+use App\Models\Admin\Products\GlobalSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\Sale;
 use Illuminate\Http\Request;
@@ -65,7 +66,6 @@ class SalesController extends Controller
     public function addSale(CheckValuesRequest $request)
     {
         Sale::create([
-//            'title' => 'unique:sales',
             'title' => $request->title,
             'first_date' => $request->first_date,
             'last_date' => $request->last_date,
@@ -80,6 +80,27 @@ class SalesController extends Controller
             'name' => $sale->title,
         ]);
     }
+
+    // Добавить Глобальную скидку
+    public function addGlobalSale(Request $request)
+    {
+        GlobalSales::create([
+            'sum_modal' => $request->sum_modal,
+            'procent_modal' => $request->procent_modal,
+
+        ]);
+
+        $sale = GlobalSales::latest('id')->first();
+
+        return response()->json([
+            'message' => 'Скидка успешно создана',
+            'id' => $sale->id,
+            'sum_modal' => $sale->sum_modal,
+            'procent_modal' => $sale->procent_modal,
+        ]);
+    }
+
+
 
     // Удалить Скидки
     public function deleteSales(DeleteRequest $request)

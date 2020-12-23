@@ -145,7 +145,6 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12" style="padding: 20px">
-{{--                            <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">--}}
                             @if((!empty($sumAll)) && ($sumAll_sale > 0))
                                 <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
                                 <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
@@ -159,7 +158,6 @@
                             @endif
                         </div>
                     </div>
-
                 </div>
             </div>
         </form>

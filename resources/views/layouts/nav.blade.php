@@ -117,7 +117,17 @@
                                     </button>
                                 </a>
                             @endif
-                            @if (Auth::check())
+                                @if(Auth::user())
+                                    @if(Auth::user()->type == 'admin')
+                                        <a href="{{route('admin.dashboard')}}">
+                                            <button style="margin-bottom: 15px; width: 200px" type="button"
+                                                    class="btn btn-info">
+                                                Admin Panel
+                                            </button>
+                                        </a>
+                                    @endif
+                                @endif
+                                @if (Auth::check())
                                 <a href="{{route('logout')}}">
                                     <button style="margin-bottom: 15px; width: 200px" type="button"
                                             class="btn btn-info">

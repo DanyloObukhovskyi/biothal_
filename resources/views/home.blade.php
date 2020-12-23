@@ -138,19 +138,6 @@
     </section>
 
     @include('layouts.footer')
-    {{--                    <div class="card-body">--}}
-    {{--                        @if (session('status'))--}}
-    {{--                            <div class="alert alert-success" role="alert">--}}
-    {{--                                {{ session('status') }}--}}
-    {{--                            </div>--}}
-    {{--                        @endif--}}
-    {{--                    </div>--}}
-    {{--                    @if(Auth::user())--}}
-    {{--                        @if(Auth::user()->type == 'admin')--}}
-    {{--                            <a href="{{route('admin.dashboard')}}"></a>--}}
-    {{--                        @endif--}}
-    {{--                    @endif--}}
-    {{--                </div>--}}
     <script>
         $(document).ready(function(){
             $("#hide").click(function(){
