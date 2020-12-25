@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\ImageGlobal;
-use App\Http\Requests\{
+use App\Http\Requests\
+{
     ValidImgRequest,
     Images\Delete as ImageDeleteRequest
 };
@@ -38,6 +39,7 @@ class ImageController extends Controller
                 $n++;
             }
         }
+        $n++;
         foreach ($imagesGlobalAll as $image) {
             $imageS[$i + 1] = $image;
             $i++;
@@ -80,10 +82,8 @@ class ImageController extends Controller
             return redirect()->route('admin.images.page');
         }
         $name = $request->file('img')->getClientOriginalName();
-//dd(public_path("img/carousel"));
         // Помещаем файл в репозиторий
         $request->file('img')->move(public_path("img/carousel"), $name);
-
         // Добавляем файл в базу
         ImageGlobal::create([
             'name' => $name
@@ -93,9 +93,13 @@ class ImageController extends Controller
 
     public function deleteImage(ImageDeleteRequest $request)
     {
-//        dd($request->toArray());
         foreach ($request->checked as $imgId) {
             $image = Image::where('id', (int)$imgId)->first();
+            $pathToYourFile = public_path("img/products/".$image->name);
+            if(file_exists($pathToYourFile))
+            {
+                unlink($pathToYourFile);
+            }
             $image->delete();
         }
         return true;
@@ -105,9 +109,13 @@ class ImageController extends Controller
     {
         foreach ($request->checked as $imgId) {
             $image = ImageGlobal::where('id', (int)$imgId)->first();
+            $pathToYourFile = public_path("img/carousel/".$image->name);
+            if(file_exists($pathToYourFile))
+            {
+                unlink($pathToYourFile);
+            }
             $image->delete();
         }
         return true;
     }
-
 }

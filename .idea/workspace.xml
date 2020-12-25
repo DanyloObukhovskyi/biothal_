@@ -10,12 +10,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in AdminPanel 25.12.20">
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in AdminPanel 25.12.20-2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Images/Delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Images/Delete.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,17 +173,17 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
       <recent name="E:\OpenServer\domains\www\biothal\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -250,6 +248,7 @@
       <workItem from="1608668118460" duration="1014000" />
       <workItem from="1608675460088" duration="65000" />
       <workItem from="1608710014750" duration="28340000" />
+      <workItem from="1608926187460" duration="8541000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -356,7 +355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608896683752</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Global_images in AdminPanel 25.12.20-2">
+      <created>1608908042333</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1608908042333</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +406,8 @@
     <MESSAGE value="add progressbar_sale for page checkout and add page about 22.12.20" />
     <MESSAGE value="fix frontend and add carousel.blade 23.12.20" />
     <MESSAGE value="Global_images in AdminPanel 25.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel 25.12.20" />
+    <MESSAGE value="Global_images in AdminPanel 25.12.20-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel 25.12.20-2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -438,10 +445,10 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608896698706">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608908052378">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608896698706" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608908052378" />
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608583436829" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />

@@ -20,7 +20,7 @@ class Delete extends FormRequest
     public function rules()
     {
         return [
-            'checked' => 'required'
+            'checked.*' => 'required'
         ];
     }
 
