@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
+use App\Models\ImageGlobal;
 use App\Http\Requests\{
     ValidImgRequest,
     Images\Delete as ImageDeleteRequest
@@ -16,9 +17,13 @@ class ImageController extends Controller
     public function index()
     {
         $imagesAll = Image::all();
+        $imagesGlobalAll = ImageGlobal::all();
         // Если нет изображений, выводим подсказку
         if (count($imagesAll) == 0) {
             return view('admin.images.index', ['images' => null]);
+        }
+        if (count($imagesGlobalAll) == 0) {
+            return view('admin.images.index', ['imagesGlobal' => null]);
         }
 
         $n = 0; // Номер группы
@@ -33,7 +38,19 @@ class ImageController extends Controller
                 $n++;
             }
         }
-        return view('admin.images.index', ['images' => $images]);
+        foreach ($imagesGlobalAll as $image) {
+            $imageS[$i + 1] = $image;
+            $i++;
+            $imagesGlobal[$n] = $imageS;
+            if ($i % 4 == 0) {
+                $imageS = null;
+                $n++;
+            }
+        }
+        return view('admin.images.index', [
+            'images' => $images,
+            'imagesGlobal' => $imagesGlobal,
+        ]);
     }
 
     public function addImage(ValidImgRequest $request)
@@ -55,6 +72,25 @@ class ImageController extends Controller
         return redirect()->route('admin.images.page');
     }
 
+    public function addGlobalImage(ValidImgRequest $request)
+    {
+//        dd($request->toArray());
+        // Проверяем есть ли файл
+        if (!$request->hasFile('img')) {
+            return redirect()->route('admin.images.page');
+        }
+        $name = $request->file('img')->getClientOriginalName();
+
+        // Помещаем файл в репозиторий
+        $request->file('img')->move(public_path("img"), $name);
+        // Добавляем файл в базу
+        ImageGlobal::create([
+            'name' => $name
+        ]);
+
+        return redirect()->route('admin.images.page');
+    }
+
     public function deleteImage(ImageDeleteRequest $request)
     {
 //        dd($request->toArray());
@@ -62,6 +98,5 @@ class ImageController extends Controller
             $image = Image::where('id', (int)$imgId)->first();
             $image->delete();
         }
-        return true;
-    }
+        return true;}
 }

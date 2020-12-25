@@ -62,7 +62,7 @@
                                     <option value="NoAccessory">Выберите потребность</option>
                                     @if($accessories != null)
                                         @foreach($accessories as $accessory)
-                                             <option value="{{$accessory->id}}">{{$accessory->title}}</option>
+                                            <option value="{{$accessory->id}}">{{$accessory->title}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -371,14 +371,16 @@
                     <button type="button" id="delete_sales_for_products" class="btn btn-dark" data-title="tooltip"
                             data-placement="top" title="Выберите товары, у которых хотите убрать скидку">Очистить скидки
                     </button>
-                    <button type="button" data-toggle="modal" data-target="#modal_global_sale" id="global_sales_for_products"
+                    <button type="button" data-toggle="modal" data-target="#modal_global_sale"
+                            id="global_sales_for_products"
                             class="btn btn-dark" data-title="tooltip" data-placement="top"
                             title="Добавить глобальную скидку для опциональной полоски в корзину">Глобальная скидка
                     </button>
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="modal_global_sale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="modal_global_sale" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
                  style="margin-top: 10%" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -391,12 +393,14 @@
                                 </div>
                                 <div class="container">
                                     <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label" style="color: #000000">Введите сумму</label>
+                                        <label for="recipient-name" class="col-form-label" style="color: #000000">Введите
+                                            сумму</label>
                                         <input type="number" min="1" class="form-control"
                                                style="font-weight: bold; background: #F7F7F7;" id="sum_modal">
                                     </div>
                                     <div class="form-group">
-                                        <label for="recipient-phone" class="col-form-label" style="color: #000000">Введите процент</label>
+                                        <label for="recipient-phone" class="col-form-label" style="color: #000000">Введите
+                                            процент</label>
                                         <input type="number" min="1" max="100" class="form-control"
                                                style="font-weight: bold; background: #F7F7F7;" id="procent_modal">
                                     </div>

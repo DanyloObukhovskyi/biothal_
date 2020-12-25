@@ -253,7 +253,10 @@
                                             @if($val->id == $value->id)
                                                 <div class="text-center" style="width: 12rem;">
                                                     <a href="product/{{$value->id}}">
-                                                        <img src="{{ asset('/img/'.$value->getImage['name'])}}"
+                                                        <img src="
+                                                        @if(isset($value->getImage['name']))
+                                                        {{ asset('/img/'.$value->getImage['name'])}}
+                                                        @endif                                         "
                                                              class="img-fluid" alt="...">
                                                     </a>
                                                     @endif
@@ -279,7 +282,9 @@
                                             @if($val->id == $value->id)
                                                 <div class="text-center" style="width: 12rem;">
                                                     <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                                                          src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
+                                                      @if(isset($value->getImage['name']))
+                                                      src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
+                                                      @endif
                                                     @endif
                                                     @endforeach
                                                     <div class="card-body">
