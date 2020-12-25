@@ -4,10 +4,12 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" style="color: #000000" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><b>Изображения продуктов</b></a>
+            <a class="nav-link active" id="home-tab" style="color: #000000" data-toggle="tab" href="#home" role="tab"
+               aria-controls="home" aria-selected="true"><b>Изображения продуктов</b></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" style="color: #000000" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><b>Глобальные изображения</b></a>
+            <a class="nav-link" id="profile-tab" style="color: #000000" data-toggle="tab" href="#profile" role="tab"
+               aria-controls="profile" aria-selected="false"><b>Глобальные изображения</b></a>
         </li>
     </ul>
 
@@ -49,13 +51,14 @@
                         @method('POST')
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <div class="btn btn-group pull-right">
-                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example_modal">
+                                <button type="button" class="btn btn-dark" data-toggle="modal"
+                                        data-target="#example_modal">
                                     Добавить
                                 </button>
                                 <button type="button" id="deletePic" class="btn btn-dark">Удалить</button>
                             </div>
                         </div>
-                        @if($images == null)
+                        @if(($images == null))
                             <p>ГАЛЕРЕЯ - ПУСТА!</p>
                         @else
                             @foreach($images as $image3)
@@ -64,8 +67,10 @@
                                         <input type="checkbox" id="pictures_{{$image->id}}" name="checked[]"
                                                value="{{$image->id}}">
                                         <label for="pictures_{{$image->id}}" id="pictures_label_{{$image->id}}">
-                                            <a href="{{ Storage::disk('public')->url('img/'.$image->name) }}" class="thumbnail">
-                                                <img class="rounded-circle" src="{{Storage::disk('public')->url('img/'.$image->name)}}"
+                                            <a href="{{ Storage::disk('public')->url('img/products/'.$image->name) }}"
+                                               class="thumbnail">
+                                                <img class="rounded-circle"
+                                                     src="{{Storage::disk('public')->url('img/products/'.$image->name)}}"
                                                      width="200" height="200" alt="Изображение товара">
                                             </a>
                                         </label>
@@ -98,7 +103,8 @@
                                 Выберите картинку которую хотите добавить
                             </div>
                             <div class="modal-footer">
-                                <img id="pic" src="http://placehold.it/180" class="col-md-4 ml-auto" alt="your image"
+                                <img id="pic" src="http://placehold.it/2881x757" class="col-md-4 ml-auto"
+                                     alt="your image"
                                      width="180" height="180">
                                 <input id="img-input" type="file" name="img" onchange="readURL(this);">
                                 <input type='submit' class="btn btn-dark" value="Добавить">
@@ -111,15 +117,16 @@
             <!--- Page -->
             <div class="container" id="img_page2">
                 <div class="page-header w-100 alert bg-light p-0 shadow-sm mt-2">
-                    <form action="{{route('admin.deleteImage')}}" method="post">
+                    <form action="{{route('admin.deleteGlobalImage')}}" method="post">
                         @csrf
                         @method('POST')
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <div class="btn btn-group pull-right">
-                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example_modal2">
+                                <button type="button" class="btn btn-dark" data-toggle="modal"
+                                        data-target="#example_modal2">
                                     Добавить
                                 </button>
-                                <button type="button" id="deletePic" class="btn btn-dark">Удалить</button>
+                                <button type="button" id="deletePic2" class="btn btn-dark">Удалить</button>
                             </div>
                         </div>
                         @if($imagesGlobal == null)
@@ -131,8 +138,10 @@
                                         <input type="checkbox" id="pictures_{{$global->id}}" name="checked[]"
                                                value="{{$global->id}}">
                                         <label for="pictures_{{$global->id}}" id="pictures_label_{{$global->id}}">
-                                            <a href="{{ Storage::disk('public')->url('img/'.$global->name) }}" class="thumbnail">
-                                                <img class="rounded-circle" src="{{Storage::disk('public')->url('img/'.$global->name)}}"
+                                            <a href="{{ Storage::disk('public')->url('img/carousel/'.$global->name) }}"
+                                               class="thumbnail">
+                                                <img class="rounded-circle"
+                                                     src="{{Storage::disk('public')->url('img/carousel/'.$global->name)}}"
                                                      width="200" height="200" alt="Изображение товара">
                                             </a>
                                         </label>
@@ -144,6 +153,6 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
 @endsection

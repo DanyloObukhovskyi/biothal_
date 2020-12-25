@@ -141,6 +141,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             Route::post('/delete', 'ImageController@deleteImage')
                 ->name('admin.deleteImage');
+
+            Route::post('/deleteGlobal', 'ImageController@deleteGlobalImage')
+                ->name('admin.deleteGlobalImage');
         });
     });
 });

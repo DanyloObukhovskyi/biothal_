@@ -10,14 +10,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_sales(not Valiation) in AdminPanel and add AdminPanel to navbar 23.12.20">
-      <change afterPath="$PROJECT_DIR$/app/Models/ImageGlobal.php" afterDir="false" />
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in AdminPanel 25.12.20">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,17 +175,17 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
       <recent name="E:\OpenServer\domains\www\biothal\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -352,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608727168515</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Global_images in AdminPanel 25.12.20">
+      <created>1608896683730</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1608896683752</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,7 +399,8 @@
     <MESSAGE value="add adaptiv_footer and add progressbar_sale 18.12.20" />
     <MESSAGE value="add progressbar_sale for page checkout and add page about 22.12.20" />
     <MESSAGE value="fix frontend and add carousel.blade 23.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix frontend and add carousel.blade 23.12.20" />
+    <MESSAGE value="Global_images in AdminPanel 25.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel 25.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -433,10 +438,10 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608727171364">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608896698706">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608727171364" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608896698706" />
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608583436829" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />

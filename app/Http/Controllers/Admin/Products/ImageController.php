@@ -19,12 +19,12 @@ class ImageController extends Controller
         $imagesAll = Image::all();
         $imagesGlobalAll = ImageGlobal::all();
         // Если нет изображений, выводим подсказку
-        if (count($imagesAll) == 0) {
-            return view('admin.images.index', ['images' => null]);
-        }
-        if (count($imagesGlobalAll) == 0) {
-            return view('admin.images.index', ['imagesGlobal' => null]);
-        }
+//        if (count($imagesAll) == 0) {
+//            return view('admin.images.index', ['images' => null]);
+//        }
+//        if (count($imagesGlobalAll) == 0) {
+//            return view('admin.images.index', ['imagesGlobal' => null]);
+//        }
 
         $n = 0; // Номер группы
         $i = 0; // Итератор
@@ -63,7 +63,7 @@ class ImageController extends Controller
         $name = $request->file('img')->getClientOriginalName();
 
         // Помещаем файл в репозиторий
-        $request->file('img')->move(public_path("img"), $name);
+        $request->file('img')->move(public_path("img/products"), $name);
         // Добавляем файл в базу
         Image::create([
             'name' => $name
@@ -80,14 +80,14 @@ class ImageController extends Controller
             return redirect()->route('admin.images.page');
         }
         $name = $request->file('img')->getClientOriginalName();
-
+//dd(public_path("img/carousel"));
         // Помещаем файл в репозиторий
-        $request->file('img')->move(public_path("img"), $name);
+        $request->file('img')->move(public_path("img/carousel"), $name);
+
         // Добавляем файл в базу
         ImageGlobal::create([
             'name' => $name
         ]);
-
         return redirect()->route('admin.images.page');
     }
 
@@ -98,5 +98,16 @@ class ImageController extends Controller
             $image = Image::where('id', (int)$imgId)->first();
             $image->delete();
         }
-        return true;}
+        return true;
+    }
+
+    public function deleteGlobalImage(ImageDeleteRequest $request)
+    {
+        foreach ($request->checked as $imgId) {
+            $image = ImageGlobal::where('id', (int)$imgId)->first();
+            $image->delete();
+        }
+        return true;
+    }
+
 }
