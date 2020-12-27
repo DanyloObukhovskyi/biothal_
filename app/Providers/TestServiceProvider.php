@@ -42,7 +42,7 @@ class TestServiceProvider extends ServiceProvider
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer2'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);
@@ -73,6 +73,11 @@ class TestServiceProvider extends ServiceProvider
                     ->get();
             }
 
+            $imagesPath = public_path("img/carousel/"); // путь к папке с глобальными картинками
+            $files = []; // массив файлов
+            foreach (glob($imagesPath . "*.{jpg,png,gif,jpeg}", GLOB_BRACE) as $filename) { // ищет все картинки через glob
+                $files[] = $filename;
+            }
             $sum = 0;
             $sum_sale = 0;
             $sumAll = 0;
@@ -91,9 +96,6 @@ class TestServiceProvider extends ServiceProvider
 
             $region = Region::select('region', 'id')->get()->toArray();
             $region = array_merge([['region' => 'Выберите область']], $region);
-//            $sum = 0;
-//            $sumAll = 0;
-//            $sum_sale = 0;
             $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
             $delivery = 40;
             $view->with([
@@ -112,6 +114,7 @@ class TestServiceProvider extends ServiceProvider
                 'accessories' => Accessories::all(),
                 'count_sale_product' => $count_sale_product,
                 'cart_join' => $cart_join,
+                'files' => $files,
             ]);
         });
     }

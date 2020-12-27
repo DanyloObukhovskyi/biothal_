@@ -18,9 +18,9 @@
                         <div class="card text-center">
                             <div id="heightCart" class="card-body" style="min-height: 425px">
                                 <a href="/product/{{$value->id}}">
-                                    <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px; margin-right: 7px; justify-content: center;" src = "
-                                        @if(isset($value->getImage['name']))
-                                        {{ asset('/img/'.$value->getImage['name'])}}
+                                    <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"
+                                         src="@if(isset($value->getImage['name']))
+                                        {{ asset('/img/products/'.$value->getImage['name'])}}
                                         @endif"
                                     ></a>
                                 <h5 class="card-title">{!!$value->name!!}</h5>
@@ -58,9 +58,9 @@
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
                         <div class="card text-center">
                             <a href="product/{{$value->id}}">
-                                <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 207px" src="
+                                <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 180px" src="
                                     @if(isset($value->getImage['name']))
-                                    {{ asset('/img/'.$value->getImage['name'])}}
+                                    {{ asset('/img/products/'.$value->getImage['name'])}}
                                     @endif">
                             </a>
                             <div class="card-body">

@@ -10,10 +10,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in AdminPanel 25.12.20-2">
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in AdminPanel add and delete file in directory 25.12.20">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Images/Delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Images/Delete.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/carousel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/carousel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/product.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +173,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/storage/img" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
@@ -179,8 +184,8 @@
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
@@ -248,7 +253,10 @@
       <workItem from="1608668118460" duration="1014000" />
       <workItem from="1608675460088" duration="65000" />
       <workItem from="1608710014750" duration="28340000" />
-      <workItem from="1608926187460" duration="8541000" />
+      <workItem from="1608926187460" duration="9609000" />
+      <workItem from="1608969806924" duration="6392000" />
+      <workItem from="1609017778654" duration="2134000" />
+      <workItem from="1609086485763" duration="16951000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -362,7 +370,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608908042333</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Global_images in AdminPanel add and delete file in directory 25.12.20">
+      <created>1608936716141</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1608936716141</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,7 +422,8 @@
     <MESSAGE value="fix frontend and add carousel.blade 23.12.20" />
     <MESSAGE value="Global_images in AdminPanel 25.12.20" />
     <MESSAGE value="Global_images in AdminPanel 25.12.20-2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel 25.12.20-2" />
+    <MESSAGE value="Global_images in AdminPanel add and delete file in directory 25.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel add and delete file in directory 25.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -432,10 +448,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1608670470478" />
-    <state x="389" y="64" key="NewPhpClassDialog" timestamp="1608111907173">
+    <state x="389" y="64" key="NewPhpClassDialog" timestamp="1609019527257">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="389" y="64" key="NewPhpClassDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608111907173" />
+    <state x="389" y="64" key="NewPhpClassDialog/0.0.1280.680@0.0.1280.680" timestamp="1609019527257" />
     <state x="454" y="43" key="RollbackChangesDialog" timestamp="1607793150886">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -445,19 +462,19 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608908052378">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608936760943">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608908052378" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608583436829" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608936760943" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1607863098190" />
-    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608582292401">
+    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608975683972">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1608582292401" />
+    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1608975683972" />
     <state x="348" y="73" width="585" height="592" key="find.popup" timestamp="1608729333187">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -488,7 +505,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/layouts/nav.blade.php</url>
-          <line>284</line>
+          <line>293</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

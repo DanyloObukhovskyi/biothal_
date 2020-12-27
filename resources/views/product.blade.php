@@ -11,9 +11,11 @@
             <div class="col-md-6">
                 @foreach($products as $value)
                     @if($value['id'] == $id)
+                        @if(isset($value->getImage['name']))
                         <div class="card text-center" style="width: 18rem; margin-left: auto; margin-right: auto">
-                            <img class="img-fluid card-img-top" src="{{ asset('/img/'.$value->getImage['name'])}}">
+                            <img class="img-fluid card-img-top" src="{{ asset('/img/products/'.$value->getImage['name'])}}">
                         </div>
+                        @endif
             </div>
             <div class="col-md-6">
                 <div class="card-body">
