@@ -133,7 +133,7 @@
                             <p>ГАЛЕРЕЯ - ПУСТА!</p>
                         @else
                             @foreach($imagesGlobal as $image_global)
-                                <div class="card-body justify-content-start">
+                                <div class="card-body d-flex flex-row justify-content-start">
                                     @foreach($image_global as $global)
                                         <input type="checkbox" id="pictures_{{$global->id}}" name="checked2[]"
                                                value="{{$global->id}}">

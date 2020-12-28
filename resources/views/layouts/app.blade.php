@@ -37,7 +37,8 @@
 {{--                            <a href="{{route('admin.dashboard')}}"></a>--}}
 {{--                        @endif--}}
 {{--                    @endif--}}
-
+<div id="app">
+</div>
         @yield('content')
 
     <!-- Scripts -->

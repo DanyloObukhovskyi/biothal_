@@ -33,7 +33,7 @@ class ProductsController extends Controller
                   return '<a href="/admin/products/show/product?link=' . $row->link . '">' . $row->name . '</a>';
               })
                 ->editColumn('image_id', function ($row) {
-                    $img = '/img/' . $row->getImage->name;
+                    $img = '/storage/img/products/' . $row->getImage->name;
 
                     return '<a href="' . $img . '" class="thumbnail">
                                         <img src="' . $img . '" class="rounded-circle"

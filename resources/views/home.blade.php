@@ -20,7 +20,7 @@
                                 <a href="/product/{{$value->id}}">
                                     <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"
                                          src="@if(isset($value->getImage['name']))
-                                        {{ asset('/img/products/'.$value->getImage['name'])}}
+                                        {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                         @endif"
                                     ></a>
                                 <h5 class="card-title">{!!$value->name!!}</h5>
@@ -60,7 +60,7 @@
                             <a href="product/{{$value->id}}">
                                 <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 180px" src="
                                     @if(isset($value->getImage['name']))
-                                    {{ asset('/img/products/'.$value->getImage['name'])}}
+                                    {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                     @endif">
                             </a>
                             <div class="card-body">

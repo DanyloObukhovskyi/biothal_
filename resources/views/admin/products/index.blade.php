@@ -154,13 +154,14 @@
                             @else
                                 <div class="card-deck">
                                     @foreach($images as $image)
+{{--                                        @dd($image->name)--}}
                                         <div class="col-sm-4">
                                             <div class="card border-0">
-                                                <a href="{{ Storage::disk('public')->url('img/'.$image->name) }}">
+                                                <a href="{{ Storage::url('img/products/'.$image->name) }}">
                                                     <img class="card-img-top"
-                                                         src="{{ Storage::disk('public')->url('img/'.$image->name) }}"
+                                                         src="{{ Storage::url('img/products/'.$image->name) }}"
                                                          width="200"
-                                                         height="200" alt="Изображение не загрузилось :(">
+                                                         height="200" alt="Изображение не загрузилось">
                                                 </a>
                                                 <div class="card-body">
                                                     {{--                                                    <button type="button" id="b_delete_image_{{$image->id}}"--}}

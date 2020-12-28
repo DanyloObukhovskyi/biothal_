@@ -78,11 +78,11 @@
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Мы в сетях</h6>
                 <p>
-                    <img style="margin-right: 15px; margin-left: 5px" src="{{Storage::url('img/footer/facebook.png')}}">Facebook</p>
+                    <a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px" src="{{Storage::url('img/footer/facebook.png')}}">Facebook</a></p>
                 <p>
-                    <img style="margin-right: 10px" src="{{Storage::url('img/footer/twitter.png')}}">Twitter</p>
+                    <a href=""><img style="margin-right: 10px" src="{{Storage::url('img/footer/twitter.png')}}">Twitter</a></p>
                 <p>
-                    <img style="margin-right: 10px; width: 20px" src="{{Storage::url('img/footer/instagram.png')}}">Instagram</p>
+                    <a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 10px; width: 20px" src="{{Storage::url('img/footer/instagram.png')}}">Instagram</a></p>
             </div>
         </div>
         <hr>

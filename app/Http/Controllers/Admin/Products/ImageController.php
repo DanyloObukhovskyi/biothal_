@@ -39,15 +39,16 @@ class ImageController extends Controller
                 $n++;
 //            }
         }
-        $n++;
+        $n = 0; // Номер группы
+        $i = 0; // Итератор
         foreach ($imagesGlobalAll as $image) {
             $imageS[$i + 1] = $image;
             $i++;
             $imagesGlobal[$n] = $imageS;
-//            if ($i % 4 == 0) {
+            if ($i % 4 == 0) {
                 $imageS = null;
                 $n++;
-//            }
+            }
         }
         return view('admin.images.index', [
             'images' => $images,
@@ -107,7 +108,7 @@ class ImageController extends Controller
 
     public function deleteGlobalImage(ImageDeleteRequest $request)
     {
-        foreach ($request->checked2 as $imgId2) {
+        foreach ($request->checked as $imgId2) {
             $image2 = ImageGlobal::where('id', (int)$imgId2)->first();
             $pathToYourFile = public_path("storage/img/carousel/".$image2->name);
             if(file_exists($pathToYourFile))

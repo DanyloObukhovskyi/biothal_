@@ -10,11 +10,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Global_images in Carousel 27.12.20">
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="Fix Global_images in Carousel and AdminPanel 28.12.20">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ImageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Products/ProductsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/accessory.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accessory.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/allaccessory.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/allaccessory.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/allcategory.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/allcategory.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/category.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/carousel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/carousel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/product.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -374,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608936716141</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fix Global_images in Carousel and AdminPanel 28.12.20">
+      <created>1609151837448</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609151837448</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,7 +439,8 @@
     <MESSAGE value="Global_images in AdminPanel 25.12.20" />
     <MESSAGE value="Global_images in AdminPanel 25.12.20-2" />
     <MESSAGE value="Global_images in AdminPanel add and delete file in directory 25.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="Global_images in AdminPanel add and delete file in directory 25.12.20" />
+    <MESSAGE value="Fix Global_images in Carousel and AdminPanel 28.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Global_images in Carousel and AdminPanel 28.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -459,10 +479,10 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1608936760943">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609151847236">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608908052378" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609151847236" />
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1608936760943" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />

@@ -8,11 +8,11 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="img-fluid d-block w-100" src="{{substr($global,-19)}}" height="400" style="width:100%;">
+            <img class="img-fluid d-block w-100" src="{{substr($global,-27)}}" height="400" style="width:100%;">
         </div>
         @foreach($files as $key=>$global)
         <div class="carousel-item">
-            <img class="img-fluid d-block w-100" src="{{substr($global,-19)}}" height="400" style="width:100%;">
+            <img class="img-fluid d-block w-100" src="{{substr($global,-27)}}" height="400" style="width:100%;">
         </div>
          @endforeach
     </div>

@@ -18,8 +18,8 @@
                     @foreach($products['products'] as $value)
                         <div class="card text-center"
                              style="display:inline-flex; min-width: 9rem; margin-right: 20px; margin-bottom: 20px">
-                            <a href="/product/{{$value->id}}"><img class="img-fluid card-img-top"
-                                                                   src="{{ asset('/img/'.$value->getImage['name'])}}"></a>
+                            <a href="/product/{{$value->id}}"><img class="img-fluid card-img-top" style="width: 9em"
+                                                                   src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
                                 <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>

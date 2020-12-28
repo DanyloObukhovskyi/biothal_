@@ -182,7 +182,7 @@
                                         @if($value->id == $cart->id)
                                             @if(isset($value->getImage['name']))
                                                 <img style="height: auto!important; padding: 10px" class="img-fluid"
-                                                     src="{{ asset('/img/products/'.$value->getImage['name'])}}">
+                                                     src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
                                             @endif
                                         @endif
                                     @endforeach
@@ -264,7 +264,7 @@
                                                 <a href="product/{{$value->id}}">
                                                     <img src="
                                                         @if(isset($value->getImage['name']))
-                                                    {{ asset('/img/products/'.$value->getImage['name'])}}
+                                                    {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                                     @endif                                         "
                                                          class="img-fluid" alt="...">
                                                 </a>
@@ -292,7 +292,7 @@
                                             <div class="text-center" style="width: 12rem;">
                                                 <a href="product/{{$value->id}}"><img class="img-fluid"
                                                                                       @if(isset($value->getImage['name']))
-                                                                                      src="{{ asset('/img/products/'.$value->getImage['name'])}}"></a>
+                                                                                      src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"></a>
                                                 @endif
                                                 @endif
                                                 @endforeach
