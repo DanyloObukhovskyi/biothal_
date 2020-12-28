@@ -46,7 +46,7 @@
             <!--- Page -->
             <div class="container" id="img_page">
                 <div class="page-header w-100 alert bg-light p-0 shadow-sm mt-2">
-                    <form action="{{route('admin.deleteImage')}}" method="post">
+                    <form action="{{route('admin.deleteImage')}}" method="post" style="display:inline-flex; column-count: 4">
                         @csrf
                         @method('POST')
                         <div class="btn-group" role="group" aria-label="Basic example">

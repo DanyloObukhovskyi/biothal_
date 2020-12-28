@@ -16,7 +16,9 @@ class AttributesController extends Controller
     // Получаем атрибуты для таба "Данные"
     public function getAttributesForProduct(Request $request)
     {
-        $product = Product::find($request->id)->with('getImage') ? Product::find($request->id)->with('getImage')->productsAttributes : [];
+        if (isset($product)){
+            $product = Product::find($request->id)->with('getImage') ? Product::find($request->id)->with('getImage')->productsAttributes : [];
+
 
         return Datatables::of($product)
             ->addColumn('change', function ($row) {
@@ -26,8 +28,8 @@ class AttributesController extends Controller
             })
             ->rawColumns(['change'])
             ->make(true);
+        }
     }
-
     // Удалить атрибут
     public function deleteAttributes(DeleteRequest $request)
     {

@@ -253,9 +253,8 @@
                             Рекомендуемые товары
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-5" style="padding-right: 10px">
+                        <div class="my_height" style="padding-right: 10px">
                             @foreach($product_sale as $value)
                                 <div style="margin-bottom: 20px">
                                     @foreach($products as $val)
@@ -284,7 +283,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="col-5">
+                        <div class="my_height2">
                             @foreach($product_price as $value)
                                 <div style="margin-bottom: 20px">
                                     @foreach($products as $val)
