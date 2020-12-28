@@ -34,20 +34,20 @@ class ImageController extends Controller
             $imageS[$i + 1] = $image;
             $i++;
             $images[$n] = $imageS;
-            if ($i % 4 == 0) {
+//            if ($i % 4 == 0) {
                 $imageS = null;
                 $n++;
-            }
+//            }
         }
         $n++;
         foreach ($imagesGlobalAll as $image) {
             $imageS[$i + 1] = $image;
             $i++;
             $imagesGlobal[$n] = $imageS;
-            if ($i % 4 == 0) {
+//            if ($i % 4 == 0) {
                 $imageS = null;
                 $n++;
-            }
+//            }
         }
         return view('admin.images.index', [
             'images' => $images,
@@ -65,7 +65,7 @@ class ImageController extends Controller
         $name = $request->file('img')->getClientOriginalName();
 
         // Помещаем файл в репозиторий
-        $request->file('img')->move(public_path("img/products"), $name);
+        $request->file('img')->move(public_path("storage/img/products"), $name);
         // Добавляем файл в базу
         Image::create([
             'name' => $name
@@ -78,12 +78,12 @@ class ImageController extends Controller
     {
 //        dd($request->toArray());
         // Проверяем есть ли файл
-        if (!$request->hasFile('img')) {
+        if (!$request->hasFile('img2')) {
             return redirect()->route('admin.images.page');
         }
-        $name = $request->file('img')->getClientOriginalName();
+        $name = $request->file('img2')->getClientOriginalName();
         // Помещаем файл в репозиторий
-        $request->file('img')->move(public_path("img/carousel"), $name);
+        $request->file('img2')->move(public_path("storage/img/carousel"), $name);
         // Добавляем файл в базу
         ImageGlobal::create([
             'name' => $name
@@ -95,7 +95,7 @@ class ImageController extends Controller
     {
         foreach ($request->checked as $imgId) {
             $image = Image::where('id', (int)$imgId)->first();
-            $pathToYourFile = public_path("img/products/".$image->name);
+            $pathToYourFile = public_path("storage/img/products/".$image->name);
             if(file_exists($pathToYourFile))
             {
                 unlink($pathToYourFile);
@@ -107,14 +107,14 @@ class ImageController extends Controller
 
     public function deleteGlobalImage(ImageDeleteRequest $request)
     {
-        foreach ($request->checked as $imgId) {
-            $image = ImageGlobal::where('id', (int)$imgId)->first();
-            $pathToYourFile = public_path("img/carousel/".$image->name);
+        foreach ($request->checked2 as $imgId2) {
+            $image2 = ImageGlobal::where('id', (int)$imgId2)->first();
+            $pathToYourFile = public_path("storage/img/carousel/".$image2->name);
             if(file_exists($pathToYourFile))
             {
                 unlink($pathToYourFile);
             }
-            $image->delete();
+            $image2->delete();
         }
         return true;
     }

@@ -73,7 +73,7 @@ class TestServiceProvider extends ServiceProvider
                     ->get();
             }
 
-            $imagesPath = public_path("img/carousel/"); // путь к папке с глобальными картинками
+            $imagesPath = public_path("storage/img/carousel/"); // путь к папке с глобальными картинками
             $files = []; // массив файлов
             foreach (glob($imagesPath . "*.{jpg,png,gif,jpeg}", GLOB_BRACE) as $filename) { // ищет все картинки через glob
                 $files[] = $filename;

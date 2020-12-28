@@ -62,15 +62,15 @@
                             <p>ГАЛЕРЕЯ - ПУСТА!</p>
                         @else
                             @foreach($images as $image3)
-                                <div class="d-flex flex-row justify-content-start">
+                                <div class="card-body justify-content-start">
                                     @foreach($image3 as $image)
                                         <input type="checkbox" id="pictures_{{$image->id}}" name="checked[]"
                                                value="{{$image->id}}">
                                         <label for="pictures_{{$image->id}}" id="pictures_label_{{$image->id}}">
-                                            <a href="{{ Storage::disk('public')->url('img/products/'.$image->name) }}"
+                                            <a href="{{ Storage::disk('public')->url('storage/img/products/'.$image->name) }}"
                                                class="thumbnail">
-                                                <img class="rounded-circle"
-                                                     src="{{Storage::disk('public')->url('img/products/'.$image->name)}}"
+                                                <img class="card-body"
+                                                     src="{{Storage::disk('public')->url('storage/img/products/'.$image->name)}}"
                                                      width="200" height="200" alt="Изображение товара">
                                             </a>
                                         </label>
@@ -103,10 +103,10 @@
                                 Выберите картинку которую хотите добавить
                             </div>
                             <div class="modal-footer">
-                                <img id="pic" src="http://placehold.it/2881x757" class="col-md-4 ml-auto"
+                                <img id="pic2" src="http://placehold.it/2881x757" class="col-md-4 ml-auto"
                                      alt="your image"
                                      width="180" height="180">
-                                <input id="img-input" type="file" name="img" onchange="readURL(this);">
+                                <input id="img2-input" type="file" name="img2" onchange="readURL(this);">
                                 <input type='submit' class="btn btn-dark" value="Добавить">
                             </div>
                         </div>
@@ -133,15 +133,15 @@
                             <p>ГАЛЕРЕЯ - ПУСТА!</p>
                         @else
                             @foreach($imagesGlobal as $image_global)
-                                <div class="d-flex flex-row justify-content-start">
+                                <div class="card-body justify-content-start">
                                     @foreach($image_global as $global)
-                                        <input type="checkbox" id="pictures_{{$global->id}}" name="checked[]"
+                                        <input type="checkbox" id="pictures_{{$global->id}}" name="checked2[]"
                                                value="{{$global->id}}">
                                         <label for="pictures_{{$global->id}}" id="pictures_label_{{$global->id}}">
-                                            <a href="{{ Storage::disk('public')->url('img/carousel/'.$global->name) }}"
+                                            <a href="{{ Storage::disk('public')->url('storage/img/carousel/'.$global->name) }}"
                                                class="thumbnail">
-                                                <img class="rounded-circle"
-                                                     src="{{Storage::disk('public')->url('img/carousel/'.$global->name)}}"
+                                                <img class="card-body"
+                                                     src="{{Storage::disk('public')->url('storage/img/carousel/'.$global->name)}}"
                                                      width="200" height="200" alt="Изображение товара">
                                             </a>
                                         </label>
