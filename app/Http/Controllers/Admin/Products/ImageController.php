@@ -34,13 +34,15 @@ class ImageController extends Controller
             $imageS[$i + 1] = $image;
             $i++;
             $images[$n] = $imageS;
-//            if ($i % 4 == 0) {
+           if ($i % 4 == 0) {
                 $imageS = null;
                 $n++;
-//            }
+            }
         }
+
         $n = 0; // Номер группы
         $i = 0; // Итератор
+        $imageS = [];//Обновляю массив
         foreach ($imagesGlobalAll as $image) {
             $imageS[$i + 1] = $image;
             $i++;

@@ -259,7 +259,7 @@
                                 <div style="margin-bottom: 20px">
                                     @foreach($products as $val)
                                         @if($val->id == $value->id)
-                                            <div class="text-center" style="width: 12rem;">
+                                            <div class="text-center" style="max-width: 12rem;">
                                                 <a href="product/{{$value->id}}">
                                                     <img src="
                                                         @if(isset($value->getImage['name']))
@@ -288,7 +288,7 @@
                                 <div style="margin-bottom: 20px">
                                     @foreach($products as $val)
                                         @if($val->id == $value->id)
-                                            <div class="text-center" style="width: 12rem;">
+                                            <div class="text-center" style="max-width: 12rem;">
                                                 <a href="product/{{$value->id}}"><img class="img-fluid"
                                                                                       @if(isset($value->getImage['name']))
                                                                                       src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"></a>

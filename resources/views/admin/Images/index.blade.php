@@ -46,7 +46,7 @@
             <!--- Page -->
             <div class="container" id="img_page">
                 <div class="page-header w-100 alert bg-light p-0 shadow-sm mt-2">
-                    <form action="{{route('admin.deleteImage')}}" method="post" style="display:inline-flex; column-count: 4">
+                    <form action="{{route('admin.deleteImage')}}" method="post" >
                         @csrf
                         @method('POST')
                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -62,7 +62,7 @@
                             <p>ГАЛЕРЕЯ - ПУСТА!</p>
                         @else
                             @foreach($images as $image3)
-                                <div class="card-body justify-content-start">
+                                <div class="card-body justify-content-start" style="display:inline-flex; column-count: 4">
                                     @foreach($image3 as $image)
                                         <input type="checkbox" id="pictures_{{$image->id}}" name="checked[]"
                                                value="{{$image->id}}">

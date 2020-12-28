@@ -10,7 +10,7 @@
                 <h2>ПОДАРКИ И СКИДКИ</h2>
             </div>
         @endif
-    <div class="container sales">
+    <div class="container">
         <div class="row justify-content-center">
             @foreach($products as $value)
                 @if($value['sale_id'] != null)
@@ -51,7 +51,7 @@
         <div style="padding: 25px; text-align: center">
             <h2>БЕСТСЕЛЛЕРЫ</h2>
         </div>
-    <div class="container sales">
+    <div class="container">
         <div class="row justify-content-center">
             @foreach($products as $value)
                 @if($value['sale_id'] == null)
