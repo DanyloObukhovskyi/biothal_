@@ -296,9 +296,9 @@
                                                 @endif
                                                 @endforeach
                                                 <div class="card-body">
-                                                    <span>{!!$value->name!!}</span>
+                                                    <span>{!!$value->name!!}</span><br>
                                                     <span
-                                                        style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span>
+                                                        style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span><br>
                                                     <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
                                                     <button id="btn-buyHome"
                                                             style="width: auto; background-color: #2f7484; border-color: #2f7484"
