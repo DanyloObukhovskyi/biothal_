@@ -29,7 +29,9 @@ Route::get('portmone', 'PortmoneController@index');
 Route::get('success', 'PortmoneController@success')->name('success');
 
 Route::get('face', 'FaceController@getAllCategory');
+
 Route::post('buyCartHome', 'CartController@insInCartHome');
+
 Route::post('buyCart', 'CartController@insInCart');
 Route::post('delCart', 'CartController@delCart');
 Route::get('setCheck', 'CartController@setCheck');
@@ -39,6 +41,8 @@ Route::post('checkModalOneClick', 'CartController@checkModalOneClick');
 
 Route::get('getxml', 'XmlController@getXml');
 Route::get('xmlto1c', 'XmlController@xmlto1c');
+
+
 
 
 

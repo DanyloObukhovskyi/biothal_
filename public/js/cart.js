@@ -69,7 +69,9 @@ $(document).on("click", '#btn-buyHome', function () {
                 showConfirmButton: true,
             })
         },
-        success: function () {
+        success: function (data) {
+            console.log(data)
+            $('.table-container').html(data.html)
             Swal.fire({
                 icon: 'success',
                 title: 'Товар добавлен в корзину',

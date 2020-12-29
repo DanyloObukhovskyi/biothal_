@@ -11,13 +11,15 @@ use App\Models\Cart_Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+
 
 
 class CartController extends Controller
 {
     public function insInCartHome(Request $request)
     {
-        $cart = ShoppingCart::where([
+         $cart = ShoppingCart::where([
             ['uuid', '=', session('uuid')],
             ['user_id', '=', Auth::id()],
         ])->first();
@@ -40,7 +42,21 @@ class CartController extends Controller
                 'count' => ($cartProduct['count'] + $request->input('count'))
             ]);
         }
-        return response()->json(['success' => 1]);
+
+        $countAll = 0;
+        $shopping_card = ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->first();
+
+        if (!empty($shopping_card)) {
+            $cart_prod_count = Cart_Product::where([['cart_id', '=', $shopping_card->id]])->get();
+            foreach ($cart_prod_count as $key => $value) {
+                $countAll += $value['count'];
+            }
+        }
+        $html = View::make('partialsBasket', compact('countAll'))->render();
+        return response()->json(['html' => $html, 'success' => 1]);
     }
 
     public function insInCart(ValidCartRequest $request)
@@ -186,5 +202,10 @@ class CartController extends Controller
         }
 
         return response()->json(['success' => 1]);
+    }
+
+    public function ajax(Request $request)
+    {
+
     }
 }

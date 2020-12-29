@@ -148,7 +148,11 @@
         <div style="margin-right: 0px!important; margin-top: 0px!important;" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Корзина ({{$countAll}})</h5>
+
+                    <div class="table-container">
+                        <h5 class="modal-title" id="exampleModalLongTitle">@include('partialsBasket')</h5>
+                    </div>
+
                     <button type="button" class="close" style="margin-right: 5px" data-dismiss="modal"
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>

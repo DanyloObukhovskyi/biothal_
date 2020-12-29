@@ -105,12 +105,12 @@
                             @foreach($products as $value)
                                 @if($value->id == $cart->id)
                                     <div class="col-6">
-                                        <img style="" src="{{ asset('/img/'.$value->getImage['name'])}}">
+                                        <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
                                     </div>
                                 @endif
                             @endforeach
                             <div class="col-6">
-                                <div style="margin-top: 10px; margin-left: 20px" class="">
+                                <div style="margin-top: 20px; margin-left: 20px" class="">
                                     <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
                                     <span>Количество</span>
                                     <div class="">
@@ -207,7 +207,8 @@
                 @if($value['sale_id'] == null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                         <div class="card text-center" style="width: 18rem;">
-                            <a href="product/{{$value->id}}"><img src="{{ asset('/img/'.$value->getImage['name'])}}"
+                            <a href="product/{{$value->id}}"><img class="img-fluid"
+                                                                  style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"
                                                                   class="card-img-top"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>

@@ -69,7 +69,7 @@
                                         <label for="pictures_{{$image->id}}" id="pictures_label_{{$image->id}}">
                                             <a href="{{ Storage::disk('public')->url('storage/img/products/'.$image->name) }}"
                                                class="thumbnail">
-                                                <img class="card-body"
+                                                <img class="img-fluid" style="min-height: 5em"
                                                      src="{{Storage::disk('public')->url('storage/img/products/'.$image->name)}}"
                                                      width="200" height="200" alt="Изображение товара">
                                             </a>
