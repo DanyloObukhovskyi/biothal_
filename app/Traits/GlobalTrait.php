@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 trait GlobalTrait
 {
-    public function global_traits($data) {
+    public function global_traits() {
 
         $cart = ShoppingCart::where([
             ['uuid', '=', session('uuid')],
@@ -24,18 +24,6 @@ trait GlobalTrait
             $cart = ShoppingCart::create([
                 'uuid' => session('uuid'),
                 'user_id' => Auth::id(),
-            ]);
-        }
-        $cartProduct = Cart_Product::where([
-            ['cart_id', '=', $cart->id],
-            ['product_id', '=', $data['product_id']],
-        ])->first();
-
-        if (empty($cartProduct)) {
-            $cartProduct = Cart_Product::create(['cart_id' => $cart->id, 'product_id' => $data['product_id'], 'count' => $data['count']]);
-        } else {
-            $cartProduct = Cart_Product::where([['cart_id', $cart->id], ['product_id', '=', $data['product_id']]])->update([
-                'count' => ($cartProduct['count'] + $data['count'])
             ]);
         }
 

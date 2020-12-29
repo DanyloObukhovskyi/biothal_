@@ -23,7 +23,32 @@ class CartController extends Controller
     use GlobalTrait;
     public function insInCartHome(Request $request)
     {
-        $data = $this->global_traits(['product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+
+        $cart = ShoppingCart::where([
+        ['uuid', '=', session('uuid')],
+        ['user_id', '=', Auth::id()],
+        ])->first();
+
+        if (empty($cart)) {
+            $cart = ShoppingCart::create([
+                'uuid' => session('uuid'),
+                'user_id' => Auth::id(),
+            ]);
+        }
+        $cartProduct = Cart_Product::where([
+            ['cart_id', '=', $cart->id],
+            ['product_id', '=', $request->input('product_id')],
+        ])->first();
+
+        if (empty($cartProduct)) {
+            $cartProduct = Cart_Product::create(['cart_id' => $cart->id, 'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        } else {
+            $cartProduct = Cart_Product::where([['cart_id', $cart->id], ['product_id', '=', $request->input('product_id')]])->update([
+                'count' => ($cartProduct['count'] + $request->input('count'))
+            ]);
+        }
+
+        $data = $this->global_traits();
         $countAll = $data['countAll'];
         $uuid = $data['uuid'];
         $product_price = $data['product_price'];
@@ -73,7 +98,7 @@ class CartController extends Controller
     public function delCart(Request $request)
     {
         Cart_Product::where('product_id', '=', $request->input('product_id'))->delete();
-        $data = $this->global_traits(['product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        $data = $this->global_traits();
         $countAll = $data['countAll'];
         $uuid = $data['uuid'];
         $product_price = $data['product_price'];
