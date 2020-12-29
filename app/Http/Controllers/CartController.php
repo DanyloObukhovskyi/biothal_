@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\ValidFormModalCheckRequest;
+use App\Models\Admin\Products\Product;
+use App\Models\Region;
 use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
@@ -11,51 +13,31 @@ use App\Models\Cart_Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
-
-
+use Illuminate\Support\Str;
+use App\Traits\GlobalTrait;
 
 class CartController extends Controller
 {
+    use GlobalTrait;
     public function insInCartHome(Request $request)
     {
-         $cart = ShoppingCart::where([
-            ['uuid', '=', session('uuid')],
-            ['user_id', '=', Auth::id()],
-        ])->first();
+        $data = $this->global_traits(['product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        $countAll = $data['countAll'];
+        $uuid = $data['uuid'];
+        $product_price = $data['product_price'];
+        $cart_join = $data['cart_join'];
+        $product_sale = $data['product_sale'];
+        $cart_prod_count = $data['cart_prod_count'];
+        $sum = $data['sum'];
+        $sum_sale = $data['sum_sale'];
+        $sumAll = $data['sumAll'];
+        $region = $data['region'];
+        $count_sale_product = $data['count_sale_product'];
+        $delivery = $data['delivery'];
 
-        if (empty($cart)) {
-            $cart = ShoppingCart::create([
-                'uuid' => session('uuid'),
-                'user_id' => Auth::id(),
-            ]);
-        }
-        $cartProduct = Cart_Product::where([
-            ['cart_id', '=', $cart->id],
-            ['product_id', '=', $request->input('product_id')],
-        ])->first();
-
-        if (empty($cartProduct)) {
-            $cartProduct = Cart_Product::create(['cart_id' => $cart->id, 'product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
-        } else {
-            $cartProduct = Cart_Product::where([['cart_id', $cart->id], ['product_id', '=', $request->input('product_id')]])->update([
-                'count' => ($cartProduct['count'] + $request->input('count'))
-            ]);
-        }
-
-        $countAll = 0;
-        $shopping_card = ShoppingCart::where([
-            ['uuid', '=', session('uuid')],
-            ['user_id', '=', Auth::id()],
-        ])->first();
-
-        if (!empty($shopping_card)) {
-            $cart_prod_count = Cart_Product::where([['cart_id', '=', $shopping_card->id]])->get();
-            foreach ($cart_prod_count as $key => $value) {
-                $countAll += $value['count'];
-            }
-        }
-        $html = View::make('partialsBasket', compact('countAll'))->render();
+        $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
         return response()->json(['html' => $html, 'success' => 1]);
     }
 
@@ -91,7 +73,22 @@ class CartController extends Controller
     public function delCart(Request $request)
     {
         Cart_Product::where('product_id', '=', $request->input('product_id'))->delete();
-        return response()->json(['success' => 1]);
+        $data = $this->global_traits(['product_id' => $request->input('product_id'), 'count' => $request->input('count')]);
+        $countAll = $data['countAll'];
+        $uuid = $data['uuid'];
+        $product_price = $data['product_price'];
+        $cart_join = $data['cart_join'];
+        $product_sale = $data['product_sale'];
+        $cart_prod_count = $data['cart_prod_count'];
+        $sum = $data['sum'];
+        $sum_sale = $data['sum_sale'];
+        $sumAll = $data['sumAll'];
+        $region = $data['region'];
+        $count_sale_product = $data['count_sale_product'];
+        $delivery = $data['delivery'];
+
+        $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
+        return response()->json(['html' => $html, 'success' => 1]);
     }
 
     public function setCheck(Request $request)

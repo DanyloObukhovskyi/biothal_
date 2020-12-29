@@ -10,14 +10,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="align products in category and accessory 28.12.20">
-      <change afterPath="$PROJECT_DIR$/resources/views/partialsBasket.blade.php" afterDir="false" />
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="partials update ajax basket count products 29.12.20">
+      <change afterPath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/Images/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/checkout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partialsBasket.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partialsBasket.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -259,7 +259,7 @@
       <workItem from="1609017778654" duration="2134000" />
       <workItem from="1609086485763" duration="16951000" />
       <workItem from="1609178218456" duration="8010000" />
-      <workItem from="1609228479926" duration="14179000" />
+      <workItem from="1609228479926" duration="25901000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -415,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609187913330</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="partials update ajax basket count products 29.12.20">
+      <created>1609245104078</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1609245104078</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,17 +473,18 @@
     <MESSAGE value="align products in shopping basket 28.12.20" />
     <MESSAGE value="Final Fix add clobal image 28.12.20" />
     <MESSAGE value="align products in category and accessory 28.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="align products in category and accessory 28.12.20" />
+    <MESSAGE value="partials update ajax basket count products 29.12.20" />
+    <option name="LAST_COMMIT_MESSAGE" value="partials update ajax basket count products 29.12.20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="267" y="19" key="#Inspections/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608118378078" />
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609239602006">
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609251950326">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609239602006" />
+    <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609251950326" />
     <state x="371" y="96" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680@0.0.1280.680" timestamp="1608057621105" />
     <state x="418" y="253" width="444" height="264" key="ComposerInitDialogKey" timestamp="1607430995988">
       <screen x="0" y="0" width="1280" height="680" />
@@ -496,10 +504,10 @@
     </state>
     <state x="389" y="64" key="NewPhpClassDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608111907173" />
     <state x="389" y="64" key="NewPhpClassDialog/0.0.1280.680@0.0.1280.680" timestamp="1609019527257" />
-    <state x="477" y="264" key="NewPhpFileDialog" timestamp="1609238278485">
+    <state x="477" y="264" key="NewPhpFileDialog" timestamp="1609251704300">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609238278485" />
+    <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609251704300" />
     <state x="454" y="43" key="RollbackChangesDialog" timestamp="1607793150886">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -509,18 +517,19 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609187929161">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609245117465">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609166163284" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609245117465" />
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1609187929161" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1607863098190" />
-    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608975683972">
+    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1609245365081">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609245365081" />
     <state x="93" y="93" width="1095" height="487" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1608975683972" />
     <state x="348" y="73" width="585" height="592" key="find.popup" timestamp="1609244458637">
       <screen x="0" y="0" width="1280" height="680" />
@@ -532,10 +541,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="441" y="242" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607424468299" />
-    <state x="359" y="112" key="refactoring.ChangeSignatureDialog" timestamp="1608122479902">
+    <state x="359" y="112" key="refactoring.ChangeSignatureDialog" timestamp="1609253918594">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="359" y="112" key="refactoring.ChangeSignatureDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608122479902" />
+    <state x="359" y="112" key="refactoring.ChangeSignatureDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609253918594" />
     <state x="411" y="157" key="run.anything.popup" timestamp="1608556671058">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -546,5 +555,16 @@
     </state>
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608716751953" />
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1609178820406" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Traits/GlobalTrait.php</url>
+          <line>94</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

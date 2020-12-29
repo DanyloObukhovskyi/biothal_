@@ -38,7 +38,7 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'partialsBasket'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
