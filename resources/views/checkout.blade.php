@@ -4,20 +4,25 @@
     @include('layouts.nav')
 
     <div class="container">
-        <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b></div>
+        <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b>
+        </div>
         <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
         @if(empty($sumAll))
-            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы 2000грн</div>
+            <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы
+                2000грн
+            </div>
         @endif
         @if($sumAll_sale < 2000 && $sumAll_sale > 0)
-            <div class="row justify-content-center" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
-                грн и сработает скидка 50%</div>
+            <div class="row justify-content-center" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
+                Еще {{$sumAll_sale}}
+                грн и сработает скидка 50%
+            </div>
         @endif
         @if($sumAll_sale <= 0 )
             <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
         @endif
         <input type="hidden" class="progress-count">
-        <div class="progress-bar" style="margin-bottom: 20px" >
+        <div class="progress-bar" style="margin-bottom: 20px">
             <div style="width: 0%"></div>
         </div>
 
@@ -71,20 +76,20 @@
                                     заказа</label>
                             </div>
                             <div class="checkbox col-sm-1">
-                                <input type="checkbox" name="not_call" id="not_call_0" >
+                                <input type="checkbox" name="not_call" id="not_call_0">
                             </div>
                             <div class="col-sm-1 wrapper">
-                               <p class="icon pulse" data-title="В случае выбора этой опции, ваш заказ будет сформирован и отправлен без звонка менеджера.
+                                <p class="icon pulse" data-title="В случае выбора этой опции, ваш заказ будет сформирован и отправлен без звонка менеджера.
                                 Пожалуйста, проверьте внимательно все ли данные внесены корректно!">
-                                   <svg  width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                       <path fill-rule="evenodd"
-                                             d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                       <path
-                                           d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-                                       <circle cx="8" cy="4.5" r="1"/>
-                                   </svg>
-                               </p>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path
+                                            d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                                        <circle cx="8" cy="4.5" r="1"/>
+                                    </svg>
+                                </p>
                             </div>
 
                         </div>
@@ -96,7 +101,8 @@
                         </div>
                         <div class="col-sm-5">
                             <span data-toggle="modal" data-target="#modalOneClick" class="btn btn-link"
-                                  style="color:#020202; margin-top: 10px; padding: 10px"><b>Оформить в 1 клик</b></span></div>
+                                  style="color:#020202; margin-top: 10px; padding: 10px"><b>Оформить в 1 клик</b></span>
+                        </div>
                     </div>
                 </div>
                 <div class="col">
@@ -105,7 +111,8 @@
                             @foreach($products as $value)
                                 @if($value->id == $cart->id)
                                     <div class="col-6">
-                                        <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
+                                        <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px"
+                                             src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
                                     </div>
                                 @endif
                             @endforeach
@@ -148,13 +155,15 @@
                             @if((!empty($sumAll)) && ($sumAll_sale > 0))
                                 <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
                                 <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.</div>
+                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.
+                                </div>
 
                             @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
                                 <div>Ваша скидка 50%</div>
                                 <div>Стоимость товаров: <span>{{$sumAll/2}} грн.</span></div>
                                 <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.</div>
+                                <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -208,7 +217,8 @@
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                         <div class="card text-center" style="width: 18rem;">
                             <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                                  style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"
+                                                                  style="width: 9em"
+                                                                  src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"
                                                                   class="card-img-top"></a>
                             <div class="card-body">
                                 <h5 class="card-title">{!!$value->name!!}</h5>
@@ -227,7 +237,8 @@
     <script>
         $(document).ready(function () {
             let sumAll = $('.sumAll').html();
-            let percent = (+sumAll)*100/2000;
+            let percent = (+sumAll) * 100 / 2000;
+
             function incrementProgress(barSelector, countSelector, incrementor) {
                 var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
                     curWidth = parseFloat(bar.style.width),
@@ -244,6 +255,7 @@
             function incrementProgressLoop() {
                 incrementProgress('.progress-bar', '.progress-count', percent);
             }
+
             incrementProgressLoop();
         })
     </script>

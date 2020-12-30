@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\ValidFormModalCheckRequest;
-use App\Models\Admin\Products\Product;
-use App\Models\Region;
 use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
@@ -13,9 +11,7 @@ use App\Models\Cart_Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use App\Traits\GlobalTrait;
 
 class CartController extends Controller
@@ -63,7 +59,7 @@ class CartController extends Controller
         $delivery = $data['delivery'];
 
         $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
-        return response()->json(['html' => $html, 'success' => 1]);
+        return response()->json(['html' => $html, 'countAll' => $countAll, 'success' => 1]);
     }
 
     public function insInCart(ValidCartRequest $request)
@@ -113,6 +109,7 @@ class CartController extends Controller
         $delivery = $data['delivery'];
 
         $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
+        $html_for_checkout = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
         return response()->json(['html' => $html, 'success' => 1]);
     }
 
@@ -224,10 +221,5 @@ class CartController extends Controller
         }
 
         return response()->json(['success' => 1]);
-    }
-
-    public function ajax(Request $request)
-    {
-
     }
 }
