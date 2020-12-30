@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Admin\Accessories\Accessories;
+use App\Models\Admin\Products\GlobalSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\ProductsAttributes;
 use App\Models\Cart_Product;
@@ -38,8 +39,12 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'partialsBasket', 'partials.checkout'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'partials.partialsBasket', 'partials.checkout'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
+        });
+
+        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav'], function($view) {
+            $view->with(['global_sale' => GlobalSales::all()]);
         });
 
         View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel'], function($view) {

@@ -70,7 +70,7 @@ $(document).on("click", '#btn-buyHome', function () {
             })
         },
         success: function (data) {
-            console.log(data)
+            // console.log(data.countAll)
             $('.table-container').html(data.html)
             $('.checkout-container').html(data.html_for_checkout)
             $('.countAll-container').html(data.countAll)
@@ -108,6 +108,8 @@ $(document).on("click", '#btn-del', function () {
         },
         success: function (data) {
             $('.table-container').html(data.html)
+            $('.checkout-container').html(data.html_for_checkout)
+            $('.countAll-container').html(data.countAll)
             Swal.fire({
                 icon: 'success',
                 title: 'Товар удален из корзины',

@@ -1,3 +1,5 @@
+@foreach($global_sale as $global_value)
+@endforeach
 <div class="modal-content">
     <div class="modal-header">
 
@@ -10,22 +12,21 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-
     <div class="modal-body" style="margin-right: 30px;">
         <div class="container">
-            <input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
+            <input type="hidden" value="{{$sumAll_sale = ($global_value->sum_modal)-$sumAll}}">
             @if(empty($sumAll))
-                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50%
-                    срабатывает от суммы 2000грн
+                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка {{$global_value->procent_modal.' %'}}
+                    срабатывает от суммы {{$global_value->sum_modal.' '}}грн
                 </div>
             @endif
-            @if($sumAll_sale < 2000 && $sumAll_sale > 0)
+            @if($sumAll_sale < $global_value->sum_modal && $sumAll_sale > 0)
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
-                    грн и сработает скидка 50%
+                    грн и сработает скидка {{$global_value->procent_modal.' %'}}
                 </div>
             @endif
             @if($sumAll_sale <= 0 )
-                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
+                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка {{$global_value->procent_modal.' %'}}</div>
             @endif
             <input type="hidden" class="progress-count">
             <div class="progress-bar">

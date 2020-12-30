@@ -149,16 +149,17 @@
          aria-hidden="true">
         <div style="margin-right: 0px!important; margin-top: 0px!important;" class="modal-dialog" role="document">
             <div class="table-container">
-                 @include('partialsBasket')
+                 @include('partials.partialsBasket')
             </div>
         </div>
     </div>
 </nav>
-
+@foreach($global_sale as $global_value)
+@endforeach
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 / 2000;
+        let percent = (+sumAll) * 100 /{{$global_value->sum_modal}};
 
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,

@@ -97,6 +97,4 @@ trait GlobalTrait
             'delivery' => $delivery
             ];
     }
-
-
 }

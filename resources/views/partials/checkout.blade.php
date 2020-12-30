@@ -1,20 +1,21 @@
-
+@foreach($global_sale as $global_value)
+@endforeach
 <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b>
 </div>
-<input type="hidden" value="{{$sumAll_sale = 2000-$sumAll}}">
+<input type="hidden" value="{{$sumAll_sale = ($global_value->sum_modal)-$sumAll}}">
 @if(empty($sumAll))
     <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы
-        2000грн
+        {{$global_value->sum_modal.' '}}грн
     </div>
 @endif
-@if($sumAll_sale < 2000 && $sumAll_sale > 0)
+@if($sumAll_sale < ($global_value->sum_modal) && $sumAll_sale > 0)
     <div class="row justify-content-center" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
         Еще {{$sumAll_sale}}
-        грн и сработает скидка 50%
+        грн и сработает скидка {{$global_value->procent_modal.' %'}}
     </div>
 @endif
 @if($sumAll_sale <= 0 )
-    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка 50%</div>
+    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка {{$global_value->procent_modal.' %'}}</div>
 @endif
 <input type="hidden" class="progress-count">
 <div class="progress-bar" style="margin-bottom: 20px">
@@ -153,10 +154,10 @@
                         </div>
 
                     @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
-                        <div>Ваша скидка 50%</div>
-                        <div>Стоимость товаров: <span>{{$sumAll/2}} грн.</span></div>
+                        <div>Ваша скидка {{$global_value->procent_modal.' %'}}</div>
+                        <div>Стоимость товаров: <span>{{($sumAll-($sumAll/100))*($global_value->procent_modal)}} грн.</span></div>
                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.
+                        <div>Итого к оплате: <b><span class="sumAll">{{($sumAll-($sumAll/100))*($global_value->procent_modal) + $delivery . ' '}}</span></b>грн.
                         </div>
                     @endif
                 </div>
@@ -230,7 +231,7 @@
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 / 2000;
+        let percent = (+sumAll) * 100 / {{$global_value->sum_modal}};
 
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
