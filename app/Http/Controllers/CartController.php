@@ -59,7 +59,8 @@ class CartController extends Controller
         $delivery = $data['delivery'];
 
         $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
-        return response()->json(['html' => $html, 'countAll' => $countAll, 'success' => 1]);
+        $html_for_checkout = View::make('partials.checkout',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
+        return response()->json(['html' => $html, 'html_for_checkout' => $html_for_checkout, 'countAll' => $countAll, 'success' => 1]);
     }
 
     public function insInCart(ValidCartRequest $request)
@@ -109,7 +110,7 @@ class CartController extends Controller
         $delivery = $data['delivery'];
 
         $html = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
-        $html_for_checkout = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
+//        $html_for_checkout = View::make('partialsBasket',   compact('countAll', 'uuid', 'product_price', 'cart_join', 'product_sale', 'cart_prod_count', 'sum', 'sum_sale', 'sumAll', 'region', 'count_sale_product', 'delivery'))->render();
         return response()->json(['html' => $html, 'success' => 1]);
     }
 

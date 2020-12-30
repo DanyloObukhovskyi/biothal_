@@ -72,6 +72,7 @@ $(document).on("click", '#btn-buyHome', function () {
         success: function (data) {
             console.log(data)
             $('.table-container').html(data.html)
+            $('.checkout-container').html(data.html_for_checkout)
             $('.countAll-container').html(data.countAll)
             Swal.fire({
                 icon: 'success',
