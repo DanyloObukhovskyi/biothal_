@@ -34,12 +34,17 @@ Route::post('buyCartHome', 'CartController@insInCartHome');
 
 Route::post('buyCart', 'CartController@insInCart');
 
+Route::post('plus_count', 'CartController@plus_count');
+Route::post('minus_count', 'CartController@minus_count');
+
 Route::post('delCart', 'CartController@delCart');
 
 Route::get('setCheck', 'CartController@setCheck');
 Route::post('checkout', 'CartController@checkout');
 Route::post('check', 'CartController@check');
 Route::post('checkModalOneClick', 'CartController@checkModalOneClick');
+Route::post('session_destroy', 'CartController@sessionDestroy');
+
 
 Route::get('getxml', 'XmlController@getXml');
 Route::get('xmlto1c', 'XmlController@xmlto1c');

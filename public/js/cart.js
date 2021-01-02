@@ -202,6 +202,14 @@ $(document).on("click", '#checkModalOneClick', function () {
                 timer: 1500
             });
             $('#modalOneClick').modal('hide')
+
+            $.ajax({
+                url:'/session_destroy',
+                type: "POST",
+                success:function() {
+                    window.location.replace("/");
+                }
+            })
         }
     })
 });

@@ -47,12 +47,12 @@
                     <div style="margin-top: 10px" class="col-6">
                         <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
                         <span>Количество</span>
-                        <div class="">
-                            <span class="minus down">-</span>
+                        <div>
+                            <span onclick="minus_count()" class="minus down">-</span>
                             <input id="valCount" type="text"
                                    style="text-align: center;width: 40px; border-color: transparent;"
                                    min="1" value="{{$cart->count}}"/>
-                            <span class="plus up">+</span>
+                            <span onclick="plus_count()" class="plus up">+</span>
                         </div>
                         @if((($cart->price_with_sale) != null))
                             <s>Старая цена: {{$cart->price}} грн.</s><br>
@@ -171,3 +171,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Изменение количества товаров "Плюс"
+    function plus_count() {
+        const count = parseInt($('#valCount').val()) + 1;
+        console.log(count);
+        $.ajax({
+            url: '/plus_count',
+            method: 'POST',
+            data: {
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+
+            }
+        })
+    }
+    // Изменение количества товаров "Минус"
+    function minus_count() {
+        let count = parseInt($('#valCount').val());
+        if (count >= 2){
+            count = count - 1;
+        }
+        console.log(count);
+        $.ajax({
+            url: '/minus_count',
+            method: 'POST',
+           data: {
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+
+            }
+        })
+    }
+</script>

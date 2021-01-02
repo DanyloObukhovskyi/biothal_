@@ -223,4 +223,15 @@ class CartController extends Controller
 
         return response()->json(['success' => 1]);
     }
+
+    public function plus_count(Request $request)
+    {
+
+    }
+
+    public function minus_count(Request $request)
+    {
+
+    }
+
 }

@@ -15,7 +15,8 @@
     </div>
 @endif
 @if($sumAll_sale <= 0 )
-    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша скидка {{$global_value->procent_modal.' %'}}</div>
+    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша
+        скидка {{$global_value->procent_modal.' %'}}</div>
 @endif
 <input type="hidden" class="progress-count">
 <div class="progress-bar" style="margin-bottom: 20px">
@@ -155,9 +156,11 @@
 
                     @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
                         <div>Ваша скидка {{$global_value->procent_modal.' %'}}</div>
-                        <div>Стоимость товаров: <span>{{($sumAll-($sumAll/100))*($global_value->procent_modal)}} грн.</span></div>
+                        <div>Стоимость товаров:
+                            <span>{{($sumAll-($sumAll/100))*($global_value->procent_modal)}} грн.</span></div>
                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span class="sumAll">{{($sumAll-($sumAll/100))*($global_value->procent_modal) + $delivery . ' '}}</span></b>грн.
+                        <div>Итого к оплате: <b><span
+                                    class="sumAll">{{($sumAll-($sumAll/100))*($global_value->procent_modal) + $delivery . ' '}}</span></b>грн.
                         </div>
                     @endif
                 </div>
