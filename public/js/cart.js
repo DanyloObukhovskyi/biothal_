@@ -122,6 +122,7 @@ $(document).on("click", '#btn-del', function () {
 
 // Изменение количества товаров "Плюс" и "Минус"
 $(document).ready(function() {
+    // $('body').on('click', '.plusik', function() {
     $(".plusik").click(function() {
         let product_id = $(this).attr('id');
         let count = parseInt ($("#valCount_" + product_id).val()) + 1;
@@ -138,7 +139,7 @@ $(document).ready(function() {
 
             },
             success: function (data) {
-
+                $('.countAll-container').html(data.countAll)
             }
         })
     });
@@ -162,7 +163,7 @@ $(document).ready(function() {
 
             },
             success: function (data) {
-
+                $('.countAll-container').html(data.countAll)
             }
         })
     });

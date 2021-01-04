@@ -4,7 +4,11 @@
     <div class="modal-header">
 
         <div class="table-container">
-            <h5 class="modal-title" id="exampleModalLongTitle">Корзина ({{$countAll}})</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">
+                Корзина (<span class="countAll-container">
+                      @include('partials.part.partBasket')
+                </span>)
+            </h5>
         </div>
 
         <button type="button" class="close" style="margin-right: 5px" data-dismiss="modal"
@@ -168,7 +172,7 @@
                                             Добавить
                                         </button>
                                     </div>
-                                </div>
+                        </div>
                     </div>
                 @endforeach
             </div>

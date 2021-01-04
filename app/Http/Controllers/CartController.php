@@ -236,7 +236,13 @@ class CartController extends Controller
                 ['product_id', '=', $request->input('product_id')],
             ])->update(['count' => $request->input('count')]);
         }
-        return response()->json(['success' => 1]);
+
+        $data = $this->global_traits();
+        $countAll = $data['countAll'];
+
+        View::make('partials.part.partBasket',   compact('countAll'))->render();
+        return response()->json(['countAll' => $countAll, 'success' => 1]);
+
     }
 
     public function minus_count(Request $request)
@@ -251,7 +257,11 @@ class CartController extends Controller
                 ['product_id', '=', $request->input('product_id')],
             ])->update(['count' => $request->input('count')]);
         }
-        return response()->json(['success' => 1]);
+        $data = $this->global_traits();
+        $countAll = $data['countAll'];
+
+        View::make('partials.part.partBasket',   compact('countAll'))->render();
+        return response()->json(['countAll' => $countAll, 'success' => 1]);
     }
 
 }
