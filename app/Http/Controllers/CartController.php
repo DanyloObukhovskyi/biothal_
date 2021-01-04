@@ -226,12 +226,32 @@ class CartController extends Controller
 
     public function plus_count(Request $request)
     {
+        $cart = ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->first();
 
+        if ($cart){
+            Cart_Product::where([
+                ['product_id', '=', $request->input('product_id')],
+            ])->update(['count' => $request->input('count')]);
+        }
+        return response()->json(['success' => 1]);
     }
 
     public function minus_count(Request $request)
     {
+        $cart = ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->first();
 
+        if ($cart){
+            Cart_Product::where([
+                ['product_id', '=', $request->input('product_id')],
+            ])->update(['count' => $request->input('count')]);
+        }
+        return response()->json(['success' => 1]);
     }
 
 }

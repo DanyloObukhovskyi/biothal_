@@ -10,13 +10,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="global_sale in model_basket and setCheck page 30.12.20">
+    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="minus/plus count products jquery 02.01.21">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/checkout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/partialsBasket.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/partialsBasket.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +260,8 @@
       <workItem from="1609262658283" duration="3882000" />
       <workItem from="1609314585259" duration="28087000" />
       <workItem from="1609590851343" duration="11707000" />
-      <workItem from="1609613126983" duration="8772000" />
+      <workItem from="1609613126983" duration="9624000" />
+      <workItem from="1609744454061" duration="19096000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -467,7 +466,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609335857547</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="minus/plus count products jquery 02.01.21">
+      <created>1609621987932</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1609621987932</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -496,7 +502,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CheckOut user_order_address 10.12.20" />
     <MESSAGE value="modal  CheckOneClick  14.12.20" />
     <MESSAGE value="modal  Auth and relationship image  15.12.20" />
     <MESSAGE value="fix image output  15.12.20" />
@@ -521,7 +526,8 @@
     <MESSAGE value="final3 trait update ajax basket count products 30.12.20" />
     <MESSAGE value="update ajax checkout page and partials.checkout 30.12.20" />
     <MESSAGE value="global_sale in model_basket and setCheck page 30.12.20" />
-    <option name="LAST_COMMIT_MESSAGE" value="global_sale in model_basket and setCheck page 30.12.20" />
+    <MESSAGE value="minus/plus count products jquery 02.01.21" />
+    <option name="LAST_COMMIT_MESSAGE" value="minus/plus count products jquery 02.01.21" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -564,11 +570,11 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609335871917">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609621996627">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609335871917" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1609266521214" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1609621996627" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -592,10 +598,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="359" y="112" key="refactoring.ChangeSignatureDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609253918594" />
-    <state x="411" y="157" key="run.anything.popup" timestamp="1608556671058">
+    <state x="411" y="157" key="run.anything.popup" timestamp="1609758472591">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="411" y="157" key="run.anything.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608556671058" />
+    <state x="411" y="157" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1609758472591" />
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607970378328" />
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup" timestamp="1609178820406">
       <screen x="0" y="0" width="1280" height="680" />

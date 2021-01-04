@@ -120,6 +120,54 @@ $(document).on("click", '#btn-del', function () {
     })
 });
 
+// Изменение количества товаров "Плюс" и "Минус"
+$(document).ready(function() {
+    $(".plusik").click(function() {
+        let product_id = $(this).attr('id');
+        let count = parseInt ($("#valCount_" + product_id).val()) + 1;
+        console.log(count);
+        console.log(product_id);
+        $.ajax({
+            url: '/plus_count',
+            method: 'POST',
+            data: {
+                "product_id": product_id,
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+
+            }
+        })
+    });
+
+    $(".minusik").click(function() {
+        let product_id = $(this).attr('id');
+        let count = parseInt ($("#valCount_" + product_id).val());
+        if (count >= 2) {
+            count = count - 1;
+        }
+        console.log(count);
+        console.log(product_id);
+        $.ajax({
+            url: '/minus_count',
+            method: 'POST',
+            data: {
+                "product_id": product_id,
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+
+            }
+        })
+    });
+});
+
 // Оформление товаров со страницы setCheck
 $(document).on("click", '#check', function () {
     let phone = $('#phone').val();
