@@ -56,7 +56,7 @@ $(document).on("click", '#btn-buyHome', function () {
              "count": count,
         },
         error: function (xhr, status, error) {
-            var errors = xhr.responseJSON.errors, errorMessage = "";
+            let errors = xhr.responseJSON.errors, errorMessage = "";
             $.each(errors, function (index, value) {
                 $.each(value, function (key, message) {
                     errorMessage += message + " ";
@@ -85,7 +85,7 @@ $(document).on("click", '#btn-buyHome', function () {
 });
 
 // Удаление товара из корзины
-$(document).on("click", '#btn-del', function () {
+$(document).on("click", '.btn-del', function () {
     var product_id = $(this).val();
     $.ajax({
         url: '/delCart', method: 'POST',
@@ -126,8 +126,8 @@ $(document).ready(function() {
     $(".plusik").click(function() {
         let product_id = $(this).attr('id');
         let count = parseInt ($("#valCount_" + product_id).val()) + 1;
-        console.log(count);
-        console.log(product_id);
+        // console.log(count);
+        // console.log(product_id);
         $.ajax({
             url: '/plus_count',
             method: 'POST',
@@ -150,6 +150,60 @@ $(document).ready(function() {
         if (count >= 2) {
             count = count - 1;
         }
+        // console.log(count);
+        // console.log(product_id);
+        $.ajax({
+            url: '/minus_count',
+            method: 'POST',
+            data: {
+                "product_id": product_id,
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+                $('.countAll-container').html(data.countAll)
+            }
+        })
+    });
+});
+
+// Изменение количества товаров "Плюс" и "Минус" со страницы SetCheck
+$(document).ready(function() {
+    $(".plus_prod").click(function() {
+        let product_id = $(this).attr('id');
+        let count = parseInt ($("#valCount" + product_id).val()) + 1;
+        console.log(count);
+        console.log(product_id);
+        $.ajax({
+            url: '/plus_count',
+            method: 'POST',
+            data: {
+                "product_id": product_id,
+                "count": count,
+            },
+            error: function (xhr, status, error) {
+                let errors = xhr.responseJSON.errors, errorMessage = "";
+                $.each(errors, function (index, value) {
+                    $.each(value, function (key, message) {
+                        errorMessage += message + " ";
+                    })
+                })
+
+            },
+            success: function (data) {
+                $('.countAll-container').html(data.countAll)
+            }
+        })
+    });
+
+    $(".minus_prod").click(function() {
+        let product_id = $(this).attr('id');
+        let count = parseInt ($("#valCount" + product_id).val());
+        if (count >= 2) {
+            count = count - 1;
+        }
         console.log(count);
         console.log(product_id);
         $.ajax({
@@ -159,7 +213,13 @@ $(document).ready(function() {
                 "product_id": product_id,
                 "count": count,
             },
-            error: function () {
+            error: function (xhr, status, error) {
+                let errors = xhr.responseJSON.errors, errorMessage = "";
+                $.each(errors, function (index, value) {
+                    $.each(value, function (key, message) {
+                        errorMessage += message + " ";
+                    })
+                })
 
             },
             success: function (data) {

@@ -39,11 +39,11 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'partials.partialsBasket', 'partials.checkout'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'layouts.navCheckout', 'partials.partialsBasket', 'partials.checkout', 'partials.part.partBasket2'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav'], function($view) {
+        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav', 'layouts.navCheckout'], function($view) {
             $view->with(['global_sale' => GlobalSales::all()]);
         });
 

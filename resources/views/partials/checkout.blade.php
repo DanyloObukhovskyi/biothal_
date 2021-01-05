@@ -102,49 +102,8 @@
             </div>
         </div>
         <div class="col">
-            <div class="row justify-content-center verticalscroll">
-                @foreach($cart_join as $cart)
-                    @foreach($products as $value)
-                        @if($value->id == $cart->id)
-                            <div class="col-6">
-                                <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px"
-                                     src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
-                            </div>
-                        @endif
-                    @endforeach
-                    <div class="col-6">
-                        <div style="margin-top: 20px; margin-left: 20px" class="">
-                            <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
-                            <span>Количество</span>
-                            <div class="">
-                                <span class="minus down">-</span>
-                                <input id="valCount" type="text"
-                                       style="text-align: center;width: 40px; border-color: transparent;"
-                                       min="1" value="{{$cart->count}}"/>
-                                <span class="plus up">+</span>
-                            </div>
-                            @if((($cart->price_with_sale) != null))
-                                <s>Старая цена: {{$cart->price}} грн.</s><br>
-                                <b>Цена: {{$cart->price_with_sale}} грн.</b>
-                            @endif
-                            @if((($cart->price_with_sale) == null))
-                                <b>Цена: {{$cart->price}} грн.</b>
-                            @endif
-                            <button id="btn-del" class="btn btn-link"
-                                    style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"
-                                    value="{{$cart->id}}">
-                                Удалить из корзины
-                            </button>
-                        </div>
-                    </div>
-                    @if((($cart->price_with_sale) == null))
-                        <input type="hidden" value="{{$sum += (($cart->price * $cart->count))}}">
-                    @endif
-                    @if((($cart->price_with_sale) != null))
-                        <input type="hidden" value="{{$sum_sale += (($cart->price_with_sale * $cart->count))}}">
-                    @endif
-                    <input type="hidden" value="{{$sumAll}}">
-                @endforeach
+            <div class="row justify-content-center verticalscroll table-container2">
+                @include('partials.part.partBasket2')
             </div>
             <div class="row">
                 <div class="col-sm-12" style="padding: 20px">
@@ -229,7 +188,6 @@
             </div>
         @endif
     @endforeach
-</div>
 </div>
 <script>
     $(document).ready(function () {

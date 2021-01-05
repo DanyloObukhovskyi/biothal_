@@ -239,9 +239,14 @@ class CartController extends Controller
 
         $data = $this->global_traits();
         $countAll = $data['countAll'];
+        $cart_join = $data['cart_join'];
+        $sum_sale = $data['sum_sale'];
+        $sumAll = $data['sumAll'];
+        $sum = $data['sum'];
 
-        View::make('partials.part.partBasket',   compact('countAll'))->render();
-        return response()->json(['countAll' => $countAll, 'success' => 1]);
+        $html = View::make('partials.part.partBasket',   compact('countAll'))->render();
+        View::make('partials.part.partBasket2',   compact( 'cart_join', 'sum', 'sum_sale', 'sumAll'))->render();
+        return response()->json(['html' => $html, 'cart_join' => $cart_join,'countAll' => $countAll, 'success' => 1]);
 
     }
 
