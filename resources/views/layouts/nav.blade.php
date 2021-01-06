@@ -148,7 +148,7 @@
          aria-labelledby="exampleModalLongTitle"
          aria-hidden="true">
         <div style="margin-right: 0px!important; margin-top: 0px!important;" class="modal-dialog" role="document">
-            <div class="table-container">
+            <div>
                  @include('partials.partialsBasket')
             </div>
         </div>
