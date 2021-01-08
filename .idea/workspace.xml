@@ -10,15 +10,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d568a4-5f16-4450-9914-bb87c0da1629" name="Default Changelist" comment="dynamic change old_price and price 06.01.21">
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/navCheckout.blade.php" afterDir="false" />
+    <list default="true" id="3f3958cd-76c1-4ced-9221-470653ab787e" name="Default Changelist" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/TestServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/checkout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/partials/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/checkout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/part/partBasket.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/partials/partialsBasket.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/partialsBasket.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,19 +179,19 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\partials" />
-      <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
-      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
-      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
       <recent name="E:\OpenServer\domains\www\biothal\resources\views\partials\part" />
       <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
       <recent name="E:\OpenServer\domains\www\biothal\public\img" />
       <recent name="E:\OpenServer\domains\www\biothal\storage\app\public\img" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\partials" />
+      <recent name="E:\OpenServer\domains\www\biothal\public\storage\img" />
+      <recent name="E:\OpenServer\domains\www\biothal\public\css\admin" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views" />
+      <recent name="E:\OpenServer\domains\www\biothal\resources\views\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -532,7 +532,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix image output  15.12.20" />
     <MESSAGE value="my library XmlTo1c  16.12.20" />
     <MESSAGE value="menu+page category &amp; accessory 17.12.20" />
     <MESSAGE value="add checkout not call in setCheck 18.12.20" />
@@ -557,7 +556,8 @@
     <MESSAGE value="minus/plus count products jquery 02.01.21" />
     <MESSAGE value="minus/plus count products jquery/ajax 04.01.21" />
     <MESSAGE value="minus/plus count setCheck jquery/ajax 05.01.21" />
-    <option name="LAST_COMMIT_MESSAGE" value="minus/plus count setCheck jquery/ajax 05.01.21" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -596,10 +596,10 @@
     </state>
     <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609325151769" />
     <state x="477" y="264" key="NewPhpFileDialog/0.0.1280.680@0.0.1280.680" timestamp="1609768141342" />
-    <state x="454" y="43" key="RollbackChangesDialog" timestamp="1607793150886">
+    <state x="454" y="43" key="RollbackChangesDialog" timestamp="1610096909414">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="454" y="43" key="RollbackChangesDialog/0.0.1280.680@0.0.1280.680" timestamp="1607793150886" />
+    <state x="454" y="43" key="RollbackChangesDialog/0.0.1280.680@0.0.1280.680" timestamp="1610096909414" />
     <state x="142" y="0" key="SettingsEditor" timestamp="1607608569874">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -644,5 +644,16 @@
     </state>
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1608716751953" />
     <state x="297" y="-6" width="672" height="676" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1609178820406" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/partials/partialsBasket.blade.php</url>
+          <line>113</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

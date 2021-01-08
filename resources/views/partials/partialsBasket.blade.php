@@ -6,7 +6,7 @@
         <div class="table-container">
             <h5 class="modal-title" id="exampleModalLongTitle">
                 Корзина (<span class="countAll-container">
-                      @include('partials.part.partBasket')
+                    {{$countAll}}
                 </span>)
             </h5>
         </div>
@@ -104,19 +104,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    @if((!empty($sumAll)) && ($sumAll_sale > 0))
-                        <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
-                        <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span
-                                    class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.
+                        <div>Стоимость товаров:
+                            <span class="sumAll-container">{{$sumAll}} грн.</span>
                         </div>
-
-                    @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
-                        <div>Стоимость товаров: <span>{{$sumAll/2}} грн.</span></div>
                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span class="sumAll">{{$sumAll/2 + $delivery . ' '}}</span></b>грн.
+                        <div>Итого к оплате:
+                            <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.
                         </div>
-                    @endif
                 </div>
             </div>
         </div>

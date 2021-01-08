@@ -239,9 +239,10 @@ class CartController extends Controller
 
         $data = $this->global_traits();
         $countAll = $data['countAll'];
+        $sumAll = $data['sumAll'];
+        $delivery = $data['delivery'];
 
-        $html = View::make('partials.part.partBasket',   compact('countAll'))->render();
-        return response()->json(['html' => $html, 'countAll' => $countAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'delivery' => $delivery, 'sumAll' => $sumAll, 'success' => 1]);
 
     }
 
@@ -257,11 +258,14 @@ class CartController extends Controller
                 ['product_id', '=', $request->input('product_id')],
             ])->update(['count' => $request->input('count')]);
         }
+
         $data = $this->global_traits();
         $countAll = $data['countAll'];
+        $sumAll = $data['sumAll'];
+        $delivery = $data['delivery'];
 
-        View::make('partials.part.partBasket',   compact('countAll'))->render();
-        return response()->json(['countAll' => $countAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'delivery' => $delivery, 'sumAll' => $sumAll, 'success' => 1]);
+
     }
 
 }

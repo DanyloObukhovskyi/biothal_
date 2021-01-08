@@ -35,6 +35,7 @@ Route::post('buyCartHome', 'CartController@insInCartHome');
 Route::post('buyCart', 'CartController@insInCart');
 
 Route::post('plus_count', 'CartController@plus_count');
+
 Route::post('minus_count', 'CartController@minus_count');
 
 Route::post('delCart', 'CartController@delCart');

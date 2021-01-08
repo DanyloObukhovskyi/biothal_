@@ -77,11 +77,17 @@ trait GlobalTrait
             }
             $sumAll = ($sum + $sum_sale);
         }
+        if ($sumAll >= 2000){
+            $sumAll = $sumAll/2;
+        }
 
         $region = Region::select('region', 'id')->get()->toArray();
         $region = array_merge([['region' => 'Выберите область']], $region);
         $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
         $delivery = 40;
+        if ($sumAll >= 2000){
+            $sumAll = $sumAll/2;
+        }
         return [
             'countAll' => $countAll,
             'uuid' => $uuid,
