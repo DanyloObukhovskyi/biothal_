@@ -140,7 +140,7 @@ $(document).ready(function() {
             success: function (data) {
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll)
-
+                $('.sumAll-delivery-container').html(data.sumAll + 40)
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -173,6 +173,7 @@ $(document).ready(function() {
             success: function (data) {
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll)
+                $('.sumAll-delivery-container').html(data.sumAll + 40)
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {

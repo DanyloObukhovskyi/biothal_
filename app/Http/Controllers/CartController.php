@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\ValidFormModalCheckRequest;
+use App\Models\Admin\Products\GlobalSales;
 use App\Models\UserOrderAddress;
 use GuzzleHttp\Client;
 use App\Http\Requests\Cart\ValidCartRequest;
@@ -240,9 +241,8 @@ class CartController extends Controller
         $data = $this->global_traits();
         $countAll = $data['countAll'];
         $sumAll = $data['sumAll'];
-        $delivery = $data['delivery'];
 
-        return response()->json(['countAll' => $countAll, 'delivery' => $delivery, 'sumAll' => $sumAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'success' => 1]);
 
     }
 
@@ -262,9 +262,8 @@ class CartController extends Controller
         $data = $this->global_traits();
         $countAll = $data['countAll'];
         $sumAll = $data['sumAll'];
-        $delivery = $data['delivery'];
 
-        return response()->json(['countAll' => $countAll, 'delivery' => $delivery, 'sumAll' => $sumAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'success' => 1]);
 
     }
 

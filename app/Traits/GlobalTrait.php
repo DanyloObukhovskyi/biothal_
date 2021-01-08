@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 
+use App\Models\Admin\Products\GlobalSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Cart_Product;
 use App\Models\Region;
@@ -62,6 +63,11 @@ trait GlobalTrait
         foreach (glob($imagesPath . "*.{jpg,png,gif,jpeg}", GLOB_BRACE) as $filename) { // ищет все картинки через glob
             $files[] = $filename;
         }
+
+        $global_sale = GlobalSales::latest('id')->first();
+        $sum_modal = $global_sale['sum_modal'];
+        $procent_modal = $global_sale['procent_modal'];
+
         $sum = 0;
         $sum_sale = 0;
         $sumAll = 0;
@@ -77,17 +83,15 @@ trait GlobalTrait
             }
             $sumAll = ($sum + $sum_sale);
         }
-        if ($sumAll >= 2000){
-            $sumAll = $sumAll/2;
-        }
 
+        if ($sumAll >= $sum_modal ){
+            $sumAll = $sumAll - (($sumAll * $procent_modal)/ 100);
+        }
         $region = Region::select('region', 'id')->get()->toArray();
         $region = array_merge([['region' => 'Выберите область']], $region);
         $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
         $delivery = 40;
-        if ($sumAll >= 2000){
-            $sumAll = $sumAll/2;
-        }
+
         return [
             'countAll' => $countAll,
             'uuid' => $uuid,
@@ -100,7 +104,7 @@ trait GlobalTrait
             'sumAll' => $sumAll,
             'region' => $region,
             'count_sale_product' => $count_sale_product,
-            'delivery' => $delivery
+            'delivery' => $delivery,
             ];
     }
 }

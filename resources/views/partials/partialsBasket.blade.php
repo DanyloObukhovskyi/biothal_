@@ -1,9 +1,6 @@
-@foreach($global_sale as $global_value)
-@endforeach
-<div class="modal-content">
+<div class="modal-content table-container">
     <div class="modal-header">
-
-        <div class="table-container">
+        <div>
             <h5 class="modal-title" id="exampleModalLongTitle">
                 Корзина (<span class="countAll-container">
                     {{$countAll}}
@@ -18,21 +15,21 @@
     </div>
     <div class="modal-body" style="margin-right: 30px;">
         <div class="container">
-            <input type="hidden" value="{{$sumAll_sale = ($global_value->sum_modal)-$sumAll}}">
+            <input type="hidden" value="{{$sumAll_sale = ($sum_modal)-$sumAll}}">
             @if(empty($sumAll))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
-                    Скидка {{$global_value->procent_modal.' %'}}
-                    срабатывает от суммы {{$global_value->sum_modal.' '}}грн
+                    Скидка {{$procent_modal.' %'}}
+                    срабатывает от суммы {{$sum_modal.' '}}грн
                 </div>
             @endif
-            @if($sumAll_sale < $global_value->sum_modal && $sumAll_sale > 0)
+            @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
-                    грн и сработает скидка {{$global_value->procent_modal.' %'}}
+                    грн и сработает скидка {{$procent_modal.' %'}}
                 </div>
             @endif
             @if($sumAll_sale <= 0 )
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша
-                    скидка {{$global_value->procent_modal.' %'}}</div>
+                    скидка {{$procent_modal.' %'}}</div>
             @endif
             <input type="hidden" class="progress-count">
             <div class="progress-bar">
@@ -109,7 +106,7 @@
                         </div>
                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
                         <div>Итого к оплате:
-                            <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.
+                            <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b>грн.
                         </div>
                 </div>
             </div>

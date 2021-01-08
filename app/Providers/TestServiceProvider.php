@@ -43,8 +43,9 @@ class TestServiceProvider extends ServiceProvider
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav'], function($view) {
-            $view->with(['global_sale' => GlobalSales::all()]);
+        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav', 'layouts.navCheckout'], function($view) {
+            $global_sale = GlobalSales::latest('id')->first();
+            $view->with(['sum_modal' => $global_sale['sum_modal'], 'procent_modal' => $global_sale['procent_modal']]);
         });
 
         View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel'], function($view) {

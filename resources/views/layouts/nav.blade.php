@@ -154,12 +154,10 @@
         </div>
     </div>
 </nav>
-@foreach($global_sale as $global_value)
-@endforeach
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 /{{$global_value->sum_modal}};
+        let percent = (+sumAll) * 100 /{{$sum_modal}};
 
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
