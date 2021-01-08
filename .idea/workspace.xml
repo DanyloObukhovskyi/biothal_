@@ -270,7 +270,7 @@
       <workItem from="1609833393772" duration="28208000" />
       <workItem from="1609875893723" duration="5871000" />
       <workItem from="1609917609491" duration="10215000" />
-      <workItem from="1610090924188" duration="4296000" />
+      <workItem from="1610090924188" duration="4743000" />
     </task>
     <task id="LOCAL-00001" summary="All first commit 08.12.20">
       <created>1607425232558</created>
@@ -532,7 +532,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix image output  15.12.20" />
     <MESSAGE value="my library XmlTo1c  16.12.20" />
     <MESSAGE value="menu+page category &amp; accessory 17.12.20" />
     <MESSAGE value="add checkout not call in setCheck 18.12.20" />
@@ -557,7 +556,8 @@
     <MESSAGE value="minus/plus count products jquery 02.01.21" />
     <MESSAGE value="minus/plus count products jquery/ajax 04.01.21" />
     <MESSAGE value="minus/plus count setCheck jquery/ajax 05.01.21" />
-    <option name="LAST_COMMIT_MESSAGE" value="minus/plus count setCheck jquery/ajax 05.01.21" />
+    <MESSAGE value="Fix dynamic change old_price and price and change +- count 08.01.21" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix dynamic change old_price and price and change +- count 08.01.21" />
   </component>
   <component name="WindowStateProjectService">
     <state x="267" y="19" key="#Inspections" timestamp="1608118378078">
@@ -586,6 +586,14 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1608670470478" />
+    <state x="121" y="51" width="1038" height="585" key="MergeDialog" timestamp="1610095694362">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="51" width="1038" height="585" key="MergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1610095694362" />
+    <state x="280" y="102" key="MultipleFileMergeDialog" timestamp="1610095694376">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="280" y="102" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1610095694376" />
     <state x="389" y="64" key="NewPhpClassDialog" timestamp="1609019527257">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -605,11 +613,11 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1607608569874" />
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1607451399957" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1609856856986">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1610095389195">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1609856856986" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1609777734784" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1610095389195" />
     <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1607863098190">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
