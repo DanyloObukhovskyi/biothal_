@@ -240,8 +240,8 @@ class CartController extends Controller
         $data = $this->global_traits();
         $countAll = $data['countAll'];
 
-        View::make('partials.part.partBasket',   compact('countAll'))->render();
-        return response()->json(['countAll' => $countAll, 'success' => 1]);
+        $html = View::make('partials.part.partBasket',   compact('countAll'))->render();
+        return response()->json(['html' => $html, 'countAll' => $countAll, 'success' => 1]);
 
     }
 

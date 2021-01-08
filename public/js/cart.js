@@ -56,7 +56,7 @@ $(document).on("click", '#btn-buyHome', function () {
              "count": count,
         },
         error: function (xhr, status, error) {
-            var errors = xhr.responseJSON.errors, errorMessage = "";
+            let errors = xhr.responseJSON.errors, errorMessage = "";
             $.each(errors, function (index, value) {
                 $.each(value, function (key, message) {
                     errorMessage += message + " ";
@@ -85,7 +85,7 @@ $(document).on("click", '#btn-buyHome', function () {
 });
 
 // Удаление товара из корзины
-$(document).on("click", '#btn-del', function () {
+$(document).on("click", '.btn-del', function () {
     var product_id = $(this).val();
     $.ajax({
         url: '/delCart', method: 'POST',
@@ -124,15 +124,14 @@ $(document).on("click", '#btn-del', function () {
 $(document).ready(function() {
     // $('body').on('click', '.plusik', function() {
     $(".plusik").click(function() {
-        let product_id = $(this).attr('id');
-        let count = parseInt ($("#valCount_" + product_id).val()) + 1;
-        console.log(count);
-        console.log(product_id);
+        let cart_id = $(this).attr('id');
+        let count = parseInt ($("#valCount_" + cart_id).val()) + 1;
+
         $.ajax({
             url: '/plus_count',
             method: 'POST',
             data: {
-                "product_id": product_id,
+                "product_id": cart_id,
                 "count": count,
             },
             error: function () {
@@ -140,23 +139,30 @@ $(document).ready(function() {
             },
             success: function (data) {
                 $('.countAll-container').html(data.countAll)
+                let price = ($(".price_" + cart_id).val());
+                let new_price = ($(".new_price_" + cart_id).val());
+                if (new_price) {
+                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html(count * new_price);
+                } else {
+                    $('.price_' + cart_id ).html(count * price);
+                }
             }
         })
     });
 
     $(".minusik").click(function() {
-        let product_id = $(this).attr('id');
-        let count = parseInt ($("#valCount_" + product_id).val());
+        let cart_id = $(this).attr('id');
+        let count = parseInt ($("#valCount_" + cart_id).val());
         if (count >= 2) {
             count = count - 1;
         }
-        console.log(count);
-        console.log(product_id);
+
         $.ajax({
             url: '/minus_count',
             method: 'POST',
             data: {
-                "product_id": product_id,
+                "product_id": cart_id,
                 "count": count,
             },
             error: function () {
@@ -164,6 +170,77 @@ $(document).ready(function() {
             },
             success: function (data) {
                 $('.countAll-container').html(data.countAll)
+                let price = ($(".price_" + cart_id).val());
+                let new_price = ($(".new_price_" + cart_id).val());
+                if (new_price) {
+                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html(count * new_price);
+                } else {
+                    $('.price_' + cart_id ).html(count * price);
+                }
+            }
+        })
+    });
+});
+
+// Изменение количества товаров "Плюс" и "Минус" со страницы SetCheck
+$(document).ready(function() {
+    // $('body').on('click', '.plusik', function() {
+    $(".plus_prod").click(function() {
+        let cart_id = $(this).attr('id');
+        let count = parseInt ($("#valCount" + cart_id).val()) + 1;
+
+        $.ajax({
+            url: '/plus_count',
+            method: 'POST',
+            data: {
+                "product_id": cart_id,
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+                $('.countAll-container').html(data.countAll)
+                let price = ($(".price_" + cart_id).val());
+                let new_price = ($(".new_price_" + cart_id).val());
+                if (new_price) {
+                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html(count * new_price);
+                } else {
+                    $('.price_' + cart_id ).html(count * price);
+                }
+            }
+        })
+    });
+
+    $(".minus_prod").click(function() {
+        let cart_id = $(this).attr('id');
+        let count = parseInt ($("#valCount" + cart_id).val());
+        if (count >= 2) {
+            count = count - 1;
+        }
+
+        $.ajax({
+            url: '/minus_count',
+            method: 'POST',
+            data: {
+                "product_id": cart_id,
+                "count": count,
+            },
+            error: function () {
+
+            },
+            success: function (data) {
+                $('.countAll-container').html(data.countAll)
+                let price = ($(".price_" + cart_id).val());
+                let new_price = ($(".new_price_" + cart_id).val());
+                if (new_price) {
+                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html(count * new_price);
+                } else {
+                    $('.price_' + cart_id ).html(count * price);
+                }
             }
         })
     });

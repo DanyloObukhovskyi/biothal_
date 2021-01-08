@@ -39,15 +39,15 @@ class TestServiceProvider extends ServiceProvider
     {
         //TO DO paste in ComposerServiceProvider
         //todo in contoller
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'partials.partialsBasket', 'partials.checkout'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'layouts.navCheckout', 'partials.partialsBasket', 'partials.checkout'], function($view) {
             $view->with(['products' => Product::with('getImage')->get()]);
         });
 
-        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav'], function($view) {
+        View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav', 'layouts.navCheckout'], function($view) {
             $view->with(['global_sale' => GlobalSales::all()]);
         });
 
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'layouts.navCheckout', 'footer', 'layouts.carousel'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);

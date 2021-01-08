@@ -62,15 +62,31 @@
                             <span id="{{$cart->id}}" class="plusik plus up">+</span>
                         </div>
 
-
                         @if((($cart->price_with_sale) != null))
-                            <s>Старая цена: {{$cart->price}} грн.</s><br>
-                            <b>Цена: {{$cart->price_with_sale}} грн.</b>
+                            <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
+                            <input class="new_price_{{$cart->id}}" type="hidden" value="{{$cart->price_with_sale}}">
+                            <s>Старая цена:
+                                <span class="old_cost_with_sale_{{$cart->id}}">
+                    {{$cart->price * $cart->count}}
+                </span>
+                                грн.
+                            </s><br>
+                            <b>Цена:
+                                <span class="price_{{$cart->id}}">
+                    {{$cart->price_with_sale * $cart->count}}
+                </span>
+                                грн.</b>
                         @endif
                         @if((($cart->price_with_sale) == null))
-                            <b>Цена: {{$cart->price}} грн.</b>
+                            <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
+                            <input class="new_price_{{$cart->id}}" type="hidden" value="{{null}}">
+                            <b>Цена:
+                                <span class="price_{{$cart->id}}">
+                    {{$cart->price * $cart->count}}
+                </span>
+                                грн.</b>
                         @endif
-                        <button id="btn-del" class="btn btn-link"
+                        <button class="btn-del btn btn-link"
                                 style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"
                                 value="{{$cart->id}}">
                             Удалить из корзины

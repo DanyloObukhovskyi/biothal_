@@ -116,36 +116,54 @@
                         <div style="margin-top: 20px; margin-left: 20px" class="">
                             <p style="margin-bottom: 40px"><b>{{$cart->name}}</b></p>
                             <span>Количество</span>
-                            <div class="">
-                                <span class="minus down">-</span>
-                                <input id="valCount" type="text"
+                            <div>
+                                <span id="{{$cart->id}}" class="minus_prod minus down">-</span>
+                                <input id="valCount{{$cart->id}}" type="text"
                                        style="text-align: center;width: 40px; border-color: transparent;"
                                        min="1" value="{{$cart->count}}"/>
-                                <span class="plus up">+</span>
+                                <span id="{{$cart->id}}" class="plus_prod plus up">+</span>
                             </div>
                             @if((($cart->price_with_sale) != null))
-                                <s>Старая цена: {{$cart->price}} грн.</s><br>
-                                <b>Цена: {{$cart->price_with_sale}} грн.</b>
+                                <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
+                                <input class="new_price_{{$cart->id}}" type="hidden" value="{{$cart->price_with_sale}}">
+                                <s>Старая цена:
+                                    <span class="old_cost_with_sale_{{$cart->id}}">
+                    {{$cart->price * $cart->count}}
+                </span>
+                                    грн.
+                                </s><br>
+                                <b>Цена:
+                                    <span class="price_{{$cart->id}}">
+                    {{$cart->price_with_sale * $cart->count}}
+                </span>
+                                    грн.</b>
                             @endif
                             @if((($cart->price_with_sale) == null))
-                                <b>Цена: {{$cart->price}} грн.</b>
+                                <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
+                                <input class="new_price_{{$cart->id}}" type="hidden" value="{{null}}">
+                                <b>Цена:
+                                    <span class="price_{{$cart->id}}">
+                    {{$cart->price * $cart->count}}
+                </span>
+                                    грн.</b>
                             @endif
-                            <button id="btn-del" class="btn btn-link"
+                            <button class="btn-del btn btn-link"
                                     style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"
                                     value="{{$cart->id}}">
                                 Удалить из корзины
                             </button>
                         </div>
+                        </div>
+                        @if((($cart->price_with_sale) == null))
+                            <input type="hidden" value="{{$sum}}">
+                        @endif
+                        @if((($cart->price_with_sale) != null))
+                            <input type="hidden"
+                                   value="{{$sum_sale}}">
+                        @endif
+                        <input type="hidden" value="{{$sumAll}}">
+                        @endforeach
                     </div>
-                    @if((($cart->price_with_sale) == null))
-                        <input type="hidden" value="{{$sum += (($cart->price * $cart->count))}}">
-                    @endif
-                    @if((($cart->price_with_sale) != null))
-                        <input type="hidden" value="{{$sum_sale += (($cart->price_with_sale * $cart->count))}}">
-                    @endif
-                    <input type="hidden" value="{{$sumAll}}">
-                @endforeach
-            </div>
             <div class="row">
                 <div class="col-sm-12" style="padding: 20px">
                     @if((!empty($sumAll)) && ($sumAll_sale > 0))
@@ -229,7 +247,6 @@
             </div>
         @endif
     @endforeach
-</div>
 </div>
 <script>
     $(document).ready(function () {
