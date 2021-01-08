@@ -64,7 +64,7 @@ class ProductsController extends Controller
         $imagesAll = Image::all();
         $sales = Sale::all();
 
-        // Если нету изображенией, выводим подсказку
+        // Если нет изображенией, выводим подсказку
         if (count($imagesAll) == 0) {
             $imagesAll = null;
         }
@@ -122,7 +122,6 @@ class ProductsController extends Controller
         ]);
         $id_products = Product::max('id');
         CategoryProducts::insert([
-
             'category_id' => $request->categories,
             'product_id' => $id_products
         ]);
@@ -167,7 +166,6 @@ class ProductsController extends Controller
     // Изменить продукт
     public function changeProduct(ProductChangeRequest $request)
     {
-//        dd($request);
         $product = Product::find($request->product_id);
 
         $product->update([
@@ -179,6 +177,7 @@ class ProductsController extends Controller
             'image_id' => $request->image_radio,
             'composition' => $request->composition,
             'price' => $request->price,
+//            'price_with_sale' => $request->price_with_sale,
 
         ]);
 
