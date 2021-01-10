@@ -138,17 +138,31 @@ $(document).ready(function() {
 
             },
             success: function (data) {
+                const old_value_sumAll = $('.sumAll').html();
+                let sum_modal = $('#sum_modal').val();
+                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
-                $('.sumAll-container').html(data.sumAll)
-                $('.sumAll-delivery-container').html(data.sumAll + 40)
+                $('.sumAll-container').html(data.sumAll.toFixed(2))
+                $('.sumAll-delivery-container').html((data.sumAll + 40).toFixed(2))
+                if((data.sumAll_not_sale - data.sumAll) == 0){
+                    $('.sumAll_sale-container').html((sum_modal - data.sumAll).toFixed(2))
+                }else {
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+
+                }
+
+                let sumAll = $('.sumAll').html();
+                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
-                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
-                    $('.price_' + cart_id ).html(count * new_price);
+                    $('.old_cost_with_sale_' + cart_id ).html((count * price).toFixed(2));
+                    $('.price_' + cart_id ).html((count * new_price).toFixed(2));
                 } else {
-                    $('.price_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
+                progressBar(percent)
             }
         })
     });
@@ -171,17 +185,31 @@ $(document).ready(function() {
 
             },
             success: function (data) {
+                const old_value_sumAll = $('.sumAll').html();
+                let sum_modal = $('#sum_modal').val();
+                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
-                $('.sumAll-container').html(data.sumAll)
-                $('.sumAll-delivery-container').html(data.sumAll + 40)
+                $('.sumAll-container').html(data.sumAll.toFixed(2))
+                $('.sumAll-delivery-container').html((data.sumAll + 40).toFixed(2))
+                if((data.sumAll_not_sale - data.sumAll) == 0){
+                    $('.sumAll_sale-container').html((sum_modal - data.sumAll).toFixed(2))
+                }else {
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+
+                }
+
+                let sumAll = $('.sumAll').html();
+                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
-                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
-                    $('.price_' + cart_id ).html(count * new_price);
+                    $('.old_cost_with_sale_' + cart_id ).html((count * price).toFixed(2));
+                    $('.price_' + cart_id ).html((count * new_price).toFixed(2));
                 } else {
-                    $('.price_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
+                progressBar(percent)
             }
         })
     });
@@ -205,17 +233,31 @@ $(document).ready(function() {
 
             },
             success: function (data) {
+                const old_value_sumAll = $('.sumAll').html();
+                let sum_modal = $('#sum_modal').val();
+                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
-                $('.sumAll-container').html(data.sumAll)
-                $('.sumAllSale-container').html(data.sumAllSale)
+                $('.sumAll-container').html(data.sumAll.toFixed(2))
+                $('.sumAll-delivery-container').html((data.sumAll + 40).toFixed(2))
+                if((data.sumAll_not_sale - data.sumAll) == 0){
+                    $('.sumAll_sale-container').html((sum_modal - data.sumAll).toFixed(2))
+                }else {
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+
+                }
+
+                let sumAll = $('.sumAll').html();
+                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
-                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
-                    $('.price_' + cart_id ).html(count * new_price);
+                    $('.old_cost_with_sale_' + cart_id ).html((count * price).toFixed(2));
+                    $('.price_' + cart_id ).html((count * new_price).toFixed(2));
                 } else {
-                    $('.price_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
+                progressBar(percent)
             }
         })
     });
@@ -238,21 +280,56 @@ $(document).ready(function() {
 
             },
             success: function (data) {
+                const old_value_sumAll = $('.sumAll').html();
+                let sum_modal = $('#sum_modal').val();
+                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
-                $('.sumAll-container').html(data.sumAll)
-                $('.sumAllSale-container').html(data.sumAllSale)
+                $('.sumAll-container').html(data.sumAll.toFixed(2))
+                $('.sumAll-delivery-container').html((data.sumAll + 40).toFixed(2))
+                if((data.sumAll_not_sale - data.sumAll) == 0){
+                    $('.sumAll_sale-container').html((sum_modal - data.sumAll).toFixed(2))
+                }else {
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+
+                }
+
+                let sumAll = $('.sumAll').html();
+                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
-                    $('.old_cost_with_sale_' + cart_id ).html(count * price);
-                    $('.price_' + cart_id ).html(count * new_price);
+                    $('.old_cost_with_sale_' + cart_id ).html((count * price).toFixed(2));
+                    $('.price_' + cart_id ).html((count * new_price).toFixed(2));
                 } else {
-                    $('.price_' + cart_id ).html(count * price);
+                    $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
+                progressBar(percent)
             }
         })
     });
 });
+
+function progressBar (percent) {
+    function incrementProgress(barSelector, countSelector, incrementor) {
+        var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
+            curWidth = parseFloat(bar.style.width),
+            newWidth = curWidth + incrementor;
+        if (newWidth > 100) {
+            newWidth = 0;
+        } else if (newWidth < 0) {
+            newWidth = 100;
+        }
+        bar.style.width = newWidth + '%';
+        document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
+    }
+
+    function incrementProgressLoop() {
+        incrementProgress('.progress-bar', '.progress-count', percent);
+    }
+
+    incrementProgressLoop();
+}
 
 // Оформление товаров со страницы setCheck
 $(document).on("click", '#check', function () {
@@ -296,6 +373,9 @@ $(document).on("click", '#check', function () {
                 title: 'Товар оформлен, спасибо за покупку!',
                 showConfirmButton: false,
                 timer: 1500
+            }).then(function () {
+                window.location.replace("/");
+
             });
         }
     })

@@ -16,6 +16,7 @@
     <div class="modal-body" style="margin-right: 30px;">
         <div class="container">
             <input type="hidden" value="{{$sumAll_sale = ($sum_modal)-$sumAll}}">
+            <input id="sum_modal" type="hidden" value="{{$sum_modal}}">
             @if(empty($sumAll))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
                     Скидка {{$procent_modal.' %'}}
@@ -23,7 +24,7 @@
                 </div>
             @endif
             @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
-                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще {{$sumAll_sale}}
+                <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
                     грн и сработает скидка {{$procent_modal.' %'}}
                 </div>
             @endif
@@ -62,26 +63,14 @@
                         @if((($cart->price_with_sale) != null))
                             <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
                             <input class="new_price_{{$cart->id}}" type="hidden" value="{{$cart->price_with_sale}}">
-                            <s>Старая цена:
-                                <span class="old_cost_with_sale_{{$cart->id}}">
-                    {{$cart->price * $cart->count}}
-                </span>
-                                грн.
+                            <s>Старая цена: <span class="old_cost_with_sale_{{$cart->id}}"> {{$cart->price * $cart->count}} </span>грн.
                             </s><br>
-                            <b>Цена:
-                                <span class="price_{{$cart->id}}">
-                    {{$cart->price_with_sale * $cart->count}}
-                </span>
-                                грн.</b>
+                            <b>Цена: <span class="price_{{$cart->id}}">{{$cart->price_with_sale * $cart->count}}</span> грн.</b>
                         @endif
                         @if((($cart->price_with_sale) == null))
                             <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
                             <input class="new_price_{{$cart->id}}" type="hidden" value="{{null}}">
-                            <b>Цена:
-                                <span class="price_{{$cart->id}}">
-                    {{$cart->price * $cart->count}}
-                </span>
-                                грн.</b>
+                            <b>Цена:<span class="price_{{$cart->id}}">{{$cart->price * $cart->count}}</span>грн.</b>
                         @endif
                         <button class="btn-del btn btn-link"
                                 style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"
@@ -93,10 +82,9 @@
                         <input type="hidden" value="{{$sum}}">
                     @endif
                     @if((($cart->price_with_sale) != null))
-                        <input type="hidden"
-                               value="{{$sum_sale}}">
+                        <input type="hidden" value="{{$sum_sale}}">
                     @endif
-                    <input type="hidden" value="{{$sumAll}}">
+                        <input type="hidden" value="{{$sumAll}}">
                 @endforeach
             </div>
             <div class="row">
@@ -106,7 +94,7 @@
                         </div>
                         <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
                         <div>Итого к оплате:
-                            <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b>грн.
+                            <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b> грн.
                         </div>
                 </div>
             </div>
@@ -114,9 +102,7 @@
 
         <div class="row justify-content-center">
             <a href="/setCheck">
-                <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить
-                    заказ
-                </button>
+                <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button>
             </a>
         </div>
 
@@ -186,3 +172,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        let sumAll = $('.sumAll').html();
+        let sum_modal = $('#sum_modal').val();
+        let percent = parseInt(sumAll) * 100 /(sum_modal);
+        function incrementProgress(barSelector, countSelector, incrementor) {
+            var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
+                curWidth = parseFloat(bar.style.width),
+                newWidth = curWidth + incrementor;
+            if (newWidth > 100) {
+                newWidth = 0;
+            } else if (newWidth < 0) {
+                newWidth = 100;
+            }
+            bar.style.width = newWidth + '%';
+            document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
+        }
+
+        function incrementProgressLoop() {
+            incrementProgress('.progress-bar', '.progress-count', percent);
+        }
+
+        incrementProgressLoop();
+    })
+</script>

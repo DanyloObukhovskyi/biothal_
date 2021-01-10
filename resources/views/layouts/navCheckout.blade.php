@@ -143,8 +143,8 @@
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 /{{$sum_modal}};
-
+        let sum_modal = $('#sum_modal').val();
+        let percent = parseInt(sumAll) * 100 /(sum_modal);
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
                 curWidth = parseFloat(bar.style.width),

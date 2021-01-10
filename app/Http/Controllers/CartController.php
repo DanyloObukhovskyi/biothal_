@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Traits\GlobalTrait;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -188,6 +189,11 @@ class CartController extends Controller
             ])->update(['shopping_id' => $cart->id, 'not_call' => $request->input('not_call')]);
         }
 
+        ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->update(['uuid' => Str::uuid()]);
+
         return response()->json(['success' => 1]);
     }
 
@@ -241,8 +247,10 @@ class CartController extends Controller
         $data = $this->global_traits();
         $countAll = $data['countAll'];
         $sumAll = $data['sumAll'];
+        $procent_modal = $data['procent_modal'];
+        $sumAll_not_sale = $data['sumAll_not_sale'];
 
-        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'sumAll_not_sale' => $sumAll_not_sale, 'procent_modal' => $procent_modal, 'success' => 1]);
 
     }
 
@@ -262,8 +270,10 @@ class CartController extends Controller
         $data = $this->global_traits();
         $countAll = $data['countAll'];
         $sumAll = $data['sumAll'];
+        $procent_modal = $data['procent_modal'];
+        $sumAll_not_sale = $data['sumAll_not_sale'];
 
-        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'success' => 1]);
+        return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'sumAll_not_sale' => $sumAll_not_sale, 'procent_modal' => $procent_modal, 'success' => 1]);
 
     }
 

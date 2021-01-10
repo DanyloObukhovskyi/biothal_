@@ -154,28 +154,4 @@
         </div>
     </div>
 </nav>
-<script>
-    $(document).ready(function () {
-        let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 /{{$sum_modal}};
 
-        function incrementProgress(barSelector, countSelector, incrementor) {
-            var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
-                curWidth = parseFloat(bar.style.width),
-                newWidth = curWidth + incrementor;
-            if (newWidth > 100) {
-                newWidth = 0;
-            } else if (newWidth < 0) {
-                newWidth = 100;
-            }
-            bar.style.width = newWidth + '%';
-            document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
-        }
-
-        function incrementProgressLoop() {
-            incrementProgress('.progress-bar', '.progress-count', percent);
-        }
-
-        incrementProgressLoop();
-    })
-</script>

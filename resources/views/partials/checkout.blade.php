@@ -1,14 +1,15 @@
 <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b>
 </div>
 <input type="hidden" value="{{$sumAll_sale = ($sum_modal)-$sumAll}}">
+<input id="sum_modal" type="hidden" value="{{$sum_modal}}">
 @if(empty($sumAll))
-    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Скидка 50% срабатывает от суммы
-        {{$sum_modal.' '}}грн
+    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
+        Скидка {{$procent_modal.' %'}}
+        срабатывает от суммы {{$sum_modal.' '}}грн
     </div>
 @endif
-@if($sumAll_sale < ($sum_modal) && $sumAll_sale > 0)
-    <div class="row justify-content-center" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
-        Еще {{$sumAll_sale}}
+@if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
+    <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
         грн и сработает скидка {{$procent_modal.' %'}}
     </div>
 @endif
@@ -17,7 +18,7 @@
         скидка {{$procent_modal.' %'}}</div>
 @endif
 <input type="hidden" class="progress-count">
-<div class="progress-bar" style="margin-bottom: 20px">
+<div class="progress-bar">
     <div style="width: 0%"></div>
 </div>
 <form>
@@ -94,8 +95,8 @@
                                   class="btn btn-myBuy">Оформить заказ</span>
                 </div>
                 <div class="col-sm-5">
-                            <span data-toggle="modal" data-target="#modalOneClick" class="btn btn-link"
-                                  style="color:#020202; margin-top: 10px; padding: 10px"><b>Оформить в 1 клик</b></span>
+                            <span data-toggle="modal" data-target="#modalOneClick" class="btn btn-link" style="color:#020202; margin-top: 10px; padding: 10px">
+                                <b>Оформить в 1 клик</b></span>
                 </div>
             </div>
         </div>
@@ -105,8 +106,7 @@
                     @foreach($products as $value)
                         @if($value->id == $cart->id)
                             <div class="col-6">
-                                <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px"
-                                     src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
+                                <img class="img-fluid" style="max-width: 14em; margin-bottom: 30px" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
                             </div>
                         @endif
                     @endforeach
@@ -124,26 +124,13 @@
                             @if((($cart->price_with_sale) != null))
                                 <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
                                 <input class="new_price_{{$cart->id}}" type="hidden" value="{{$cart->price_with_sale}}">
-                                <s>Старая цена:
-                                    <span class="old_cost_with_sale_{{$cart->id}}">
-                    {{$cart->price * $cart->count}}
-                </span>
-                                    грн.
-                                </s><br>
-                                <b>Цена:
-                                    <span class="price_{{$cart->id}}">
-                    {{$cart->price_with_sale * $cart->count}}
-                </span>
-                                    грн.</b>
+                                <s>Старая цена:<span class="old_cost_with_sale_{{$cart->id}}">{{$cart->price * $cart->count}}</span> грн.</s><br>
+                                <b>Цена: <span class="price_{{$cart->id}}">{{$cart->price_with_sale * $cart->count}}</span> грн.</b>
                             @endif
                             @if((($cart->price_with_sale) == null))
                                 <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
                                 <input class="new_price_{{$cart->id}}" type="hidden" value="{{null}}">
-                                <b>Цена:
-                                    <span class="price_{{$cart->id}}">
-                    {{$cart->price * $cart->count}}
-                </span>
-                                    грн.</b>
+                                <b>Цена: <span class="price_{{$cart->id}}" {{$cart->price * $cart->count}}</span> грн.</b>
                             @endif
                             <button class="btn-del btn btn-link"
                                     style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"
@@ -163,22 +150,14 @@
                         @endforeach
                     </div>
             <div class="row">
-                <div class="col-sm-12" style="padding: 20px">
-                    @if((!empty($sumAll)) && ($sumAll_sale > 0))
-                        <div>Стоимость товаров: <span>{{$sumAll}} грн.</span></div>
-                        <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span class="sumAll">{{$sumAll + $delivery . ' '}}</span></b>грн.
-                        </div>
-
-                    @elseif((!empty($sumAll)) && ($sumAll_sale <= 0))
-                        <div>Ваша скидка {{$procent_modal.' %'}}</div>
-                        <div>Стоимость товаров:
-                            <span>{{($sumAll-($sumAll/100))*($procent_modal)}} грн.</span></div>
-                        <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
-                        <div>Итого к оплате: <b><span
-                                    class="sumAll">{{($sumAll-($sumAll/100))*($procent_modal) + $delivery . ' '}}</span></b>грн.
-                        </div>
-                    @endif
+                <div class="col-sm-12">
+                    <div>Стоимость товаров:
+                        <span class="sumAll-container sumAll">{{$sumAll}} грн.</span>
+                    </div>
+                    <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
+                    <div>Итого к оплате:
+                        <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b> грн.
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,13 +180,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Введите имя</label>
-                            <input type="text" class="form-control"
-                                   style="font-weight: bold; background: #F7F7F7;" id="nameModal">
+                            <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="nameModal">
                         </div>
                         <div class="form-group">
                             <label for="recipient-phone" class="col-form-label">Введите номер телефона</label>
-                            <input type="text" class="form-control"
-                                   style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
+                            <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
                         </div>
                     </div>
 
@@ -229,16 +206,12 @@
         @if($value['sale_id'] == null)
             <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                 <div class="card text-center" style="width: 18rem;">
-                    <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                          style="width: 9em"
-                                                          src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"
-                                                          class="card-img-top"></a>
+                    <a href="product/{{$value->id}}"><img class="img-fluid" style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}" class="card-img-top"></a>
                     <div class="card-body">
                         <h5 class="card-title">{!!$value->name!!}</h5>
                         <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                        <button id="btn-buyHome"
-                                style="width: 150px; background-color: #2f7484; border-color: #2f7484"
-                                class="btn btn-success rounded-pill" value="{{$value->id}}">Купить
+                        <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill" value="{{$value->id}}">
+                            Купить
                         </button>
                     </div>
                 </div>
@@ -249,8 +222,8 @@
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
-        let percent = (+sumAll) * 100 / {{$sum_modal}};
-
+        let sum_modal = $('#sum_modal').val();
+        let percent = parseInt(sumAll) * 100 /(sum_modal);
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
                 curWidth = parseFloat(bar.style.width),

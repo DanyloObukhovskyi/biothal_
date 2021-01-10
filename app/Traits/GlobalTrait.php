@@ -82,11 +82,15 @@ trait GlobalTrait
                 $sum_sale += ($cart->price_with_sale * $cart->count);
             }
             $sumAll = ($sum + $sum_sale);
+            $sumAll_not_sale = $sumAll;
         }
 
         if ($sumAll >= $sum_modal ){
             $sumAll = $sumAll - (($sumAll * $procent_modal)/ 100);
         }
+
+
+
         $region = Region::select('region', 'id')->get()->toArray();
         $region = array_merge([['region' => 'Выберите область']], $region);
         $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
@@ -101,10 +105,12 @@ trait GlobalTrait
             'cart_prod_count' => $cart_prod_count,
             'sum' => $sum,
             'sum_sale' => $sum_sale,
+            'sumAll_not_sale' => $sumAll_not_sale,
             'sumAll' => $sumAll,
             'region' => $region,
             'count_sale_product' => $count_sale_product,
             'delivery' => $delivery,
+            'procent_modal' => $procent_modal,
             ];
     }
 }
