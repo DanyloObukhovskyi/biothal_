@@ -71,6 +71,7 @@ trait GlobalTrait
         $sum = 0;
         $sum_sale = 0;
         $sumAll = 0;
+        $sumAll_not_sale = 0;
 
         foreach ($cart_join as $cart)
         {

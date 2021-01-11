@@ -86,7 +86,6 @@
                             </svg>
                         </p>
                     </div>
-
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -130,7 +129,7 @@
                             @if((($cart->price_with_sale) == null))
                                 <input class="price_{{$cart->id}}" type="hidden" value="{{$cart->price}}">
                                 <input class="new_price_{{$cart->id}}" type="hidden" value="{{null}}">
-                                <b>Цена: <span class="price_{{$cart->id}}" {{$cart->price * $cart->count}}</span> грн.</b>
+                                <b>Цена: <span class="price_{{$cart->id}}"> {{$cart->price * $cart->count}}</span> грн.</b>
                             @endif
                             <button class="btn-del btn btn-link"
                                     style="padding-left: 0px!important; color:#9ea2a4; margin-bottom: 40px"

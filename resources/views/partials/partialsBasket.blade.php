@@ -16,6 +16,7 @@
     <div class="modal-body" style="margin-right: 30px;">
         <div class="container">
             <input type="hidden" value="{{$sumAll_sale = ($sum_modal)-$sumAll_not_sale}}">
+            <input id="sumAll_not_sale" type="hidden" value="{{$sumAll_not_sale}}">
             <input id="sum_modal" type="hidden" value="{{$sum_modal}}">
             <input id="nova_poshta_price_delivery" type="hidden" value="{{env('NOVA_POSHTA_PRICE_DELIVERY')}}">
             @if(empty($sumAll))
@@ -93,7 +94,7 @@
                         <div>Стоимость товаров:
                             <span class="sumAll-container">{{$sumAll}} грн.</span>
                         </div>
-                        <div>Стоимость доставки: <span>{{env('NOVA_POSHTA_PRICE_DELIVERY') . ' '}}грн.</span></div>
+                        <div>Стоимость доставки: <span class="val_nova_poshta_price">{{env('NOVA_POSHTA_PRICE_DELIVERY')}}</span> грн.</div>
                         <div>Итого к оплате:
                             <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY')) . ' '}}</span></b> грн.
                         </div>
@@ -177,8 +178,15 @@
 <script>
     $(document).ready(function () {
         let sumAll = $('.sumAll').html();
+        let val_nova_poshta_price = $('.val_nova_poshta_price').html();
         let sum_modal = $('#sum_modal').val();
-        let percent = parseInt(sumAll) * 100 /(sum_modal);
+        let sumAll_not_sale = $('#sumAll_not_sale').val();
+        let percent = (parseInt(sumAll_not_sale) - parseInt(val_nova_poshta_price)) * 100 /(sum_modal);
+        console.log(sum_modal)
+        console.log(sumAll_not_sale - val_nova_poshta_price)
+        if ((sumAll_not_sale - val_nova_poshta_price) >= sum_modal){
+            $('.progress-bar').hide()
+        }
         function incrementProgress(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
                 curWidth = parseFloat(bar.style.width),
