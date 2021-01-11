@@ -17,6 +17,7 @@
         <div class="container">
             <input type="hidden" value="{{$sumAll_sale = ($sum_modal)-$sumAll}}">
             <input id="sum_modal" type="hidden" value="{{$sum_modal}}">
+            <input id="nova_poshta_price_delivery" type="hidden" value="{{env('NOVA_POSHTA_PRICE_DELIVERY')}}">
             @if(empty($sumAll))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
                     Скидка {{$procent_modal.' %'}}
@@ -92,9 +93,9 @@
                         <div>Стоимость товаров:
                             <span class="sumAll-container">{{$sumAll}} грн.</span>
                         </div>
-                        <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
+                        <div>Стоимость доставки: <span>{{env('NOVA_POSHTA_PRICE_DELIVERY') . ' '}}грн.</span></div>
                         <div>Итого к оплате:
-                            <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b> грн.
+                            <b><span class="sumAll sumAll-delivery-container">{{$sumAll + env('NOVA_POSHTA_PRICE_DELIVERY') . ' '}}</span></b> грн.
                         </div>
                 </div>
             </div>

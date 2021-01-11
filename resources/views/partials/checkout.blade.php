@@ -154,9 +154,9 @@
                     <div>Стоимость товаров:
                         <span class="sumAll-container sumAll">{{$sumAll}} грн.</span>
                     </div>
-                    <div>Стоимость доставки: <span>{{$delivery . ' '}}грн.</span></div>
+                    <div>Стоимость доставки: <span>{{env('NOVA_POSHTA_PRICE_DELIVERY') . ' '}}грн.</span></div>
                     <div>Итого к оплате:
-                        <b><span class="sumAll sumAll-delivery-container">{{$sumAll + $delivery . ' '}}</span></b> грн.
+                        <b><span class="sumAll sumAll-delivery-container">{{$sumAll + env('NOVA_POSHTA_PRICE_DELIVERY') . ' '}}</span></b> грн.
                     </div>
                 </div>
             </div>

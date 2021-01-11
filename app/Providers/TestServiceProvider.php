@@ -84,6 +84,11 @@ class TestServiceProvider extends ServiceProvider
             foreach (glob($imagesPath . "*.{jpg,png,gif,jpeg}", GLOB_BRACE) as $filename) { // ищет все картинки через glob
                 $files[] = $filename;
             }
+
+            $global_sale = GlobalSales::latest('id')->first();
+            $sum_modal = $global_sale['sum_modal'];
+            $procent_modal = $global_sale['procent_modal'];
+
             $sum = 0;
             $sum_sale = 0;
             $sumAll = 0;
@@ -100,14 +105,12 @@ class TestServiceProvider extends ServiceProvider
                 $sumAll = ($sum + $sum_sale);
             }
 
-            if ($sumAll >= 2000){
-                $sumAll = $sumAll/2;
+            if ($sumAll >= $sum_modal ){
+                $sumAll = $sumAll - (($sumAll * $procent_modal)/ 100);
             }
-
             $region = Region::select('region', 'id')->get()->toArray();
             $region = array_merge([['region' => 'Выберите область']], $region);
             $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
-            $delivery = 40;
             $view->with([
                 'uuid' => $uuid,
                 'cart_prod_count' => $cart_prod_count,
@@ -115,7 +118,6 @@ class TestServiceProvider extends ServiceProvider
                 'sum' => $sum,
                 'sumAll' => $sumAll,
                 'sum_sale' => $sum_sale,
-                'delivery' => $delivery,
                 'product_price' => $product_price,
                 'product_sale' => $product_sale,
                 'region' => $region,
