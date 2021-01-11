@@ -48,7 +48,7 @@ class TestServiceProvider extends ServiceProvider
             $view->with(['sum_modal' => $global_sale['sum_modal'], 'procent_modal' => $global_sale['procent_modal']]);
         });
 
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel', 'partials.partialsBasket'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);
@@ -103,6 +103,7 @@ class TestServiceProvider extends ServiceProvider
                     $sum_sale += ($cart->price_with_sale * $cart->count);
                 }
                 $sumAll = ($sum + $sum_sale);
+                $sumAll_not_sale = $sumAll;
             }
 
             if ($sumAll >= $sum_modal ){
@@ -121,6 +122,7 @@ class TestServiceProvider extends ServiceProvider
                 'product_price' => $product_price,
                 'product_sale' => $product_sale,
                 'region' => $region,
+                'sumAll_not_sale' => $sumAll_not_sale,
                 'cart_products' => Cart_Product::all(),
                 'categories' => Categories::all(),
                 'accessories' => Accessories::all(),

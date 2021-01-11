@@ -90,11 +90,9 @@ trait GlobalTrait
         }
 
 
-
         $region = Region::select('region', 'id')->get()->toArray();
         $region = array_merge([['region' => 'Выберите область']], $region);
         $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
-        $delivery = 40;
 
         return [
             'countAll' => $countAll,
@@ -109,7 +107,6 @@ trait GlobalTrait
             'sumAll' => $sumAll,
             'region' => $region,
             'count_sale_product' => $count_sale_product,
-            'delivery' => $delivery,
             'procent_modal' => $procent_modal,
             ];
     }
