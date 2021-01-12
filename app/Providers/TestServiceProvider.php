@@ -48,7 +48,7 @@ class TestServiceProvider extends ServiceProvider
             $view->with(['sum_modal' => $global_sale['sum_modal'], 'procent_modal' => $global_sale['procent_modal']]);
         });
 
-        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel', 'partials.partialsBasket'], function($view) {
+        View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel', 'partials.partialsBasket', 'partials.checkout'], function($view) {
             if (session('uuid') == null) {
                 $uuid = (string) Str::uuid();
                 session(['uuid' => $uuid]);
@@ -110,6 +110,9 @@ class TestServiceProvider extends ServiceProvider
             if ($sumAll >= $sum_modal ){
                 $sumAll = $sumAll - (($sumAll * $procent_modal)/ 100);
             }
+
+            $sumAll_sale = round(($sum_modal)-$sumAll_not_sale, 2);
+
             $region = Region::select('region', 'id')->get()->toArray();
             $region = array_merge([['region' => 'Выберите область']], $region);
             $count_sale_product = Product::with('getImage')->where('sale_id', '!=', null)->count();
@@ -120,6 +123,7 @@ class TestServiceProvider extends ServiceProvider
                 'sum' => $sum,
                 'sumAll' => $sumAll,
                 'sum_sale' => $sum_sale,
+                'sumAll_sale' => $sumAll_sale,
                 'product_price' => $product_price,
                 'product_sale' => $product_sale,
                 'region' => $region,

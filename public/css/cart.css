@@ -201,8 +201,20 @@ div.verticalscroll {
     height: 100%;
     background-color: #2f7484;
 }
+
+.progress-bar2 {
+    width: 95%;
+    height: 15px;
+    background-color: #bbbcbc;
+    border-radius: 10px;
+}
+.progress-bar2 > div {
+    height: 100%;
+    background-color: #2f7484;
+}
+
 .progress-count {
-    width: 80%;
+    width: 90%;
     text-align: center;
 }
 .icon {

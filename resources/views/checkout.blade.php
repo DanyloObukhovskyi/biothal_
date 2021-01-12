@@ -5,10 +5,8 @@
 
     <div class="container">
 
-        <span class="checkout-container">
+        <div class="checkout-container">
             @include('partials.checkout')
-        </span>
-
+        </div>
     @include('layouts.footer')
 @endsection
-
