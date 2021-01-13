@@ -31,6 +31,7 @@
                 @endforeach
             </div>
         @endforeach
+            <span style="display: flex; justify-content: space-around;">{{$categoryParentProducts->links()}}</span>
     </div>
 
     <div class="container">

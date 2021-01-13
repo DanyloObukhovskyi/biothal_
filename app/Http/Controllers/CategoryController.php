@@ -16,7 +16,7 @@ class CategoryController extends Controller
     }
 
     public function getParentCategory($id){
-        $categoryParentProducts = Categories::with('products')->where('parent_id', '=', $id)->get();
+        $categoryParentProducts = Categories::with('products')->where('parent_id', '=', $id)->paginate(1);
         $this_category = Categories::with('products')->where('id', '=', $id)->first();
         return view('allcategory', compact('categoryParentProducts', 'this_category'));
     }
