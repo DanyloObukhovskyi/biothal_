@@ -35,6 +35,7 @@
                 @endif
             @endforeach
         </div>
+{{--        <span style="display: flex; justify-content: space-around;">{{$products->links()}}</span>--}}
     </div>
 
         <div class="container">
@@ -60,7 +61,7 @@
         </div>
     <div class="container">
         <div class="row justify-content-center">
-            @foreach($products as $value)
+            @foreach($products2 as $value)
                 @if($value['sale_id'] == null)
                     <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
                         <div class="card text-center">
@@ -80,6 +81,7 @@
                 @endif
             @endforeach
         </div>
+        <span style="display: flex; justify-content: space-around;">{{$products2->links()}}</span>
     </div>
 
     <div class="container textPc">

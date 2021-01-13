@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Products\Product;
+
 class HomeController extends Controller
 {
     /**
@@ -11,7 +13,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $products = Product::where('sale_id', '!=', null)->limit(9)->get();
+        $products2 = Product::where('sale_id', '=', null)->paginate(9);
+
+        return view('home', compact('products', 'products2'));
+
     }
     public function about()
     {
