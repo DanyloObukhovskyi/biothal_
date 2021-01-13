@@ -39,12 +39,19 @@
 
         <div class="container">
             <div class="row justify-content-center">
-                <div>
-                    <img class="img-fluid" style="margin-top: 30px; padding: 7px" src="{{Storage::url('img/lico.png')}}" height="250">
-                </div>
-                <div>
-                    <img class="img-fluid" style="margin-top: 30px; padding: 7px" src="{{Storage::url('img/telo.png')}}" height="250">
-                </div>
+                @foreach($categories as $value)
+                    @if($value['parent_id'] == null)
+                        @foreach($img_categories as $val)
+                            @if($val['image_id_categories'] == $value['id'])
+                            <div>
+                                <a class="dropdown-item" style="margin-top: 10px" href="/category/{{$value['id']}}" id="categories_{{$value['id']}}">
+                                    <img class="img-fluid" style="margin-top: 30px; padding: 7px" src="{{Storage::url('img/'.$val['name'])}}" height="250"></a>
+                            </div>
+                       @endif
+                       @endforeach
+
+                    @endif
+                @endforeach
             </div>
         </div>
 

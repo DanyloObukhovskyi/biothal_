@@ -9,6 +9,7 @@ use App\Models\Admin\Products\ProductsAttributes;
 use App\Models\Cart_Product;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
+use App\Models\Img_Categories;
 use App\Models\Region;
 use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Auth;
@@ -131,6 +132,7 @@ class TestServiceProvider extends ServiceProvider
                 'cart_products' => Cart_Product::all(),
                 'categories' => Categories::all(),
                 'accessories' => Accessories::all(),
+                'img_categories' => Img_Categories::all(),
                 'count_sale_product' => $count_sale_product,
                 'cart_join' => $cart_join,
                 'files' => $files,
