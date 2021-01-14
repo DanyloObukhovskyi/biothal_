@@ -10,7 +10,7 @@
 
     <div class="container">
         <div style="padding-top: 25px; text-align: center">
-            <h2>ИНТЕРНЕТ-МАГАЗИН BIOTHAL</h2>
+            <h2>Философия бренда</h2>
         </div>
         <div class="row" style="text-align: justify; padding: 10px">
             <div class="col-md-1"></div>

@@ -21,6 +21,21 @@ class HomeController extends Controller
     }
     public function about()
     {
-        return view('about');
+        return view('company.about');
+    }
+
+    public function sea()
+    {
+        return view('company.sea');
+    }
+
+    public function vod()
+    {
+        return view('company.vod');
+    }
+
+    public function production()
+    {
+        return view('company.production');
     }
 }

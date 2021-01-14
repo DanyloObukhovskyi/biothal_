@@ -62,33 +62,35 @@
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">О нас</h6>
                 <p>
-                    <a href="#!">- Производство</a>
+                    <a href="/company/production">- Производство</a>
                 </p>
                 <p>
-                    <a href="/about">- Философия</a>
+                    <a href="/company/about">- Философия</a>
                 </p>
                 <p>
-                    <a href="#!">- Море</a>
+                    <a href="/company/sea">- Море</a>
                 </p>
                 <p>
-                    <a href="#!">- Водоросли</a>
+                    <a href="/company/vod">- Водоросли</a>
                 </p>
             </div>
             <hr class="w-100 clearfix d-md-none">
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Мы в сетях</h6>
                 <p>
-                    <a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px" src="{{Storage::url('img/footer/facebook.png')}}">Facebook</a></p>
+                    <a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 10px" src="{{Storage::url('img/footer/facebook.png')}}">Facebook</a></p>
                 <p>
-                    <a href=""><img style="margin-right: 10px" src="{{Storage::url('img/footer/twitter.png')}}">Twitter</a></p>
+                    <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q"><svg style="width: 2.5em; height: 1.7em; padding-right: 3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>Youtube</a></p>
                 <p>
-                    <a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 10px; width: 20px" src="{{Storage::url('img/footer/instagram.png')}}">Instagram</a></p>
+                    <a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px; width: 25px" src="{{Storage::url('img/footer/instagram.png')}}">Instagram</a></p>
             </div>
         </div>
         <hr>
         <div class="row d-flex align-items-center">
             <div class="col-md-7 col-lg-8">
-                <p style="color: darkgray" class="text-center text-md-left">© 2020 Copyright: Все права защищены
+                <p style="color: darkgray" class="text-center text-md-left">© 2021 Copyright: Все права защищены
             </div>
             <div class="col-md-5 col-lg-4 ml-lg-0">
                 <!-- Social buttons -->
@@ -136,9 +138,9 @@
             <div><a  href="/"><img id="logotype" style="width: 8em; height: 2em; margin-top: 20px; margin-bottom: 20px" src="{{Storage::url('img/logotype.png')}}"></a>
             </div>
             <div style="text-align: right;">
-                <svg style="width: 2.5em; height: 1.7em; margin-top: 20px; margin-bottom: 20px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q"><svg style="width: 2.5em; height: 1.7em; margin-top: 20px; margin-bottom: 20px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
-                </svg>
+                </svg></a>
                 <a href="https://www.facebook.com/biothal.ua"><svg style="width: 2.5em; height: 1.7em; margin-top: 20px; margin-bottom: 20px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
                     </svg></a>
@@ -147,10 +149,10 @@
                     </svg></a>
             </div>
             <div>
-                <a href="#!">- Для лица</a><br>
-                <a href="#!">- Для тела</a><br>
+                <a href="/{{env('FOOTER_FOR_LICO')}}">- Для лица</a><br>
+                <a href="/{{env('FOOTER_FOR_TELO')}}">- Для тела</a><br>
                 <a href="#!">- Эффективные наборы</a><br>
-                <a href="#!">- О компании</a>
+                <a href="/company/about">- О компании</a>
             </div>
             <div style="text-align: right;"><a href="tel:+380688881208">+38 (068) 888-12-08</a> <br> <p style="color: #296674">Обратный звонок</p></div>
             <div><button style="width: 13em; height: 2.7em; border-radius: 25px; margin-top: 15px">Стать дистрибьютером</button></div>

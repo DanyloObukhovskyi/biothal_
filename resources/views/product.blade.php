@@ -20,14 +20,14 @@
             <div class="col-md-6">
                 <div class="card-body">
                     <h5 class="card-title">{!!$value->name!!}</h5>
-                    <div class="rating-mini">
-                        <span class="active"></span>
-                        <span class="active"></span>
-                        <span class="active"></span>
-                        <span class="active"></span>
-                        <span></span>
-                        7 отзывов
-                    </div>
+{{--                    <div class="rating-mini">--}}
+{{--                        <span class="active"></span>--}}
+{{--                        <span class="active"></span>--}}
+{{--                        <span class="active"></span>--}}
+{{--                        <span class="active"></span>--}}
+{{--                        <span></span>--}}
+{{--                        7 отзывов--}}
+{{--                    </div>--}}
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
                         <h4 style="margin-right: 0px; margin-left: 15px; margin-bottom: 0"><b>{!!$value->price_with_sale!!} грн</b></h4>

@@ -33,6 +33,7 @@ $(function () {
                 })
             },
             success: function () {
+                location.reload();//todo disabled
                 Swal.fire({
                     icon: 'success',
                     title: 'Товар добавлен в корзину',
@@ -74,6 +75,7 @@ $(document).on("click", '#btn-buyHome', function () {
             $('.table-container').html(data.html)
             $('.checkout-container').html(data.html_for_checkout)
             $('.countAll-container').html(data.countAll)
+            location.reload();//todo disabled
             Swal.fire({
                 icon: 'success',
                 title: 'Товар добавлен в корзину',
