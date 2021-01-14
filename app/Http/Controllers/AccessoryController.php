@@ -15,7 +15,7 @@ class AccessoryController extends Controller
     }
 
     public function getParentAccessory($id){
-        $accessoryParentProducts = Accessories::with('products')->where('parent_id', '=', $id)->get();
+        $accessoryParentProducts = Accessories::with('products')->where('parent_id', '=', $id)->paginate(1);
         $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
         return view('allaccessory', compact('accessoryParentProducts', 'this_accessory'));
     }
