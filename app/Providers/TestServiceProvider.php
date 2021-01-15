@@ -92,10 +92,8 @@ class TestServiceProvider extends ServiceProvider
 
             $sum_modal = 0;
             $procent_modal = 0;
-            if (!empty($sum_modal)) {
+            if (!empty($global_sale)) {
                 $sum_modal = $global_sale['sum_modal'];
-            }
-            if (!empty($procent_modal)) {
                 $procent_modal = $global_sale['procent_modal'];
             }
 
