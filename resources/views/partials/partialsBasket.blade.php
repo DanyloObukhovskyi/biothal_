@@ -89,24 +89,30 @@
                         <input type="hidden" value="{{$sumAll}}">
                 @endforeach
             </div>
-            <div class="row">
-                <div class="col-sm-12">
+        </div>
+        @if(count($cart_prod_count) != null)
+                <div class="row">
+                    <div style="margin-left: 40px" class="col-sm-12">
                         <div>Стоимость товаров:
                             <span class="sumAll-container">{{$sumAll}} грн.</span>
                         </div>
-                        <div>Стоимость доставки: <span class="val_nova_poshta_price">{{env('NOVA_POSHTA_PRICE_DELIVERY')}}</span> грн.</div>
-                        <div>Итого к оплате:
-                            <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY'))}}</span></b> грн.
+                        <div>Стоимость доставки: <span
+                                class="val_nova_poshta_price">{{env('NOVA_POSHTA_PRICE_DELIVERY')}}</span> грн.
                         </div>
+                        <div>Итого к оплате:
+                            <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY'))}}</span></b>
+                            грн.
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row justify-content-center">
-            <a href="/setCheck">
-                <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ</button>
-            </a>
-        </div>
+                <div class="row justify-content-center">
+                    <a href="/setCheck">
+                        <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ
+                        </button>
+                    </a>
+                </div>
+        @endif
 
         <div class="row justify-content-center">
             <div class="col-md-6 " style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
