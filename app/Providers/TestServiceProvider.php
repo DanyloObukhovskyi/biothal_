@@ -46,7 +46,7 @@ class TestServiceProvider extends ServiceProvider
 
         View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav', 'layouts.navCheckout'], function($view) {
             $global_sale = GlobalSales::latest('id')->first();
-            $view->with(['sum_modal' => $global_sale['sum_modal'], 'procent_modal' => $global_sale['procent_modal']]);
+            $view->with(['sum_modal' => isset($global_sale['sum_modal']), 'procent_modal' => isset($global_sale['procent_modal'])]);
         });
 
         View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel', 'partials.partialsBasket', 'partials.checkout'], function($view) {
@@ -87,8 +87,15 @@ class TestServiceProvider extends ServiceProvider
             }
 
             $global_sale = GlobalSales::latest('id')->first();
-            $sum_modal = $global_sale['sum_modal'];
-            $procent_modal = $global_sale['procent_modal'];
+
+            $sum_modal = 0;
+            $procent_modal = 0;
+            if (!empty($sum_modal)) {
+                $sum_modal = $global_sale['sum_modal'];
+            }
+            if (!empty($procent_modal)) {
+                $procent_modal = $global_sale['procent_modal'];
+            }
 
             $sum = 0;
             $sum_sale = 0;
@@ -108,7 +115,8 @@ class TestServiceProvider extends ServiceProvider
                 $sumAll_not_sale = $sumAll;
             }
 
-            if ($sumAll >= $sum_modal ){
+
+            if ($sumAll >= $sum_modal){
                 $sumAll = $sumAll - (($sumAll * $procent_modal)/ 100);
             }
 

@@ -2,13 +2,16 @@
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
+
         @foreach($files as $key=>$global)
         <li data-target="#myCarousel" data-slide-to="{{$key}}" class=""></li>
         @endforeach
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
+            @if(isset($global))
             <img class="img-fluid d-block w-100" src="{{substr($global,-27)}}" height="400" style="width:100%;">
+            @endif
         </div>
         @foreach($files as $key=>$global)
         <div class="carousel-item">
