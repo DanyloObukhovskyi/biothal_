@@ -17,22 +17,28 @@
         <div class="container">
             <input type="hidden" value="{{$sumAll_sale}}">
             <input id="sumAll_not_sale" type="hidden" value="{{$sumAll_not_sale}}">
+            @if(!empty($sum_modal))
             <input id="sum_modal" type="hidden" value="{{$sum_modal}}">
+            @endif
             <input id="nova_poshta_price_delivery" type="hidden" value="{{env('NOVA_POSHTA_PRICE_DELIVERY')}}">
-            @if(empty($sumAll))
+            @if(empty($sumAll) && !empty($procent_modal))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">
                     Скидка {{$procent_modal.' %'}}
                     срабатывает от суммы {{$sum_modal.' '}}грн
                 </div>
             @endif
+            @if(!empty($sum_modal))
             @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
                 <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
                     грн и сработает скидка {{$procent_modal.' %'}}
                 </div>
             @endif
+            @endif
             @if($sumAll_sale <= 0 )
+                @if(!empty($procent_modal))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша
                     скидка {{$procent_modal.' %'}}</div>
+            @endif
             @endif
             <input type="hidden" class="progress-count">
             <div class="progress-bar">

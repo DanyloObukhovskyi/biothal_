@@ -46,7 +46,9 @@ class TestServiceProvider extends ServiceProvider
 
         View::composer(['partials.partialsBasket', 'partials.checkout', 'layouts.nav', 'layouts.navCheckout'], function($view) {
             $global_sale = GlobalSales::latest('id')->first();
-            $view->with(['sum_modal' => isset($global_sale['sum_modal']), 'procent_modal' => isset($global_sale['procent_modal'])]);
+            if(!empty($global_sale)){
+                $view->with(['sum_modal' => $global_sale['sum_modal'], 'procent_modal' => $global_sale['procent_modal']]);
+            }
         });
 
         View::composer(['home', 'category', 'product', 'checkout', 'layouts.nav', 'footer', 'layouts.carousel', 'partials.partialsBasket', 'partials.checkout'], function($view) {
