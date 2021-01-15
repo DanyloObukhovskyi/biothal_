@@ -182,8 +182,6 @@
         let sum_modal = $('#sum_modal').val();
         let sumAll_not_sale = $('#sumAll_not_sale').val();
         let percent = (parseInt(sumAll_not_sale) - parseInt(val_nova_poshta_price)) * 100 /(sum_modal);
-        console.log(sum_modal)
-        console.log(sumAll_not_sale - val_nova_poshta_price)
         if ((sumAll_not_sale - val_nova_poshta_price) >= sum_modal){
             $('.progress-bar').hide()
         }

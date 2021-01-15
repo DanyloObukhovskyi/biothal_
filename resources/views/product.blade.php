@@ -20,14 +20,7 @@
             <div class="col-md-6">
                 <div class="card-body">
                     <h5 class="card-title">{!!$value->name!!}</h5>
-{{--                    <div class="rating-mini">--}}
-{{--                        <span class="active"></span>--}}
-{{--                        <span class="active"></span>--}}
-{{--                        <span class="active"></span>--}}
-{{--                        <span class="active"></span>--}}
-{{--                        <span></span>--}}
-{{--                        7 отзывов--}}
-{{--                    </div>--}}
+{{--                    <div class="rating-mini">--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span></span>--}}{{--                        7 отзывов--}}{{--                    </div>--}}
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
                         <h4 style="margin-right: 0px; margin-left: 15px; margin-bottom: 0"><b>{!!$value->price_with_sale!!} грн</b></h4>
@@ -40,9 +33,9 @@
                         <input id="count_products" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
                         <span class="plus up">+</span>
                     </div>
-                    <button id="btn-buy" type="submit" class="btn btn-myBuy">Купить</button>
+                    <button id="btn-buy" type="submit" class="btn btn-myBuy">Добавить в корзину</button>
                     <input href="#" class="btn btn-myCall" placeholder="+38(___) ___ - __ - __"/>
-                    <a class="add_click col-sm-1">Оформить товар в 1 клик</a>
+                    <a data-toggle="modal" data-target="#modalOneClick" class="add_click col-sm-1"><b>Оформить товар в 1 клик</b></a>
                     <input type="hidden" id="product_id" value="{{$value->id}}" />
                 </div>
             </div>
@@ -51,6 +44,8 @@
         </div>
         <div class="row" style="margin-top: 40px">
             <div class="col-sm-2"></div>
+            <div id="" class="col-sm-1">
+            </div>
             <div class="col-sm-2">
                 <button type="button" style="color: #000000" class="btn btn-link tablinks"
                         onclick="openTabs(event, 'desc')">Описание
@@ -66,10 +61,10 @@
                         onclick="openTabs(event, 'application')">Применение
                 </button>
             </div>
-            <div id="" class="col-sm-2">
-                <button type="button" style="color: #000000" class="btn btn-link tablinks"
-                        onclick="openTabs(event, 'reviews')">Отзывы
-                </button>
+            <div id="" class="col-sm-1">
+{{--                <button type="button" style="color: #000000" class="btn btn-link tablinks"--}}
+{{--                        onclick="openTabs(event, 'reviews')">Отзывы--}}
+{{--                </button>--}}
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -94,6 +89,43 @@
             @endif
         @endforeach
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalOneClick" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         style="margin-top: 10%" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="row justify-content-center" style="margin-top: 10px">
+                            <p><b>Оформить заказ в 1 клик</b></p>
+                            <p align="center">Наш менеджер свяжется с вами в течении<br>
+                                30 минут в рабочее время
+                            <p>
+                            <p></p>
+                        </div>
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Введите имя</label>
+                                <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="nameModal">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-phone" class="col-form-label">Введите номер телефона</label>
+                                <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                                <span rel="/checkModalOneClick" id="checkModalOneClick" type="submit"
+                                      style="margin-top: 10px; width: 225px; padding: 10px" class="btn btn-myBuy">Оформить быстрый заказ</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     @include('layouts.footer')
 @endsection

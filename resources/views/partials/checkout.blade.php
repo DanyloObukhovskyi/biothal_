@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b>
 </div>
 <input type="hidden" value="{{$sumAll_sale}}">

@@ -225,6 +225,10 @@ class CartController extends Controller
                 ['name', '=', $request->input('name')],
             ])->update(['shopping_id' => $cart->id]);
         }
+        ShoppingCart::where([
+            ['uuid', '=', session('uuid')],
+            ['user_id', '=', Auth::id()],
+        ])->update(['uuid' => Str::uuid()]);
 
         return response()->json(['success' => 1]);
     }

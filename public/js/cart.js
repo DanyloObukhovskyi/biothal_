@@ -446,16 +446,9 @@ $(document).on("click", '#checkModalOneClick', function () {
                 title: 'Спасибо за покупку, с Вами свяжется наш оператор!',
                 showConfirmButton: true,
                 timer: 1500
+            }).then(function () {
+                window.location.replace("/");
             });
-            $('#modalOneClick').modal('hide')
-
-            $.ajax({
-                url:'/session_destroy',
-                type: "POST",
-                success:function() {
-                    window.location.replace("/");
-                }
-            })
         }
     })
 });
