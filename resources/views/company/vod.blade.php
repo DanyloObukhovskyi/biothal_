@@ -4,10 +4,10 @@
     @include('layouts.nav')
 
     <div>
-        <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/vod.jpg')}}" height="250" alt="1"
+{{--        <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/vod.jpg')}}" height="250" alt="1"--}}
+        <img class="img-fluid myHeight d-block w-100" src="{{ Storage::disk('public')->url('image/vod.jpg')}}" height="250" alt="1"
              style="width:100%;">
     </div>
-
     <div class="container">
         <div style="padding-top: 25px; text-align: center">
             <h2>Водоросли</h2>
@@ -23,7 +23,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4 visible-xs">
-                            <img class="img-fluid" style="padding: 10px" src="{{Storage::url('img/vod/laminaria.jpg')}}">
+                            <img class="img-fluid" style="padding: 10px" src="{{ Storage::disk('public')->url('image/vod/laminaria.jpg')}}">
                         </div>
                         <div class="col-sm-8">
                             <div style="text-align: left; "><b>LAMINARIA DIGITATA (Ламинария Дигитата)</b></div><div><br></div>
@@ -53,7 +53,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4">
-                            <img class="img-fluid" style="padding: 10px" src="{{Storage::url('img/vod/fucus.png')}}">
+                            <img class="img-fluid" style="padding: 10px" src="{{ Storage::disk('public')->url('image/vod/fucus.png')}}">
                         </div>
                         <div class="col-sm-8"><div style="text-align: left; "><b>FUCUS VESICULOSUS (Фукус Везикулозус)</b></div><div><br></div>
 
@@ -84,7 +84,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4 visible-xs">
-                            <img class="img-fluid" style="padding: 10px" src="{{Storage::url('img/vod/ulva.jpg')}}">
+                            <img class="img-fluid" style="padding: 10px" src="{{ Storage::disk('public')->url('image/vod/ulva.jpg')}}">
                         </div>
                         <div class="col-sm-8"><div style="text-align: left; "><b>ULVA CACTUCA (Морской латук)</b></div><div><br></div>
 
@@ -124,7 +124,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4">
-                            <img class="img-fluid" style="padding: 10px" src="{{Storage::url('img/vod/mokh.jpg')}}">
+                            <img class="img-fluid" style="padding: 10px" src="{{ Storage::disk('public')->url('image/vod/mokh.jpg')}}">
                         </div>
                         <div class="col-sm-8">
                             <div style="text-align: left; "><b>CHONDRUS CRISPUS (Ирландский мох)</b></div><div><br></div>
@@ -151,7 +151,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4 visible-xs">
-                            <img class="img-fluid" style="padding: 10px" src="{{Storage::url('img/vod/salt.jpg')}}">
+                            <img class="img-fluid" style="padding: 10px" src="{{ Storage::disk('public')->url('image/vod/salt.jpg')}}">
                         </div>
                         <div class="col-sm-8">
                             <div style="text-align: left; "><b>МОРСКАЯ СОЛЬ</b></div><div><br></div>

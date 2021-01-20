@@ -4,7 +4,7 @@
     @include('layouts.nav')
 
     <div>
-        <img class="img-fluid myHeight d-block w-100" src="{{Storage::url('img/fil.jpg')}}" height="250" alt="1"
+        <img class="img-fluid myHeight d-block w-100" src="{{ Storage::disk('public')->url('image/fil.jpg')}}" height="250" alt="1"
              style="width:100%;">
     </div>
 
