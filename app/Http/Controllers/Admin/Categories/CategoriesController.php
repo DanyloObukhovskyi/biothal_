@@ -54,7 +54,7 @@ class CategoriesController extends Controller
             'parent_id' => $select,
             'title' => $request->title,
             'ordering' => $request->ordering,
-            'is_demand' => $request->is_demand
+            'is_demand' => 0
         ]);
 
         if ($categoriesCount == 0){
