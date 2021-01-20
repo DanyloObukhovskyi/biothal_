@@ -17,6 +17,8 @@ class ImageController extends Controller
 {
     public function index()
     {
+        $images = [];
+        $imagesGlobal = [];
         $imagesAll = Image::all();
         $imagesGlobalAll = ImageGlobal::all();
         // Если нет изображений, выводим подсказку
@@ -52,6 +54,7 @@ class ImageController extends Controller
                 $n++;
             }
         }
+
         return view('admin.images.index', [
             'images' => $images,
             'imagesGlobal' => $imagesGlobal,
