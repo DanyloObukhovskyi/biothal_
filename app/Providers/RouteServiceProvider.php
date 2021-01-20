@@ -9,6 +9,8 @@ class RouteServiceProvider extends ServiceProvider
 {
     protected $namespace = 'App\Http\Controllers';
 
+    protected $namespace_1c = 'App\Http\Controllers\Import';
+
     public const HOME = '/home';
 
     public function boot()
@@ -21,6 +23,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
         $this->mapWebRoutes();
         $this->mapAdminRoutes();
+        $this->map1CRoutes();
     }
 
     protected function mapWebRoutes()
@@ -43,5 +46,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('admin')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
+    }
+
+    protected function map1CRoutes()
+    {
+        Route::prefix('1c_api')
+            ->namespace($this->namespace_1c)
+            ->group(base_path('routes/1c_routers.php'));
     }
 }
