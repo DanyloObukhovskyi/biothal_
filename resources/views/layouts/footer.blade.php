@@ -42,7 +42,7 @@
     <div class="container text-center text-md-left">
         <div class="row text-center text-md-left mt-3 pb-3">
             <div style="text-align: justify" class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-4">
-                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img id="logo" style="height: 3em!important; width: 6em!important;" class="img-fluid" src="{{Storage::url('img/new-logo.png')}}"></a></h6>
+                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img id="logo" style="height: 3em!important; width: 6em!important;" class="img-fluid" src="{{ Storage::disk('public')->url('image/new-logo.png')}}"></a></h6>
                 <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам.</p>
             </div>
             <hr class="w-100 clearfix d-md-none">
@@ -50,8 +50,7 @@
                 <h6 class="text-uppercase mb-4 font-weight-bold">Каталог</h6>
                     <p>
                         <a href="/{{env('FOOTER_FOR_LICO')}}">- Для лица</a>
-                    </p>
-                    <p>
+                    </p><p>
                         <a href="/{{env('FOOTER_FOR_TELO')}}">- Для тела</a>
                     </p>
                     <p>
@@ -77,14 +76,12 @@
             <hr class="w-100 clearfix d-md-none">
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Мы в сетях</h6>
-                <p>
-                    <a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 10px" src="{{Storage::url('img/footer/facebook.png')}}">Facebook</a></p>
+                <p><a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 10px" src="{{ Storage::disk('public')->url('image/footer/facebook.png')}}">Facebook</a></p>
                 <p>
                     <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q"><svg style="width: 2.5em; height: 1.7em; padding-right: 3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
                             <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
                         </svg>Youtube</a></p>
-                <p>
-                    <a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px; width: 25px" src="{{Storage::url('img/footer/instagram.png')}}">Instagram</a></p>
+                <p><a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px; width: 25px" src="{{ Storage::disk('public')->url('image/footer/instagram.png')}}">Instagram</a></p>
             </div>
         </div>
         <hr>
@@ -135,7 +132,7 @@
     </div>
     <div class="container">
         <div class="cont">
-            <div><a  href="/"><img id="logotype" style="width: 8em; height: 2em; margin-top: 20px; margin-bottom: 20px" src="{{Storage::url('img/logotype.png')}}"></a>
+            <div><a  href="/"><img id="logotype" style="width: 8em; height: 2em; margin-top: 20px; margin-bottom: 20px" src="{{ Storage::disk('public')->url('image/logotype.png')}}"></a>
             </div>
             <div style="text-align: right;">
                 <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q"><svg style="width: 2.5em; height: 1.7em; margin-top: 20px; margin-bottom: 20px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
@@ -156,7 +153,7 @@
             </div>
             <div style="text-align: right;"><a href="tel:+380688881208">+38 (068) 888-12-08</a> <br> <p style="color: #296674">Обратный звонок</p></div>
             <div><button style="width: 13em; height: 2.7em; border-radius: 25px; margin-top: 15px">Стать дистрибьютером</button></div>
-            <div style="text-align: right"><img style="width: 5em; height: 1.5em; margin-top: 33px;" src="{{Storage::url('img/footer/VisaMasterCard.png')}}"></div>
+            <div style="text-align: right"><img style="width: 5em; height: 1.5em; margin-top: 33px;" src="{{ Storage::disk('public')->url('image/footer/VisaMasterCard.png')}}"></div>
             <div style="margin-top: 15px; margin-bottom: 25px">© BIOTHAL 2020—2021</div>
             <div style="margin-top: 15px; text-align: right; margin-bottom: 25px"><a href="">Пользовательское соглашение</a></div>
         </div>

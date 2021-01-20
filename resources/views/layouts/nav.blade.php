@@ -10,7 +10,6 @@
     <div id="logo" class="row col-sm-3">
         <a class="navbar-brand" href="/">
             <img id="logo_img" class="img-fluid" style="margin-left: 30px; margin-right: auto; width: 7em"
-{{--                 src="{{Storage::url('img/new-logo.png')}}" width="127"></a>--}}
                  src="{{ Storage::disk('public')->url('image/new-logo.png')}}" width="127"></a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
