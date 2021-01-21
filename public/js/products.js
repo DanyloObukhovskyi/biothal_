@@ -88,7 +88,7 @@ $(function () {
     // Создаю таблицу Данных
     var attributes = $('#attributes_table').DataTable({
         processing: true,
-        ajax: '/admin/products/attributes',
+        // ajax: '/admin/products/attributes',
         columns: [
             {"data": "id", "name": "id"},
             {"data": "name", "name": "name"},

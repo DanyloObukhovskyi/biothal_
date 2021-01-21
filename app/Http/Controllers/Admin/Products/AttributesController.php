@@ -16,18 +16,22 @@ class AttributesController extends Controller
     // Получаем атрибуты для таба "Данные"
     public function getAttributesForProduct(Request $request)
     {
-        if (isset($product)){
-            $product = Product::find($request->id)->with('getImage') ? Product::find($request->id)->with('getImage')->productsAttributes : [];
+        if (!empty($request->id)){
+            $product = Product::where('id', $request->id)->with('productsAttributes')->with('getImage')->get();
+            $product = !empty($product)
+                ? Product::where('id', $request->id)->with('productsAttributes')->with('getImage')
+                    ->first()->productsAttributes
+                : [];
 
 
-        return Datatables::of($product)
-            ->addColumn('change', function ($row) {
-                return '<button type="button" class="btn btn-warning fas fa-cogs" id="b_attribute_change_'
-                    . $row->id . '" data-id="' . $row->id . '" data-help-attribute="tooltip" data-placement="top"
-                        title="" data-toggle="modal" data-target="#add_attributes_modal"></button>';
-            })
-            ->rawColumns(['change'])
-            ->make(true);
+            return Datatables::of($product)
+                ->addColumn('change', function ($row) {
+                    return '<button type="button" class="btn btn-warning fas fa-cogs" id="b_attribute_change_'
+                        . $row->id . '" data-id="' . $row->id . '" data-help-attribute="tooltip" data-placement="top"
+                            title="" data-toggle="modal" data-target="#add_attributes_modal"></button>';
+                })
+                ->rawColumns(['change'])
+                ->make(true);
         }
     }
     // Удалить атрибут
