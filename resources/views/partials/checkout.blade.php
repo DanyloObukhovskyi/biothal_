@@ -209,7 +209,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{!!$value->name!!}</h5>
                         <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                        <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill" value="{{$value->id}}">
+                        <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">
                             Купить
                         </button>
                     </div>

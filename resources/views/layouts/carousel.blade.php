@@ -1,4 +1,4 @@
-<link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+{{--<link href="{{ asset('css/cart.css') }}" rel="stylesheet">--}}
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">

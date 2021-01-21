@@ -25,7 +25,7 @@
                                 <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
                                 <p class="card-text"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
                                 <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484"
-                                        class="btn btn-success rounded-pill" value="{{$value->id}}">Купить
+                                        class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить
                                 </button>
                             </div>
                         </div>

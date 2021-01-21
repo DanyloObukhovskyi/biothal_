@@ -146,7 +146,7 @@
                                         <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
                                         <button id="btn-buyHome"
                                                 style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                class="btn btn-success rounded-pill"
+                                                class="btn btn-success rounded-pill btn-buy-item"
                                                 value="{{$value->id}}">
                                             Добавить
                                         </button>
@@ -174,7 +174,7 @@
                                         <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
                                         <button id="btn-buyHome"
                                                 style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                class="btn btn-success rounded-pill"
+                                                class="btn btn-success rounded-pill btn-buy-item"
                                                 value="{{$value->id}}">
                                             Добавить
                                         </button>

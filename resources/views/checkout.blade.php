@@ -3,10 +3,13 @@
 @section('content')
     @include('layouts.navCheckout')
 
-    <div class="container">
+    <div class="main-body-container">
+        <div class="container">
 
-        <div class="checkout-container">
-            @include('partials.checkout')
+            <div class="checkout-container">
+                @include('partials.checkout')
+            </div>
         </div>
+    </div>
     @include('layouts.footer')
 @endsection
