@@ -49,9 +49,9 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Каталог</h6>
                     <p>
-                        <a href="/{{env('FOOTER_FOR_LICO')}}">- Для лица</a>
+                        <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для лица')->value('id')}}">- Для лица</a>
                     </p><p>
-                        <a href="/{{env('FOOTER_FOR_TELO')}}">- Для тела</a>
+                        <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для тела')->value('id')}}">- Для тела</a>
                     </p>
                     <p>
                         <a href="#!">- Эффективные наборы</a>

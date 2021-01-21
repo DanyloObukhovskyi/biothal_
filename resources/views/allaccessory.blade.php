@@ -7,12 +7,7 @@
         <h2>ВСЕ ПОТРЕБНОСТИ {{mb_strtoupper(($this_accessory['title']))}}</h2>
     </div>
     <div class="container">
-        @foreach($accessoryParentProducts as $products)
-            <div>
-                <div class="row justify-content-center">
-                    {{mb_strtoupper('Потребность'.' '.($products['title']))}}
-                </div>
-                @foreach($products['products'] as $value)
+                @foreach($products as $value)
                     <div class="card text-center"
                          style="display:inline-block; width: 17rem; margin: 1.5em 1.5em 1.5em 1em">
                         <a href="/product/{{$value->id}}"><img class="img-fluid"
@@ -29,9 +24,7 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        @endforeach
-            <span style="display: flex; justify-content: space-around;">{{$accessoryParentProducts->links()}}</span>
+            <span style="display: flex; justify-content: space-around;">{{$products->links()}}</span>
     </div>
 
     <div class="container">

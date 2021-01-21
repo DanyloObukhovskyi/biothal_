@@ -17,7 +17,8 @@ class AttributesController extends Controller
     public function getAttributesForProduct(Request $request)
     {
         if (!empty($request->id)){
-            $product = Product::where('id', $request->id)->with('productsAttributes')->with('getImage')->get();
+            $product = Product::where('id', $request->id)->with('productsAttributes')->with('getImage')
+                ->get()->toArray();
             $product = !empty($product)
                 ? Product::where('id', $request->id)->with('productsAttributes')->with('getImage')
                     ->first()->productsAttributes
