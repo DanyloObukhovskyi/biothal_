@@ -4,19 +4,12 @@
     @include('layouts.nav')
     @include('layouts.carousel')
 
-        @if($products_count > 0)
-            <div style="padding: 25px; text-align: center">
-                <h2>
-                    @foreach($categoriesProducts as $products)
-                        {{mb_strtoupper('Категория'.' '.($products['title']))}}
-                    @endforeach
-                </h2>
-            </div>
-        @endif
+    <div style="padding: 25px; text-align: center">
+        <h2>КАТЕГОРИЯ {{mb_strtoupper(($this_category['title']))}}</h2>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
-            @foreach($categoriesProducts as $products)
-                @foreach($products['products'] as $value)
+                @foreach($products as $value)
                     <div class="col-md-4 col-sm-12" style="margin-left: 20px; margin-right: 20px; margin-bottom: 20px;">
                         <div class="card text-center" style="width: 18rem;">
                             <a href="/product/{{$value->id}}"><img class="img-fluid card-img-top" src = "{{ Storage::url('/img/products/'.$value->getImage['name'])}}"></a>
@@ -31,8 +24,8 @@
                         </div>
                     </div>
                 @endforeach
-            @endforeach
         </div>
+        <span style="display: flex; justify-content: center;">{{$products->links()}}</span>
       </div>
     <div class="container">
         <div class="row" style="text-align: justify">

@@ -12,9 +12,13 @@ class CategoryController extends Controller
 {
     public function getCategory($parent_id, $id){
         $categoriesProducts = Categories::with('products')->where([['parent_id', '=', $parent_id], ['id', '=', $id]])->get();
-        $categoryParentProducts = Categories::with('products')->where('id', '=', $id)->get();
-        $products_count = Categories::with('products')->where('id', '=', $id)->count();
-        return view('category', compact('categoriesProducts', 'products_count', 'categoryParentProducts'));
+        $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoriesProducts, 'id'))
+            ->orderBy('product_id', 'desc')
+            ->get()->pluck('product_id')->toArray();
+        $products = Product::whereIn('id', $products_ids)->paginate('10');
+        $this_category = Categories::with('products')->where('id', '=', $id)->first();
+        return view('category', compact('products', 'this_category'));
+
     }
 
     public function getParentCategory($id, Request $request){
