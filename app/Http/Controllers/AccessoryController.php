@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
-use App\Models\CategoryProducts;
 use Illuminate\Http\Request;
 use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
@@ -17,7 +15,7 @@ class AccessoryController extends Controller
         $products_ids = AccessoryProducts::whereIn('accessory_id', Arr::pluck($accessoriesProducts, 'id'))
             ->orderBy('product_id', 'desc')
             ->get()->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $products_ids)->paginate('1');
+        $products = Product::whereIn('id', $products_ids)->paginate('10');
         $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
         return view('accessory', compact('products', 'this_accessory'));
     }
