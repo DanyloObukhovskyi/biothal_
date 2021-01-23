@@ -19,7 +19,7 @@
                         </div>
                         <select class="custom-select" id="padre_category_select" name="padre_category_select">
                             <option value="NoCategory">Без категории</option>
-                            @if($categories != null)
+                            @if(!empty($categories))
                                 @foreach($categories as $category)
                                     @if($category->is_demand == false)
                                         <option value="{{$category->id}}">{{$category->title}}</option>

@@ -19,7 +19,7 @@
                         </div>
                         <select class="custom-select" id="padre_accessory_select" name="padre_accessory_select">
                             <option value="NoAccessory">Без родительской потребности</option>
-                            @if($accessories != null)
+                            @if(!empty($accessories))
                                 @foreach($accessories as $accessory)
                                         <option value="{{$accessory->id}}">{{$accessory->title}}</option>
                                 @endforeach

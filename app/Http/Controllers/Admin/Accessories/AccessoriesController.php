@@ -15,11 +15,11 @@ class AccessoriesController extends Controller
     public function index(Request $request)
     {
         $accessories = Accessories::all();
-//        dd($accessories);
 
         if (count($accessories) == 0) {
             return view('admin.accessories.index', ['accessories' => null]);
         }
+
         if ($request->ajax()) {
             foreach ($accessories as $key => $val) {
                 $accessories[$key]['number'] = $key + 1;
@@ -37,6 +37,8 @@ class AccessoriesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
+         $accessories = Accessories::where('parent_id', null)->get();
 
         return view('admin.accessories.index', ['accessories' => $accessories]);
     }

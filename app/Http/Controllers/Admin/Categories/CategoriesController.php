@@ -14,14 +14,13 @@ class CategoriesController extends Controller
 
     public function index(Request $request)
     {
-        $categories = Categories::all();
 
+        $categories = Categories::all();
         if (count($categories) == 0) {
             return view('admin.categories.index', ['categories' => null]);
         }
 
         if ($request->ajax()) {
-
             foreach ($categories as $key => $val){
                 $categories[$key]['number'] = $key+1;
             }
@@ -41,6 +40,8 @@ class CategoriesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
+        $categories = Categories::where('parent_id', null)->get();
 
         return view('admin.categories.index', ['categories' => $categories]);
     }
