@@ -37,12 +37,13 @@
             @if($sumAll_sale <= 0 )
                 @if(!empty($procent_modal))
                 <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша
-                    скидка {{$procent_modal.' %'}}</div>
+                    скидка {{$procent_modal.' %'}}
+                </div>
             @endif
             @endif
             <input type="hidden" class="progress-count">
             <div class="progress-bar">
-                <div style="width: 0%"></div>
+                <div style="width: 0"></div>
             </div>
             <div class="row justify-content-center">
                 @foreach($cart_join as $cart)
@@ -99,13 +100,27 @@
         @if(count($cart_prod_count) != null)
                 <div class="row">
                     <div style="margin-left: 40px" class="col-sm-12">
+                        @if($sumAll_sale <= 0 )
+                            @if(!empty($procent_modal))
+                                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px"><span class="sumAll_sale_first">Ваша
+                                        скидка {{$procent_modal.' %'}}</span></div>
+                            @endif
+                        @endif
+                        @if(!empty($sum_modal))
+                            @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
+                                <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
+                                    грн и сработает скидка {{$procent_modal.' %'}}
+                                </div>
+                            @endif
+                        @endif
+                        <span class="sumAll_sale2"></span>
                         <div>Стоимость товаров:
                             <span class="sumAll-container">{{$sumAll}} грн.</span>
                         </div>
-                        <div>Стоимость доставки: <span
+                        <div hidden>Стоимость доставки: <span
                                 class="val_nova_poshta_price">{{env('NOVA_POSHTA_PRICE_DELIVERY')}}</span> грн.
                         </div>
-                        <div>Итого к оплате:
+                        <div hidden>Итого к оплате:
                             <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY'))}}</span></b>
                             грн.
                         </div>
@@ -119,71 +134,6 @@
                     </a>
                 </div>
         @endif
-
-        <div class="row justify-content-center">
-            <div class="col-md-6 " style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-                Рекомендуемые товары
-            </div>
-        </div>
-        <div class="row">
-            <div class="my_height" style="padding-right: 10px">
-                @foreach($product_sale as $value)
-                    <div style="margin-bottom: 20px">
-                        @foreach($products as $val)
-                            @if($val->id == $value->id)
-                                <div class="text-center" style="max-width: 12rem;">
-                                    <a href="product/{{$value->id}}">
-                                        <img src="
-                                                        @if(isset($value->getImage['name']))
-                                        {{ Storage::url('/img/products/'.$value->getImage['name'])}}
-                                        @endif                                         "
-                                             class="img-fluid" alt="...">
-                                    </a>
-                                    @endif
-                                    @endforeach
-                                    <div class="card-body">
-                                        <span class="card-title">{!!$value->name!!}</span>
-                                        <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                        <button id="btn-buyHome"
-                                                style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                class="btn btn-success rounded-pill btn-buy-item"
-                                                value="{{$value->id}}">
-                                            Добавить
-                                        </button>
-                                    </div>
-                                </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="my_height2">
-                @foreach($product_price as $value)
-                    <div style="margin-bottom: 20px">
-                        @foreach($products as $val)
-                            @if($val->id == $value->id)
-                                <div class="text-center" style="max-width: 12rem;">
-                                    <a href="product/{{$value->id}}"><img class="img-fluid"
-                                                                          @if(isset($value->getImage['name']))
-                                                                          src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}"></a>
-                                    @endif
-                                    @endif
-                                    @endforeach
-                                    <div class="card-body">
-                                        <span>{!!$value->name!!}</span><br>
-                                        <span
-                                            style="color: red"><s>{!!$value->price . ' '!!}</s>грн.</span><br>
-                                        <p><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
-                                        <button id="btn-buyHome"
-                                                style="width: auto; background-color: #2f7484; border-color: #2f7484"
-                                                class="btn btn-success rounded-pill btn-buy-item"
-                                                value="{{$value->id}}">
-                                            Добавить
-                                        </button>
-                                    </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
     </div>
 </div>
 

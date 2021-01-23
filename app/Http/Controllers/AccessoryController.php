@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Admin\Products\Product;
+use Illuminate\Support\Arr;
 
 class AccessoryController extends Controller
 {
     public function getAccessory($parent_id, $id){
         $accessoriesProducts = Accessories::with('products')->where([['parent_id', '=', $parent_id], ['id', '=', $id]])->get();
-        $accessoryParentProducts = Accessories::with('products')->where('id', '=', $id)->get();
-        $products_count_accessories = Accessories::with('products')->where('id', '=', $id)->count();
-        return view('accessory', compact('accessoriesProducts', 'products_count_accessories', 'accessoryParentProducts'));
+        $products_ids = AccessoryProducts::whereIn('accessory_id', Arr::pluck($accessoriesProducts, 'id'))
+            ->orderBy('product_id', 'desc')
+            ->get()->pluck('product_id')->toArray();
+        $products = Product::whereIn('id', $products_ids)->paginate('10');
+        $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
+        return view('accessory', compact('products', 'this_accessory'));
     }
 
     public function getParentAccessory($id, Request $request){

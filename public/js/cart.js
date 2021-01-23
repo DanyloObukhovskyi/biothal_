@@ -190,16 +190,30 @@ $(document).ready(function() {
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
                 const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
+                console.log(sum_modal)
+                console.log(data.sumAll_not_sale)
+                console.log(data.sumAll)
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
-                if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
-                    $('.progress-bar').show()
-                }else {
-                    $('.progress-bar').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                // if((data.sumAll_not_sale - data.sumAll) == 0){
+                //     $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                //     $('.progress-bar').show()
+                // }else {
+                //     $('.progress-bar').hide()
+                //     $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                // }
 
+                if((data.sumAll_not_sale > data.sumAll)){
+                    $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').hide()
+                    $('.sumAll_sale_first').hide()
+                }else {
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.progress-bar').show()
+                    $('.sumAll_sale').hide()
+                    $('.sumAll_sale_first').hide()
                 }
 
                 let sumAll = $('.sumAll').html();
@@ -239,16 +253,32 @@ $(document).ready(function() {
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
                 const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
+                console.log(sum_modal)
+                console.log(data.sumAll_not_sale)
+                console.log(data.sumAll)
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
-                if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
-                    $('.progress-bar').show()
-                }else {
-                    $('.progress-bar').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                // if((data.sumAll_not_sale - data.sumAll) == 0){
+                //     $('.progress-bar').show()
+                //     $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                //
+                // }else {
+                //     $('.progress-bar').hide()
+                //     $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
 
+
+                // }
+                if((data.sumAll_not_sale > data.sumAll)){
+                    $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.progress-bar').hide()
+                    $('.sumAll_sale').hide()
+                    $('.sumAll_sale_first').hide()
+                }else {
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.progress-bar').show()
+                    $('.sumAll_sale').hide()
+                    $('.sumAll_sale_first').hide()
                 }
 
                 let sumAll = $('.sumAll').html();

@@ -20,7 +20,6 @@
             <div class="col-md-6">
                 <div class="card-body">
                     <h5 class="card-title">{!!$value->name!!}</h5>
-{{--                    <div class="rating-mini">--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span class="active"></span>--}}{{--                        <span></span>--}}{{--                        7 отзывов--}}{{--                    </div>--}}
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
                         <h4 style="margin-right: 0px; margin-left: 15px; margin-bottom: 0"><b>{!!$value->price_with_sale!!} грн</b></h4>
@@ -33,8 +32,7 @@
                         <input id="count_products" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
                         <span class="plus up">+</span>
                     </div>
-                    <button id="btn-buy" type="submit" class="btn btn-myBuy">Добавить в корзину</button>
-                    <input href="#" class="btn btn-myCall" placeholder="+38(___) ___ - __ - __"/>
+                    <button id="btn-buy" type="submit" style="margin-left: 5px" class="btn btn-myBuy">Добавить в корзину</button><br>
                     <a data-toggle="modal" data-target="#modalOneClick" class="add_click col-sm-1"><b>Оформить товар в 1 клик</b></a>
                     <input type="hidden" id="product_id" value="{{$value->id}}" />
                 </div>
