@@ -164,32 +164,7 @@ div.verticalscroll {
 .colorInput {
     background-color: #F7F7F7 !important;
 }
-@media screen and (max-width: 768px) {
-    div.dropdown-menu {
-        column-count: auto !important;
-    }
 
-    .navbar {
-        display: block!important;
-        margin-left: auto!important;
-        margin-right: auto!important;
-        vertical-align: top !important;
-
-    }
-
-    .navbar-toggler, #logo, #icons {
-        display: inline !important;
-    }
-    #icons {
-        margin-right: 0!important;
-    }
-    #logo_img {
-        height: 1.5em !important;
-        width: 4.5em !important;
-        margin-left: 2.8em!important;
-    }
-
-}
 
 .progress-bar {
     width: 95%;
