@@ -190,9 +190,6 @@ $(document).ready(function() {
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
                 const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
-                console.log(sum_modal)
-                console.log(data.sumAll_not_sale)
-                console.log(data.sumAll)
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
@@ -253,9 +250,6 @@ $(document).ready(function() {
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
                 const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
-                console.log(sum_modal)
-                console.log(data.sumAll_not_sale)
-                console.log(data.sumAll)
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );

@@ -27,20 +27,20 @@
                     срабатывает от суммы {{$sum_modal.' '}}грн
                 </div>
             @endif
-            @if(!empty($sum_modal))
-            @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
-                <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
-                    грн и сработает скидка {{$procent_modal.' %'}}
-                </div>
-            @endif
-            @endif
             @if($sumAll_sale <= 0 )
                 @if(!empty($procent_modal))
-                <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Ваша
-                    скидка {{$procent_modal.' %'}}
-                </div>
+                    <div style="margin-left: auto;margin-right: auto; margin-bottom: 15px"><span class="sumAll_sale_first">Ваша
+                                        скидка {{$procent_modal.' %'}}</span></div>
+                @endif
             @endif
+            @if(!empty($sum_modal))
+                @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
+                    <div class="sumAll_sale" style="margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
+                        грн и сработает скидка {{$procent_modal.' %'}}
+                    </div>
+                @endif
             @endif
+            <span class="sumAll_sale2"></span>
             <input type="hidden" class="progress-count">
             <div class="progress-bar">
                 <div style="width: 0"></div>

@@ -45,7 +45,7 @@
             <div id="" class="col-sm-1">
             </div>
             <div class="col-sm-2">
-                <button type="button" style="color: #000000" class="btn btn-link tablinks"
+                <button type="button" style="color: #000000" class="btn btn-link tablinks active"
                         onclick="openTabs(event, 'desc')">Описание
                 </button>
             </div>
@@ -72,7 +72,7 @@
     <div class="container">
         @foreach($products as $value)
             @if($value['id'] == $id)
-                <div id="desc" class="tabcontent">
+                <div id="desc" class="tabcontent active">
                     <p>{!!$value->description!!}</p>
                 </div>
                 <div id="composition" class="tabcontent">
@@ -121,9 +121,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     @include('layouts.footer')
 @endsection
