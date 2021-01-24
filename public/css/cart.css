@@ -127,16 +127,16 @@ body {
 /*button*/
 .btn-myBuy {
     margin-right: 30px;
-    border-radius: 50rem;
+    border-radius: 50rem!important;
     height: 48px;
     width: 180px;
-    background-color: #2f7484;
-    color: white;
+    background-color: #2f7484!important;
+    color: white!important;
     border-color: transparent;
 }
 
 .btn-myBuy:hover {
-    background: #000000;
+    background: #000000!important;
     border-color: transparent;
     color: white;
 }

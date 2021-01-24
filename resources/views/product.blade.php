@@ -60,9 +60,6 @@
                 </button>
             </div>
             <div id="" class="col-sm-1">
-{{--                <button type="button" style="color: #000000" class="btn btn-link tablinks"--}}
-{{--                        onclick="openTabs(event, 'reviews')">Отзывы--}}
-{{--                </button>--}}
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -108,7 +105,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-phone" class="col-form-label">Введите номер телефона</label>
-                                <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
+                                <input type="tel" name="tel1" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal" data-mask="+38 (___) ___-__-__">
                             </div>
                         </div>
 
@@ -121,7 +118,6 @@
             </div>
         </div>
     </div>
-
     @include('layouts.footer')
 @endsection
 

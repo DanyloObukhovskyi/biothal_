@@ -149,7 +149,7 @@
                         @endforeach
                     </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="margin-left: 30px">
                     <div>Стоимость товаров:
                         <span class="sumAll-container">{{$sumAll}} грн.</span>
                     </div>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="form-group">
                             <label for="recipient-phone" class="col-form-label">Введите номер телефона</label>
-                            <input type="text" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal">
+                            <input type="tel" name="tel1" class="form-control" style="font-weight: bold; background: #F7F7F7;" id="phoneModal" data-mask="+38 (___) ___-__-__">
                         </div>
                     </div>
 
