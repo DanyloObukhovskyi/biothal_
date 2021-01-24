@@ -26,7 +26,7 @@
         <div class="col">
             <div class="form-group">
                 <label for="formGroupExampleInput">Введите номер телефона*</label>
-                <input type="text" value="" class="colorInput form-control" id="phone"
+                <input type="tel" value="" class="colorInput form-control" id="phone" data-mask="+38 (___) ___-__-__"
                        placeholder="+38(___) ___ - __ - __">
             </div>
             <div class="form-group">
