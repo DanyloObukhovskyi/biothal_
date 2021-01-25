@@ -3,7 +3,15 @@
 @section('content')
     @include('layouts.nav')
     @include('layouts.carousel')
-
+    <style type="text/css">
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
     <div class="main-body-container">
         @if($count_sale_product > 0)
             <div style="padding: 25px; text-align: center">
@@ -18,16 +26,20 @@
                             <div class="card-item text-center">
                                 <div id="heightCart" class="" style="min-height: 425px">
                                     <a href="/product/{{$value->id}}">
-                                        <img class="card-img-top img-fluid" style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"
+                                        <img class="card-img-top img-fluid"
+                                             style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"
                                              src="@if(isset($value->getImage['name']))
                                              {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                              @endif"
-                                        ></a>
-                                    <h5 class="card-title">{!!$value->name!!}</h5>
-                                    <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
-                                    <p class="card-text"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
-                                    <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484"
-                                            class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить
+                                        >
+                                        <h5 class="card-title">{!!$value->name!!}</h5>
+                                        <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
+                                        <p class="card-text"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
+                                    </a>
+                                    <button id="btn-buyHome"
+                                            style="margin-top: 15px; width: 70%; background-color: #2f7484; border-color: #2f7484"
+                                            class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">
+                                        Купить
                                     </button>
                                 </div>
                             </div>
@@ -70,12 +82,12 @@
                                     @if(isset($value->getImage['name']))
                                     {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                     @endif">
-                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title">{!!$value->name!!}</h5>
                                     <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                    <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить</button>
                                 </div>
+                                </a>
+                                    <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить</button>
                             </div>
                         </div>
                     @endif

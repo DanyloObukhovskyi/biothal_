@@ -1,3 +1,12 @@
+<style type="text/css">
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+</style>
 <div class="row justify-content-center" style="margin-bottom: 15px; margin-top: 20px"><b>Оформление заказа</b>
 </div>
 <input type="hidden" value="{{$sumAll_sale}}">
@@ -217,14 +226,16 @@
             <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
                 <div class="card-item text-center" style="width: 18rem;">
                     <div>
-                        <a href="product/{{$value->id}}"><img class="img-fluid" style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}" class="card-img-top"></a>
+                        <a href="product/{{$value->id}}">
+                            <img class="img-fluid" style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">{!!$value->name!!}</h5>
                             <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
+                        </div>
+                        </a>
                             <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">
                                 Купить
                             </button>
-                        </div>
                     </div>
                 </div>
             </div>
