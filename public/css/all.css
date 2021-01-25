@@ -14,15 +14,10 @@
     /*background-color: #f8f5f5;*/
 }
 
-.card-item :hover {
+.card-item:hover {
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 0 20px 0 #ccc;
-}
-
-.card-item>div * :hover {
-    background-color: #fff;
-    box-shadow: none;
 }
 
 .card-item {
