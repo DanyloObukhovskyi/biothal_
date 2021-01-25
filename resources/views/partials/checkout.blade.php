@@ -9,7 +9,7 @@
     </div>
 @endif
 @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
-    <div class="sumAll_sale" style="text-align: center; font-weight: bold; margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
+    <div class="sumAll_sale2" style="text-align: center; font-weight: bold; margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
         грн и сработает скидка {{$procent_modal.' %'}}
     </div>
 @endif
@@ -150,6 +150,7 @@
                     </div>
             <div class="row">
                 <div class="col-sm-12" style="margin-left: 30px">
+                    <span class="sumAll_sale2" style="text-align: center; margin-bottom: 15px"></span>
                     <div>Стоимость товаров:
                         <span class="sumAll-container">{{$sumAll}} грн.</span>
                     </div>
