@@ -202,33 +202,43 @@ class CartController extends Controller
             ['user_id', '=', Auth::id()],
         ])->first();
 
-        ShoppingCart::where([
-            ['uuid', '=', session('uuid')],
-            ['user_id', '=', Auth::id()],
-        ])->update(['order_type_id' => $request->input('order_type')]);
-
+        if (!empty($cart)) {
+            ShoppingCart::where([
+                ['uuid', '=', session('uuid')],
+                ['user_id', '=', Auth::id()],
+            ])->update(['order_type_id' => $request->input('order_type')]);
+        } else {
+//            dd(session('uuid'));
+            $cart = ShoppingCart::create([
+                'uuid' => session('uuid'),
+                'user_id' => Auth::id(),
+                'order_type_id' => $request->input('order_type')
+            ]);
+        }
+        dd(123);
         $UserOrderAddress = UserOrderAddress::where([
             ['phone', '=', $request->input('phone')],
             ['name', '=', $request->input('name')],
         ])->first();
 
         if (empty($UserOrderAddress)) {
-            $user_order_address = UserOrderAddress::create([
+            UserOrderAddress::create([
                 'phone' => $request->input('phone'),
                 'name' => $request->input('name'),
                 'shopping_id' => $cart->id,
             ]);
         } else {
             Cart_Product::where([['cart_id', '=', $UserOrderAddress->shopping_id]])->update(['cart_id' => $cart->id]);
-            $user_order_address = UserOrderAddress::where([
+            UserOrderAddress::where([
                 ['phone', '=', $request->input('phone')],
                 ['name', '=', $request->input('name')],
             ])->update(['shopping_id' => $cart->id]);
         }
-        ShoppingCart::where([
-            ['uuid', '=', session('uuid')],
-            ['user_id', '=', Auth::id()],
-        ])->update(['uuid' => Str::uuid()]);
+
+//        ShoppingCart::where([
+//            ['uuid', '=', session('uuid')],
+//            ['user_id', '=', Auth::id()],
+//        ])->update(['uuid' => Str::uuid()]);
 
         return response()->json(['success' => 1]);
     }

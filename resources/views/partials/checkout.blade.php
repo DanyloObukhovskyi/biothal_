@@ -215,14 +215,16 @@
     @foreach($products as $value)
         @if($value['sale_id'] == null)
             <div class="col-md-4 col-sm-12" style="margin-bottom: 20px">
-                <div class="card text-center" style="width: 18rem;">
-                    <a href="product/{{$value->id}}"><img class="img-fluid" style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}" class="card-img-top"></a>
-                    <div class="card-body">
-                        <h5 class="card-title">{!!$value->name!!}</h5>
-                        <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                        <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">
-                            Купить
-                        </button>
+                <div class="card-item text-center" style="width: 18rem;">
+                    <div>
+                        <a href="product/{{$value->id}}"><img class="img-fluid" style="width: 9em" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}" class="card-img-top"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{!!$value->name!!}</h5>
+                            <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
+                            <button id="btn-buyHome" style="width: 150px; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">
+                                Купить
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

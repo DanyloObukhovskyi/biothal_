@@ -9,14 +9,22 @@
     border-color: #2f7484;
 }
 
-/*.main-body-container {*/
-/*    background: #E5E5E5;*/
-/*}*/
+.main-body-container {
+    background-color: #fff;
+    /*background-color: #f8f5f5;*/
+}
 
 .card-item :hover {
     background-color: #fff;
     border-radius: 4px;
+    box-shadow: 0 0 20px 0 #ccc;
 }
+
+.card-item>div * :hover {
+    background-color: #fff;
+    box-shadow: none;
+}
+
 .card-item {
     width: 350px;
     height: 500px;
