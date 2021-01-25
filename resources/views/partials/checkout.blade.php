@@ -9,16 +9,17 @@
     </div>
 @endif
 @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
-    <div class="sumAll_sale2" style="text-align: center; font-weight: bold; margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
+    <div class="sumAll_sale" style="text-align: center; margin-left: auto;margin-right: auto; margin-bottom: 15px">Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
         грн и сработает скидка {{$procent_modal.' %'}}
     </div>
 @endif
 @if($sumAll_sale <= 0 )
-    <div class="sumAll_sale" style="text-align: center; font-weight: bold; margin-left: auto;margin-right: auto; margin-bottom: 15px">
+    <div class="sumAll_sale" style="text-align: center; margin-left: auto;margin-right: auto; margin-bottom: 15px">
         Ваша скидка {{$procent_modal.' %'}}</div>
 @endif
+<div class="sumAll_sale2" style="text-align: center; margin-bottom: 15px"></div>
 <input type="hidden" class="progress-count2">
-<div class="progress-bar2">
+<div class="progress-bar2" style="margin-bottom: 15px">
     <div style="width: 0%"></div>
 </div>
 <form>
@@ -221,29 +222,27 @@
 </div>
 <script>
     $(document).ready(function () {
-        let sumAll = $('.sumAll').html();
         let val_nova_poshta_price = $('.val_nova_poshta_price').html();
         let sum_modal = $('#sum_modal').val();
         let sumAll_not_sale = $('#sumAll_not_sale').val();
         let percent = (parseInt(sumAll_not_sale) - parseInt(val_nova_poshta_price)) * 100 /(sum_modal);
-        if ((sumAll_not_sale - val_nova_poshta_price) >= sum_modal){
+        if (sumAll_not_sale >= sum_modal){
             $('.progress-bar2').hide()
         }
         function incrementProgress2(barSelector, countSelector, incrementor) {
             var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
-                curWidth = parseFloat(bar.style.width),
-                newWidth = curWidth + incrementor;
+                newWidth = incrementor;
             if (newWidth > 100) {
-                newWidth = 0;
-            } else if (newWidth < 0) {
                 newWidth = 100;
+            } else if (newWidth < 0) {
+                newWidth = 0;
             }
             bar.style.width = newWidth + '%';
             document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
         }
 
         function incrementProgressLoop2() {
-            incrementProgress2('.progress-bar2', '.progress-count2', percent);
+            incrementProgress2('.progress-bar2', '.progress-count2', Math.ceil(percent) + 1);
         }
 
         incrementProgressLoop2();

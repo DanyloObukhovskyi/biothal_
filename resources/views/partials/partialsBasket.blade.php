@@ -140,12 +140,11 @@
 
 <script>
     $(document).ready(function () {
-        // let sumAll = $('.sumAll').html();
         let val_nova_poshta_price = $('.val_nova_poshta_price').html();
         let sum_modal = $('#sum_modal').val();
         let sumAll_not_sale = $('#sumAll_not_sale').val();
         let percent = (parseInt(sumAll_not_sale) - parseInt(val_nova_poshta_price)) * 100 /(sum_modal);
-        if ((sumAll_not_sale - val_nova_poshta_price) >= sum_modal){
+        if (sumAll_not_sale >= sum_modal){
             $('.progress-bar').hide()
         }
         function incrementProgress(barSelector, countSelector, incrementor) {
@@ -162,7 +161,7 @@
         }
 
         function incrementProgressLoop() {
-            incrementProgress('.progress-bar', '.progress-count', percent);
+            incrementProgress('.progress-bar', '.progress-count', Math.ceil(percent) + 1);
         }
 
         incrementProgressLoop();

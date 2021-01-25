@@ -158,6 +158,7 @@ $(document).ready(function() {
                     $('.sumAll_sale_first').hide()
                 }
                 let percent = parseInt(data.sumAll) * 100 /sum_modal;
+                console.log(percent)
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -166,7 +167,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar(percent)
+                progressBar(Math.ceil(percent))
             }
         })
     });
@@ -213,7 +214,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar(percent)
+                progressBar(Math.ceil(percent))
             }
         })
     });
@@ -239,7 +240,7 @@ $(document).ready(function() {
                 const old_value_sumAll = $('.sumAll').html();
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
-                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
+                // const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
@@ -257,7 +258,7 @@ $(document).ready(function() {
                     $('.sumAll_sale_first').hide()
                 }
 
-                let sumAll = $('.sumAll').html();
+                // let sumAll = $('.sumAll').html();
                 let percent = parseInt(data.sumAll) * 100 /sum_modal;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
@@ -267,7 +268,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar(percent)
+                progressBar(Math.ceil(percent))
             }
         })
     });
@@ -307,8 +308,8 @@ $(document).ready(function() {
 
                 }
 
-                let sumAll = $('.sumAll').html();
-                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
+                // let sumAll = $('.sumAll').html();
+                let percent = parseInt(data.sumAll) * 100 /sum_modal;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -317,7 +318,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar(percent)
+                progressBar(Math.ceil(percent))
             }
         })
     });
@@ -365,21 +366,22 @@ $(document).ready(function() {
                 const old_value_sumAll = $('.sumAll').html();
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
-                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
-                $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
-                if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
-                    $('.progress-bar2').show()
-                }else {
+                $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2));
+                if((data.sumAll_not_sale > data.sumAll)){
+                    if(old_value_sumAll){
+                        $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    }
                     $('.progress-bar2').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
-
+                    $('.sumAll_sale').hide()
+                }else {
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.progress-bar2').show()
+                    $('.sumAll_sale').hide()
                 }
-
-                let sumAll = $('.sumAll').html();
-                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
+                let percent = Math.ceil(parseInt(data.sumAll) * 100 /sum_modal);
+                // console.log(Math.ceil(percent));
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -388,7 +390,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar2(percent)
+                progressBar2(Math.ceil(percent))
             }
         })
     });
@@ -412,22 +414,21 @@ $(document).ready(function() {
                 const old_value_sumAll = $('.sumAll').html();
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
-                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
-                $('.countAll-container').html(data.countAll);
-
-                $('.sumAll-container').html(data.sumAll.toFixed(2));
-                $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
-                if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
-                    $('.progress-bar2').show()
-                }else {
+                $('.countAll-container').html(data.countAll)
+                $('.sumAll-container').html(data.sumAll.toFixed(2))
+                $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2));
+                if((data.sumAll_not_sale > data.sumAll)){
+                    if(old_value_sumAll){
+                        $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    }
                     $('.progress-bar2').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
-
+                    $('.sumAll_sale').hide()
+                }else {
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.progress-bar2').show()
+                    $('.sumAll_sale').hide()
                 }
-
-                let sumAll = $('.sumAll').html();
-                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
+                let percent = parseInt(data.sumAll) * 100 /sum_modal;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -436,7 +437,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar2(percent)
+                progressBar2(Math.ceil(percent))
             }
         })
     });
@@ -459,25 +460,24 @@ $(document).ready(function() {
 
             },
             success: function (data) {
-                $("#valCount" + cart_id).val(count);
-                const old_value_sumAll = $('.sumAll').html();
+                $("#valCount_" + cart_id).val(count);
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
-                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
                 if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
                     $('.progress-bar2').show()
+                    $('.sumAll_sale').hide()
                 }else {
                     $('.progress-bar2').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.sumAll_sale').hide()
 
                 }
 
-                let sumAll = $('.sumAll').html();
-                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
+                let percent = parseInt(data.sumAll) * 100 /sum_modal;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -486,7 +486,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar2(percent)
+                progressBar2(Math.ceil(percent))
             }
         })
     });
@@ -509,25 +509,24 @@ $(document).ready(function() {
 
             },
             success: function (data) {
-                $("#valCount" + cart_id).val(count);
-                const old_value_sumAll = $('.sumAll').html();
+                $("#valCount_" + cart_id).val(count);
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
-                const old_value_percent = parseInt(old_value_sumAll) * 100 / (sum_modal);
                 $('.countAll-container').html(data.countAll)
                 $('.sumAll-container').html(data.sumAll.toFixed(2))
                 $('.sumAll-delivery-container').html((data.sumAll + Number(nova_poshta_price_delivery)).toFixed(2) );
                 if((data.sumAll_not_sale - data.sumAll) == 0){
-                    $('.sumAll_sale').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
+                    $('.sumAll_sale2').html('Еще ' + (sum_modal - data.sumAll).toFixed(2) + ' и сработает скидка '+ data.procent_modal + '%')
                     $('.progress-bar2').show()
+                    $('.sumAll_sale').hide()
                 }else {
                     $('.progress-bar2').hide()
-                    $('.sumAll_sale').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.sumAll_sale2').html('Ваша скидка ' + data.procent_modal + '%')
+                    $('.sumAll_sale').hide()
 
                 }
 
-                let sumAll = $('.sumAll').html();
-                let percent = parseInt(sumAll) * 100 /(sum_modal) - old_value_percent;
+                let percent = parseInt(data.sumAll) * 100 /sum_modal;
                 let price = ($(".price_" + cart_id).val());
                 let new_price = ($(".new_price_" + cart_id).val());
                 if (new_price) {
@@ -536,7 +535,7 @@ $(document).ready(function() {
                 } else {
                     $('.price_' + cart_id ).html((count * price).toFixed(2));
                 }
-                progressBar2(percent)
+                progressBar2(Math.ceil(percent))
             }
         })
     });
@@ -545,19 +544,18 @@ $(document).ready(function() {
 function progressBar2 (percent) {
     function incrementProgress2(barSelector, countSelector, incrementor) {
         var bar = document.querySelectorAll(barSelector)[0].firstElementChild,
-            curWidth = parseFloat(bar.style.width),
-            newWidth = curWidth + incrementor;
+            newWidth = incrementor;
         if (newWidth > 100) {
-            newWidth = 0;
-        } else if (newWidth < 0) {
             newWidth = 100;
+        } else if (newWidth < 0) {
+            newWidth = 0;
         }
         bar.style.width = newWidth + '%';
         document.querySelectorAll(countSelector)[0].innerHTML = newWidth.toFixed(1) + '%';
     }
 
     function incrementProgressLoop2() {
-        incrementProgress2('.progress-bar2', '.progress-count2', percent);
+        incrementProgress2('.progress-bar2', '.progress-count2', Math.ceil(percent));
     }
 
     incrementProgressLoop2();
