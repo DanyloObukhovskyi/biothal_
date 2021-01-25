@@ -140,6 +140,7 @@
 
 <script>
     $(document).ready(function () {
+        let sumAll = $('.sumAll').html();
         let val_nova_poshta_price = $('.val_nova_poshta_price').html();
         let sum_modal = $('#sum_modal').val();
         let sumAll_not_sale = $('#sumAll_not_sale').val();

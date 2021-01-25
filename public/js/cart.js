@@ -138,6 +138,7 @@ $(document).ready(function() {
 
             },
             success: function (data) {
+                $("#valCount_" + cart_id).val(count);
                 const old_value_sumAll = $('.sumAll').html();
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
@@ -460,7 +461,7 @@ $(document).ready(function() {
 
             },
             success: function (data) {
-                $("#valCount_" + cart_id).val(count);
+                $("#valCount" + cart_id).val(count);
                 let sum_modal = $('#sum_modal').val();
                 let nova_poshta_price_delivery = $('#nova_poshta_price_delivery').val();
                 $('.countAll-container').html(data.countAll)
