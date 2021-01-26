@@ -10,8 +10,7 @@
 }
 
 .main-body-container {
-    background-color: #fff;
-    /*background-color: #f8f5f5;*/
+    background-color: #fefefe;
 }
 
 .card-item:hover {
@@ -21,6 +20,7 @@
 }
 
 .card-item {
+    background: #ffffff!important;
     width: 350px;
     height: 500px;
 }

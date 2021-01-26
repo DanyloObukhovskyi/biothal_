@@ -30,7 +30,7 @@
                     @if($value['sale_id'] != null)
                         <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
                             <div class="card-item text-center">
-                                <div id="heightCart" class="" style="min-height: 425px">
+                                <div id="heightCart" class="" style="background: #FFFFFF!important; min-height: 425px">
                                     <a href="/product/{{$value->id}}">
                                         <img class="card-img-top img-fluid"
                                              style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"

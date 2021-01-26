@@ -21,24 +21,7 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 </head>
 <body>
-{{--                    <a href="{{route('login')}}">--}}
-{{--                        <button class="button_login btn btn-link">Log in</button>--}}
-{{--                    </a>--}}
-{{--                    <a href="{{route('register')}}">--}}
-{{--                        <button class="button_register btn btn-primary">Register</button>--}}
-{{--                    </a>--}}
-{{--                    <div class="card-body">--}}
-{{--                        @if (session('status'))--}}
-{{--                            <div class="alert alert-success" role="alert">--}}
-{{--                                {{ session('status') }}--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-{{--                    </div>--}}
-{{--                    @if(Auth::user())--}}
-{{--                        @if(Auth::user()->type == 'admin')--}}
-{{--                            <a href="{{route('admin.dashboard')}}"></a>--}}
-{{--                        @endif--}}
-{{--                    @endif--}}
+
 <div id="app">
 </div>
         @yield('content')

@@ -4,6 +4,9 @@
             display: none!important;
         }
     }
+    .navbar {
+        background-color: #ffffff!important;
+    }
 </style>
 
 <div class="container-fluid free_delivery" style="background-color: #000000; height: content-box; padding: 5px">
