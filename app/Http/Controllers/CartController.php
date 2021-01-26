@@ -215,7 +215,7 @@ class CartController extends Controller
                 'order_type_id' => $request->input('order_type')
             ]);
         }
-        dd(123);
+//        dd(123);
         $UserOrderAddress = UserOrderAddress::where([
             ['phone', '=', $request->input('phone')],
             ['name', '=', $request->input('name')],

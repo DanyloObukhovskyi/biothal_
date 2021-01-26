@@ -16,7 +16,7 @@ Route::get('category/{id}', 'CategoryController@getParentCategory');
 Route::get('category/{parent_id}/{id}', 'CategoryController@getCategory')->name('category');
 Route::get('accessory/{id}', 'AccessoryController@getParentAccessory');
 Route::get('accessory/{parent_id}/{id}', 'AccessoryController@getAccessory')->name('accessory');
-Route::get('product/{id}', 'ProductController@getProduct');
+Route::get('product/{id}', 'ProductController@getProduct')->name('products_id');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::post('test1', 'TestController@test')->name('test1');

@@ -125,6 +125,7 @@
 
 <!-- Footer mobile -->
 <section class="footerMobile">
+    @if (!empty(request()->route()->action['as']) && request()->route()->action['as'] == 'products_id')
     <div class="container-fluid" style="background-color: #000000; height: content-box; padding: 5px">
         <div class="row justify-content-center">
             <div style="color: #ffffff;">Бесплатная доставка от 1500 ГРН <svg style="margin: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -132,6 +133,7 @@
                 </svg></div>
         </div>
     </div>
+    @endif
     <div class="container-fluid" style="background-color: #b9bebf; height: content-box; padding: 5px">
         <div class="container cont">
             <div style="color: #000000; margin-top: 15px; margin-bottom: 5px; padding-left: 20px">Будь в курсе специальных предложений</div>
