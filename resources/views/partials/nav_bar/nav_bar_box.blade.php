@@ -177,7 +177,7 @@
     </div>
     <div id="logo-mobile" class="row col-sm-3">
         <a class="navbar-brand" href="/">
-            <img id="logo_img" class="img-fluid" style="margin-left: 35px; margin-right: auto; margin-top: 15px; width: 6.5em"
+            <img id="logo_img" class="img-fluid" style="margin-left: 35px; margin-right: auto; margin-top: 10px; width: 7em"
                  src="{{ Storage::disk('public')->url('image/new-logo.svg')}}" width="127"></a>
     </div>
     <div class="col-sm-2" id="icons" style="display: flex; justify-content: space-evenly">

@@ -17,11 +17,34 @@
         h5 {
             color: black
         }
+        @media (min-width:0px) and (max-width:1000px) {
+            .surprice {
+                font-family: Manrope, serif;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 22px;
+            }
+        }
+        @media (min-width:1000.01px) {
+            .surprice {
+                font-family: Manrope, serif;
+                font-style: normal;
+                font-weight: 200;
+                font-size: 34px;
+                line-height: 46px;
+                text-transform: uppercase;
+            }
+            #heightCart {
+                min-height: 425px
+            }
+        }
+
     </style>
     <div class="main-body-container">
         @if($count_sale_product > 0)
-            <div style="padding: 25px; text-align: center">
-                <h3>ПОДАРКИ И СКИДКИ</h3>
+            <div class="surprice" style="padding: 25px; text-align: center">
+                Подарки и скидки
             </div>
         @endif
         <div class="container">
@@ -30,7 +53,7 @@
                     @if($value['sale_id'] != null)
                         <div class="col-md-4 col-sm-12" style="margin-bottom: 10px">
                             <div class="card-item text-center">
-                                <div id="heightCart" class="" style="background: #FFFFFF!important; min-height: 425px">
+                                <div id="heightCart" class="" style="background: #FFFFFF!important;">
                                     <a href="/product/{{$value->id}}">
                                         <img class="card-img-top img-fluid"
                                              style="max-height: 207px; max-width: 180px; margin-right: 7px; justify-content: center;"
@@ -75,7 +98,7 @@
         </div>
 
         <div style="padding: 25px; text-align: center">
-            <h2>БЕСТСЕЛЛЕРЫ</h2>
+            <h2>Бестселлеры</h2>
         </div>
         <div class="container">
             <div class="row justify-content-center">
