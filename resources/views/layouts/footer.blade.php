@@ -31,31 +31,38 @@
 
     }
 </style>
-
-<footer class="page-footer font-small mdb-color pt-4" >
+<footer class="page-footer font-small mdb-color pt-4 col-sm-12" style="z-index: 15!important;">
     <div class="container-fluid" style="background-color: #2f7484; height: content-box; padding: 10px">
-        <div class="present" style="color: white" >
+        <div class="present" style="color: white">
             <div>Узнавайте первыми о распродажах и новинках!</div>
             <div>Электронный адрес</div>
         </div>
     </div>
     <div class="container text-center text-md-left">
         <div class="row text-center text-md-left mt-3 pb-3">
-            <div style="text-align: justify" class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-4">
-                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a  href="/"><img id="logo" style="height: 3em!important; width: 6em!important;" class="img-fluid" src="{{ Storage::disk('public')->url('image/new-logo.png')}}"></a></h6>
-                <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам.</p>
+            <div style="text-align: justify;" class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-4">
+                <h6 class="text-uppercase mb-4 font-weight-bold img-fluid"><a href="/">
+                        <img id="logo" style="height: 3em!important; width: 6em!important;" class="img-fluid"
+                        src="{{ Storage::disk('public')->url('image/new-logo.png')}}"></a>
+                </h6>
+                <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
+                    силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
+                    стандартам.</p>
             </div>
             <hr class="w-100 clearfix d-md-none">
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Каталог</h6>
-                    <p>
-                        <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для лица')->value('id')}}">- Для лица</a>
-                    </p><p>
-                        <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для тела')->value('id')}}">- Для тела</a>
-                    </p>
-                    <p>
-                        <a href="#!">- Эффективные наборы</a>
-                    </p>
+                <p>
+                    <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для лица')->value('id')}}">-
+                        Для лица</a>
+                </p>
+                <p>
+                    <a href="/category/{{\App\Models\Categories::where('parent_id', null)->where('title', 'Для тела')->value('id')}}">-
+                        Для тела</a>
+                </p>
+                <p>
+                    <a href="#!">- Эффективные наборы</a>
+                </p>
             </div>
             <hr class="w-100 clearfix d-md-none">
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
@@ -76,12 +83,20 @@
             <hr class="w-100 clearfix d-md-none">
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h6 class="text-uppercase mb-4 font-weight-bold">Мы в сетях</h6>
-                <p><a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 10px" src="{{ Storage::disk('public')->url('image/footer/facebook.png')}}">Facebook</a></p>
+                <p><a href="https://www.facebook.com/biothal.ua"><img style="margin-right: 15px; margin-left: 10px"
+                                                                      src="{{ Storage::disk('public')->url('image/footer/facebook.png')}}">Facebook</a>
+                </p>
                 <p>
-                    <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q"><svg style="width: 2.5em; height: 1.7em; padding-right: 3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
-                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
-                        </svg>Youtube</a></p>
-                <p><a href="https://www.instagram.com/biothal.ua"><img style="margin-right: 15px; margin-left: 5px; width: 25px" src="{{ Storage::disk('public')->url('image/footer/instagram.png')}}">Instagram</a></p>
+                    <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q">
+                        <svg style="width: 2.5em; height: 1.7em; padding-right: 3px" xmlns="http://www.w3.org/2000/svg"
+                             width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.122C.002 7.343.01 6.6.064 5.78l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                        Youtube</a></p>
+                <p><a href="https://www.instagram.com/biothal.ua"><img
+                            style="margin-right: 15px; margin-left: 5px; width: 25px"
+                            src="{{ Storage::disk('public')->url('image/footer/instagram.png')}}">Instagram</a></p>
             </div>
         </div>
         <hr>
@@ -104,6 +119,8 @@
         </div>
     </div>
 </footer>
+
+
 
 
 <!-- Footer mobile -->
