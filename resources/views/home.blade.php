@@ -21,7 +21,7 @@
     <div class="main-body-container">
         @if($count_sale_product > 0)
             <div style="padding: 25px; text-align: center">
-                <h2>ПОДАРКИ И СКИДКИ</h2>
+                <h3>ПОДАРКИ И СКИДКИ</h3>
             </div>
         @endif
         <div class="container">

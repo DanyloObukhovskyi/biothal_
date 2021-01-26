@@ -19,8 +19,8 @@
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <div id="logo" class="row col-sm-3">
         <a class="navbar-brand" href="/">
-            <img id="logo_img" class="img-fluid" style="margin-left: 30px; margin-right: auto; width: 7em"
-                 src="{{ Storage::disk('public')->url('image/new-logo.png')}}" width="127"></a>
+            <img id="logo_img" class="img-fluid" style="margin-left: 30px; margin-right: auto; margin-top:5px; width: 7em"
+                 src="{{ Storage::disk('public')->url('image/new-logo.svg')}}" width="127"></a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,7 @@
 
 <nav id="navbarMobile" class="navbar navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownMobile" style="border:none;color: #212529;">
-        ☰
+        <img style="width: 1.1em; margin-top: 5px" src="{{ Storage::disk('public')->url('image/burger.svg')}}">
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdownMobile">
         <ul class="navbar-nav">
@@ -177,8 +177,8 @@
     </div>
     <div id="logo-mobile" class="row col-sm-3">
         <a class="navbar-brand" href="/">
-            <img id="logo_img" class="img-fluid" style="margin-left: 30px; margin-right: auto; width: 7em"
-                 src="{{ Storage::disk('public')->url('image/new-logo.png')}}" width="127"></a>
+            <img id="logo_img" class="img-fluid" style="margin-left: 35px; margin-right: auto; margin-top: 15px; width: 6.5em"
+                 src="{{ Storage::disk('public')->url('image/new-logo.svg')}}" width="127"></a>
     </div>
     <div class="col-sm-2" id="icons" style="display: flex; justify-content: space-evenly">
         <svg data-toggle="modal" data-target="#exampleModal" width="1.2em" height="1.2em" viewBox="0 0 16 16"
