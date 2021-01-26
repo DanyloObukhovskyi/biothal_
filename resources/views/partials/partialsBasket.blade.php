@@ -99,16 +99,16 @@
         </div>
         @if(count($cart_prod_count) != null)
                 <div class="row">
-                    <div style="margin-left: 40px" class="col-sm-12">
+                    <div class="col-sm-12">
                         @if($sumAll_sale <= 0 )
                             @if(!empty($procent_modal))
-                                <div style="text-align: center; margin-bottom: 15px"><span class="sumAll_sale_first">Ваша
+                                <div style="text-align: center;"><span class="sumAll_sale_first">Ваша
                                         скидка {{$procent_modal.' %'}}</span></div>
                             @endif
                         @endif
                         @if(!empty($sum_modal))
                             @if($sumAll_sale < $sum_modal && $sumAll_sale > 0)
-                                <div class="sumAll_sale" style="text-align: center; margin-bottom: 15px">
+                                <div class="sumAll_sale">
                                     Еще <span class="sumAll_sale-container">{{$sumAll_sale}}</span>
                                     грн и сработает скидка {{$procent_modal.' %'}}
                                 </div>

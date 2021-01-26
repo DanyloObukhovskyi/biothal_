@@ -11,6 +11,12 @@
             text-decoration: none;
             color: black;
         }
+        p {
+            color: black
+        }
+        h5 {
+            color: black
+        }
     </style>
     <div class="main-body-container">
         @if($count_sale_product > 0)

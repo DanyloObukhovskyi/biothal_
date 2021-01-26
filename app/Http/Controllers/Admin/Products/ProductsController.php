@@ -35,10 +35,8 @@ class ProductsController extends Controller
                 ->editColumn('image_id', function ($row) {
                     $img = '/storage/img/products/' . $row->getImage->name;
 
-                    return '<a href="' . $img . '" class="thumbnail">
-                                        <img src="' . $img . '" class="rounded-circle"
-                                             width="100" height="100" alt="Изображение товара">
-                                    </a>';
+                    return '<a href="' . $img . '" class="thumbnail"><img src="' . $img . '" class="rounded-circle"
+                                             width="100" height="100" alt="Изображение товара"></a>';
                 })
                 ->editColumn('sale_id', function ($row) {
                     return $row->sale_id != null ?
