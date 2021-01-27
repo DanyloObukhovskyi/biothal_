@@ -117,7 +117,7 @@
                                     </td>
                                     <td class="text-left">Включено</td>
                                     <td class="text-right">
-                                        <a href="#" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i
+                                        <a href="changeNewProd" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i
                                                 class="fa fa-pencil"></i></a></td>
                                 </tr>
                                 <tr>
