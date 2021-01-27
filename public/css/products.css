@@ -1,3 +1,4 @@
+/*for unknown page*/
 .dis{
     color: #93a1a1;
 }
@@ -18,4 +19,65 @@
     color: #533f03;
 }
 
+/* for page admin/products/pageNew */
+.pull-right {
+    text-align: end;
+    float: right;
+}
+.breadcrumb {
+    text-align: left;
+    float: left;
+    background: none;
+    margin-top: 6px;
+}
+.well {
+    font-family: 'Open Sans',sans-serif;
+    color: #666666;
+    size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.panel-title {
+    font-family: 'Open Sans',sans-serif;
+    color: #595959;
+    size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.tr-thead {
+    font-family: 'Open Sans',sans-serif;
+    color: #666666;
+    size: 12px;
+    font-style: normal;
+    font-weight: 700;
+}
+.page-header {
+    margin-top: 15px;
+}
+.panel-heading {
+    margin-top: 10px;
+}
+.fa-home {
+    width: 2em;
+    color: #999999;
+}
+.table-responsive {
+    background-color: #ffffff;
+}
+
+#button-filter {
+    margin-bottom: 10px;
+}
+.h1-prod {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    color: #848484;
+    float: left;
+}
+.prod-header {
+    background-color: #ffffff;
+}
 

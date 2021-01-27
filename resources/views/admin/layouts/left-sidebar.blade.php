@@ -70,6 +70,12 @@
                         <span>Товары</span>
                     </a>
                 </li>
+                <li class="{{@checkIsActive('admin.products.pageNew')}}">
+                    <a href="{{route('admin.products.pageNew')}}">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Товары-New</span>
+                    </a>
+                </li>
 {{--                <li class="sidebar-dropdown">--}}
 {{--                    <a href="#">--}}
 {{--                        <i class="fa fa-shopping-cart"></i>--}}

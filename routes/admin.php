@@ -64,6 +64,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/', 'ProductsController@index')
                 ->name('admin.products.page');
 
+            Route::get('/pageNew', 'ProductsController@indexNew')
+                ->name('admin.products.pageNew');
+
             Route::get('/get', 'ProductsController@getProductForChange')
                 ->name('admin.product.get');
 

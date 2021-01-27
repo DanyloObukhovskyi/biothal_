@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
+    public function indexNew(){
+        return view('admin.products.indexNew');
+    }
+
     public function index(Request $request)
     {
         $products = Product::all();
