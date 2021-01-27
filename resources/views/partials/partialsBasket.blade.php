@@ -96,10 +96,9 @@
                         <input type="hidden" value="{{$sumAll}}">
                 @endforeach
             </div>
-        </div>
-        @if(count($cart_prod_count) != null)
+            @if(count($cart_prod_count) != null)
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 total-cart-count">
                         @if($sumAll_sale <= 0 )
                             @if(!empty($procent_modal))
                                 <div style="text-align: center;"><span class="sumAll_sale_first">Ваша
@@ -128,13 +127,14 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center">
+                <div class="row justify-content-center cart-div-buy">
                     <a href="/setCheck">
-                        <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy">Оформить заказ
+                        <button id="" type="submit" style="margin-top: 10px;" class="btn btn-myBuy cart-btn-buy">Оформить заказ
                         </button>
                     </a>
                 </div>
-        @endif
+            @endif
+        </div>
     </div>
 </div>
 

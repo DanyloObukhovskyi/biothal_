@@ -12,7 +12,7 @@
                 @foreach($products as $value)
                     @if($value['id'] == $id)
                         @if(isset($value->getImage['name']))
-                        <div class="card text-center" style="width: 18rem; margin-left: auto; margin-right: auto">
+                        <div class="card text-center card-image" style="">
                             <img class="img-fluid card-img-top" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
                         </div>
                         @endif
@@ -22,46 +22,46 @@
                     <h5 class="card-title">{!!$value->name!!}</h5>
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
-                        <h4 style="margin-right: 0px; margin-left: 15px; margin-bottom: 0"><b>{!!$value->price_with_sale!!} грн</b></h4>
-                        <p style="margin-left: 15px; margin-bottom: 0; margin-top:3px"><s>{!!$value->price!!}</s> грн</p>
+                        <div class="col-md-6 price-div">
+                            <h4 class="price-info" ><b>{!!$value->price_with_sale!!} грн</b></h4>
+                            <p class="old-price"><s>{!!$value->price!!}</s> грн</p>
+                        </div>
                     </div>
-                    <span style="font-size: 11px; margin-top: 0px; color:#87c8d7">В наличии</span>
-                    <p>Количество</p>
-                    <div class="amount">
-                        <span class="down">-</span>
-                        <input id="count_products" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
-                        <span class="plus up">+</span>
+                    <div class="card-quantity">
+                        <span style="font-size: 11px; margin-top: 0px; color:#87c8d7">В наличии</span>
+                        <p>Количество</p>
+                        <div class="amount">
+                            <span class="down">-</span>
+                            <input id="count_products" type="text" style="width: 40px; border-color: transparent" min="1" value="1"/>
+                            <span class="plus up">+</span>
+                        </div>
                     </div>
-                    <button id="btn-buy" type="submit" style="margin-left: 5px" class="btn btn-myBuy">Добавить в корзину</button><br>
-                    <a data-toggle="modal" data-target="#modalOneClick" class="add_click col-sm-1"><b>Оформить товар в 1 клик</b></a>
+                    <button id="btn-buy" type="submit" style="margin-left: 5px" class="btn btn-myBuy card-btn-buy">Добавить в корзину</button><br>
+                    <div class="card-quantity">
+                        <a data-toggle="modal" data-target="#modalOneClick" class="add_click col-sm-1"><b>Оформить товар в 1 клик</b></a>
+                    </div>
                     <input type="hidden" id="product_id" value="{{$value->id}}" />
                 </div>
             </div>
             @endif
             @endforeach
         </div>
-        <div class="row" style="margin-top: 40px">
-            <div class="col-sm-2"></div>
-            <div id="" class="col-sm-1">
-            </div>
-            <div class="col-sm-2">
-                <button type="button" style="color: #000000" class="btn btn-link tablinks active"
+        <div class="row justify-content-center">
+            <div class="col-md-2 card-options">
+                <button type="button" class="btn btn-link tablinks active"
                         onclick="openTabs(event, 'desc')">Описание
                 </button>
             </div>
-            <div id="" class="col-sm-2">
-                <button type="button" style="color: #000000" class="btn btn-link tablinks"
+            <div id="" class="col-md-2 card-options">
+                <button type="button" class="btn btn-link tablinks"
                         onclick="openTabs(event, 'composition')">Состав
                 </button>
             </div>
-            <div id="" class="col-sm-2">
-                <button type="button" style="color: #000000" class="btn btn-link tablinks"
+            <div id="" class="col-md-2 card-options">
+                <button type="button" class="btn btn-link tablinks"
                         onclick="openTabs(event, 'application')">Применение
                 </button>
             </div>
-            <div id="" class="col-sm-1">
-            </div>
-            <div class="col-sm-2"></div>
         </div>
         <div class="row" style="margin-top: 20px">
         </div>

@@ -9,6 +9,8 @@
     border-color: #2f7484;
 }
 
+
+
 .main-body-container {
     background-color: #fefefe;
 }
@@ -37,6 +39,58 @@
     display: none;
 }
 
+.card-title {
+    color: #000000;
+    font-family: Manrope;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.card-image {
+    width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+}
+
+.price-div {
+    display: flex;
+}
+
+.old-price {
+    margin: 5px 2px 3px 5px;
+}
+
+.card-options button {
+    color: #000000
+}
+
+.special-offer {
+    background-color: #EFEFEF;
+    height: content-box;
+    padding: 5px
+}
+
+.propose-mess {
+    width: 90% !important;
+    color: #000000;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+}
+
+.propose-mess-img {
+    text-align: right;
+    width: 5% !important;
+}
+
+.total-cart-count {
+    padding: 0 0 0 10px;
+}
+
 @media (min-width: 1200px) {
     #navbar {
         display: flex;
@@ -44,6 +98,53 @@
 
     #navbarMobile {
         display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    #exampleModalLong .modal-dialog{
+        margin-left: 0px !important;
+        height: 100%!important;
+    }
+
+    #exampleModalLong .modal-content{
+        height: 100%!important;
+    }
+
+    #exampleModalLong .pre-conteiner{
+        height: 100%!important;
+    }
+
+    .cart-div-buy {
+        display: block;
+    }
+    .cart-btn-buy {
+        margin-left: 10px;
+        width: 100%!important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .price-info {
+        color: #2F7484;
+    }
+
+    .card-title {
+        text-align: center;
+    }
+
+    .card-quantity {
+        display: none;
+    }
+
+    .card-options {
+        width: 30%;
+    }
+}
+
+@media (max-width: 767px) {
+    .card-btn-buy {
+        width: 100% !important;
     }
 }
 
