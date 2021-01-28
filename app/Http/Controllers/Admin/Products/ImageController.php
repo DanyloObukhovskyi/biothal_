@@ -61,6 +61,52 @@ class ImageController extends Controller
         ]);
     }
 
+    public function banner()
+    {
+        $images = [];
+        $imagesGlobal = [];
+        $imagesAll = Image::all();
+        $imagesGlobalAll = ImageGlobal::all();
+        // Если нет изображений, выводим подсказку
+//        if (count($imagesAll) == 0) {
+//            return view('admin.images.index', ['images' => null]);
+//        }
+//        if (count($imagesGlobalAll) == 0) {
+//            return view('admin.images.index', ['imagesGlobal' => null]);
+//        }
+
+        $n = 0; // Номер группы
+        $i = 0; // Итератор
+        // Делаю групы по 4 изображения, для удобного размещения на форме
+        foreach ($imagesAll as $image) {
+            $imageS[$i + 1] = $image;
+            $i++;
+            $images[$n] = $imageS;
+            if ($i % 4 == 0) {
+                $imageS = null;
+                $n++;
+            }
+        }
+
+        $n = 0; // Номер группы
+        $i = 0; // Итератор
+        $imageS = [];//Обновляю массив
+        foreach ($imagesGlobalAll as $image) {
+            $imageS[$i + 1] = $image;
+            $i++;
+            $imagesGlobal[$n] = $imageS;
+            if ($i % 4 == 0) {
+                $imageS = null;
+                $n++;
+            }
+        }
+
+        return view('admin.images.banner', [
+            'images' => $images,
+            'imagesGlobal' => $imagesGlobal,
+        ]);
+    }
+
     public function addImage(ValidImgRequest $request)
     {
 //        dd($request->toArray());
@@ -94,7 +140,7 @@ class ImageController extends Controller
         ImageGlobal::create([
             'name' => $name
         ]);
-        return redirect()->route('admin.images.page');
+        return redirect()->route('admin.images.banner');
     }
 
     public function deleteImage(ImageDeleteRequest $request)

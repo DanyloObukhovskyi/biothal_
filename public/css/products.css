@@ -20,7 +20,16 @@
 }
 
 /* for page admin/products/pageNew */
-fa-pencil {
+#button-filter, #button-sales{
+    margin-top: 23px;
+}
+
+#button-global-sales {
+    margin-right: 40px;
+    margin-top: 23px;
+}
+
+.fa-pencil {
     margin-right: 7px;
 }
 .pull-right {

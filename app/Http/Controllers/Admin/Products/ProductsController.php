@@ -19,20 +19,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
-    //for new page admin/products/pageNew
-
-    public function indexNew(){
-        return view('admin.products.indexNew');
-    }
-
-    public function changeProd(){
-        return view('admin.products.changeNewProd');
-    }
-
-
-
-    //for old page admin/products
-
     public function index(Request $request)
     {
         $products = Product::all();

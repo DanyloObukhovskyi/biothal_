@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('dashboard', 'IndexController@index')
             ->name('admin.dashboard');
 
-        // Панель состояния
+        // Панель состояния (Устарела, заменяем на Заказы, смотри ниже)
         Route::group(['prefix' => 'panel'], function () {
             Route::get('/', 'StatePanelController@index')
                 ->name('admin.statePanel.page');
@@ -28,6 +28,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('get/cart', 'StatePanelController@getShoppingCart')
                 ->name('admin.statePanel.cart');
         });
+
+        // Заказы
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('/', 'OrdersController@index')
+                ->name('admin.orders.orders');
+        });
+
 
         //  Категории
         Route::group(['prefix' => 'categories', 'namespace' => 'Categories'], function () {
@@ -64,11 +71,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/', 'ProductsController@index')
                 ->name('admin.products.page');
 
-            Route::get('/pageNew', 'ProductsController@indexNew')
+            Route::get('/pageNew', 'NewProductsController@indexNew')
                 ->name('admin.products.pageNew');
 
-            Route::get('/changeNewProd', 'ProductsController@changeProd')
+            Route::get('/changeNewProd', 'NewProductsController@changeProd')
                 ->name('admin.products.changeNewProd');
+
+            Route::get('/information', 'NewProductsController@information')
+                ->name('admin.products.information');
+
+            Route::get('/changeInformation', 'NewProductsController@changeInformation')
+                ->name('admin.products.changeInformation');
 
             Route::get('/get', 'ProductsController@getProductForChange')
                 ->name('admin.product.get');
@@ -93,6 +106,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             Route::put('clear/sales', 'SalesController@clearSales')
                 ->name('admin.product.clear.sales');
+
 
             // Добавление
             Route::group(['prefix' => 'add'], function () {
@@ -138,6 +152,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'Images', 'namespace' => 'Products'], function () {
             Route::get('/', 'ImageController@index')
                 ->name('admin.images.page');
+
+            Route::get('/banner', 'ImageController@banner')
+                ->name('admin.images.banner');
 
             Route::post('/add', 'ImageController@addImage')
                 ->name('admin.addImage');

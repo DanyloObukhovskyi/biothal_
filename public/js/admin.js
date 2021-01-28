@@ -171,7 +171,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500
                     }).then(function () {
-                        window.location.replace('/admin/Images');
+                        window.location.replace('/admin/Images/banner');
                     });
 
             }
