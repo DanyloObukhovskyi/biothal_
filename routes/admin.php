@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'orders'], function () {
             Route::get('/', 'OrdersController@index')
                 ->name('admin.orders.orders');
+
+            Route::get('/viewOrders', 'OrdersController@viewOrders')
+                ->name('admin.orders.viewOrders');
         });
 
 

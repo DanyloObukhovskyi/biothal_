@@ -125,7 +125,7 @@
                                 <td class="text-right">540 грн</td>
                                 <td class="text-left">28.01.2021</td>
                                 <td class="text-left">28.01.2021</td>
-                                <td class="text-right"><a href="" data-toggle="tooltip" title="Посмотреть" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                                <td class="text-right"><a href="/admin/orders/viewOrders" data-toggle="tooltip" title="Посмотреть" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

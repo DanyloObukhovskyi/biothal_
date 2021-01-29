@@ -16,4 +16,9 @@ class OrdersController extends Controller
             'statuses' => $statuses,
         ]);
     }
+
+    public function viewOrders()
+    {
+        return view('admin.orders.viewOrders');
+    }
 }
