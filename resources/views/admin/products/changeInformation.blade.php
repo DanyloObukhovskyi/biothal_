@@ -3,9 +3,11 @@
 @section('style')
     <link rel="stylesheet" href="{{asset('css/products.css')}}">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
+
     <div class="prod-header border container-fluid">
         <div class="row page-header">
             <div class="container-fluid col-sm-12">
@@ -52,7 +54,7 @@
                                         <div class="form-group required">
                                             <label class="col-sm-2 control-label" for="input-description1">Описание</label>
                                             <div class="col-sm-10">
-                                                <textarea name="information_description[1][description]" placeholder="Описание" id="input-description1" class="form-control summernote">&lt;span id=&quot;docs-internal-guid-6b1e3304-7fff-a54f-8abf-7b73098e9a6b&quot;&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;&lt;b&gt;«Biothal» &lt;/b&gt;- это уникальная французская косметика, обогащенная бесценными по своим целительным свойствам минералами, микроэлементами, витаминами, которые может нам дать только море. В состав средств для ухода за телом, лицом, волосами от бренда «Biothal» входит морская соль, водоросли и другие морские ингредиенты, которые делают эту лечебную косметическую продукцию по-настоящему высококачественной и эффективной. &lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;/span&gt;&lt;span id=&quot;docs-internal-guid-6b1e3304-7fff-a54f-8abf-7b73098e9a6b&quot;&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;Талантливые ученые, опытные косметологи, лучшие специалисты в области создания натуральной, природной, восстанавливающей и омолаживающей косметики вдохновенно и упорно работают в лабораториях «Biothal» над тем, чтобы производить продукт, приносящий поистине поразительные результаты. &lt;/span&gt;&lt;/p&gt;&lt;/span&gt;</textarea>
+                                                <textarea id="summernote" name="information_description[1][description]" placeholder="Описание" id="input-description1" class="form-control summernote">&lt;span id=&quot;docs-internal-guid-6b1e3304-7fff-a54f-8abf-7b73098e9a6b&quot;&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;&lt;b&gt;«Biothal» &lt;/b&gt;- это уникальная французская косметика, обогащенная бесценными по своим целительным свойствам минералами, микроэлементами, витаминами, которые может нам дать только море. В состав средств для ухода за телом, лицом, волосами от бренда «Biothal» входит морская соль, водоросли и другие морские ингредиенты, которые делают эту лечебную косметическую продукцию по-настоящему высококачественной и эффективной. &lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;/span&gt;&lt;span id=&quot;docs-internal-guid-6b1e3304-7fff-a54f-8abf-7b73098e9a6b&quot;&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;&quot;&gt;&lt;span style=&quot;font-variant-ligatures: normal; font-variant-east-asian: normal; font-variant-position: normal; vertical-align: baseline;&quot;&gt;Талантливые ученые, опытные косметологи, лучшие специалисты в области создания натуральной, природной, восстанавливающей и омолаживающей косметики вдохновенно и упорно работают в лабораториях «Biothal» над тем, чтобы производить продукт, приносящий поистине поразительные результаты. &lt;/span&gt;&lt;/p&gt;&lt;/span&gt;</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group required">
@@ -148,33 +150,33 @@
             </div>
         </div>
     </div>
-
     @endsection
 
 @section('script')
-                                <script type="text/javascript">
-                                    var apt_row = 2;
-                                    function addAptengb() {
-                                        html  = '<div id="apt_rowen-gb' + apt_row + '" class="row" style="margin-bottom: 20px">';
-                                        html += '<div class="col-sm-2"><input type="text" name="product_apt_name[en-gb][]" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
-                                        html += '<div class="col-sm-8"><textarea name="product_apt_desc[en-gb][]"  id="apt_desc_1' + apt_row + '" cols="45" rows="5" ></textarea></div>';
-                                        html += '<div class="col-sm-1"><input type="text" name="tab_sort_order[en-gb][]" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
-                                        html += '<div class="col-sm-1"><a onclick="$(\'#apt_rowen-gb' + apt_row  + '\').remove();" class="btn btn-danger"><i class="fa fa-minus-circle fa-fw"></i></a></div>';
-                                        html += '</div>';
+    <script type="text/javascript">
+        var apt_row = 2;
+        function addAptengb() {
+            html  = '<div id="apt_rowen-gb' + apt_row + '" class="row" style="margin-bottom: 20px">';
+            html += '<div class="col-sm-2"><input type="text" name="product_apt_name[en-gb][]" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
+            html += '<div class="col-sm-8"><textarea name="product_apt_desc[en-gb][]"  id="apt_desc_1' + apt_row + '" cols="45" rows="5" ></textarea></div>';
+            html += '<div class="col-sm-1"><input type="text" name="tab_sort_order[en-gb][]" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
+            html += '<div class="col-sm-1"><a onclick="$(\'#apt_rowen-gb' + apt_row  + '\').remove();" class="btn btn-danger"><i class="fa fa-minus-circle fa-fw"></i></a></div>';
+            html += '</div>';
 
-                                        $('#aptsen-gb #put-here').before(html);
-                                        $('#apt_desc_1'+apt_row).summernote({height: 300});
-                                        apt_row++;
-                                    }
-
-                                    $('#languages_apt a:first').tab('show');
-                                    </script>
-                                <script type="text/javascript">
-                                    $('#language a:first').tab('show');
-                                    $('#option a:first').tab('show');
-                                    //--></script>
-                                <script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
-                                <link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
+            $('#aptsen-gb #put-here').before(html);
+            $('#apt_desc_1'+apt_row).summernote({height: 300});
+            apt_row++;
+        }
+    $('#languages_apt a:first').tab('show');
+    </script>
+    <script type="text/javascript">
+        $('#language a:first').tab('show');
+        $('#option a:first').tab('show');
+    </script>
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script type="text/javascript">
+        $('.summernote').summernote();
+    </script>
 @endsection

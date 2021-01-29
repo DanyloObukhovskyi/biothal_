@@ -125,7 +125,8 @@
                                 <td class="text-right">540 грн</td>
                                 <td class="text-left">28.01.2021</td>
                                 <td class="text-left">28.01.2021</td>
-                                <td class="text-right"><a href="/admin/orders/viewOrders" data-toggle="tooltip" title="Посмотреть" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                                <td class="text-right"><a href="/admin/orders/viewOrders" data-toggle="tooltip" title="Посмотреть" class="btn btn-info"><i class="fa fa-eye"></i></a>
+{{--                                <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>--}}
                             </tr>
                             </tbody>
                         </table>
@@ -139,68 +140,35 @@
 @section('script')
     <script type="text/javascript">
         $('#button-filter').on('click', function() {
-            url =/*'index.php?route=sale/order&token=B9lVR0mNByKiJk1XcXngD7nQNkUU4Hs8'*/;
-
+            url = '#';
             var filter_order_id = $('input[name=\'filter_order_id\']').val();
-
             if (filter_order_id) {
                 url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
             }
-
             var filter_customer = $('input[name=\'filter_customer\']').val();
-
             if (filter_customer) {
                 url += '&filter_customer=' + encodeURIComponent(filter_customer);
             }
-
             var filter_order_status = $('select[name=\'filter_order_status\']').val();
-
             if (filter_order_status != '*') {
                 url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
             }
-
             var filter_total = $('input[name=\'filter_total\']').val();
-
             if (filter_total) {
                 url += '&filter_total=' + encodeURIComponent(filter_total);
             }
-
             var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
             if (filter_date_added) {
                 url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
             }
-
             var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
-
             if (filter_date_modified) {
                 url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
             }
-
             location = url;
         });
         </script>
-    <script type="text/javascript">
-        $('input[name=\'filter_customer\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: /*'index.php?route=customer/customer/autocomplete&token=B9lVR0mNByKiJk1XcXngD7nQNkUU4Hs8&filter_name='*/ +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['name'],
-                                value: item['customer_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_customer\']').val(item['label']);
-            }
-        });
-        //--></script>
+
     <script type="text/javascript">
         $('input[name^=\'selected\']').on('change', function() {
             $('#button-shipping, #button-invoice').prop('disabled', true);

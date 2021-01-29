@@ -13,8 +13,8 @@
                 <div class="pull-right col-sm-3">
                     <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>
                     <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>
-                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>
+                    <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i style="width: 0.5em" class="fa fa-pencil"></i></a>
+                    <a href="" data-toggle="tooltip" title="Отменить" class="btn btn-default"><i class="fa fa-reply"></i></a>
                 </div>
                 <div class="col-sm-8">
                 </div>
@@ -37,10 +37,9 @@
                         <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> Заказ</h3>
                     </div>
                     <table class="table">
-                        <tbody>
                         <tr>
-                            <td style="width: 1%;"><button data-toggle="tooltip" title="Магазин" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
-                            <td><a href="https://3.140.132.208/" target="_blank">Biothal</a></td>
+                            <td style=""><button data-toggle="tooltip" title="Магазин" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
+                            <td><a href="http://3.140.132.208/" target="_blank">Biothal</a></td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Дата добавления" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
@@ -54,7 +53,6 @@
                             <td><button data-toggle="tooltip" title="Способ доставки" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
                             <td>Самовывоз из магазина</td>
                         </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -107,8 +105,6 @@
                             <td class="text-right"  colspan="2">
                                 <input type="checkbox" id="order_export_exchange1c_status" name="order_export_exchange1c_status"  value="1" id="input-override" />
                             </td>
-                        </tr>
-                        <!-- NeoSeo Exchange 1c - end -->
                         </tr>
                         <tr>
                             <td>Партнер                  </td>
@@ -270,107 +266,36 @@
 
 @section('script')
     <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-            url =/*'index.php?route=sale/order&token=B9lVR0mNByKiJk1XcXngD7nQNkUU4Hs8'*/;
-
-            var filter_order_id = $('input[name=\'filter_order_id\']').val();
-
-            if (filter_order_id) {
-                url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
-            }
-
-            var filter_customer = $('input[name=\'filter_customer\']').val();
-
-            if (filter_customer) {
-                url += '&filter_customer=' + encodeURIComponent(filter_customer);
-            }
-
-            var filter_order_status = $('select[name=\'filter_order_status\']').val();
-
-            if (filter_order_status != '*') {
-                url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
-            }
-
-            var filter_total = $('input[name=\'filter_total\']').val();
-
-            if (filter_total) {
-                url += '&filter_total=' + encodeURIComponent(filter_total);
-            }
-
-            var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-            if (filter_date_added) {
-                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-            }
-
-            var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
-
-            if (filter_date_modified) {
-                url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
-            }
-
-            location = url;
-        });
-        </script>
-    <script type="text/javascript">
-        $('input[name=\'filter_customer\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: /*'index.php?route=customer/customer/autocomplete&token=B9lVR0mNByKiJk1XcXngD7nQNkUU4Hs8&filter_name='*/ +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['name'],
-                                value: item['customer_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_customer\']').val(item['label']);
-            }
-        });
-        //--></script>
-    <script type="text/javascript">
         $('input[name^=\'selected\']').on('change', function() {
             $('#button-shipping, #button-invoice').prop('disabled', true);
-
             var selected = $('input[name^=\'selected\']:checked');
-
             if (selected.length) {
                 $('#button-invoice').prop('disabled', false);
             }
-
             for (i = 0; i < selected.length; i++) {
                 if ($(selected[i]).parent().find('input[name^=\'shipping_code\']').val()) {
                     $('#button-shipping').prop('disabled', false);
-
                     break;
                 }
             }
         });
 
         $('#button-shipping, #button-invoice').prop('disabled', true);
-
         $('input[name^=\'selected\']:first').trigger('change');
 
         // IE and Edge fix!
         $('#button-shipping, #button-invoice').on('click', function(e) {
             $('#form-order').attr('action', this.getAttribute('formAction'));
         });
-
         $('#button-delete').on('click', function(e) {
             $('#form-order').attr('action', this.getAttribute('formAction'));
-
             if (confirm('Данное действие необратимо. Вы уверены?')) {
                 $('#form-order').submit();
             } else {
                 return false;
             }
         });
-        </script>
+    </script>
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 @endsection
