@@ -8,12 +8,12 @@
     </div>
 
     <div class="container">
-        <a href="/">Главная /</a>
+        <a class="restore_menu" href="/">Главная /</a>
 
         @foreach($products as $value)
             @if($value['id'] == $id)
                 @foreach($value['categories'] as $value)
-                        <a href="/category/{{$value['id']}}" id="categories_{{$value['id']}}">{{$category_srting}} /</a>
+                        <a href="/category/{{$value['id']}}" class="restore_menu" id="categories_{{$value['id']}}">{{$category_srting}} /</a>
                 @endforeach
                 @endif
         @endforeach

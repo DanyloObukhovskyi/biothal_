@@ -1,3 +1,5 @@
+{{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">--}}
+
 <style>
     @media (min-width:0px) and (max-width:1000px) {
         .free_delivery {
@@ -6,6 +8,10 @@
     }
     .navbar {
         background-color: #ffffff!important;
+    }
+
+    .dropdown-menu {
+
     }
 </style>
 
@@ -113,71 +119,12 @@
 </nav>
 
 <nav id="navbarMobile" class="navbar navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownMobile" style="border:none;color: #212529;">
-        <img style="width: 1.1em; margin-top: 5px" src="{{ Storage::disk('public')->url('image/burger.svg')}}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdownMobile">
+        <img class="img_navbarMobile" src="{{ Storage::disk('public')->url('image/burger.svg')}}">
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdownMobile">
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkMobile" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Категории
-                </a>
-                <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarDropdownMenuLinkMobile">
-                    @foreach($categories as $value)
-                        @if($value['parent_id'] == null)
-                            <a class="dropdown-item" style="margin-top: 10px" href="/category/{{$value['id']}}"
-                               id="categories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
-                            @foreach($categories as $child)
-                                @if($child['parent_id'] == $value['id'] )
-                                    <a class="dropdown-item"
-                                       href="/category/{{$child['parent_id']. '/'. $child['id']}}"
-                                       id="categories_{{$child['id']}}">{{$child['title']}}</a>
-                                @endif
-                            @endforeach
-                        @endif
-                    @endforeach
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarAccessoriesDropdownMenuLink" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Потребности
-                </a>
-                <div class="dropdown-menu" style="column-count: 2" aria-labelledby="navbarAccessoriesDropdownMenuLink">
-                    @foreach($accessories as $value)
-                        @if($value['parent_id'] == null)
-                            <div style="display: flex; flex-direction: column;">
-                                <div>
-                                    <a class="dropdown-item" style="margin-top: 10px; margin-bottom: 15px"
-                                       href="/accessory/{{$value['id']}}"
-                                       id="accessories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
-                                </div>
-                                @foreach($accessories as $child)
-                                    @if($child['parent_id'] == $value['id'] )
-                                        <div>
-                                            <a class="dropdown-item"
-                                               href="/accessory/{{$child['parent_id']. '/'. $child['id']}}"
-                                               id="accessories_{{$child['id']}}">{{$child['title']}}</a>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Эффективные наборы</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><b>Стать дистрибьютером</b></a>
-            </li>
-        </ul>
-    </div>
     <div id="logo-mobile" class="row col-sm-3">
         <a class="navbar-brand" href="/">
-            <img id="logo_img" class="img-fluid" style="margin-left: 35px; margin-right: auto; margin-top: 10px; width: 7em"
+            <img id="logo_img" class="img-fluid"
                  src="{{ Storage::disk('public')->url('image/new-logo.svg')}}" width="127"></a>
     </div>
     <div class="col-sm-2" id="icons" style="display: flex; justify-content: space-evenly">
@@ -203,6 +150,72 @@
                 @endif
             </span>
         @endif
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdownMobile">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkMobile" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Категории
+{{--                    <i class="fas fa-arrow-right" style="float: right"></i>--}}
+                    <img  src="{{ Storage::disk('public')->url('image/ArrowRight.png')}}" style="float: right">
+                </a>
+
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-menu" style="border: none" aria-labelledby="navbarDropdownMenuLinkMobile">
+                    @foreach($categories as $value)
+                        @if($value['parent_id'] == null)
+                            <a class="dropdown-item" style="margin-top: 10px" href="/category/{{$value['id']}}"
+                               id="categories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                            <div class="dropdown-divider"></div>
+                            @foreach($categories as $child)
+                                @if($child['parent_id'] == $value['id'] )
+                                    <a class="dropdown-item"
+                                       href="/category/{{$child['parent_id']. '/'. $child['id']}}"
+                                       id="categories_{{$child['id']}}">- {{$child['title']}}</a>
+                                    <div class="dropdown-divider"></div>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarAccessoriesDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Потребности
+                    <img  src="{{ Storage::disk('public')->url('image/ArrowRight.png')}}" style="float: right">
+                </a>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-menu" style="border: none" aria-labelledby="navbarAccessoriesDropdownMenuLink">
+                    @foreach($accessories as $value)
+                        @if($value['parent_id'] == null)
+                            <div style="display: flex; flex-direction: column;">
+                                    <a class="dropdown-item"
+                                       href="/accessory/{{$value['id']}}"
+                                       id="accessories_{{$value['id']}}"><b>{{$value['title']}}</b></a>
+                                    <div class="dropdown-divider"></div>
+                                @foreach($accessories as $child)
+                                    @if($child['parent_id'] == $value['id'] )
+                                            <a class="dropdown-item"
+                                               href="/accessory/{{$child['parent_id']. '/'. $child['id']}}"
+                                               id="accessories_{{$child['id']}}">- {{$child['title']}}</a>
+                                        <div class="dropdown-divider"></div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Эффективные наборы</a>
+                <div class="dropdown-divider"></div>
+            </li>
+            <div class="nav-item">
+                <a class="nav-link" style="width: 100vw;margin-left: calc(-50vw + 50%);background: #2F7484; color: #ffffff" href="#"><span style="margin-left: 15px">Стать дистрибьютером</span></a>
+            </div>
+        </ul>
     </div>
 </nav>
 
