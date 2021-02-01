@@ -6,7 +6,18 @@
     <div style="padding: 35px">
         {{--        --}}
     </div>
+
     <div class="container">
+        <a href="/">Главная /</a>
+
+        @foreach($products as $value)
+            @if($value['id'] == $id)
+                @foreach($value['categories'] as $value)
+                        <a href="/category/{{$value['id']}}" id="categories_{{$value['id']}}">{{$category_srting}} /</a>
+                @endforeach
+                @endif
+        @endforeach
+
         <div class="row">
             <div class="col-md-6">
                 @foreach($products as $value)
@@ -120,4 +131,3 @@
     </div>
     @include('layouts.footer')
 @endsection
-
