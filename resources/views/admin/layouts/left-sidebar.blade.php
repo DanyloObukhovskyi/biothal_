@@ -64,117 +64,54 @@
                         <span>Потребности</span>
                     </a>
                 </li>
-                <li class="{{@checkIsActive('admin.products.page')}}">
-                    <a href="{{route('admin.products.page')}}">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>Товары</span>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fas fa-tags"></i>
+                        <span>Каталог</span>
+                        <span class="badge badge-pill badge-danger">3</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="{{@checkIsActive('admin.products.page')}}">
+                                <a href="{{route('admin.products.page')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Товары Old</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.products.pageNew')}}">
+                                <a href="{{route('admin.products.pageNew')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Товары-New</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.products.information')}}">
+                                <a href="{{route('admin.products.information')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Статьи</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="{{@checkIsActive('admin.orders.orders')}}">
+                    <a href="{{route('admin.orders.orders')}}">
+                        <i class="far fa-images"></i>
+                        <span>Заказы</span>
                     </a>
                 </li>
-{{--                <li class="sidebar-dropdown">--}}
-{{--                    <a href="#">--}}
-{{--                        <i class="fa fa-shopping-cart"></i>--}}
-{{--                        <span>Товары</span>--}}
-{{--                        <span class="badge badge-pill badge-danger">3</span>--}}
-{{--                    </a>--}}
-{{--                    <div class="sidebar-submenu">--}}
-{{--                        <ul>--}}
-{{--                            <li {{@checkIsActive('admin.products.page')}}>--}}
-{{--                                <a href="{{route('admin.products.page')}}">--}}
-{{--                                    <i class="fas fa-boxes"></i>--}}
-{{--                                    <span>Добавление</span>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="#">--}}
-{{--                                    <i class="fas fa-dumpster"></i>--}}
-{{--                                    <span>Удаление</span>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="#">--}}
-{{--                                    <i class="fas fa-wrench"></i>--}}
-{{--                                    <span>Редактирование товаров</span>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                </li>--}}
+                <li class="{{@checkIsActive('admin.images.banner')}}">
+                    <a href="{{route('admin.images.banner')}}">
+                        <i class="far fa-images"></i>
+                        <span>Баннеры</span>
+                    </a>
+                </li>
                 <li class="{{@checkIsActive('admin.images.page')}}">
                     <a href="{{route('admin.images.page')}}">
                         <i class="fas fa-camera"></i>
                         <span>Галерея</span>
                     </a>
                 </li>
-{{--                <li class="{{@checkIsActive('test')}}">--}}
-{{--                    <a href="{{route('test')}}">--}}
-{{--                        <i class="fa fa-warning"></i>--}}
-{{--                        <span>Тестовая рума</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-
-                {{--                <li class="sidebar-dropdown">--}}
-                {{--                    <a href="#">--}}
-                {{--                        <i class="far fa-gem"></i>--}}
-                {{--                        <span>Components</span>--}}
-                {{--                    </a>--}}
-                {{--                    <div class="sidebar-submenu">--}}
-                {{--                        <ul>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">General</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Panels</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Tables</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Icons</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Forms</a>--}}
-                {{--                            </li>--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
-                {{--                </li>--}}
-                {{--                <li class="sidebar-dropdown">--}}
-                {{--                    <a href="#">--}}
-                {{--                        <i class="fa fa-chart-line"></i>--}}
-                {{--                        <span>Charts</span>--}}
-                {{--                    </a>--}}
-                {{--                    <div class="sidebar-submenu">--}}
-                {{--                        <ul>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Pie chart</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Line chart</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Bar chart</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Histogram</a>--}}
-                {{--                            </li>--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
-                {{--                </li>--}}
-                {{--                <li class="sidebar-dropdown">--}}
-                {{--                    <a href="#">--}}
-                {{--                        <i class="fa fa-globe"></i>--}}
-                {{--                        <span>Maps</span>--}}
-                {{--                    <div class="sidebar-submenu">--}}
-                {{--                        <ul>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Google maps</a>--}}
-                {{--                            </li>--}}
-                {{--                            <li>--}}
-                {{--                                <a href="#">Open street map</a>--}}
-                {{--                            </li>--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
-                {{--                </li>--}}
-            </ul>
+              </ul>
         </div>
     </div>
 </nav>
