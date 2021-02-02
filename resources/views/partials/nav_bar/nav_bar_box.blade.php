@@ -124,7 +124,7 @@
     </button>
     <div id="logo-mobile" class="row col-sm-3">
         <a class="navbar-brand" href="/">
-            <img id="logo_img" class="img-fluid"
+            <img id="logo_img" class="img-fluid" style="margin-left: 30px; margin-right: auto; margin-top:5px; width: 7em"
                  src="{{ Storage::disk('public')->url('image/new-logo.svg')}}" width="127"></a>
     </div>
     <div class="col-sm-2" id="icons" style="display: flex; justify-content: space-evenly">
