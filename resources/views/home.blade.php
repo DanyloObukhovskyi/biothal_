@@ -217,12 +217,9 @@
                                                  @endif">
                                             <h5 class="card-title">{!!$value->name!!}</h5>
                                             <p class="card-text"><s>{!!$value->price . ' '!!}</s>грн.</p>
-                                            <p class="card-text"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
+                                            <p class="card-text" style="margin-bottom: 9px"><b>{!!$value->price_with_sale . ' '!!}грн.</b></p>
                                         </a>
-                                        <button id="btn-buyHome "
-                                            class="btn btn-success rounded-pill btn-buy-item btn-mobile-home" value="{{$value->id}}">
-                                            Купить
-                                        </button>
+                                        <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить</button>
                                     </div>
                                 </div>
                             </div>
@@ -264,10 +261,8 @@
                                              src="@if(isset($value->getImage['name']))
                                         {{ Storage::url('/img/products/'.$value->getImage['name'])}}
                                         @endif">
-                                        <div class="card-body">
                                             <div class="card-title">{!!$value->name!!}</div>
-                                            <p class="card-text"><b>{!!$value->price . ' '!!}грн.</b></p>
-                                        </div>
+                                            <p class="card-text" style="margin-bottom: 9px"><b>{!!$value->price . ' '!!}грн.</b></p>
                                     </a>
                                     <button id="btn-buyHome" style="width: 70%; background-color: #2f7484; border-color: #2f7484" class="btn btn-success rounded-pill btn-buy-item" value="{{$value->id}}">Купить</button>
                                 </div>

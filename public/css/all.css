@@ -115,7 +115,7 @@
     }
 
     #exampleModalLong .modal-content{
-        height: 100%!important;
+        /*height: 100%!important;*/
     }
 
     #exampleModalLong .pre-conteiner{
@@ -239,5 +239,7 @@
         border-style: none;
     }
 
-
+    .modal-body, .fade, .show {
+        background: #FFFFFF;
+    }
 }

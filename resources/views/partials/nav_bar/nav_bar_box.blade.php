@@ -271,7 +271,7 @@
 </div>
 
 <!-- Modal2 -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" style=""
      aria-labelledby="exampleModalLongTitle"
      aria-hidden="true">
     <div style="margin-right: 0px!important; margin-top: 0px!important;" class="modal-dialog" role="document">
