@@ -18,8 +18,6 @@
         <link rel="stylesheet" href="{{asset('plugins/css/tagsinput.css')}}">
         @yield('style')
     </head>
-
-
     <body>
         <div class="page-wrapper chiller-theme toggled">
             @if(Auth::check())

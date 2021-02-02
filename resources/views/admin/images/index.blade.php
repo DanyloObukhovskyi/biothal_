@@ -7,10 +7,6 @@
             <a class="nav-link active" id="home-tab" style="color: #000000" data-toggle="tab" href="#home" role="tab"
                aria-controls="home" aria-selected="true"><b>Изображения продуктов</b></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-tab" style="color: #000000" data-toggle="tab" href="#profile" role="tab"
-               aria-controls="profile" aria-selected="false"><b>Глобальные изображения</b></a>
-        </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
@@ -110,45 +106,6 @@
                                 <input type='submit' class="btn btn-dark" value="Добавить">
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-
-            <!--- Page -->
-            <div class="container" id="img_page2">
-                <div class="page-header w-100 alert bg-light p-0 shadow-sm mt-2">
-                    <form action="{{route('admin.deleteGlobalImage')}}" method="post">
-                        @csrf
-                        @method('POST')
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <div class="btn btn-group pull-right">
-                                <button type="button" class="btn btn-dark" data-toggle="modal"
-                                        data-target="#example_modal2">
-                                    Добавить
-                                </button>
-                                <button type="button" id="deletePic2" class="btn btn-dark">Удалить</button>
-                            </div>
-                        </div>
-                        @if($imagesGlobal == null)
-                            <p>ГАЛЕРЕЯ - ПУСТА!</p>
-                        @else
-                            @foreach($imagesGlobal as $image_global)
-                                <div class="card-body d-flex flex-row justify-content-start">
-                                    @foreach($image_global as $global)
-                                        <input type="checkbox" id="pictures_{{$global->id}}" name="checked2[]"
-                                               value="{{$global->id}}">
-                                        <label for="pictures_{{$global->id}}" id="pictures_label_{{$global->id}}">
-                                            <a href="{{ Storage::disk('public')->url('storage/img/carousel/'.$global->name) }}"
-                                               class="thumbnail">
-                                                <img class="card-body"
-                                                     src="{{Storage::disk('public')->url('storage/img/carousel/'.$global->name)}}"
-                                                     width="200" height="200" alt="Изображение товара">
-                                            </a>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            @endforeach
-                        @endif
                     </form>
                 </div>
             </div>
