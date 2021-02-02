@@ -170,9 +170,10 @@
         display: none;
     }
 
-    .home-container {
+    .home-container, .PC, .PC-product, .checkout-PC {
         display: none;
     }
+
     .surprice {
         font-family: Manrope, serif;
         font-style: normal;
@@ -219,7 +220,7 @@
 }
 
 @media (min-width:1000.01px) {
-    .mobile-container {
+    .mobile-container, .checkout-mobile{
         display: none;
     }
     .surprice {
