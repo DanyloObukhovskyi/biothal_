@@ -170,7 +170,12 @@
         display: none;
     }
 
-    .home-container, .PC, .PC-product, .checkout-PC {
+    .home-container,
+    .PC,
+    .PC-product,
+    .checkout-PC,
+    .empty-div-pc,
+    .old-price-PC {
         display: none;
     }
 
@@ -220,7 +225,7 @@
 }
 
 @media (min-width:1000.01px) {
-    .mobile-container, .checkout-mobile{
+    .mobile-container, .checkout-mobile, .old-price-mobile{
         display: none;
     }
     .surprice {

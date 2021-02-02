@@ -3,11 +3,11 @@
 @section('content')
     @include('layouts.nav')
 
-    <div style="padding: 35px">
+    <div class="empty-div-pc" style="padding: 35px">
         {{--        --}}
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top: 15px">
         <a class="restore_menu" href="/">Главная /</a>
 
         @foreach($products as $value)
@@ -33,9 +33,14 @@
                     <h5 class="card-title">{!!$value->name!!}</h5>
                     <p class="card-title">{!!$value->meta_keywords!!}</p>
                     <div class="row">
-                        <div class="col-md-6 price-div">
-                            <h4 class="price-info" ><b>{!!$value->price_with_sale!!} грн</b></h4>
-                            <p class="old-price"><s>{!!$value->price!!}</s> грн</p>
+                        <div class="col-md-6 price-div price-div-mobile">
+                            <div class="price-info" style="margin-left: 20px"><b>{!!$value->price_with_sale!!} грн</b></div>
+                            <div class="old-price-PC">
+                                <p class="old-price"><s>{!!$value->price!!}</s> грн</p>
+                            </div>
+                            <div class="old-price-mobile">
+                                <p class="old-price" style="float: left; margin-left: 10px; margin-top: 7px"><s>Старая цена {!!$value->price!!}</s> грн</p>
+                            </div>
                         </div>
                     </div>
                     <div class="card-quantity">
@@ -57,7 +62,7 @@
             @endif
             @endforeach
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-right: 20px">
             <div class="col-md-2 card-options">
                 <button type="button" class="btn btn-link tablinks active"
                         onclick="openTabs(event, 'desc')">Описание
