@@ -169,6 +169,17 @@
     .textPc {
         display: none;
     }
+
+    .home-container {
+        display: none;
+    }
+    .surprice {
+        font-family: Manrope, serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+    }
 }
 
 @media screen and (max-width:340px) {
@@ -183,4 +194,83 @@
     }
 
 }
+
+#a_nav_link {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: #2F7484;
+    color: #ffffff;
+}
+
+.nav-link span {
+    margin-left: 15px;
+}
+
+.heightCart-mobile {
+    background: #FFFFFF!important;
+    margin-top: 50px;
+    /*margin-right: 25px!important*/
+}
+
+.img-mobile {
+    max-height: 103px;
+    max-width: 90px;
+    justify-content: center;
+}
+
+@media (min-width:1000.01px) {
+    .mobile-container {
+        display: none;
+    }
+    .surprice {
+        font-family: Manrope, serif;
+        font-style: normal;
+        font-weight: 200;
+        font-size: 34px;
+        line-height: 46px;
+        text-transform: uppercase;
+    }
+    #heightCart {
+        min-height: 425px
+    }
+}
+
+.heading-mobile {
+    font-family: Manrope, sans-serif ;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.best-heading-mobile {
+    margin-top: 25px; text-align: center; font-size: 16px
+}
+
+.card-item {
+    background: #ffffff!important;
+    width: 350px;
+    height: 500px;
+}
+
+.card-text {
+    margin-bottom: 5px;
+}
+
+.card-item-mobile {
+    background: #ffffff!important;
+    width: 159px;
+    min-height: 250px;
+    max-height: 299px;
+}
+
+.btn-mobile-home {
+    margin-top: 8px!important;
+    width: 70%;
+    background-color: #2f7484;
+    border-color: #2f7484;
+}
+
 

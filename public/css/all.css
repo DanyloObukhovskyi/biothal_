@@ -9,6 +9,13 @@
     border-color: #2f7484;
 }
 
+.btn-buy-item-mobile {
+    margin-top: 15px;
+    width: 70%;
+    background-color: #2f7484;
+    border-color: #2f7484;
+}
+
 .main-body-container {
     background-color: #fefefe;
 }
@@ -19,11 +26,7 @@
     box-shadow: 0 0 20px 0 #ccc;
 }
 
-.card-item {
-    background: #ffffff!important;
-    width: 350px;
-    height: 500px;
-}
+
 
 .navbar-light .navbar-nav .nav-link {
     color: #212529;
@@ -49,6 +52,7 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 20px;
+    margin-bottom: 0px!important;
 }
 
 .card-image {
@@ -234,5 +238,6 @@
     .navbar-toggler {
         border-style: none;
     }
+
 
 }

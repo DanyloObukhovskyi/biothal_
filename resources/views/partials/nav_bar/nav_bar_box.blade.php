@@ -213,7 +213,7 @@
                 <div class="dropdown-divider"></div>
             </li>
             <div class="nav-item">
-                <a class="nav-link" style="width: 100vw;margin-left: calc(-50vw + 50%);background: #2F7484; color: #ffffff" href="#"><span style="margin-left: 15px">Стать дистрибьютером</span></a>
+                <a class="nav-link" id="a_nav_link" href="#"><span>Стать дистрибьютером</span></a>
             </div>
         </ul>
     </div>
