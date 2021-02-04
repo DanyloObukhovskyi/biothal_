@@ -1,0 +1,98 @@
+<template>
+    <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
+        <div class="product__sale">-50%</div>
+        <div class="product__heart">
+            <v-btn
+                v-show="isFavoritesShow || isFavorites"
+                icon
+                large
+                size="18"
+                color="#000"
+                @click="()=>{isFavorites = !isFavorites}">
+                <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
+            </v-btn>
+        </div>
+        <img height="290" src="../../public/product-images/product-image.svg"/>
+        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <v-rating
+                color="#000"
+                background-color="#000"
+                hover
+                length="5"
+                size="12.59"
+                :value="3"/>
+            <div>5 отзывов</div>
+        </div>
+        <div class="product__description">
+            <div>Очищающая маска для лица Конопля Водоросли</div>
+            <div class="product__description__price">1920 грн</div>
+        </div>
+        <v-btn dark class="product__button" elevation="0">Купить</v-btn>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "ProductCard",
+        props: {
+            dataCard: {
+                type: Object,
+                default: ()=>[]
+            }
+        },
+        data() {
+            return {
+                isFavorites: false,
+                isFavoritesShow: false,
+            }
+        }
+    }
+</script>
+
+<style scoped lang="scss">
+
+    .product {
+        padding: 17px 30px 20px 17px;
+
+         &:hover {
+            box-shadow: 0 0 33px #f2f2f2;
+
+             & .product__button {
+                 background-color: #000 !important;
+             }
+         }
+
+        &__sale {
+            vertical-align: middle;
+            color: #fff;
+            background-color: #000;
+            border-radius: 50%;
+            width: 72px;
+            height: 72px;
+            line-height:72px;
+            font-weight: 300;
+            font-size: 21px;
+            position: absolute;
+        }
+
+        &__heart {
+            text-align: right;
+            height: 16.5px;
+        }
+
+        &__description {
+            &__price {
+                font-weight: 800;
+            }
+        }
+
+        &__button {
+            border-radius: 50px;
+            width: 180px;
+            height: 48px;
+            background-color: #2F7484 !important;
+        }
+    }
+
+    $rating-dense-padding: 2rem !important;
+</style>
