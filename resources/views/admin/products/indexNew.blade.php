@@ -36,7 +36,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="input-name">Название товара</label>
-                                    <input type="text" name="filter_name" value="" placeholder="Название товара"
+                                    <input type="text" name="filter_name" value="@if(!empty(request()->input('title_product'))) {{request()->input('title_product')}} @endif" placeholder="Название товара"
                                            id="input-title-product" class="form-control"/>
                                 </div>
                             </div>
@@ -44,10 +44,11 @@
                                 <div class="form-group">
                                     <label class="control-label" for="input-status">Статус</label>
                                     <select name="filter_status" id="input-status" class="form-control">
-                                        <option value="*"> Вибирите статус</option>
+                                        <option value=""> Вибирите статус</option>
                                         @foreach(config('products.products_statuses') as
                                             $product_status_key => $product_status)
-                                            <option value="{{$product_status_key}}">{{$product_status}}</option>
+                                            <option value="{{$product_status_key}}"
+                                            @if(request()->input('status') !== null && request()->input('status') == $product_status_key) selected @endif>{{$product_status}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -133,22 +134,25 @@
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <script>
+
         $('#input-title-product').on('keyup', function (e) {
             if(e.key === 'Enter') {
                 var text = $('#input-title-product').val();
                 var url = new URL($("#filter-href").attr("href"));
                 var searchParams = new URLSearchParams(url.search);
-                searchParams.set("title_product", JSON.stringify(text));
+                searchParams.set("title_product", text);
                 $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
             }
         })
 
         $('#input-status').change(function () {
             var status = $(this).val();
-            var url = new URL($("#filter-href").attr("href"));
-            var searchParams = new URLSearchParams(url.search);
-            searchParams.set("status", JSON.stringify(status));
-            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+            if(status != '') {
+                var url = new URL($("#filter-href").attr("href"));
+                var searchParams = new URLSearchParams(url.search);
+                searchParams.set("status", status);
+                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+            }
         })
     </script>
 @endsection

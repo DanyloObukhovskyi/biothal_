@@ -26,8 +26,20 @@ use App\Http\Controllers\Controller;
 
 class NewProductsController extends Controller
 {
-    public function indexNew(){
-        $products = Product::with('productDescription')->get()->toArray();
+    public function indexNew(Request $request){
+        $products = Product::with('productDescription');
+        if(!empty($request->all())) {
+            if($request->input('status') !== null) {
+                $products = $products->where('status', $request->input('status'));
+            }
+            if(!empty($request->input('title_product'))) {
+                $title = $request->input('title_product');
+                $products = $products->whereHas('productDescription', function ($query) use ($title) {
+                    $query->where('name', 'like', '%'.$title.'%');
+                });
+            }
+        }
+        $products = $products->get()->toArray();
         return view('admin.products.indexNew', compact('products'));
     }
 
