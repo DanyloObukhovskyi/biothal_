@@ -101,7 +101,7 @@
                                                     src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
                                                     alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
                                             </td>
-                                            <td class="text-left"> {{$product['name']}}</td>
+                                            <td class="text-left"> {{$product['product_description']['name']}}</td>
                                             <td class="text-right">
                                                 @if(!empty($product['price_with_sale']))
                                                     {{$product['price_with_sale']}}
