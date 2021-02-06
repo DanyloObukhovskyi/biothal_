@@ -67,7 +67,7 @@
                                             <label class="col-sm-2 control-label"
                                                    for="input-description1">Описание</label>
                                             <div class="col-sm-10">
-                                                <textarea id="summernote" name="product_description[1][description]"
+                                                <textarea id="summernote" name="product_description[{{$product['id']}}][description]"
                                                           placeholder="Описание" id="input-description1"
                                                           class="form-control summernote">
                                                     {{$product['productDescription']['description']}}
@@ -79,7 +79,7 @@
                                             <label class="col-sm-2 control-label" for="input-meta-title1">Мета-тег
                                                 Title</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[1][meta_title]"
+                                                <input type="text" name="product_description[{{$product['id']}}][meta_title]"
                                                        value="Маска-пленка – незаменимое средство для глубокого очищения и отшелушивания кожи."
                                                        placeholder="Мета-тег Title" id="input-meta-title1"
                                                        class="form-control"/>
@@ -93,7 +93,7 @@
                                             <div class="col-sm-10">
                                                 <input
                                                     type="text"
-                                                    name="product_description[1][meta_h1]" value=""
+                                                    name="product_description[{{$product['id']}}][meta_h1]" value=""
                                                     placeholder="HTML тег H1"
                                                     id="input-meta-h11"
                                                     class="form-control"/>
@@ -104,7 +104,7 @@
                                             <label class="col-sm-2 control-label" for="input-meta-description1">Мета-тег
                                                 Description</label>
                                             <div class="col-sm-10">
-                                                <textarea name="product_description[1][meta_description]" rows="5"
+                                                <textarea name="product_description[{{$product['id']}}][meta_description]" rows="5"
                                                           placeholder="Мета-тег Description"
                                                           id="input-meta-description1" class="form-control"></textarea>
                                             </div>
@@ -113,7 +113,7 @@
                                             <label class="col-sm-2 control-label" for="input-meta-keyword1">Мета-тег
                                                 Keyword</label>
                                             <div class="col-sm-10">
-                                                <textarea name="product_description[1][meta_keyword]" rows="5"
+                                                <textarea name="product_description[{{$product['id']}}][meta_keyword]" rows="5"
                                                           placeholder="Мета-тег Keyword" id="input-meta-keyword1"
                                                           class="form-control"></textarea>
                                             </div>
@@ -123,7 +123,7 @@
                                                     data-toggle="tooltip"
                                                     title="теги разделяются запятой">Теги товара</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[1][tag]" value=""
+                                                <input type="text" name="product_description[{{$product['id']}}][tag]" value=""
                                                        placeholder="Теги товара" id="input-tag1" class="form-control"/>
                                             </div>
                                         </div>
