@@ -45,8 +45,10 @@
                                     <label class="control-label" for="input-status">Статус</label>
                                     <select name="filter_status" id="input-status" class="form-control">
                                         <option value="*"></option>
-                                        <option value="1">Включено</option>
-                                        <option value="0">Отключено</option>
+                                        @foreach(config('products.products_statuses') as
+                                            $product_status_key => $product_status)
+                                            <option value="{{$product_status_key}}">{{$product_status}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -86,25 +88,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="selected[]" value="132"/>
-                                    </td>
-                                    <td class="text-center">
-                                        <img
-                                            src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
-                                            alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
-                                    </td>
-                                    <td class="text-left"> Очищающая маска для лица Конопля Водоросли</td>
-                                    <td class="text-right"> 759</td>
-                                    <td class="text-right">
-                                        <span class="label label-success">26</span>
-                                    </td>
-                                    <td class="text-left">Включено</td>
-                                    <td class="text-right">
-                                        <a href="changeNewProd" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i
-                                                class="fa fa-pencil"></i></a></td>
-                                </tr>
+
+                                    @foreach($products as $product_key => $product)
+                                        <tr>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="selected[]" value="{{$product['id']}}"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <img
+                                                    src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
+                                                    alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
+                                            </td>
+                                            <td class="text-left"> {{$product['name']}}</td>
+                                            <td class="text-right">
+                                                @if(!empty($product['price_with_sale']))
+                                                    {{$product['price_with_sale']}}
+                                                @else
+                                                    {{$product['price']}}
+                                                @endif
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="label label-success">{{$product['quantity']}}</span>
+                                            </td>
+                                            <td class="text-left">{{config('products.products_statuses')[$product['status']]}}</td>
+                                            <td class="text-right">
+                                                <a href="{{route('admin.products.changeNewProd', ['id' => $product['id']])}}" data-toggle="tooltip" title="Редактировать" class="btn btn-primary">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

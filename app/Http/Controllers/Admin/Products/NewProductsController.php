@@ -7,6 +7,7 @@ use App\Http\Requests\Products\{
     Change as ProductChangeRequest,
     GetForChange as IdValidationRequest,
 };
+
 use App\Models\{
     Image,
     Categories,
@@ -25,10 +26,12 @@ use App\Http\Controllers\Controller;
 class NewProductsController extends Controller
 {
     public function indexNew(){
-        return view('admin.products.indexNew');
+        $products = Product::all()->toArray();
+//        dd($products);
+        return view('admin.products.indexNew', compact('products'));
     }
 
-    public function changeProd(){
+    public function changeProd($id){
         return view('admin.products.changeNewProd');
     }
 
