@@ -26,9 +26,15 @@
 
         &:hover {
             cursor: pointer;
+
+            .category-card__title {
+                height: 100%;
+                transition: .3s;
+            }
         }
 
         &__title {
+            transition: .3s;
             background-color: #2F7484;
             opacity: 0.5;
             color: #fff;
