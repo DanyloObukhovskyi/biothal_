@@ -29,6 +29,10 @@ class Product extends Model
         return $this->hasOne('App\Models\Admin\Products\Sale','id','sale_id');
     }
 
+    public function productDescription () {
+        return $this->hasOne('App\Models\ProductDescription','product_id','id');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Categories::class,'category_products','product_id','category_id');

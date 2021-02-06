@@ -26,13 +26,18 @@ use App\Http\Controllers\Controller;
 class NewProductsController extends Controller
 {
     public function indexNew(){
-        $products = Product::all()->toArray();
+        $products = Product::with('productDescription')->get()->toArray();
 //        dd($products);
         return view('admin.products.indexNew', compact('products'));
     }
 
     public function changeProd($id){
-        return view('admin.products.changeNewProd');
+        $product = Product::where('id', $id)->with('productDescription')->first();
+        if (empty($product)) {
+            abort(404);
+        }
+
+        return view('admin.products.changeNewProd', compact('id', 'product'));
     }
 
     public function information(){
