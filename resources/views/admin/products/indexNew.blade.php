@@ -37,14 +37,14 @@
                                 <div class="form-group">
                                     <label class="control-label" for="input-name">Название товара</label>
                                     <input type="text" name="filter_name" value="" placeholder="Название товара"
-                                           id="input-name" class="form-control"/>
+                                           id="input-title-product" class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="input-status">Статус</label>
                                     <select name="filter_status" id="input-status" class="form-control">
-                                        <option value="*"></option>
+                                        <option value="*"> Вибирите статус</option>
                                         @foreach(config('products.products_statuses') as
                                             $product_status_key => $product_status)
                                             <option value="{{$product_status_key}}">{{$product_status}}</option>
@@ -53,8 +53,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-1">
-                                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i
-                                        class="fa fa-filter"></i> Фильтр
+                                <button type="button" id="button-filter" class="btn btn-primary pull-right">
+                                    <a href="{{route('admin.products.pageNew')}}" id="filter-href" style="color: #ffffff !important;">
+                                        <i class="fa fa-filter"></i> Фильтр
+                                    </a>
                                 </button>
                             </div>
                             <div class="col-sm-1">
@@ -130,4 +132,23 @@
 @section('script')
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+        $('#input-title-product').on('keyup', function (e) {
+            if(e.key === 'Enter') {
+                var text = $('#input-title-product').val();
+                var url = new URL($("#filter-href").attr("href"));
+                var searchParams = new URLSearchParams(url.search);
+                searchParams.set("title_product", JSON.stringify(text));
+                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+            }
+        })
+
+        $('#input-status').change(function () {
+            var status = $(this).val();
+            var url = new URL($("#filter-href").attr("href"));
+            var searchParams = new URLSearchParams(url.search);
+            searchParams.set("status", JSON.stringify(status));
+            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+        })
+    </script>
 @endsection

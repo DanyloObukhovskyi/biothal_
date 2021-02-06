@@ -25,7 +25,16 @@ use App\Http\Controllers\Controller;
 
 class NewProductsController extends Controller
 {
-    public function indexNew(){
+    public function indexNew(Request $request){
+//        dd($request->all());
+
+        if(!empty($request->all())) {
+            $products = Product::select();
+            if(!empty(json_decode($request->input('title_product')))) {
+                $products = $products->where('');
+            }
+        }
+        if(!empty(json_decode($request->input('title_product'))))
         $products = Product::all()->toArray();
 //        dd($products);
         return view('admin.products.indexNew', compact('products'));
