@@ -3,14 +3,14 @@
     <div class="tab-content">
         <ul class="nav nav-tabs" id="language">
             <li class="nav-item">
-                <a class="nav-link active" role="tab" aria-selected="true" href="#language1" data-toggle="tab">
+                <a class="nav-link active" role="tab" aria-selected="true" href="#languages_apt1" data-toggle="tab">
                     <img src="{{ url('image/en-gb.png')}}" title="English"/>
                     English
                 </a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="language1">
+            <div class="tab-pane active" id="languages_apt1">
                 <div>
                     <div class="row" style="font-size: 14px;font-weight: bold;margin-bottom: 17px;border-bottom: 2px solid #ccc;padding-bottom: 10px;">
                         <div class="col-sm-2">Заголовок</div>
