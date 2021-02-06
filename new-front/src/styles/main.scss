@@ -1,0 +1,27 @@
+
+
+
+$wt-family-base: Manrope, sans-serif;
+$wt-weight-base: 200;
+
+//==
+//== Default style for component
+//== ======================================= ==//
+
+* {
+  font-family: $wt-family-base;
+  font-weight: $wt-weight-base;
+}
+
+//==
+//== Color palette
+//== ======================================= ==//
+
+$palette-base-color: #2F7484;
+
+
+:export {
+  basecolor: $palette-base-color;
+}
+
+
