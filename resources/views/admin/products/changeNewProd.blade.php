@@ -267,7 +267,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-code_1c">Код 1С</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="code_1c" value="{{$product['productTo1C']['1c_id']}}"
+                                        <input type="text" name="code_1c" value="{{$product['productTo1C'] ? $product['productTo1C']['1c_id'] : ''}}"
                                                placeholder="Код 1С" id="input-code_1c" class="form-control"/>
                                     </div>
                                 </div>
