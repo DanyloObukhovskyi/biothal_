@@ -39,8 +39,6 @@
                             <li class="active"><a href="#tab-general" data-toggle="tab">Основное</a></li>
                             <li><a href="#tab-data" data-toggle="tab">Данные</a></li>
                             <li><a href="#tab-links" data-toggle="tab">Связи</a></li>
-                            <li><a href="#tab-attribute" data-toggle="tab">Атрибуты</a></li>
-                            <li><a href="#tab-discount" data-toggle="tab">Скидка</a></li>
                             <li><a href="#tab-image" data-toggle="tab">Изображения</a></li>
                             <li><a href="#tab-apt" data-toggle="tab">Вкладки</a></li>
                         </ul>
@@ -293,60 +291,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="tab-pane" id="tab-attribute">
-                                <div class="table-responsive">
-                                    <table id="attribute" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <td class="text-left">Атрибут</td>
-                                            <td class="text-left">Текст</td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td class="text-left">
-                                                <button type="button" onclick="addAttribute();" data-toggle="tooltip"
-                                                        title="Добавить" class="btn btn-primary"><i
-                                                        class="fa fa-plus-circle"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab-discount">
-                                <div class="table-responsive">
-                                    <table id="discount" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <td class="text-left">Группа клиентов</td>
-                                            <td class="text-right">Количество</td>
-                                            <td class="text-right">Приоритет</td>
-                                            <td class="text-right">Цена</td>
-                                            <td class="text-left">Дата начала</td>
-                                            <td class="text-left">Дата окончания</td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="6"></td>
-                                            <td class="text-left">
-                                                <button type="button" onclick="addDiscount();" data-toggle="tooltip"
-                                                        title="Добавить" class="btn btn-primary"><i
-                                                        class="fa fa-plus-circle"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
                             </div>
                             <div class="tab-pane" id="tab-image">
                                 <div class="table-responsive">
