@@ -20,8 +20,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                @foreach($products as $value)
-                    @if($value['id'] == $id)
+                @foreach($products as $value) @if($value['id'] == $id)
                         @if(isset($value->getImage['name']))
                         <div class="card text-center card-image" style="">
                             <img class="img-fluid card-img-top" src="{{ Storage::url('/img/products/'.$value->getImage['name'])}}">
