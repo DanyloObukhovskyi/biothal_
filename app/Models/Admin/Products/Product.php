@@ -4,6 +4,7 @@ namespace App\Models\Admin\Products;
 
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
+use App\Models\CategoryProducts;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,7 @@ class Product extends Model
 
     public function productsAttributes()
     {
-        return $this->hasMany('App\Models\Admin\Products\ProductsAttributes','product_id', 'id');
+        return $this->hasMany(ProductsAttributes::class,'product_id', 'id');
     }
 
     public function image()
@@ -29,17 +30,22 @@ class Product extends Model
         return $this->hasMany(ProductImages::class);
     }
 
+    public function productApts()
+    {
+        return $this->hasMany(ProductApts::class);
+    }
+
     public function getSale()
     {
-        return $this->hasOne('App\Models\Admin\Products\Sale','id','sale_id');
+        return $this->hasOne(Sale::class,'id','sale_id');
     }
 
     public function productDescription () {
-        return $this->hasOne('App\Models\ProductDescription','product_id','id');
+        return $this->hasOne(ProductDescription::class,'product_id','id');
     }
 
     public function productTo1C () {
-        return $this->hasOne('App\Models\ProductTo1C', 'product_id', 'id');
+        return $this->hasOne(ProductTo1C::class, 'product_id', 'id');
     }
 
     public function categories()
@@ -49,7 +55,7 @@ class Product extends Model
 
     public function productCategory()
     {
-        return $this->hasOne('App\Models\CategoryProducts', 'product_id', 'id');    }
+        return $this->hasOne(CategoryProducts::class, 'product_id', 'id');    }
 
     public function accessories()
     {

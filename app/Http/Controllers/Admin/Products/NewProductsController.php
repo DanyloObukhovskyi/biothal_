@@ -8,13 +8,16 @@ use App\Http\Requests\Products\{
     GetForChange as IdValidationRequest,
 };
 
+use App\Models\Admin\Products\{
+    ProductDescription,
+    ProductImages,
+    ProductsAttributes,
+    ProductTo1C,
+};
+
 use App\Models\{
     Image,
     Categories,
-    ProductAttribute,
-    ProductDescription,
-    ProductImage,
-    ProductTo1C,
     StockStatus,
     AccessoryProducts,
     CategoryProducts,
@@ -47,9 +50,7 @@ class NewProductsController extends Controller
     }
 
     public function changeProd($id){
-        $product = Product::where('id', $id)
-            ->with(['productDescription', 'productTo1C', 'productCategory'])
-            ->first();
+        $product = Product::find($id);
         if (empty($product)) {
             abort(404);
         }
@@ -84,8 +85,8 @@ class NewProductsController extends Controller
         foreach ($ids as $product) {
             Product::where('id', $product)->delete();
             ProductDescription::where('product_id', $product)->delete();
-            ProductImage::where('product_id', $product)->delete();
-            ProductAttribute::where('product_id', $product)->delete();
+            ProductImages::where('product_id', $product)->delete();
+            ProductsAttributes::where('product_id', $product)->delete();
             ProductTo1C::where('product_id', $product)->delete();
 
         }
