@@ -11,6 +11,7 @@ use App\Http\Requests\Products\{
 use App\Models\{
     Image,
     Categories,
+    StockStatus,
     AccessoryProducts,
     CategoryProducts,
     Admin\Products\Sale,
@@ -27,17 +28,31 @@ class NewProductsController extends Controller
 {
     public function indexNew(){
         $products = Product::with('productDescription')->get()->toArray();
-//        dd($products);
         return view('admin.products.indexNew', compact('products'));
     }
 
     public function changeProd($id){
-        $product = Product::where('id', $id)->with('productDescription')->first();
+        $product = Product::where('id', $id)
+            ->with(['productDescription', 'productTo1C', 'productCategory'])
+            ->first();
         if (empty($product)) {
             abort(404);
         }
+//        dd($product);
+        $stock_statuses = StockStatus::all()->toArray();
+        $categories = Categories::whereNotNull('parent_id')->get()->toArray();
+        foreach ($categories as $category_key => $category) {
+            $main_cat_name = Categories::where('id', $category['parent_id'])->value('title');
+            $full_cat_path = $main_cat_name . " > " . $category['title'];
+            $categories[$category_key]["full_name"] = $full_cat_path;
+        }
 
-        return view('admin.products.changeNewProd', compact('id', 'product'));
+        return view('admin.products.changeNewProd', compact(
+            'id',
+            'product',
+            'stock_statuses',
+            'categories'
+        ));
     }
 
     public function information(){

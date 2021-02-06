@@ -33,10 +33,18 @@ class Product extends Model
         return $this->hasOne('App\Models\ProductDescription','product_id','id');
     }
 
+    public function productTo1C () {
+        return $this->hasOne('App\Models\ProductTo1C', 'product_id', 'id');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Categories::class,'category_products','product_id','category_id');
     }
+
+    public function productCategory()
+    {
+        return $this->hasOne('App\Models\CategoryProducts', 'product_id', 'id');    }
 
     public function accessories()
     {

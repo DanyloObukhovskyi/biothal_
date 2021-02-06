@@ -80,7 +80,7 @@
                                                 Title</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="product_description[{{$product['id']}}][meta_title]"
-                                                       value="Маска-пленка – незаменимое средство для глубокого очищения и отшелушивания кожи."
+                                                       value="{{$product['productDescription']['meta_title']}}"
                                                        placeholder="Мета-тег Title" id="input-meta-title1"
                                                        class="form-control"/>
                                             </div>
@@ -93,7 +93,8 @@
                                             <div class="col-sm-10">
                                                 <input
                                                     type="text"
-                                                    name="product_description[{{$product['id']}}][meta_h1]" value=""
+                                                    name="product_description[{{$product['id']}}][meta_h1]"
+                                                    value="{{$product['productDescription']['meta_h1']}}"
                                                     placeholder="HTML тег H1"
                                                     id="input-meta-h11"
                                                     class="form-control"/>
@@ -106,7 +107,9 @@
                                             <div class="col-sm-10">
                                                 <textarea name="product_description[{{$product['id']}}][meta_description]" rows="5"
                                                           placeholder="Мета-тег Description"
-                                                          id="input-meta-description1" class="form-control"></textarea>
+                                                          id="input-meta-description1" class="form-control">
+                                                    {{$product['productDescription']['meta_description']}}
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -115,7 +118,9 @@
                                             <div class="col-sm-10">
                                                 <textarea name="product_description[{{$product['id']}}][meta_keyword]" rows="5"
                                                           placeholder="Мета-тег Keyword" id="input-meta-keyword1"
-                                                          class="form-control"></textarea>
+                                                          class="form-control">
+                                                    {{$product['productDescription']['meta_keyword']}}
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -123,7 +128,8 @@
                                                     data-toggle="tooltip"
                                                     title="теги разделяются запятой">Теги товара</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[{{$product['id']}}][tag]" value=""
+                                                <input type="text" name="product_description[{{$product['id']}}][tag]"
+                                                       value="{{$product['productDescription']['tag']}}"
                                                        placeholder="Теги товара" id="input-tag1" class="form-control"/>
                                             </div>
                                         </div>
@@ -135,7 +141,7 @@
                                     <label class="col-sm-2 control-label" for="input-model">Модель</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="model"
-                                               value=" Очищающая маска для лица Конопля Водоросли" placeholder="Модель"
+                                               value="{{$product['model']}}" placeholder="Модель"
                                                id="input-model" class="form-control"/>
                                     </div>
                                 </div>
@@ -144,7 +150,7 @@
                                                                                                 title="SKU или код производителя">Краткое описание</span></label>
                                     <div class="col-sm-10">
                                         <input type="text" name="sku"
-                                               value="Маска-пленка на основе конопляного масла и морских водорослей эффективно очищает поры от загрязнений и излишков кожного сала, уменьшает воспаления, выравнивает цвет лица."
+                                               value="{{$product['sku']}}"
                                                placeholder="Краткое описание" id="input-sku" class="form-control"/>
                                     </div>
                                 </div>
@@ -152,7 +158,7 @@
                                     <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip"
                                                                                                 title="Универсальный код товара">Англ.название</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="upc" value="Cannabis Seaweed Cleansing Mask"
+                                        <input type="text" name="upc" value="{{$product['upc']}}"
                                                placeholder="Англ.название" id="input-upc" class="form-control"/>
                                     </div>
                                 </div>
@@ -160,7 +166,7 @@
                                     <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip"
                                                                                                 title="Европейский код товара">Артикул</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="ean" value="137" placeholder="Артикул" id="input-ean"
+                                        <input type="text" name="ean" value="{{$product['ean']}}" placeholder="Артикул" id="input-ean"
                                                class="form-control"/>
                                     </div>
                                 </div>
@@ -168,21 +174,21 @@
                                     <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip"
                                                                                                 title="Японский код товара">Объем</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="jan" value="1265" placeholder="Объем" id="input-jan"
+                                        <input type="text" name="jan" value="{{$product['jan']}}" placeholder="Объем" id="input-jan"
                                                class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-price">Цена</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="price" value="759" placeholder="Цена" id="input-price"
+                                        <input type="text" name="price" value="{{$product['price']}}" placeholder="Цена" id="input-price"
                                                class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-quantity">Количество</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="quantity" value="25" placeholder="Количество"
+                                        <input type="text" name="quantity" value="{{$product['quantity']}}" placeholder="Количество"
                                                id="input-quantity" class="form-control"/>
                                     </div>
                                 </div>
@@ -191,7 +197,7 @@
                                             data-toggle="tooltip"
                                             title="Минимальное количество товара в заказе (меньше данного кол-ва товара, добавление в корзину будет запрещено )">Минимальное количество</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="minimum" value="1" placeholder="Минимальное количество"
+                                        <input type="text" name="minimum" value="{{$product['minimum']}}" placeholder="Минимальное количество"
                                                id="input-minimum" class="form-control"/>
                                     </div>
                                 </div>
@@ -200,8 +206,16 @@
                                         склада</label>
                                     <div class="col-sm-10">
                                         <select name="subtract" id="input-subtract" class="form-control">
-                                            <option value="1" selected="selected">Да</option>
-                                            <option value="0">Нет</option>
+                                            @foreach(config('products.product_subtract') as
+                                                $product_subtract_key => $product_subtract)
+                                                <option value="{{$product_subtract_key}}"
+                                                       @if($product_subtract_key == $product['subtract'])
+                                                            selected="selected"
+                                                        @endif
+                                                >
+                                                    {{$product_subtract}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -211,10 +225,14 @@
                                             title="Статус показывается, когда товара нет на складе">Отсутствие на складе</span></label>
                                     <div class="col-sm-10">
                                         <select name="stock_status_id" id="input-stock-status" class="form-control">
-                                            <option value="6" selected="selected">2-3 Days</option>
-                                            <option value="7">В наличии</option>
-                                            <option value="5">Нет в наличии</option>
-                                            <option value="8">Предзаказ</option>
+                                            @foreach($stock_statuses as $stock_status)
+                                                <option value="{{$stock_status['stock_status_id']}}"
+                                                    @if($stock_status['stock_status_id'] == $product['stock_status_id'])
+                                                        selected="selected"
+                                                    @endif>
+                                                    {{$stock_status['name']}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -222,8 +240,15 @@
                                     <label class="col-sm-2 control-label" for="input-status">Статус</label>
                                     <div class="col-sm-10">
                                         <select name="status" id="input-status" class="form-control">
-                                            <option value="1" selected="selected">Включено</option>
-                                            <option value="0">Отключено</option>
+                                            @foreach(config('products.products_statuses') as
+                                                $product_status_key => $product_status)
+                                                <option value="{{$product_status_key}}"
+                                                    @if ($product['status'] == $product_status_key)
+                                                        selected="selected"
+                                                    @endif>
+                                                    {{$product_status}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -231,7 +256,10 @@
                                     <label class="col-sm-2 control-label" for="input-sort-order">Порядок
                                         сортировки</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="sort_order" value="1" placeholder="Порядок сортировки"
+                                        <input type="text"
+                                               name="sort_order"
+                                               value="{{$product['sort_order']}}"
+                                               placeholder="Порядок сортировки"
                                                id="input-sort-order" class="form-control"/>
                                     </div>
                                 </div>
@@ -241,7 +269,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-code_1c">Код 1С</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="code_1c" value="8d4e9ad1-b166-11ea-ba82-3417ebd478d7"
+                                        <input type="text" name="code_1c" value="{{$product['productTo1C']['1c_id']}}"
                                                placeholder="Код 1С" id="input-code_1c" class="form-control"/>
                                     </div>
                                 </div>
@@ -250,31 +278,21 @@
                                     <label class="col-sm-2 control-label" for="input-category">Main category:</label>
                                     <div class="col-sm-10">
                                         <select id="main_category_id" name="main_category_id" class="form-control">
-                                            <option value="0" selected="selected"> --- Не выбрано ---</option>
-                                            <option value="33" selected="selected">Для лица</option>
-                                            <option value="66">Для лица &gt; Маски</option>
+                                            <option value="0"
+                                                @if (empty($product['productCategory']['category_id']))
+                                                    selected="selected"
+                                                @endif> --- Не выбрано ---</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category['id']}}"
+                                                    @if ($category['id'] == $product['productCategory']['category_id'])
+                                                        selected="selected"
+                                                    @endif
+                                                >{{$category['full_name']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-category"><span
-                                            data-toggle="tooltip"
-                                            title="(Автозаполнение)">Показывать в категориях</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="category" value=""
-                                               placeholder="Показывать в категориях" id="input-category"
-                                               class="form-control"/>
-                                        <div id="product-category" class="well well-sm"
-                                             style="height: 150px; overflow: auto;">
-                                            <div id="product-category33"><i class="fa fa-minus-circle"></i> Для лица
-                                                <input type="hidden" name="product_category[]" value="33"/>
-                                            </div>
-                                            <div id="product-category66"><i class="fa fa-minus-circle"></i> Для лица
-                                                &gt; Маски <input type="hidden" name="product_category[]" value="66"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="tab-pane" id="tab-attribute">
                                 <div class="table-responsive">
