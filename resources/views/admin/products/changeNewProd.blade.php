@@ -305,8 +305,9 @@
                                         <tr>
                                             <td class="text-left"><a href="" id="thumb-image" data-toggle="image"
                                                                      class="img-thumbnail"><img
-                                                        src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-100x100.jpg"
+                                                        src="{{url('image/products/' . $product->image->name)}}"
                                                         alt="" title=""
+                                                        width="100"
                                                         data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png"/></a><input
                                                     type="hidden" name="image"
                                                     value="catalog/maska-dlja-lica-konoplja-vodorosli.jpg"
@@ -325,6 +326,24 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach ($product->productImages as $key => $productImages)
+                                            <tr id="image-row{{ $key }}">
+                                                <td class="text-left">
+                                                    <a href="" id="thumb-image{{ $key }}" data-toggle="image" class="img-thumbnail">
+                                                        <img src="{{url('image/products/' . $productImages->image->name)}}" width="100" alt="" title="">
+                                                    </a>
+                                                    <input type="hidden" name="product_image[$key][image]" value="catalog/3.jpg" id="input-image0">
+                                                </td>
+                                                <td class="text-right" style="vertical-align: middle;">
+                                                    <input type="text" name="product_image[{{ $key }}][sort_order]" value="{{ $productImages->sort_order }}" placeholder="Порядок сортировки" class="form-control">
+                                                </td>
+                                                <td class="text-left" style="vertical-align: middle;">
+                                                    <button type="button" onclick="$('#image-row{{ $key }}').remove();" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить">
+                                                        <i class="fa fa-minus-circle"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                         <tfoot>
                                         <tr>
@@ -420,6 +439,21 @@
         apt_row++;
     }
     $('#languages_apt a:first').tab('show');
+</script>
+<script type="text/javascript">
+  var image_row = {{ $product->productImages->count() }};
+
+  function addImage() {
+    html  = '<tr id="image-row' + image_row + '">';
+    html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+    html += '  <td class="text-right" style="vertical-align: middle;"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="Порядок сортировки" class="form-control" /></td>';
+    html += '  <td class="text-left" style="vertical-align: middle;"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+    html += '</tr>';
+
+    $('#images tbody').append(html);
+
+    image_row++;
+  }
 </script>
 <script type="text/javascript">
     $('#language a:first').tab('show');
