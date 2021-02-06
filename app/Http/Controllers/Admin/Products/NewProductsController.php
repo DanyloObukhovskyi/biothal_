@@ -11,13 +11,16 @@ use App\Http\Requests\Products\{
 use App\Models\{
     Image,
     Categories,
+    ProductAttribute,
+    ProductDescription,
+    ProductImage,
+    ProductTo1C,
     StockStatus,
     AccessoryProducts,
     CategoryProducts,
     Admin\Products\Sale,
     Admin\Products\Product,
-    Admin\Accessories\Accessories
-};
+    Admin\Accessories\Accessories};
 
 use DataTables;
 use Illuminate\Http\Request;
@@ -72,5 +75,20 @@ class NewProductsController extends Controller
     }
     public function changeInformation(){
         return view('admin.products.changeInformation');
+    }
+
+    public function deleteProd(Request $request)
+    {
+        $ids = json_decode($request->input('ids'));
+
+        foreach ($ids as $product) {
+            Product::where('id', $product)->delete();
+            ProductDescription::where('product_id', $product)->delete();
+            ProductImage::where('product_id', $product)->delete();
+            ProductAttribute::where('product_id', $product)->delete();
+            ProductTo1C::where('product_id', $product)->delete();
+
+        }
+        return response()->json(['success' => 1]);
     }
 }

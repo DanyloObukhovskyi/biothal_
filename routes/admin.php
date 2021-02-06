@@ -80,6 +80,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/changeNewProd/{id}', 'NewProductsController@changeProd')
                 ->name('admin.products.changeNewProd');
 
+            Route::post('/deleteProd', 'NewProductsController@deleteProd')
+                ->name('admin.products.deleteNewProd');
+
             Route::get('/information', 'NewProductsController@information')
                 ->name('admin.products.information');
 

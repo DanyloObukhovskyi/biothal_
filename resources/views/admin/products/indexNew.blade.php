@@ -13,7 +13,7 @@
                     <div class="pull-right col-sm-3">
                         <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                         <button type="submit" form="form-product" formaction="" data-toggle="tooltip" title="Копировать" class="btn btn-default"><i class="fa fa-copy"></i></button>
-                        <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>
+                        <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                     </div>
                     <div class="col-sm-8">
                     </div>
@@ -154,5 +154,25 @@
                 $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
             }
         })
+
+        $('#but-del').click(function () {
+            if(confirm('Данное действие необратимо. Вы уверены?')) {
+                var products_id = [];
+                $.each($("input[name='selected[]']:checked"), function () {
+                    products_id.push($(this).val());
+                })
+                console.log(products_id);
+                $.ajax({
+                    url: 'deleteProd',
+                    type:"POST",
+                    data: {ids:  JSON.stringify(products_id)},
+                    success: function (response) {
+                        location.reload();
+                    }
+                })
+            }
+
+        })
+
     </script>
 @endsection
