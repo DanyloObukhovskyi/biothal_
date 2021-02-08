@@ -1,24 +1,44 @@
+
+
+
 $wt-family-base: Manrope, sans-serif;
 $wt-weight-base: 200;
 
-//==
-//== Default style for component
-//== ======================================= ==//
-
-* {
-    font-family: $wt-family-base;
-    font-weight: $wt-weight-base;
-}
 
 //==
 //== Color palette
 //== ======================================= ==//
 
 $palette-base-color: #2F7484;
+$palette-disable-color: #EFEFEF;
 
 
-export {
-    basecolor: $palette-base-color;
+:export {
+  basecolor: $palette-base-color;
+  disablecolor: $palette-disable-color;
 }
 
 
+//==
+//== Default style for component
+//== ======================================= ==//
+
+* {
+  font-family: $wt-family-base;
+  font-weight: $wt-weight-base;
+}
+
+/* Remove outline on the forms and links */
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+[disabled] {
+  background-color: $palette-disable-color !important;
+}
+
+.disabled {
+  background-color: $palette-disable-color;
+  color: black;
+}
