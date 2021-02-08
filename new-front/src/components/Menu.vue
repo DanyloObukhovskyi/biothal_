@@ -1,28 +1,33 @@
 <template>
     <div class="menu-wrapper">
-        <v-system-bar color="#000" class="menu-wrapper__system-bar" dark height="34">
+        <v-system-bar color="#000" class="menu-wrapper__system-bar default-cursor" dark height="34">
             <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
             <div><img width="18" height="18" src="../../public/package.svg"/></div>
         </v-system-bar>
         <v-app-bar height="60" width="100%" class="pa-0" color="#fff">
-            <v-toolbar-title class="main-toolbar-title">
+            <v-toolbar-title class="main-toolbar-title" @click="toPage({name: 'home'})">
                 <img width="127" height="38" src="../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-wrapper">
                 <v-btn-toggle group>
-                    <v-btn value="forFace" plain>
+                    <v-btn @click="toPage({name: 'for-face'})"
+                           value="forFace" plain>
                         <span>Для лица</span>
                     </v-btn>
-                    <v-btn value="forBody" plain>
+                    <v-btn @click="toPage({name: 'for-body'})"
+                           value="forBody" plain>
                         <span>Для тела</span>
                     </v-btn>
-                    <v-btn value="effectiveSets" plain>
+                    <v-btn @click="toPage({name: 'effective-sets'})"
+                           value="effectiveSets" plain>
                         <span>Эффективные наборы</span>
                     </v-btn>
-                    <v-btn value="aboutBiothal" plain>
+                    <v-btn @click="toPage({name: 'about-us'})"
+                           value="aboutBiothal" plain>
                         <span>O Biothal</span>
                     </v-btn>
-                    <v-btn value="becomeDistributor" plain>
+                    <v-btn @click="toPage({name: 'become-distributor'})"
+                           value="becomeDistributor" plain>
                         <span>Стать дистрибьютером</span>
                     </v-btn>
                 </v-btn-toggle>

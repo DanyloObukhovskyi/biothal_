@@ -32,28 +32,19 @@
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
                     <v-list-item-group
-                        v-model="selectedItem"
+                        v-model="catalog"
                         color="primary">
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Для лица
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Для тела
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Эффективные наборы
                             </v-list-item-content>
@@ -65,36 +56,24 @@
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
                     <v-list-item-group
-                        v-model="selectedItem"
+                        v-model="aboutUs"
                         color="primary">
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Производство
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Философия
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Море
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item class="list-item">
-<!--                            <v-list-item-icon>-->
-<!--                                - -->
-<!--                            </v-list-item-icon>-->
                             <v-list-item-content>
                                 - Водоросли
                             </v-list-item-content>
@@ -106,7 +85,7 @@
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Мы в сетях</v-list-item-title>
                     <v-list-item-group
-                        v-model="selectedItem"
+                        v-model="socialNetwork"
                         color="primary">
                         <v-list-item class="list-item">
                             <v-list-item-icon>
@@ -153,7 +132,9 @@
         name: "Footer",
         data() {
             return {
-                selectedItem: null
+                catalog: null,
+                aboutUs: null,
+                socialNetwork: null
             }
         }
     }

@@ -1,6 +1,3 @@
-
-
-
 $wt-family-base: Manrope, sans-serif;
 $wt-weight-base: 200;
 
@@ -9,8 +6,8 @@ $wt-weight-base: 200;
 //== ======================================= ==//
 
 * {
-  font-family: $wt-family-base;
-  font-weight: $wt-weight-base;
+    font-family: $wt-family-base;
+    font-weight: $wt-weight-base;
 }
 
 //==
@@ -20,8 +17,8 @@ $wt-weight-base: 200;
 $palette-base-color: #2F7484;
 
 
-:export {
-  basecolor: $palette-base-color;
+export {
+    basecolor: $palette-base-color;
 }
 
 

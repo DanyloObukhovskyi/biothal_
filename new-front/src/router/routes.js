@@ -29,7 +29,43 @@ const routes = [
             //     name: 'account-settings',
             //     component: () => import('../pages/AccountSettings'),
             //     meta: {}
-            // }
+            // },
+            {
+                path: 'about-us',
+                name: 'about-us',
+                component: () => import('../pages/AboutUs'),
+                meta: {}
+            },
+            {
+                path: 'become-distributor',
+                name: 'become-distributor',
+                component: () => import('../pages/BecomeDistributor'),
+                meta: {}
+            },
+            {
+                path: 'effective-sets',
+                name: 'effective-sets',
+                component: () => import('../pages/EffectiveSets'),
+                meta: {}
+            },
+            {
+                path: 'for-body',
+                name: 'for-body',
+                component: () => import('../pages/ForBody'),
+                meta: {}
+            },
+            {
+                path: 'for-face',
+                name: 'for-face',
+                component: () => import('../pages/ForFace'),
+                meta: {}
+            },
+            {
+                path: 'ordering',
+                name: 'ordering',
+                component: () => import('../pages/Ordering'),
+                meta: {}
+            },
         ],
         meta: {}
     },

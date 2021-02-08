@@ -3,13 +3,8 @@
         <div class="slider-wrapper">
             <img width="100%" src="../../public/slider.svg"/>
         </div>
-        <div class="gifts-and-discounts-content">
-            <div class="gifts-and-discounts-wrapper">
-                <div class="main-title">Подарки и скидки</div>
-                <div class="gifts-and-discounts-wrapper__product">
-                    <ProductCard class="product-card" v-for="item in productData" :key="item.id" :data-card="item" :is-show-stock="true"/>
-                </div>
-            </div>
+        <div>
+            <ProductCardSet title="Подарки и скидки" :product-data="productDataShowStock"/>
         </div>
         <div style="display: flex; flex-direction: row; width: 100%; justify-content: center">
             <div style="display: flex;flex-direction: row; justify-content: space-between; width: 90%">
@@ -18,12 +13,7 @@
             </div>
         </div>
         <div class="gifts-and-discounts-content">
-            <div class="gifts-and-discounts-wrapper">
-                <div class="main-title">Бестселлеры</div>
-                <div class="gifts-and-discounts-wrapper__product">
-                    <ProductCard class="product-card" v-for="item in productData" :key="item.id" :data-card="item"/>
-                </div>
-            </div>
+            <ProductCardSet title="Бестселлеры" :product-data="productData"/>
         </div>
         <div class="description-biothal">
             <div class="main-title">Интернет-магазин Biothal</div>
@@ -88,39 +78,79 @@
 <script>
     import ProductCard from "../components/ProductCard";
     import CategoryCard from "../components/CategoryCard";
+    import ProductCardSet from "../components/ProductCardSet";
 
     export default {
         name: "Home",
         components: {
             ProductCard,
-            CategoryCard
+            CategoryCard,
+            ProductCardSet
         },
         data() {
             return {
                 productData: [
                     {
                         id: 1,
-                        img: '../../../public/product-images/product-images.svg'
+                        img: '../../../public/product-images/product-images.svg',
+                        isShowStock: false
                     },
                     {
                         id: 2,
-                        img: '../public/product-images/product-images.svg'
+                        img: '../public/product-images/product-images.svg',
+                        isShowStock: false
                     },
                     {
                         id: 3,
-                        img: '../../public/product-images/product-images.svg'
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: false
                     },
                     {
                         id: 4,
-                        img: '../../public/product-images/product-images.svg'
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: false
                     },
                     {
                         id: 5,
-                        img: '../../public/product-images/product-images.svg'
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: false
                     },
                     {
                         id: 6,
-                        img: '../../public/product-images/product-images.svg'
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: false
+                    }
+                ],
+                productDataShowStock: [
+                    {
+                        id: 1,
+                        img: '../../../public/product-images/product-images.svg',
+                        isShowStock: true
+                    },
+                    {
+                        id: 2,
+                        img: '../public/product-images/product-images.svg',
+                        isShowStock: true
+                    },
+                    {
+                        id: 3,
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: true
+                    },
+                    {
+                        id: 4,
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: true
+                    },
+                    {
+                        id: 5,
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: true
+                    },
+                    {
+                        id: 6,
+                        img: '../../public/product-images/product-images.svg',
+                        isShowStock: true
                     }
                 ]
             }
@@ -129,31 +159,6 @@
 </script>
 
 <style scoped lang="scss">
-    .product-card {
-        width: 30%;
-    }
-
-    .gifts-and-discounts-content {
-        margin-bottom: 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .gifts-and-discounts-wrapper {
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-
-        &__product {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            row-gap: 40px;
-        }
-    }
 
     .slider-wrapper {
         width: 100%;
@@ -177,15 +182,6 @@
             text-align: left;
         }
     }
-
-
-
-
-
-
-
-
-
 
     .container {
         display: flex;

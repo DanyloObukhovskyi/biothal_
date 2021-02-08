@@ -14,18 +14,12 @@
         </div>
         <img height="290" src="../../public/product-images/product-image.svg"/>
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <v-rating
-                color="#000"
-                background-color="#000"
-                hover
-                length="5"
-                size="12.59"
-                :value="3"/>
+            <Rating/>
             <div>5 отзывов</div>
         </div>
         <div class="product__description">
-            <div>Очищающая маска для лица Конопля Водоросли</div>
-            <div class="product__description__price">1920 грн</div>
+            <div @click="toPage({name: 'product', params: {id: 1}})" class="product__description__text">Очищающая маска для лица Конопля Водоросли</div>
+            <div class="product__description__price default-cursor">1920 грн</div>
         </div>
         <div>
             <v-btn dark class="product__button" elevation="0">Купить</v-btn>
@@ -34,6 +28,8 @@
 </template>
 
 <script>
+    import Rating from "./Rating";
+
     export default {
         name: "ProductCard",
         props: {
@@ -45,6 +41,9 @@
                 type: Boolean,
                 default: false
             }
+        },
+        components: {
+            Rating
         },
         data() {
             return {
@@ -58,6 +57,7 @@
 <style scoped lang="scss">
 
     .product {
+        text-align: center;
         display: flex;
         flex-direction: column;
         padding: 17px 30px 20px 17px;
@@ -93,6 +93,12 @@
             display: flex;
             flex-direction: column;
             row-gap: 10px;
+
+            &__text {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
 
             &__price {
                 font-weight: 800;
