@@ -4,6 +4,21 @@
 $wt-family-base: Manrope, sans-serif;
 $wt-weight-base: 200;
 
+
+//==
+//== Color palette
+//== ======================================= ==//
+
+$palette-base-color: #2F7484;
+$palette-disable-color: #EFEFEF;
+
+
+:export {
+  basecolor: $palette-base-color;
+  disablecolor: $palette-disable-color;
+}
+
+
 //==
 //== Default style for component
 //== ======================================= ==//
@@ -13,15 +28,17 @@ $wt-weight-base: 200;
   font-weight: $wt-weight-base;
 }
 
-//==
-//== Color palette
-//== ======================================= ==//
-
-$palette-base-color: #2F7484;
-
-
-:export {
-  basecolor: $palette-base-color;
+/* Remove outline on the forms and links */
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
 }
 
+[disabled] {
+  background-color: $palette-disable-color !important;
+}
 
+.disabled {
+  background-color: $palette-disable-color;
+  color: black;
+}

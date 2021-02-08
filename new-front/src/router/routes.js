@@ -1,49 +1,63 @@
 const routes = [
-    {
-        path: '',
-        name: 'dashboard',
-        redirect: {name: 'home'},
-        component: () => import('../pages/Dashboard'),
+  {
+    path: '',
+    name: 'dashboard',
+    redirect: {name: 'home'},
+    component: () => import('../pages/Dashboard'),
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('../pages/Home'),
+        meta: {}
+      },
+      {
+        path: 'face',
+        name: 'face',
+        component: {render: h => h('router-view')},
         children: [
-            {
-                path: 'home',
-                name: 'home',
-                component: () => import('../pages/Home'),
-                meta: {}
-            },
-            {
-                path: 'product/:id',
-                name: 'product',
+          {
+            path: 'masks',
+            name: 'masks',
+            component: {render: h => h('router-view')},
+            children: [
+              {
+                path: ':id',
                 component: () => import('../pages/Product'),
                 meta: {},
                 props: true
-            },
-            {
-                path: 'checkout',
-                name: 'checkout',
-                component: () => import('../pages/Checkout'),
-                meta: {}
-            },
-            // {
-            //     path: 'account-settings',
-            //     name: 'account-settings',
-            //     component: () => import('../pages/AccountSettings'),
-            //     meta: {}
-            // }
-        ],
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'checkout',
+        name: 'checkout',
+        component: () => import('../pages/Checkout'),
         meta: {}
-    },
-    {
-        path: '/404',
-        name: '404',
-        component: () => import('../pages/NotFound'),
-        meta: {}
-    },
-    {
-        path: '*',
-        redirect: '/404',
-        meta: {}
-    }
+      },
+// {
+//     path: 'account-settings',
+//     name: 'account-settings',
+//     component: () => import('../pages/AccountSettings'),
+//     meta: {}
+// }
+    ],
+    meta: {}
+  },
+  {
+    path: '/404',
+    name:
+      '404',
+    component: () => import('../pages/NotFound'),
+    meta: {}
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    meta: {}
+  }
 ]
 
 export default routes
