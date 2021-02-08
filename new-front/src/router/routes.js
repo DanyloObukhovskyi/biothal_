@@ -4,21 +4,29 @@ const routes = [
     name: 'dashboard',
     redirect: {name: 'home'},
     component: () => import('../pages/Dashboard'),
+    meta: {
+      label: 'Главная страница'
+    },
     children: [
       {
         path: 'home',
         name: 'home',
-        component: () => import('../pages/Home'),
-        meta: {}
+        component: () => import('../pages/Home')
       },
       {
         path: 'face',
         name: 'face',
         component: {render: h => h('router-view')},
+        meta: {
+          label: 'Для лица'
+        },
         children: [
           {
             path: 'masks',
             name: 'masks',
+            meta: {
+              label: 'Маски'
+            },
             component: {render: h => h('router-view')},
             children: [
               {
@@ -44,7 +52,6 @@ const routes = [
 //     meta: {}
 // }
     ],
-    meta: {}
   },
   {
     path: '/404',
