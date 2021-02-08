@@ -1,28 +1,28 @@
 <template>
     <div class="menu-wrapper">
         <v-system-bar color="#000" class="menu-wrapper__system-bar" dark height="34">
-            <div>Бесплатная доставка от 1500 грн</div>
+            <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
             <div><img width="18" height="18" src="../../public/package.svg"/></div>
         </v-system-bar>
         <v-app-bar height="60" width="100%" class="pa-0" color="#fff">
-            <v-toolbar-title style="padding-left: 43px">
+            <v-toolbar-title class="main-toolbar-title">
                 <img width="127" height="38" src="../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-wrapper">
                 <v-btn-toggle group>
-                    <v-btn value="recent" plain>
+                    <v-btn value="forFace" plain>
                         <span>Для лица</span>
                     </v-btn>
-                    <v-btn value="favorites" plain>
+                    <v-btn value="forBody" plain>
                         <span>Для тела</span>
                     </v-btn>
-                    <v-btn value="nearby" plain>
+                    <v-btn value="effectiveSets" plain>
                         <span>Эффективные наборы</span>
                     </v-btn>
-                    <v-btn value="nearby" plain>
+                    <v-btn value="aboutBiothal" plain>
                         <span>O Biothal</span>
                     </v-btn>
-                    <v-btn value="nearby" plain>
+                    <v-btn value="becomeDistributor" plain>
                         <span>Стать дистрибьютером</span>
                     </v-btn>
                 </v-btn-toggle>
@@ -53,7 +53,7 @@
             display: flex;
             justify-content: center;
             color: #fff;
-            font-weight: 700;
+            font-weight: 200;
             font-style: normal;
             font-size: 12px;
             line-height: 16.39px;
@@ -73,6 +73,18 @@
         display: flex;
         flex-direction: row;
         column-gap: 11px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .main-toolbar-title {
+        padding-left: 43px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 </style>
 
@@ -84,6 +96,14 @@
             flex-direction: row;
             justify-content: space-between;
             width: 100%;
+        }
+    }
+
+    .app-bar-menu-wrapper {
+        & .v-btn__content {
+            font-size: 13px;
+            line-height: 18px;
+            color: #000;
         }
     }
 </style>

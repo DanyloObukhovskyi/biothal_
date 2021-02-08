@@ -1,6 +1,6 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
-        <div class="product__sale">-50%</div>
+        <div class="product__sale" v-if="isShowStock">-50%</div>
         <div class="product__heart">
             <v-btn
                 v-show="isFavoritesShow || isFavorites"
@@ -27,7 +27,9 @@
             <div>Очищающая маска для лица Конопля Водоросли</div>
             <div class="product__description__price">1920 грн</div>
         </div>
-        <v-btn dark class="product__button" elevation="0">Купить</v-btn>
+        <div>
+            <v-btn dark class="product__button" elevation="0">Купить</v-btn>
+        </div>
     </div>
 </template>
 
@@ -38,6 +40,10 @@
             dataCard: {
                 type: Object,
                 default: ()=>[]
+            },
+            isShowStock: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -52,7 +58,10 @@
 <style scoped lang="scss">
 
     .product {
+        display: flex;
+        flex-direction: column;
         padding: 17px 30px 20px 17px;
+        row-gap: 10px;
 
          &:hover {
             box-shadow: 0 0 33px #f2f2f2;
@@ -81,6 +90,10 @@
         }
 
         &__description {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
             &__price {
                 font-weight: 800;
             }

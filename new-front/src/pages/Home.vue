@@ -5,9 +5,9 @@
         </div>
         <div class="gifts-and-discounts-content">
             <div class="gifts-and-discounts-wrapper">
-                <div class="title">ПОДАРКИ И СКИДКИ</div>
+                <div class="main-title">Подарки и скидки</div>
                 <div class="gifts-and-discounts-wrapper__product">
-                    <ProductCard class="product-card" v-for="item in productData" :key="item.id" :data-card="item"/>
+                    <ProductCard class="product-card" v-for="item in productData" :key="item.id" :data-card="item" :is-show-stock="true"/>
                 </div>
             </div>
         </div>
@@ -19,14 +19,14 @@
         </div>
         <div class="gifts-and-discounts-content">
             <div class="gifts-and-discounts-wrapper">
-                <div class="title">БЕСТСЕЛЛЕРЫ</div>
+                <div class="main-title">Бестселлеры</div>
                 <div class="gifts-and-discounts-wrapper__product">
                     <ProductCard class="product-card" v-for="item in productData" :key="item.id" :data-card="item"/>
                 </div>
             </div>
         </div>
         <div class="description-biothal">
-            <div class="title">ИНТЕРНЕТ-МАГАЗИН BIOTHAL</div>
+            <div class="main-title">Интернет-магазин Biothal</div>
             <div style="display: flex; flex-direction: row; width: 100%">
                 <div class="description-biothal__text" style="padding-right: 30px">
                     <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа,
@@ -151,6 +151,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-around;
+            row-gap: 40px;
         }
     }
 
@@ -192,10 +193,11 @@
         justify-content: center;
     }
 
-    .title {
+    .main-title {
         font-weight: 200;
         font-size: 34px;
-        line-height: 46.44px;
+        line-height: 46px;
         margin: 40px;
+        text-transform: uppercase;
     }
 </style>
