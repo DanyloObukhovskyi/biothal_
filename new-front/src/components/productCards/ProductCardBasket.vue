@@ -1,7 +1,7 @@
 <template>
     <div class="product-basket__wrapper">
         <div class="product-basket__left">
-            <img height="150" width="150" src="../../public/product-images/product-image.svg"/>
+            <img height="150" width="150" src="../../../public/product-images/product-image.svg"/>
         </div>
         <div class="product-basket__right">
             <div class="product-basket__right__title" @click="toPage({name: 'product', params: {id: 1}})">
@@ -9,9 +9,16 @@
             </div>
             <div class="product-basket__right__text">
                 <div>Количество</div>
-                <div>+ 2 -</div>
+                <div style="display: flex; flex-direction: row">
+                    <v-icon class="main-icon-btn" size="12" @click="count_good >0 ? count_good-- : null">
+                        mdi-minus
+                    </v-icon>
+                    <input style="width: 30px" v-model="count_good" type="number" :min="0"/>
+                    <v-icon class="main-icon-btn" size="12" @click="count_good++">mdi-plus</v-icon>
+                </div>
                 <div class="product-basket__right__text__price">Цена: 1920 грн.</div>
-                <div class="product-basket__right__text__delete-basket">Удалить из корзины</div>
+                <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
+                </div>
             </div>
         </div>
     </div>
@@ -29,8 +36,11 @@
             }
         },
         data() {
-            return {}
-        }
+            return {
+                count_good: 0,
+            }
+        },
+        methods: {}
     }
 </script>
 
@@ -76,8 +86,27 @@
 
                 &__delete-basket {
                     color: #C2C2C2;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
             }
+        }
+    }
+
+    input[type=number] {
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        text-align: center;
+    }
+
+    .main-icon-btn {
+        &:hover {
+            cursor: pointer;
         }
     }
 

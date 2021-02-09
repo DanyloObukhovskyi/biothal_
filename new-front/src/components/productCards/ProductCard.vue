@@ -12,7 +12,7 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img height="290" src="../../public/product-images/product-image.svg"/>
+        <img height="290" src="../../../public/product-images/product-image.svg"/>
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
             <Rating/>
             <div>5 отзывов</div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import Rating from "./Rating";
+    import Rating from "../Rating";
 
     export default {
         name: "ProductCard",

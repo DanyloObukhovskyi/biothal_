@@ -35,15 +35,23 @@
             <div class="app-bar-menu-icon">
                 <v-icon color="#000" size="18">mdi-heart-outline</v-icon>
                 <v-icon color="#000" size="18">mdi-account-outline</v-icon>
-                <v-icon color="#000" size="18">mdi-briefcase-outline</v-icon>
+                <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
+                    mdi-briefcase-outline
+                </v-icon>
             </div>
         </v-app-bar>
+        <Basket ref="Basket"/>
     </div>
 </template>
 
 <script>
+    import Basket from "./Basket";
+
     export default {
         name: "Menu",
+        components: {
+            Basket
+        },
         data() {
             return {
                 value: null

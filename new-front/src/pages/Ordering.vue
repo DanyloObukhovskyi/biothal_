@@ -3,7 +3,7 @@
         <div class="ordering__content">
             <div class="ordering__top">
                 <div class="ordering__top__title">Оформление заказа</div>
-                <div style="margin-bottom: 17px">Еще 735 грн и сработает скидка 50%</div>
+                <div style="margin-bottom: 17px; font-size: 12px">Еще 735 грн и сработает скидка 50%</div>
                 <v-progress-linear v-model="linear"
                                    color="#2F7484"
                                    background-color="#ddd"
@@ -24,7 +24,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Введите имя *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -33,7 +33,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Введите фамилию *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -42,7 +42,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Введите область *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -51,7 +51,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Введите город *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -60,7 +60,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Выберите отделение Новой Почты *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -69,7 +69,7 @@
                                     height="44"/>
                             </div>
                             <div>
-                                <p class="main-input-label">Введите номер телефона *</p>
+                                <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-text-field
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -89,8 +89,8 @@
                     </div>
                 </div>
                 <div class="ordering__middle__right">
-                    <div style="height: 520px; overflow: auto; padding: 7px">
-                        <ProductCardBasketSet/>
+                    <div class="ordering__middle__right__product-set">
+                        <ProductCardsSet type-set="basket" :is-show-title="false"/>
                     </div>
                     <div class="total__wrapper">
                         <div class="total">
@@ -122,7 +122,7 @@
             </div>
         </div>
         <div>
-            <ProductCardSet title="Рекомендуемые товары"/>
+            <ProductCardsSet title="Рекомендуемые товары"/>
         </div>
 
         <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
@@ -130,18 +130,16 @@
 </template>
 
 <script>
-    import ProductCardSet from "../components/ProductCardSet";
-    import ProductCardBasket from "../components/ProductCardBasket";
-    import ProductCardBasketSet from "../components/ProductCardBasketSet";
-    import PlaceOrderOneClick from "../components/PlaceOrderOneClick";
+    import ProductCardBasket from "../components/productCards/ProductCardBasket";
+    import PlaceOrderOneClick from "../components/PlaceOrderOneClickModal";
+    import ProductCardsSet from "../components/ProductCardsSet";
 
     export default {
         name: "Ordering",
         components: {
-            ProductCardSet,
             ProductCardBasket,
-            ProductCardBasketSet,
-            PlaceOrderOneClick
+            PlaceOrderOneClick,
+            ProductCardsSet
         },
         data() {
             return {
@@ -186,6 +184,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: scroll;
         }
 
         &__content {
@@ -201,7 +200,7 @@
             text-align: center;
 
             &__title {
-                text-transform: uppercase;
+                font-size: 18px;
                 margin: 20px;
             }
         }
@@ -210,8 +209,11 @@
             display: flex;
             flex-direction: row;
             margin-top: 30px;
+            flex-wrap: wrap;
 
             &__left {
+                display: flex;
+                flex-direction: column;
                 width: 50%;
 
                 &__checkout {
@@ -222,7 +224,16 @@
             }
 
             &__right {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 width: 50%;
+
+                &__product-set {
+                    height: 610px;
+                    overflow: auto;
+                    padding: 7px;
+                }
             }
         }
     }

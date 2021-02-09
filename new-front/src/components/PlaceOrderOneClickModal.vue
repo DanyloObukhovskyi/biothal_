@@ -25,6 +25,8 @@
                         background-color="#F7F7F7"
                         flat
                         rounded
+                        placeholder="+38(___) ___-__-__"
+                        v-mask="'+38(###) ###-##-##'"
                         height="34"/>
                 </div>
             </v-form>
