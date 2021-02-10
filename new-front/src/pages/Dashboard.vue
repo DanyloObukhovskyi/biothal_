@@ -1,26 +1,31 @@
 <template>
     <v-app>
-        <Menu/>
-        <v-main app>
-            <router-view/>
-        </v-main>
-        <Footer/>
+        <MenuDesktop v-if="!isMobile"/>
+        <MenuMobile v-if="isMobile"/>
+<!--        <v-main app>-->
+<!--            <router-view/>-->
+<!--        </v-main>-->
+<!--        <FooterDesktop class="footer-desktop"/>-->
+<!--        <FooterMobile class="footer-mobile"/>-->
     </v-app>
 </template>
 
 <script>
-    import Menu from "../components/Menu";
-    import Footer from "../components/Footer";
+    import MenuDesktop from "../components/desktop/MenuDesktop";
+    import FooterDesktop from "../components/desktop/FooterDesktop";
+    import MenuMobile from "../components/mobile/MenuMobile";
+    import FooterMobile from "../components/mobile/FooterMobile";
 
     export default {
         name: "Dashboard",
         components: {
-            Menu,
-            Footer
+            MenuDesktop,
+            FooterDesktop,
+            MenuMobile,
+            FooterMobile
         }
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

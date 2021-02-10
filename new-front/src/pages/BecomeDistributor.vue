@@ -1,10 +1,12 @@
 <template>
-    <h1 style="width: 50%; text-align: center">Become Distributor</h1>
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-align: center; font-size: 80px">
+        Become Distributor
+    </div>
 </template>
 
 <script>
   export default {
-    name: "becomeDistributor"
+    name: "BecomeDistributor"
   }
 </script>
 

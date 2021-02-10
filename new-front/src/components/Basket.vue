@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div>
-                            <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
+                            <v-btn dark class="checkout-button" elevation="0" @click="toPage({name: 'ordering'})">Оформить заказ</v-btn>
                         </div>
                     </div>
                 </div>

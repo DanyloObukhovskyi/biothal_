@@ -1,14 +1,14 @@
 <template>
     <v-rating
-        color="#000"
-        background-color="#000"
+        :color="color"
+        :background-color="color"
         hover
         length="5"
         :value="3">
         <template v-slot:item="props">
             <v-icon
                 class="icon-star"
-                color="#000"
+                :color="color"
                 size="13"
                 @click="props.click">
                 {{ props.isFilled ? 'mdi-star' : 'mdi-star-outline' }}
@@ -18,9 +18,15 @@
 </template>
 
 <script>
-  export default {
-    name: "Rating"
-  }
+    export default {
+        name: "Rating",
+        props: {
+            color: {
+                type: String,
+                default: '#000'
+            }
+        }
+    }
 </script>
 
 <style scoped lang="scss">

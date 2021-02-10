@@ -45,12 +45,18 @@ const routes = [
                 component: () => import('../pages/Checkout'),
                 meta: {}
             },
-            // {
-            //     path: 'account-settings',
-            //     name: 'account-settings',
-            //     component: () => import('../pages/AccountSettings'),
-            //     meta: {}
-            // },
+            {
+                path: 'account-settings',
+                name: 'account-settings',
+                component: () => import('../pages/AccountSettings'),
+                meta: {}
+            },
+            {
+                path: 'favorites',
+                name: 'favorites',
+                component: () => import('../pages/Favorites'),
+                meta: {}
+            },
             {
                 path: 'about-us',
                 name: 'about-us',
@@ -92,6 +98,30 @@ const routes = [
                 path: 'ordering',
                 name: 'ordering',
                 component: () => import('../pages/Ordering'),
+                meta: {}
+            },
+            {
+                path: 'production',
+                name: 'production',
+                component: () => import('../pages/Production'),
+                meta: {}
+            },
+            {
+                path: 'philosophy',
+                name: 'philosophy',
+                component: () => import('../pages/Philosophy'),
+                meta: {}
+            },
+            {
+                path: 'sea',
+                name: 'sea',
+                component: () => import('../pages/Sea'),
+                meta: {}
+            },
+            {
+                path: 'seaweed',
+                name: 'seaweed',
+                component: () => import('../pages/Seaweed'),
                 meta: {}
             },
         ],

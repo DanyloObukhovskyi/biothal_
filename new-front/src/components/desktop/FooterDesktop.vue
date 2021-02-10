@@ -20,7 +20,7 @@
 
             <div class="footer__middle__block footer__middle__block__1">
                 <div>
-                    <img width="127" height="38" src="../../public/logo.svg"/>
+                    <img width="127" height="38" src="../../../public/logo.svg"/>
                 </div>
                 <div>
                     Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
@@ -34,17 +34,17 @@
                     <v-list-item-group
                         v-model="catalog"
                         color="primary">
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'for-face'})">
                             <v-list-item-content>
                                 - Для лица
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'for-body'})">
                             <v-list-item-content>
                                 - Для тела
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'effective-sets'})">
                             <v-list-item-content>
                                 - Эффективные наборы
                             </v-list-item-content>
@@ -58,22 +58,22 @@
                     <v-list-item-group
                         v-model="aboutUs"
                         color="primary">
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'production'})">
                             <v-list-item-content>
                                 - Производство
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'philosophy'})">
                             <v-list-item-content>
                                 - Философия
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'sea'})">
                             <v-list-item-content>
                                 - Море
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" @click="toPage({name: 'seaweed'})">
                             <v-list-item-content>
                                 - Водоросли
                             </v-list-item-content>
@@ -87,7 +87,7 @@
                     <v-list-item-group
                         v-model="socialNetwork"
                         color="primary">
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" href="https://www.facebook.com/biothal.ua/" target="_blank">
                             <v-list-item-icon>
                                 <v-icon color="#000">mdi-facebook</v-icon>
                             </v-list-item-icon>
@@ -95,7 +95,8 @@
                                 Facebook
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
+                                     target="_blank">
                             <v-list-item-icon>
                                 <v-icon color="#000">mdi-twitter</v-icon>
                             </v-list-item-icon>
@@ -103,7 +104,8 @@
                                 Twitter
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item">
+                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
+                                     target="_blank">
                             <v-list-item-icon>
                                 <v-icon color="#000">mdi-instagram</v-icon>
                             </v-list-item-icon>
@@ -129,7 +131,7 @@
 
 <script>
     export default {
-        name: "Footer",
+        name: "FooterDesktop",
         data() {
             return {
                 catalog: null,
@@ -149,7 +151,6 @@
         }
 
         &__top {
-            /*padding: 28px 0 27px 45px;*/
             width: 100%;
             background-color: #2F7484;
             display: flex;

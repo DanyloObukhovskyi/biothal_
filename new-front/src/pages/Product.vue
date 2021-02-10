@@ -19,16 +19,7 @@
                     </div>
 
                     <div class="info-rating">
-                        <v-rating
-                            class="info-rating__rating"
-                            :color="variables.basecolor"
-                            :background-color="variables.basecolor"
-                            hover
-                            length="5"
-                            padding=".1rem"
-                            size="12.59"
-                            :value="5">
-                        </v-rating>
+                        <Rating :color="variables.basecolor"/>
                         <span class="info-rating__comment">5 отзывов</span>
                     </div>
 
@@ -48,20 +39,26 @@
 
                     <div class="info-count">
                         <span class="info-count__title">Количество</span>
-
-                        <v-text-field hide-details single-line class="info-count__input" v-model.number="count_good">
-                            <div @click="decrementCountGood" slot="prepend"
-                                 :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
-                                 class="mdi mdi-minus info-count__input-control"/>
-                            <div @click="incrementCountGood" slot="append-outer"
-                                 :style="{'background-color': variables.basecolor, color: '#ffffff'}"
-                                 class="mdi mdi-plus info-count__input-control"/>
-                        </v-text-field>
+                        <div>
+                            <v-icon
+                                @click="decrementCountGood"
+                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
+                                class="info-count__input-control">
+                                mdi-minus
+                            </v-icon>
+                            <input v-model="count_good" type="number" style="width: 42px"/>
+                            <v-icon
+                                @click="incrementCountGood"
+                                :style="{'background-color': variables.basecolor, color: '#ffffff'}"
+                                class="info-count__input-control">
+                                mdi-plus
+                            </v-icon>
+                        </div>
                     </div>
 
                     <div class="info-pay-control">
 
-                        <span class="info-pay-control__buy" style="cursor: pointer;">Купить</span>
+                        <v-btn dark class="info-pay-control__buy" color="#2F7484" elevation="0">Купить</v-btn>
                         <div class="info-pay-control__buy-fast" :disabled="!validPhoneInput">
                             <the-mask v-model="phone" type="tel" class="info-pay-control__buy__input"
                                       v-bind="maskOptions"
@@ -88,7 +85,7 @@
                     </v-tab>
                 </v-tabs>
 
-                <v-tabs-items v-model="tab">
+                <v-tabs-items style="margin-top: 30px" v-model="tab">
                     <v-tab-item
                         v-for="i in 4"
                         :key="i"
@@ -148,10 +145,11 @@
     import {TheMask} from 'vue-the-mask';
     import PathBreadcrumb from "@/components/PathBreadcrumb";
     import ProductCardsSet from "../components/ProductCardsSet";
+    import Rating from "../components/Rating";
 
     export default {
         name: "Product",
-        components: {PathBreadcrumb, TheMask, ProductCardsSet},
+        components: {PathBreadcrumb, TheMask, ProductCardsSet, Rating},
         props: {
             product_id: {
                 type: [Number, String],
@@ -298,6 +296,7 @@
 
             &__comment {
                 font-size: 12px;
+                margin-left: 12px;
             }
 
         }
@@ -359,6 +358,7 @@
             grid-gap: 2px 15px;
 
             &__buy {
+                text-transform: none;
                 text-align: center;
                 font-size: 16px;
                 line-height: 22px;
@@ -366,9 +366,9 @@
                 font-style: normal;
                 padding: 13px 62px;
                 background-color: $palette-base-color;
-                max-width: 246px;
+                width: 180px;
+                height: 48px !important;
                 border-radius: 50px;
-                color: #FFFFFF;
 
                 &__input {
                     background-color: transparent;
@@ -418,5 +418,13 @@
             justify-content: center;
             width: 100%;
         }
+    }
+
+    input[type=number] {
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        text-align: center;
     }
 </style>

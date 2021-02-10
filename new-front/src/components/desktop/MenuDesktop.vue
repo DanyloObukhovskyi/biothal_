@@ -2,11 +2,11 @@
     <div class="menu-wrapper">
         <v-system-bar color="#000" class="menu-wrapper__system-bar default-cursor" dark height="34">
             <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
-            <div><img width="18" height="18" src="../../public/package.svg"/></div>
+            <div><img width="18" height="18" src="../../../public/package.svg"/></div>
         </v-system-bar>
         <v-app-bar height="60" width="100%" class="pa-0" color="#fff">
             <v-toolbar-title class="main-toolbar-title" @click="toPage({name: 'home'})">
-                <img width="127" height="38" src="../../public/logo.svg"/>
+                <img width="127" height="38" src="../../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-wrapper">
                 <v-btn-toggle group>
@@ -33,8 +33,8 @@
                 </v-btn-toggle>
             </div>
             <div class="app-bar-menu-icon">
-                <v-icon color="#000" size="18">mdi-heart-outline</v-icon>
-                <v-icon color="#000" size="18">mdi-account-outline</v-icon>
+                <v-icon color="#000" size="18" @click="toPage({name: 'favorites'})">mdi-heart-outline</v-icon>
+                <v-icon color="#000" size="18" @click="toPage({name: 'account-settings'})">mdi-account-outline</v-icon>
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
                     mdi-briefcase-outline
                 </v-icon>
@@ -45,10 +45,10 @@
 </template>
 
 <script>
-    import Basket from "./Basket";
+    import Basket from "../Basket";
 
     export default {
-        name: "Menu",
+        name: "MenuDesktop",
         components: {
             Basket
         },
