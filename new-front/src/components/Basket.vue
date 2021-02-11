@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import ProductCardsSet from "./ProductCardsSet";
+    import ProductCardsSet from "./desktop/ProductCardsSetDesktop";
 
     export default {
         name: "Basket",

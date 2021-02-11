@@ -1,128 +1,71 @@
 <template>
     <v-footer
-        color="#fff"
-        class="pa-0 footer__wrapper"
+        class="footer__wrapper"
         :padless="false">
-        <div class="footer__top">
-            <div style="margin: 28px 0 27px 45px;">
-                Узнавайте первыми о распродажах и новинках!
+        <div v-if="isMobile" class="special-offer__wrapper">
+            <p style="margin: auto 0">
+                Будь в курсе специальных предложений
+            </p>
+            <v-icon color="#000" size="25">mdi-gift-outline</v-icon>
+        </div>
+        <div v-if="isMobile" class="links__wrapper">
+            <div style="text-align: left; color: #808080">
+                Электронная почта
             </div>
-            <v-spacer/>
-            <div style="margin-right: 45px">
-                <v-text-field dark color="#fff" label="Электронный адрес" style="width: 270px">
-                    <v-icon slot="append" style="width: 10px; margin-right: 6px">
-                        mdi-arrow-right
-                    </v-icon>
-                </v-text-field>
+            <div style="border-right: 1px solid #808080; width: 0; height: 15px"/>
+            <div style="text-align: right; color: #0BB7B5">
+                Подписаться
             </div>
         </div>
-        <div class="footer__middle">
-
-            <div class="footer__middle__block footer__middle__block__1">
-                <div>
-                    <img width="127" height="38" src="../../../public/logo.svg"/>
-                </div>
-                <div>
-                    Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
-                    силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
-                    стандартам.
-                </div>
+        <div class="footer__block-1">
+            <div>
+                <img width="127" height="38" src="../../../public/logo2.svg"/>
             </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item-group
-                        v-model="catalog"
-                        color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'for-face'})">
-                            <v-list-item-content>
-                                - Для лица
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'for-body'})">
-                            <v-list-item-content>
-                                - Для тела
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'effective-sets'})">
-                            <v-list-item-content>
-                                - Эффективные наборы
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-            </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
-                    <v-list-item-group
-                        v-model="aboutUs"
-                        color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'production'})">
-                            <v-list-item-content>
-                                - Производство
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'philosophy'})">
-                            <v-list-item-content>
-                                - Философия
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'sea'})">
-                            <v-list-item-content>
-                                - Море
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'seaweed'})">
-                            <v-list-item-content>
-                                - Водоросли
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-            </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">Мы в сетях</v-list-item-title>
-                    <v-list-item-group
-                        v-model="socialNetwork"
-                        color="primary">
-                        <v-list-item class="list-item" href="https://www.facebook.com/biothal.ua/" target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-facebook</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Facebook
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
-                                     target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-twitter</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Twitter
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
-                                     target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-instagram</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Instagram
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
+            <div style="display: flex; column-gap: 10px">
+                <v-icon color="#fff" size="17">mdi-facebook</v-icon>
+                <v-icon color="#fff" size="17">mdi-twitter</v-icon>
+                <v-icon color="#fff" size="17">mdi-instagram</v-icon>
             </div>
         </div>
-        <div class="footer__bottom">
-            <div>
-                Copyright © 2020. Все права защищены.
+        <div class="footer__block-2">
+            <div class="footer__block-2__block-2-1">
+                <v-btn text class="list-item" dark @click="toPage({name: 'for-face'})">
+                    - Для лица
+                </v-btn>
+                <v-btn text class="list-item" dark @click="toPage({name: 'for-body'})">
+                    - Для тела
+                </v-btn>
+                <v-btn text class="list-item" dark @click="toPage({name: 'for-face'})">
+                    - Эффективные наборы
+                </v-btn>
+                <v-btn text class="list-item" dark @click="toPage({name: 'effective-sets'})">
+                    - О компании
+                </v-btn>
             </div>
-            <v-spacer/>
+            <div class="footer__block-2__block-2-2">
+                <div>
+                    +38 (068) 888-12-08
+                </div>
+                <div style="color: #2F7484">
+                    Обратный звонок
+                </div>
+            </div>
+        </div>
+        <div class="footer__block-3">
             <div>
+                <v-btn elevation="0" class="main-button">
+                    Стать дистрибьютером
+                </v-btn>
+            </div>
+            <div>
+                <img width="37" height="9" src="../../../public/visaMasterCard.svg"/>
+            </div>
+        </div>
+        <div class="footer__block-4">
+            <div style="font-size: 11px; font-weight: 400; line-height: 15px;">
+                © BIOTHAL 2019—2020
+            </div>
+            <div style="font-size: 9px; font-weight: 400; line-height: 12px;">
                 Пользовательское соглашение
             </div>
         </div>
@@ -147,57 +90,100 @@
 
         &__wrapper {
             display: flex;
-            flex-direction: column;
-        }
-
-        &__top {
-            /*padding: 28px 0 27px 45px;*/
-            width: 100%;
-            background-color: #2F7484;
-            display: flex;
             flex-direction: row;
-            height: 80px;
+            background-color: #000;
             color: #fff;
-            font-size: 18px;
+            padding: 0 0 20px 0;
+            width: 100%;
         }
 
-        &__middle {
-            display: flex;
-            flex-direction: row;
+        &__block-1 {
             width: 100%;
-            padding: 60px 0 0 60px;
-            column-gap: 60px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 20px 0 20px;
+        }
 
-            &__block {
-                width: 25%;
+        &__block-2 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
 
-                &__1 {
-                    margin-right: 100px;
+            &__block-2-1 {
+                display: flex;
+                flex-direction: column;
+
+                button {
+                    justify-content: flex-start;
                 }
+            }
+
+            &__block-2-2 {
+                font-size: 14px;
+                line-height: 28px;
+                text-align: right;
             }
         }
 
-        &__bottom {
-            display: flex;
-            flex-direction: row;
+        &__block-3 {
             width: 100%;
-            color: #9A9A9A;
-            padding: 60px 60px 70px 60px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        &__block-4 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding: 0 20px;
         }
     }
 
     .list-item {
         font-weight: 400;
-        font-size: 15px;
+        font-size: 13px;
+        line-height: 23px;
+        text-transform: none;
+    }
+
+    .main-button {
+        text-transform: none;
+        color: #000;
+        background-color: #fff;
+        border-radius: 50px;
+        width: 162px;
+        height: 34px;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 16px;
+    }
+
+    .special-offer {
+        &__wrapper {
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #EFEFEF;
+            color: #000;
+        }
+    }
+
+    .links {
+        &__wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 25px 20px;
+            background-color: #fff;
+        }
     }
 </style>
 
 <style lang="scss">
-    .list-item {
-        padding: 0 !important;
-
-        & .v-list-item__icon {
-            margin-right: 10px !important;
-        }
-    }
 </style>

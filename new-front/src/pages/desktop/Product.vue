@@ -7,7 +7,7 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img src="../../public/product-images/product-image.svg" :alt="product_id.toString()"
+                    <img src="../../../public/product-images/product-image.svg" :alt="product_id.toString()"
                          class="image__product"/>
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
@@ -144,8 +144,8 @@
     import variables from '@/styles/main.scss'
     import {TheMask} from 'vue-the-mask';
     import PathBreadcrumb from "@/components/PathBreadcrumb";
-    import ProductCardsSet from "../components/ProductCardsSet";
-    import Rating from "../components/Rating";
+    import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
+    import Rating from "../../components/Rating";
 
     export default {
         name: "Product",

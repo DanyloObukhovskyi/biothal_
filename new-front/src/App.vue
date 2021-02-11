@@ -18,7 +18,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 18px 45px;
     }
 
     .default-cursor {

@@ -4,21 +4,40 @@
             <img width="100%" src="../../public/slider.svg"/>
         </div>
         <div>
-            <ProductCardsSet title="Подарки и скидки" :product-data="productData"/>
+            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData"/>
+            <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
+                                   :product-data="productDataShowStock.slice(0, 4)"/>
         </div>
-        <div style="display: flex; flex-direction: row; width: 100%; justify-content: center">
-            <div style="display: flex;flex-direction: row; justify-content: space-between; width: 90%">
-                <CategoryCard style="width: 49%"/>
-                <CategoryCard style="width: 49%"/>
+
+        <div class="category-card__wrapper">
+            <div class="category-card__inner">
+                <CategoryCard class="category-card__block"/>
+                <CategoryCard class="category-card__block"/>
             </div>
         </div>
+
         <div class="gifts-and-discounts-content">
-            <ProductCardsSet title="Бестселлеры" :product-data="productData"/>
+            <ProductCardsSet v-if="!isMobile" title="Бестселлеры" :product-data="productData"/>
+            <ProductCardsSetMobile v-if="isMobile" title="Бестселлеры"
+                                   :product-data="productData.slice(0, 4)"/>
         </div>
         <div class="description-biothal">
-            <div class="main-title">Интернет-магазин Biothal</div>
-            <div style="display: flex; flex-direction: row; width: 100%">
-                <div class="description-biothal__text" style="padding-right: 30px">
+            <p class="main-title">Интернет-магазин Biothal</p>
+            <div class="description-biothal__inner">
+                <div v-if="isMobile" class="description-biothal__text">
+                    <p>
+                        Хоть раз открыв каталог интернет-магазина BIOTHAL уже не захочется тратить время на походы по
+                        торговым центрам – каталог косметики и парфюмерии, представленный здесь, превосходит даже смелые
+                        ожидания и удовлетворяет любые требования. Добавьте к этому понятный интерфейс, универсальную
+                        систему поиска, возможность получить свой заказ на дом в удобное время и вы получите идеальный
+                        ресурс, который постоянно совершенствуется уже 10 лет – с 2009 года.
+                    </p>
+                    <p @click="isShowDescription = true" v-show="!isShowDescription" style="font-weight: 700">
+                        Читать далее
+                    </p>
+                </div>
+                <div v-show="!isMobile || isShowDescription" class="description-biothal__text"
+                     style="padding-right: 30px">
                     <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа,
                         крупнейшая долина и историческое место сбора водорослей в Европе.</p>
 
@@ -50,7 +69,7 @@
                         способствует выводу лишней жидкости, а также оказывают дезинфицирующее действие, убивая
                         болезнетворные бактерии.</p>
                 </div>
-                <div class="description-biothal__text">
+                <div v-show="!isMobile || isShowDescription" class="description-biothal__text">
                     <p>Высокое содержание йода способствует нормализации функции щитовидной железы, активизирует все
                         виды
                         обмена веществ, нормализует обмен жиров и способствует липолизу, повышает потребление кислорода
@@ -81,25 +100,33 @@
                         компонент. Экстракт оказывает на кожу омолаживающее воздействие, придаёт эластичность и выводит
                         токсины.</p>
                 </div>
+                <div v-if="isMobile" class="description-biothal__text">
+                    <p @click="isShowDescription = false" v-show="isShowDescription" style="font-weight: 700">
+                        Показать меньше
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import ProductCard from "../components/productCards/ProductCard";
+    import ProductCard from "../components/desktop/productCards/ProductCard";
     import CategoryCard from "../components/CategoryCard";
-    import ProductCardsSet from "../components/ProductCardsSet";
+    import ProductCardsSet from "../components/desktop/ProductCardsSetDesktop";
+    import ProductCardsSetMobile from "../components/mobile/ProductCardsSetMobile";
 
     export default {
         name: "Home",
         components: {
             ProductCard,
             CategoryCard,
-            ProductCardsSet
+            ProductCardsSet,
+            ProductCardsSetMobile
         },
         data() {
             return {
+                isShowDescription: false,
                 productData: [
                     {
                         id: 1,
@@ -171,6 +198,31 @@
 
 <style scoped lang="scss">
 
+    .category-card {
+        &__wrapper {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: center;
+        }
+
+        &__inner {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            @media screen and (max-width: 600px) {
+                flex-direction: column;
+                row-gap: 20px
+            }
+        }
+
+        &__block {
+            width: 100%;
+            height: 160px;
+        }
+    }
+
     .slider-wrapper {
         width: 100%;
     }
@@ -184,13 +236,28 @@
 
     .description-biothal {
         text-align: center;
-        padding: 0 45px 45px 45px;
+        padding: 20px 20px 20px 20px;
+        background-color: #F7F7F7;
 
         &__text {
             width: 50%;
             font-weight: 200;
             font-size: 14px;
             text-align: left;
+
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }
+        }
+
+        &__inner {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            @media screen and (max-width: 600px) {
+                flex-direction: column;
+            }
         }
     }
 
@@ -206,5 +273,14 @@
         line-height: 46px;
         margin: 40px;
         text-transform: uppercase;
+
+        @media screen and (max-width: 600px) {
+            font-weight: 700;
+            text-transform: none;
+            font-size: 14px;
+            line-height: 18px;
+            text-align: left;
+            margin:  0  0 20px 0;
+        }
     }
 </style>

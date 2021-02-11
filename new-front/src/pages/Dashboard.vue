@@ -2,11 +2,11 @@
     <v-app>
         <MenuDesktop v-if="!isMobile"/>
         <MenuMobile v-if="isMobile"/>
-<!--        <v-main app>-->
-<!--            <router-view/>-->
-<!--        </v-main>-->
-<!--        <FooterDesktop class="footer-desktop"/>-->
-<!--        <FooterMobile class="footer-mobile"/>-->
+        <v-main app>
+            <router-view/>
+        </v-main>
+        <FooterDesktop v-if="!isMobile"/>
+        <FooterMobile v-if="isMobile"/>
     </v-app>
 </template>
 

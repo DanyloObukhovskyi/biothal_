@@ -31,7 +31,9 @@ const routes = [
                         children: [
                             {
                                 path: 'product/:id',
-                                component: () => import('../pages/Product'),
+                                component: () => {
+                                    return this.isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                                },
                                 meta: {},
                                 props: true
                             },
@@ -90,7 +92,11 @@ const routes = [
             {
                 path: 'product/:id',
                 name: 'product',
-                component: () => import('../pages/Product'),
+                component: () => {
+                    return import('../pages/mobile/ProductMobile')
+                    // return this.isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                },
+                // component: () => import('../pages/desktop/Product'),
                 meta: {},
                 props: true
             },

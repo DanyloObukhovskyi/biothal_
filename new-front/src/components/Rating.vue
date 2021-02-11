@@ -9,7 +9,7 @@
             <v-icon
                 class="icon-star"
                 :color="color"
-                size="13"
+                :size="size"
                 @click="props.click">
                 {{ props.isFilled ? 'mdi-star' : 'mdi-star-outline' }}
             </v-icon>
@@ -24,6 +24,10 @@
             color: {
                 type: String,
                 default: '#000'
+            },
+            size: {
+                type: Number,
+                default: 13
             }
         }
     }

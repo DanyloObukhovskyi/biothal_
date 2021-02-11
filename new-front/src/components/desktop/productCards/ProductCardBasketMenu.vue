@@ -1,7 +1,7 @@
 <template>
     <div class="product-basket__wrapper">
         <div class="product-basket">
-            <img height="150" width="150" src="../../../public/product-images/product-image.svg"/>
+            <img height="150" width="150" src="../../../../public/product-images/product-image.svg"/>
         </div>
         <div class="product-basket">
             <div class="product-basket__title" @click="toPage({name: 'product', params: {id: 1}})">

@@ -130,9 +130,9 @@
 </template>
 
 <script>
-    import ProductCardBasket from "../components/productCards/ProductCardBasket";
+    import ProductCardBasket from "../components/desktop/productCards/ProductCardBasket";
     import PlaceOrderOneClick from "../components/PlaceOrderOneClickModal";
-    import ProductCardsSet from "../components/ProductCardsSet";
+    import ProductCardsSet from "../components/desktop/ProductCardsSetDesktop";
 
     export default {
         name: "Ordering",
