@@ -15,7 +15,7 @@
 <style scoped lang="scss">
     .category-card {
         width: 100%;
-        height: 250px;
+        height: 250px !important;
         border-radius: 0px 0px 4px 4px;
         position: relative;
         display: flex;
@@ -23,6 +23,11 @@
         justify-content: space-between;
         background: url("../../public/face.svg");
         background-size: cover;
+
+        @media screen and (max-width: 600px) {
+            height: 160px !important;
+        }
+
 
         &:hover {
             cursor: pointer;

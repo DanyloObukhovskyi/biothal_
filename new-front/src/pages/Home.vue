@@ -218,8 +218,11 @@
         }
 
         &__block {
-            width: 100%;
+            width: 49%;
             height: 160px;
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }
         }
     }
 
@@ -280,7 +283,7 @@
             font-size: 14px;
             line-height: 18px;
             text-align: left;
-            margin:  0  0 20px 0;
+            margin: 0 0 20px 0;
         }
     }
 </style>

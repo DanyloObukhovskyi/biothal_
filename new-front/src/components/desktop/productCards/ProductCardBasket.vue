@@ -1,7 +1,8 @@
 <template>
     <div class="product-basket__wrapper">
         <div class="product-basket__left">
-            <img height="150" width="150" src="../../../../public/product-images/product-image.svg"/>
+            <img class="product-basket__image" height="150" width="150"
+                 src="../../../../public/product-images/product-image.svg"/>
         </div>
         <div class="product-basket__right">
             <div class="product-basket__right__title" @click="toPage({name: 'product', params: {id: 1}})">
@@ -60,7 +61,12 @@
             }
         }
 
+        &__image {
+            width: 100%;
+        }
+
         &__left {
+            background-color: #fff;
             width: 50%;
         }
 
@@ -70,6 +76,7 @@
             justify-content: space-between;
             width: 50%;
             text-align: left;
+            padding: 15px 0 15px 20px;
 
             &__title {
                 font-weight: 700;

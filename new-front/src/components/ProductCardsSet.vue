@@ -97,6 +97,9 @@
 
         &__wrapper {
             margin-bottom: 40px;
+            @media screen and (max-width: 600px) {
+                margin-bottom: 0;
+            }
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -132,6 +135,7 @@
 
         &__item-two {
             width: 50%;
+
         }
     }
 </style>

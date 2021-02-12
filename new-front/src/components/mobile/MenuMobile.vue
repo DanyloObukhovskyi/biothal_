@@ -51,8 +51,7 @@
             </v-expansion-panels>
         </v-navigation-drawer>
 
-
-        <!--        <Basket ref="Basket"/>-->
+        <Basket ref="Basket"/>
     </div>
 </template>
 

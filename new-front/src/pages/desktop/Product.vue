@@ -223,6 +223,10 @@
 
     @import "src/styles/main";
 
+    .product-wrapper {
+        padding: 45px;
+    }
+
     .block-product-base-info {
         width: 100%;
         display: flex;

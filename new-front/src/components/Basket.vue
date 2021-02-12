@@ -1,12 +1,13 @@
 <template>
     <v-navigation-drawer
-        width="420"
-        right
+        :width="isMobile ? '100%' : '420'"
+        :right="!isMobile"
         v-model="visible"
+        height="100vh"
         absolute
         temporary>
         <v-card flat>
-            <div style="display: flex; justify-content: space-between; width: 100%; padding: 25px 20px 0 20px">
+            <div class="basket__header">
                 <div>Корзина(3)</div>
                 <v-btn icon @click="visibleModal(false)">
                     <v-icon>mdi-close</v-icon>
@@ -53,13 +54,16 @@
                             </div>
                         </div>
                         <div>
-                            <v-btn dark class="checkout-button" elevation="0" @click="toPage({name: 'ordering'})">Оформить заказ</v-btn>
+                            <v-btn dark class="checkout-button" elevation="0" @click="toPage({name: 'ordering'})">
+                                Оформить заказ
+                            </v-btn>
                         </div>
                     </div>
                 </div>
                 <div style="text-align: center">
-                    <div style="margin: 20px; font-size: 16px">Рекомендуемые товары</div>
-                    <ProductCardsSet type-set="basket-menu" :is-show-title="false"/>
+                    <div v-if="!isMobile" style="margin: 20px; font-size: 16px">Рекомендуемые товары</div>
+                    <ProductCardsSet v-if="!isMobile" type-set="basket-menu" :is-show-title="false"/>
+                    <ProductCardsSetMobile v-if="isMobile" type-set="product" title="Рекомендуемые товары"/>
                 </div>
             </div>
         </v-card>
@@ -68,11 +72,13 @@
 
 <script>
     import ProductCardsSet from "./desktop/ProductCardsSetDesktop";
+    import ProductCardsSetMobile from "./mobile/ProductCardsSetMobile";
 
     export default {
         name: "Basket",
         components: {
-            ProductCardsSet
+            ProductCardsSet,
+            ProductCardsSetMobile
         },
         data() {
             return {
@@ -90,6 +96,21 @@
 </script>
 
 <style scoped lang="scss">
+
+    .basket {
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 25px 20px 0 20px;
+        }
+
+        &__info {
+            overflow: auto;
+            height: 100vh;
+        }
+    }
 
     .total {
         display: flex;
@@ -123,6 +144,11 @@
             justify-content: center;
             align-items: center;
             padding: 40px;
+
+            @media screen and (max-width: 600px) {
+                background-color: #F7F7F7;
+                padding: 20px;
+            }
         }
 
         &__content {

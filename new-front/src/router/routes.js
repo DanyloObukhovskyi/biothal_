@@ -1,3 +1,6 @@
+import global from "../mixins/global";
+const isMobile = global.computed.isMobile()
+
 const routes = [
     {
         path: '',
@@ -32,7 +35,7 @@ const routes = [
                             {
                                 path: 'product/:id',
                                 component: () => {
-                                    return this.isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
                                 },
                                 meta: {},
                                 props: true
@@ -93,18 +96,17 @@ const routes = [
                 path: 'product/:id',
                 name: 'product',
                 component: () => {
-                    // return import('../pages/desktop/Product')
-                    return import('../pages/mobile/ProductMobile')
-                    // return this.isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
                 },
-                // component: () => import('../pages/desktop/Product'),
                 meta: {},
                 props: true
             },
             {
                 path: 'ordering',
                 name: 'ordering',
-                component: () => import('../pages/Ordering'),
+                component: () => {
+                    return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/Ordering')
+                },
                 meta: {}
             },
             {
