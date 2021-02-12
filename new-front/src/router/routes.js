@@ -93,6 +93,7 @@ const routes = [
                 path: 'product/:id',
                 name: 'product',
                 component: () => {
+                    // return import('../pages/desktop/Product')
                     return import('../pages/mobile/ProductMobile')
                     // return this.isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
                 },

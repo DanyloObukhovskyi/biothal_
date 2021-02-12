@@ -1,7 +1,7 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
         <div class="product__sale" v-if="isShowStock">-50%</div>
-        <img height="160" width="160" src="../../../../public/product-images/product-image.svg"/>
+        <img class="product__image" src="../../../../public/product-images/product-image.svg"/>
         <div class="product__description">
             <div @click="toPage({name: 'product', params: {id: 1}})" class="product__description__text">Очищающая маска для лица Конопля Водоросли</div>
             <div class="product__description__price default-cursor">1920 грн</div>
@@ -39,6 +39,7 @@
 <style scoped lang="scss">
 
     .product {
+        background-color: #fff;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -66,10 +67,9 @@
             position: absolute;
         }
 
-
-
-
-
+        &__image {
+            width: 100%;
+        }
 
         &__description {
             display: flex;

@@ -38,7 +38,8 @@
             background-color: #2F7484;
             opacity: 0.5;
             color: #fff;
-            position: absolute; bottom: 0;
+            position: absolute;
+            bottom: 0;
             width: 100%;
             height: 58px;
             font-weight: 200;

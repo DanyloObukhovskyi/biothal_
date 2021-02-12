@@ -1,6 +1,6 @@
 <template>
     <div class="three-dots__wrapper">
-        <v-icon v-for="(item, index) in icons" :key="index" size="10" :color="item.active ? '#000' : '#E7E7E7'" @click="setActive(item)">
+        <v-icon v-for="(item, index) in icons" :key="index" size="10" class="three-dots__icon" :color="item.active ? '#000' : '#E7E7E7'" @click="setActive(item)">
             mdi-circle
         </v-icon>
     </div>
@@ -46,6 +46,10 @@
         &__wrapper {
             display: flex;
             column-gap: 4px;
+        }
+
+        &__icon {
+            height: 10px;
         }
     }
 </style>

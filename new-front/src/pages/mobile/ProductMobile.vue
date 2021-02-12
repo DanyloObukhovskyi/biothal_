@@ -1,6 +1,6 @@
 <template>
     <div class="product-mobile__wrapper">
-        <path-breadcrumb labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>
+        <path-breadcrumb style="text-align: left; justify-content: left" labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>
         <div class="product-info__wrapper">
             <div class="product-info__discount" v-if="is_discount">-50%</div>
             <div class="product-info__image">
@@ -17,147 +17,63 @@
                     <v-icon size="10" color="#000">mdi-heart-outline</v-icon>
                 </div>
             </div>
+
+            <div class="product-info__title">
+                <span>Увлажняющая маска для лица Апельсин Бергамот</span>
+                <span>Orange Bergamot Hydra Mask</span>
+            </div>
+
+            <div class="product-info__price">
+                <span class="product-info__price__price">233 грн.</span>
+                <span class="product-info__price__discount">Старая цена: 545 грн.</span>
+            </div>
+
+            <div class="product-info__pay">
+                <v-btn class="product-info__pay__button" width="335" height="54" dark color="#2F7484" elevation="0">
+                    Добавить в корзину
+                </v-btn>
+            </div>
+
+            <div class="product-info__tabs">
+                <v-tabs
+                    style="justify-content: left"
+                    hide-slider
+                    color="#000"
+                    background-color="#f7f7f7"
+                    v-model="tab">
+                    <v-tab
+                        active-class="product-info__tabs__active"
+                        class="product-info__tabs__default"
+                        :href="`#tab-${index+1}`"
+                        v-for="(item, index) in items"
+                        :key="item">
+                        {{ item }}
+                    </v-tab>
+                </v-tabs>
+                <v-tabs-items v-model="tab">
+                    <v-tab-item
+                        v-for="i in 4"
+                        :key="i"
+                        :value="'tab-' + i">
+                        <v-card flat class="tab-text">
+                            Увлажняющая маска моментально насыщает кожу необходимой влагой, тонизирует и укрепляет кожу.
+                            Формула на основе масел, коллагена и гиалуроновой кислоты эффективно борется с морщинками,
+                            повышает упругость и эластичность кожи. Регулярное использование маски заметно подтягивает
+                            овал лица, помогает предотвратить преждевременное старение кожи. Кожа приобретает гладкость,
+                            бархатистость и здоровое сияние.
+                        </v-card>
+                    </v-tab-item>
+                </v-tabs-items>
+            </div>
         </div>
+        <div>
+            <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары"/>
+        </div>
+        <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
+            <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
+            <div><img width="18" height="18" src="../../../public/package.svg"/></div>
+        </v-system-bar>
     </div>
-    <!--    <div class="base-page-wrapper product-wrapper">-->
-
-    <!--        <path-breadcrumb labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>-->
-
-    <!--        <div class="block-product">-->
-    <!--            <div class="block-product-base-info">-->
-
-    <!--                <div class="block-product-base-info__image">-->
-    <!--                    <img src="../../../public/product-images/product-image.svg" :alt="product_id.toString()"-->
-    <!--                         class="image__product"/>-->
-    <!--                    <div class="image__discount" v-if="is_discount">-50%</div>-->
-    <!--                </div>-->
-
-    <!--                <div class="block-product-base-info__info">-->
-    <!--                    <div class="info-title">-->
-    <!--                        <span class="info-title__title">Увлажняющая маска для лица Апельсин Бергамот</span>-->
-    <!--                        <span class="info-title__subtitle">Orange Bergamot Hydra Mask</span>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="info-rating">-->
-    <!--                        <Rating :color="variables.basecolor"/>-->
-    <!--                        <span class="info-rating__comment">5 отзывов</span>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="info-price">-->
-    <!--                        <span class="info-price__price">633 грн</span>-->
-    <!--                        <span class="info-price__discount">1265 грн</span>-->
-    <!--                        <p class="info-price__in-stock">В наличии</p>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="info-description">-->
-    <!--                        Маска оказывает мгновенное увлажняющее действие, разглаживая кожу и повышая ее эластичность и-->
-    <!--                        упругость.-->
-    <!--                        Создает на коже защитную пленку, которая предохраняет от потери влаги и негативного воздействия-->
-    <!--                        внешних-->
-    <!--                        факторов.-->
-    <!--                    </div>-->
-
-    <!--                    <div class="info-count">-->
-    <!--                        <span class="info-count__title">Количество</span>-->
-    <!--                        <div>-->
-    <!--                            <v-icon-->
-    <!--                                @click="decrementCountGood"-->
-    <!--                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"-->
-    <!--                                class="info-count__input-control">-->
-    <!--                                mdi-minus-->
-    <!--                            </v-icon>-->
-    <!--                            <input v-model="count_good" type="number" style="width: 42px"/>-->
-    <!--                            <v-icon-->
-    <!--                                @click="incrementCountGood"-->
-    <!--                                :style="{'background-color': variables.basecolor, color: '#ffffff'}"-->
-    <!--                                class="info-count__input-control">-->
-    <!--                                mdi-plus-->
-    <!--                            </v-icon>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="info-pay-control">-->
-
-    <!--                        <v-btn dark class="info-pay-control__buy" color="#2F7484" elevation="0">Купить</v-btn>-->
-    <!--                        <div class="info-pay-control__buy-fast" :disabled="!validPhoneInput">-->
-    <!--                            <the-mask v-model="phone" type="tel" class="info-pay-control__buy__input"-->
-    <!--                                      v-bind="maskOptions"-->
-    <!--                                      :style="{color: validPhoneInput ? 'white' : 'black'}"/>-->
-    <!--                        </div>-->
-    <!--                        <span class="info-pay-control__text">Добавить в избранное</span>-->
-    <!--                        <span class="info-pay-control__text">Купить в 1 клик</span>-->
-
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="block-product__tabs">-->
-    <!--                <v-tabs-->
-    <!--                    color="#000"-->
-    <!--                    centered-->
-    <!--                    v-model="tab">-->
-    <!--                    <v-tabs-slider color="#000"></v-tabs-slider>-->
-
-    <!--                    <v-tab-->
-    <!--                        :href="`#tab-${index+1}`"-->
-    <!--                        v-for="(item, index) in items"-->
-    <!--                        :key="item">-->
-    <!--                        {{ item }}-->
-    <!--                    </v-tab>-->
-    <!--                </v-tabs>-->
-
-    <!--                <v-tabs-items style="margin-top: 30px" v-model="tab">-->
-    <!--                    <v-tab-item-->
-    <!--                        v-for="i in 4"-->
-    <!--                        :key="i"-->
-    <!--                        :value="'tab-' + i">-->
-    <!--                        <v-card flat>-->
-    <!--                            Увлажняющая маска моментально насыщает кожу необходимой влагой, тонизирует и укрепляет кожу.-->
-    <!--                            Формула на основе масел, коллагена и гиалуроновой кислоты эффективно борется с морщинками,-->
-    <!--                            повышает упругость и эластичность кожи. Регулярное использование маски заметно подтягивает-->
-    <!--                            овал лица, помогает предотвратить преждевременное старение кожи. Кожа приобретает гладкость,-->
-    <!--                            бархатистость и здоровое сияние.-->
-
-    <!--                            ПРЕИМУЩЕСТВА-->
-
-    <!--                            • Моментальный эффект увлажнения;-->
-    <!--                            • Эффективна против первых признаков старения;-->
-    <!--                            • Заметный эффект уже после первого применения.-->
-
-    <!--                            Гиалуроновая кислота удерживает в коже влагу, помогая повысить ее плотность и разгладить-->
-    <!--                            морщинки. В состав входит 2 вида гиалуроновой кислоты:-->
-
-    <!--                            • Гиалуроновая кислота средней молекулярной массы работает на поверхности кожи, увлажняя-->
-    <!--                            верхний эпидермальный слой.-->
-    <!--                            • Низкомолекулярная гиалуроновая кислота воздействует на глубокие слои, восполняя недостаток-->
-    <!--                            влаги изнутри.-->
-
-    <!--                            Масло крамбе содержит редкие жирные кислоты, которые обуславливают его отличные смягчающие и-->
-    <!--                            питающие свойства. Оказывает разглаживающий эффект, убирает мелкие морщинки, делает кожу-->
-    <!--                            более гладкой и бархатистой.-->
-
-    <!--                            Масло кивано нейтрализует действие свободных радикалов, предотвращает преждевременное-->
-    <!--                            старение кожи.-->
-
-    <!--                            Масло брокколи – эффективно борется с акне, интенсивно смягчает кожу, защищает ее от-->
-    <!--                            негативного воздействия ультрафиолета.-->
-
-    <!--                            Масло авокадо устраняет шелушения, воспаления, замедляет процессы старения. Благодаря-->
-    <!--                            большому количеству витамина А, содержащемуся в авокадо, кожа дольше сохраняет молодость и-->
-    <!--                            сияние.-->
-
-    <!--                            Комплекс Альго + насыщает кожу влагой и микроэлементами, оказывает подтягивающее и-->
-    <!--                            укрепляющее действие, повышает упругость и эластичность кожи.-->
-    <!--                        </v-card>-->
-    <!--                    </v-tab-item>-->
-    <!--                </v-tabs-items>-->
-    <!--            </div>-->
-    <!--        </div>-->
-
-    <!--        <div>-->
-    <!--            <ProductCardsSet type-set="product" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ"/>-->
-    <!--        </div>-->
-
-    <!--    </div>-->
 </template>
 
 <script>
@@ -167,6 +83,7 @@
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import Rating from "../../components/Rating";
     import ThreeDotsSlides from "../../components/ThreeDotsSlides";
+    import ProductCardsSetMobile from "../../components/mobile/ProductCardsSetMobile";
 
     export default {
         name: "Product",
@@ -175,7 +92,8 @@
             TheMask,
             ProductCardsSet,
             Rating,
-            ThreeDotsSlides
+            ThreeDotsSlides,
+            ProductCardsSetMobile
         },
         props: {
             product_id: {
@@ -250,7 +168,7 @@
 
     .product-mobile {
         &__wrapper {
-            background-color: #E5E5E5;
+            background-color: #f7f7f7;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -262,9 +180,6 @@
 
         &__wrapper {
             width: 90%;
-            /*display: flex;*/
-            /*flex-direction: column;*/
-            /*align-items: center;*/
         }
 
         &__discount {
@@ -294,6 +209,8 @@
             &__rating {
                 display: flex;
                 justify-content: flex-start;
+                align-items: center;
+                column-gap: 4px;
 
                 &__comment {
                     font-size: 10px;
@@ -305,7 +222,93 @@
             &__icons {
                 display: flex;
                 column-gap: 10px;
+                align-items: center;
             }
+        }
+
+        &__title {
+            margin: 10px 0;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        &__price {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 40px;
+
+            &__price {
+                font-weight: 800;
+                font-size: 21px;
+                line-height: 29px;
+                color: #2F7484;
+            }
+
+            &__discount {
+                font-weight: 200;
+                font-size: 16px;
+                line-height: 22px;
+                text-decoration-line: line-through;
+            }
+        }
+
+        &__pay {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+
+            &__button {
+                border-radius: 60px;
+                text-transform: none;
+            }
+        }
+
+        &__tabs {
+            text-transform: none;
+
+            &__active {
+                background-color: #fff !important;
+
+                &:before {
+                    opacity: 0 !important;
+                }
+
+                &:hover:before {
+                    opacity: 0 !important;
+                }
+
+                &:focus:before {
+                    opacity: 0 !important;
+                }
+            }
+
+            &__default {
+                text-transform: none;
+                background-color: #f7f7f7;
+                font-size: 12px;
+                line-height: 16px;
+                padding: 3px 5px;
+                height: 17px;
+            }
+        }
+    }
+
+    .tab-text {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 10px;
+    }
+
+    .product-mobile {
+        &__system-bar {
+            width: 100%;
+            justify-content: center;
+            color: #fff;
+            column-gap: 5px;
         }
     }
 
@@ -315,5 +318,17 @@
         }
 
         text-align: center;
+    }
+</style>
+
+<style lang="scss">
+    .product-info__wrapper {
+        & .v-slide-group__prev {
+            display: none !important;
+        }
+
+        & .v-tabs {
+            height: 17px !important;
+        }
     }
 </style>
