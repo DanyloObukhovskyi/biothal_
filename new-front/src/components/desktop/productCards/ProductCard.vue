@@ -12,8 +12,8 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img height="290" src="../../../../public/product-images/product-image.svg"/>
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <img width="100%" src="../../../../public/product-images/product-image.svg"/>
+        <div class="product__rating">
             <Rating/>
             <div>5 отзывов</div>
         </div>
@@ -87,6 +87,12 @@
         &__heart {
             text-align: right;
             height: 16.5px;
+        }
+
+        &__rating {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
         &__description {

@@ -128,6 +128,10 @@
 
         &__item-three {
             width: 30%;
+
+            @media screen and (max-width: 991px) {
+                width: 50%;
+            }
         }
 
         &__item-two {

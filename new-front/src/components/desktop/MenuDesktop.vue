@@ -9,28 +9,40 @@
                 <img width="127" height="38" src="../../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-wrapper">
-                <v-btn-toggle group>
-                    <v-btn @click="toPage({name: 'for-face'})"
-                           value="forFace" plain>
-                        <span>Для лица</span>
-                    </v-btn>
-                    <v-btn @click="toPage({name: 'for-body'})"
-                           value="forBody" plain>
-                        <span>Для тела</span>
-                    </v-btn>
-                    <v-btn @click="toPage({name: 'effective-sets'})"
-                           value="effectiveSets" plain>
-                        <span>Эффективные наборы</span>
-                    </v-btn>
-                    <v-btn @click="toPage({name: 'about-us'})"
-                           value="aboutBiothal" plain>
-                        <span>O Biothal</span>
-                    </v-btn>
-                    <v-btn @click="toPage({name: 'become-distributor'})"
-                           value="becomeDistributor" plain>
-                        <span>Стать дистрибьютером</span>
-                    </v-btn>
-                </v-btn-toggle>
+                <v-slide-group
+                    multiple
+                    show-arrows>
+                    <v-slide-item>
+                        <v-btn @click="toPage({name: 'for-face'})"
+                               value="forFace" plain>
+                            <span>Для лица</span>
+                        </v-btn>
+                    </v-slide-item>
+                    <v-slide-item>
+                        <v-btn @click="toPage({name: 'for-body'})"
+                               value="forBody" plain>
+                            <span>Для тела</span>
+                        </v-btn>
+                    </v-slide-item>
+                    <v-slide-item>
+                        <v-btn @click="toPage({name: 'effective-sets'})"
+                               value="effectiveSets" plain>
+                            <span>Эффективные наборы</span>
+                        </v-btn>
+                    </v-slide-item>
+                    <v-slide-item>
+                        <v-btn @click="toPage({name: 'about-us'})"
+                               value="aboutBiothal" plain>
+                            <span>O Biothal</span>
+                        </v-btn>
+                    </v-slide-item>
+                    <v-slide-item>
+                        <v-btn @click="toPage({name: 'become-distributor'})"
+                               value="becomeDistributor" plain>
+                            <span>Стать дистрибьютером</span>
+                        </v-btn>
+                    </v-slide-item>
+                </v-slide-group>
             </div>
             <div class="app-bar-menu-icon">
                 <v-icon color="#000" size="18" @click="toPage({name: 'favorites'})">mdi-heart-outline</v-icon>
@@ -77,7 +89,8 @@
     .app-bar-menu-wrapper {
         display: flex;
         flex-direction: row;
-        width: 826px;
+        /*127px - width logo, 43px - padding left logo, 11px - padding icon, 18px - width icon, 43px - padding right icons*/
+        width: calc(100% - 127px - 43px - 18px - 11px - 18px - 11px - 18px - 43px);
         justify-content: center;
     }
 

@@ -7,7 +7,6 @@
             <div style="margin: 28px 0 27px 45px;">
                 Узнавайте первыми о распродажах и новинках!
             </div>
-            <v-spacer/>
             <div style="margin-right: 45px">
                 <v-text-field dark color="#fff" label="Электронный адрес" style="width: 270px">
                     <v-icon slot="append" style="width: 10px; margin-right: 6px">
@@ -154,7 +153,8 @@
             width: 100%;
             background-color: #2F7484;
             display: flex;
-            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             height: 80px;
             color: #fff;
             font-size: 18px;
@@ -162,16 +162,31 @@
 
         &__middle {
             display: flex;
-            flex-direction: row;
+            justify-content: space-between;
             width: 100%;
-            padding: 60px 0 0 60px;
-            column-gap: 60px;
+            padding: 60px 60px 0 60px;
+
+            @media screen and (max-width: 991px) {
+                flex-wrap: wrap;
+            }
 
             &__block {
                 width: 25%;
 
                 &__1 {
                     margin-right: 100px;
+
+                    @media screen and (max-width: 991px) {
+                        width: 100%;
+                        margin: 0 0 20px 0;
+                    }
+
+                    img {
+                        @media screen and (max-width: 991px) {
+                            margin-bottom: 20px;
+                        }
+                    }
+
                 }
             }
         }
