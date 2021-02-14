@@ -135,7 +135,7 @@
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
 
     export default {
-        name: "Ordering",
+        name: "OrderingDesktop",
         components: {
             ProductCardBasket,
             PlaceOrderOneClick,

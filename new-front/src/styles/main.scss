@@ -42,3 +42,7 @@ $palette-disable-color: #EFEFEF;
   background-color: $palette-disable-color;
   color: black;
 }
+
+.hide-scroll {
+    overflow: hidden !important;
+}

@@ -25,13 +25,13 @@
             <div :style="`height: ${marginTopNavigation}`"/>
             <v-expansion-panels accordion>
                 <v-expansion-panel
-                    @click="toPageMenu(item)"
                     v-for="(item,index) in menuItems"
                     :key="index"
                     :readonly="item.children ? !item.children.length : true">
                     <v-expansion-panel-header
                         :style="`background-color: ${item.meta['background-color']}; color: ${item.meta['color']}`"
-                        :expand-icon="showIconItemMenu(item)">
+                        :expand-icon="showIconItemMenu(item)"
+                        @click="toPageMenu(item)">
                         {{item.name}}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content class="inner-list">
@@ -199,7 +199,9 @@
             },
             toPageMenu(item) {
                 if (!item.children?.length) {
-                    this.toPage(item.meta.rout)
+                    if(item.meta?.rout) {
+                        this.toPage({name: item.meta.rout})
+                    }
                 }
             }
         }

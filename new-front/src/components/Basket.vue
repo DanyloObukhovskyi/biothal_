@@ -83,12 +83,21 @@
         data() {
             return {
                 visible: false,
-                linear: 70,
-
+                linear: 70
+            }
+        },
+        watch: {
+            visible(newValue) {
+                if (newValue) {
+                    document.querySelector('html').classList.add('hide-scroll')
+                } else {
+                    document.querySelector('html').classList.remove('hide-scroll')
+                }
             }
         },
         methods: {
             visibleModal(visible) {
+                window.scrollTo(0,0)
                 this.visible = visible
             }
         }

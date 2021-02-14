@@ -148,7 +148,7 @@
     import Rating from "../../components/Rating";
 
     export default {
-        name: "Product",
+        name: "ProductDesktop",
         components: {PathBreadcrumb, TheMask, ProductCardsSet, Rating},
         props: {
             product_id: {

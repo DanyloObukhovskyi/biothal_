@@ -35,7 +35,7 @@ const routes = [
                             {
                                 path: 'product/:id',
                                 component: () => {
-                                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/ProductDesktop')
                                 },
                                 meta: {},
                                 props: true
@@ -96,7 +96,7 @@ const routes = [
                 path: 'product/:id',
                 name: 'product',
                 component: () => {
-                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/Product')
+                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/ProductDesktop')
                 },
                 meta: {},
                 props: true
@@ -105,7 +105,7 @@ const routes = [
                 path: 'ordering',
                 name: 'ordering',
                 component: () => {
-                    return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/Ordering')
+                    return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/OrderingDesktop')
                 },
                 meta: {}
             },
