@@ -57,16 +57,20 @@
                     </div>
 
                     <div class="info-pay-control">
-
-                        <v-btn dark class="info-pay-control__buy" color="#2F7484" elevation="0">Купить</v-btn>
-                        <div class="info-pay-control__buy-fast" :disabled="!validPhoneInput">
-                            <the-mask v-model="phone" type="tel" class="info-pay-control__buy__input"
-                                      v-bind="maskOptions"
-                                      :style="{color: validPhoneInput ? 'white' : 'black'}"/>
+                        <div class="info-pay-control__buy">
+                            <v-btn dark color="#2F7484" elevation="0">Купить</v-btn>
+                            <span class="info-pay-control__text">Добавить в избранное</span>
                         </div>
-                        <span class="info-pay-control__text">Добавить в избранное</span>
-                        <span class="info-pay-control__text">Купить в 1 клик</span>
-
+                        <div class="info-pay-control__buy-fast">
+                            <v-text-field
+                                class="info-pay-control__buy-fast__input"
+                                v-model="phone"
+                                flat
+                                rounded
+                                placeholder="+38(___) ___-__-__"
+                                v-mask="'+38(###) ###-##-##'"/>
+                            <span class="info-pay-control__text">Купить в 1 клик</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,13 +161,6 @@
             },
         },
         computed: {
-            maskOptions() {
-                return {
-                    mask: '+38(###) ###-##-##',
-                    masked: false,
-                    placeholder: "+38(___) ___-__-__"
-                }
-            },
             validPhoneInput() {
                 return this.phone.length === 10
             }
@@ -357,22 +354,39 @@
 
         &-pay-control {
             margin-top: 23px;
-            display: grid;
-            grid-template-columns: max-content max-content;
-            grid-gap: 2px 15px;
+            display: flex;
+            align-items: flex-start;
+            column-gap: 15px;
+
+            @media screen and (max-width: 768px) {
+                flex-direction: column;
+                row-gap: 15px;
+            }
 
             &__buy {
-                text-transform: none;
-                text-align: center;
-                font-size: 16px;
-                line-height: 22px;
-                font-weight: bold;
-                font-style: normal;
-                padding: 13px 62px;
-                background-color: $palette-base-color;
-                width: 180px;
-                height: 48px !important;
-                border-radius: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                row-gap: 10px;
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                    max-width: 243px;
+                }
+
+                button {
+                    text-transform: none;
+                    text-align: center;
+                    font-size: 16px;
+                    line-height: 22px;
+                    font-weight: bold;
+                    padding: 13px 62px;
+                    background-color: $palette-base-color;
+                    height: 48px !important;
+                    border-radius: 50px;
+                    @media screen and (max-width: 768px) {
+                        width: 100%;
+                    }
+                }
 
                 &__input {
                     background-color: transparent;
@@ -389,16 +403,23 @@
                 }
 
                 &-fast {
-                    text-align: center;
-                    font-size: 16px;
-                    line-height: 22px;
-                    font-weight: bold;
-                    font-style: normal;
-                    padding: 13px 35px;
-                    background-color: $palette-base-color;
-                    max-width: 246px;
-                    border-radius: 50px;
-                    color: #FFFFFF;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    row-gap: 10px;
+
+                    &__input {
+                        margin: 0 !important;
+                        display: flex;
+                        justify-content: center;
+                        background-color: #EFEFEF;
+                        height: 48px;
+                        text-align: center;
+                        font-size: 16px;
+                        line-height: 22px;
+                        font-weight: bold;
+                        color: #C4C4C4;
+                    }
                 }
             }
 

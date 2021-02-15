@@ -9,9 +9,11 @@
             </div>
             <div style="margin-right: 45px">
                 <v-text-field dark color="#fff" label="Электронный адрес" style="width: 270px">
-                    <v-icon slot="append" style="width: 10px; margin-right: 6px">
-                        mdi-arrow-right
-                    </v-icon>
+                    <v-btn icon slot="append">
+                        <v-icon class="footer__top__email-icon">
+                            mdi-arrow-right
+                        </v-icon>
+                    </v-btn>
                 </v-text-field>
             </div>
         </div>
@@ -155,9 +157,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
             color: #fff;
             font-size: 18px;
+
+            &__email-icon {
+                width: 10px;
+                margin: 0;
+                padding: 0;
+            }
         }
 
         &__middle {

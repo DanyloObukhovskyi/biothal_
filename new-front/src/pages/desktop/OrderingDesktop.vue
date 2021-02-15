@@ -80,7 +80,7 @@
                         </v-form>
                     </div>
                     <div class="ordering__middle__left__checkout">
-                        <div>
+                        <div class="checkout-button__wrapper">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
                         <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
@@ -220,6 +220,11 @@
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
+
+                    @media screen and (max-width: 991px) {
+                        flex-direction: column;
+                        justify-content: center;
+                    }
                 }
             }
 
@@ -260,9 +265,18 @@
         font-weight: 500;
         font-size: 12px;
         line-height: 17px;
+
+        &__wrapper {
+            display: flex;
+
+            @media screen and (max-width: 991px) {
+                justify-content: center;
+            }
+        }
     }
 
     .checkout-link {
+        display: flex;
         font-weight: 200;
         font-size: 12px;
         line-height: 16px;
@@ -271,6 +285,11 @@
 
         &:hover {
             cursor: pointer;
+        }
+
+        @media screen and (max-width: 991px) {
+            justify-content: center;
+            margin-top: 10px;
         }
     }
 

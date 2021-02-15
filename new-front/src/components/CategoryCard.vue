@@ -51,6 +51,11 @@
             font-size: 19px;
             padding: 20px;
             border-radius: 0px 0px 4px 4px;
+
+            /*Не влезал шрифт в блок*/
+            @media screen and (max-width: 768px) {
+                height: 90px;
+            }
         }
     }
 </style>
