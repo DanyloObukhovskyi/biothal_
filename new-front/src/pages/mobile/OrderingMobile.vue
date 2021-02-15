@@ -166,7 +166,8 @@
 
     .checkout-button {
         border-radius: 50px;
-        width: 85%;
+        max-width: 335px;
+        width: 100%;
         height: 54px !important;
         background-color: #2F7484 !important;
         text-transform: none !important;

@@ -358,7 +358,7 @@
             align-items: flex-start;
             column-gap: 15px;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 767px) {
                 flex-direction: column;
                 row-gap: 15px;
             }
@@ -368,7 +368,7 @@
                 flex-direction: column;
                 justify-content: center;
                 row-gap: 10px;
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 767px) {
                     width: 100%;
                     max-width: 243px;
                 }
@@ -383,7 +383,7 @@
                     background-color: $palette-base-color;
                     height: 48px !important;
                     border-radius: 50px;
-                    @media screen and (max-width: 768px) {
+                    @media screen and (max-width: 767px) {
                         width: 100%;
                     }
                 }

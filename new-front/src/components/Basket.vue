@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="checkout-button__wrapper">
                             <v-btn dark class="checkout-button" elevation="0" @click="toPage({name: 'ordering'})">
                                 Оформить заказ
                             </v-btn>
@@ -190,7 +190,8 @@
 
     .checkout-button {
         border-radius: 50px;
-        width: 335px;
+        max-width: 335px;
+        width: 100%;
         height: 54px !important;
         background-color: #2F7484 !important;
         text-transform: none !important;
@@ -198,5 +199,10 @@
         font-size: 16px;
         line-height: 22px;
         margin-top: 15px;
+
+        &__wrapper {
+          display: flex;
+            justify-content: center;
+        }
     }
 </style>

@@ -53,7 +53,7 @@
             border-radius: 0px 0px 4px 4px;
 
             /*Не влезал шрифт в блок*/
-            @media screen and (max-width: 768px) {
+            @media screen and (min-width : 601px) and (max-width: 768px) {
                 height: 90px;
             }
         }
