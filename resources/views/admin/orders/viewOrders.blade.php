@@ -11,10 +11,6 @@
             <div class="container-fluid col-sm-12" >
                 <div class="h1-prod col-sm-1">Заказы</div>
                 <div class="pull-right col-sm-3">
-                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>
-                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>
-                    <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i style="width: 0.5em" class="fa fa-pencil"></i></a>
-                    <a href="" data-toggle="tooltip" title="Отменить" class="btn btn-default"><i class="fa fa-reply"></i></a>
                 </div>
                 <div class="col-sm-8">
                 </div>
@@ -64,19 +60,39 @@
                     <table class="table">
                         <tr>
                             <td style="width: 1%;"><button data-toggle="tooltip" title="Клиент" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
-                            <td>                Яна Маргарян                </td>
+                            <td>@if(!empty($registered_user['name'])) {{$registered_user['name']}} @else N/A @endif </td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Группа клиентов" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
-                            <td>Default</td>
+                            <td>
+                                @if(!empty($registered_user['type']))
+                                    {{ucfirst($registered_user['type'])}}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="E-Mail" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
-                            <td><a href="mailto:nomail@biothal.com.ua">nomail@biothal.com.ua</a></td>
+                            <td>
+                                <a href="mailto:nomail@biothal.com.ua">
+                                    @if(!empty($registered_user['email']))
+                                        {{$registered_user['email']}}
+                                    @else
+                                        N/A
+                                    @endif
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Телефон" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
-                            <td>+38(050)148-38-25</td>
+                            <td>
+                                @if(!empty($registered_user['phone_number']))
+                                    {{$registered_user['phone_number']}}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -119,7 +135,7 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-info-circle"></i> Детали заказа № 4681</h3>
+                <h3 class="panel-title"><i class="fa fa-info-circle"></i> Детали заказа № {{$order['id']}}</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered">
@@ -131,8 +147,8 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left">Яна Маргарян<br />Отделение №111 (до 30 кг): ул. Драгомирова, 17<br />Киев<br />Киевская область</td>
-                        <td class="text-left">Яна Маргарян<br />Отделение №111 (до 30 кг): ул. Драгомирова, 17<br />Киев<br />Киевская область</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region_name']}}</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region_name']}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -147,17 +163,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="text-left"><a href="">Соляной скраб для тела Водоросли Глина</a>
-                        </td>
-                        <td class="text-left">Соляной скраб для тела Водоросли Глина</td>
-                        <td class="text-right">1</td>
-                        <td class="text-right">540 грн</td>
-                        <td class="text-right">540 грн</td>
-                    </tr>
+                    @foreach($products as $product_key => $product)
+                        <tr>
+                            <td class="text-left">
+                                <a href="">{{$product['model']}}</a>
+                            </td>
+                            <td class="text-left">{{$product['model']}}</td>
+                            <td class="text-right">{{$product['count']}}</td>
+                            <td class="text-right">
+                                @if (!empty($product['price_with_sale']))
+                                    {{$product['price_with_sale']}} грн
+                                @else
+                                    {{$product['price']}} грн
+                                @endif
+                            </td>
+                            <td class="text-right">
+                                @if (!empty($product['price_with_sale']))
+                                    {{$product['price_with_sale'] * $product['count']}} грн
+                                @else
+                                    {{$product['price'] * $product['count']}} грн
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <td colspan="4" class="text-right">Стоимость товаров</td>
-                        <td class="text-right">540 грн</td>
+                        <td class="text-right">{{$total_price}} грн</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="text-right">Самовывоз из магазина</td>
@@ -165,7 +196,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="text-right">Всего к оплате</td>
-                        <td class="text-right">540 грн</td>
+                        <td class="text-right">{{$total_price}} грн</td>
                     </tr>
                     </tbody>
                 </table>
@@ -182,43 +213,34 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab-history">
-                        <div id="history"></div>
+                        <div id="history">
+                            @include('admin.orders.partials.orderHistoryPartial')
+                        </div>
                         <br />
                         <fieldset>
                             <legend>Добавить в историю</legend>
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" id="addHistory">
+                                <input type="hidden" name="order-id" value="{{$id}}">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-order-status">Статус заказа</label>
                                     <div class="col-sm-10">
                                         <select name="order_status_id" id="input-order-status" class="form-control">
-                                            <option value="24">В обработке</option>
-                                            <option value="18">Возврат</option>
-                                            <option value="11">Дозаказ</option>
-                                            <option value="21">на карту, отправлен</option>
-                                            <option value="22">На карту, предзаказ</option>
-                                            <option value="17">Наложка</option>
-                                            <option value="20">наложка предзаказ</option>
-                                            <option value="10">Недозвон 1</option>
-                                            <option value="14">Недозвон 2</option>
-                                            <option value="1">Новый</option>
-                                            <option value="15">Ожидаем оплату</option>
-                                            <option value="16">Оплачен</option>
-                                            <option value="3">Отменён</option>
-                                            <option value="23" selected="selected">Отправлен в 1С</option>
-                                            <option value="19">отправлен наложка</option>
+                                            @foreach($order_statuses as $order_status)
+                                                <option value="{{$order_status['id']}}">{{$order_status['name']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="Если заказ заблокирован системой Защиты от мошенников, то устанавливая крыж, можно установить свой статус заказа, не зависимо от системы защиты.">Переопределить</span></label>
                                     <div class="col-sm-10">
-                                        <input type="checkbox" name="override" value="1" id="input-override" />
+                                        <input type="checkbox" name="override" value="0" id="input-override" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-notify">Уведомить покупателя</label>
                                     <div class="col-sm-10">
-                                        <input type="checkbox" name="notify" value="1" id="input-notify" />
+                                        <input type="checkbox" name="notify" value="0" id="input-notify" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -294,6 +316,42 @@
             } else {
                 return false;
             }
+        });
+
+        $("body").on("click", "#button-history", function() {
+            $.ajax({
+                type:"POST",
+                url:"/admin/orders/save/history",
+                data: {
+                    order_id:  $('input[name="order-id"]').val(),
+                    status: $('select[name="order_status_id"]').val(),
+                    override: $('input[name="override"]').prop("checked"),
+                    notify: $('input[name="notify"]').prop("checked"),
+                    comment: $('textarea[name="comment"]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Успех!',
+                            text: 'Вы успешно добавили историю к заказу'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#history').on('click', ".pagination a", function(){
+            $.ajax({
+                url:"/admin/orders/get/history?" + $(this).attr('href').split('?')[1],
+                type:"GET",
+                success: function (response) {
+                    if (response.html) {
+                        $("#history").html(response.html);
+                    }
+                }
+            });
+            return false;
         });
     </script>
     <script src="{{asset('js/products.js')}}"></script>
