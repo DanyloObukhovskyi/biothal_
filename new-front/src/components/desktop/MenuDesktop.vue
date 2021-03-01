@@ -13,19 +13,19 @@
                     multiple
                     show-arrows>
                     <v-slide-item>
-                        <v-btn @click="toPage({name: 'for-face'})"
+                        <v-btn @click="toPage({name: 'category-page', params: {category: 'for-face'}})"
                                value="forFace" plain>
                             <span>Для лица</span>
                         </v-btn>
                     </v-slide-item>
                     <v-slide-item>
-                        <v-btn @click="toPage({name: 'for-body'})"
+                        <v-btn @click="toPage({name: 'category-page', params: {category: 'for-body'}})"
                                value="forBody" plain>
                             <span>Для тела</span>
                         </v-btn>
                     </v-slide-item>
                     <v-slide-item>
-                        <v-btn @click="toPage({name: 'effective-sets'})"
+                        <v-btn @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})"
                                value="effectiveSets" plain>
                             <span>Эффективные наборы</span>
                         </v-btn>

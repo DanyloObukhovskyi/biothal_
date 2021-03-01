@@ -9,7 +9,8 @@ export default {
     },
     methods: {
         toPage(rout) {
-            if (this.$router.history.current.name !== rout.name) {
+            if (this.$router.history.current.name !== rout.name
+                || JSON.stringify(this.$router.history.current.params) !== JSON.stringify(rout.params ? rout.params : {})) {
                 this.$router.push({name: rout.name, params: rout.params})
             }
         }

@@ -75,24 +75,6 @@ const routes = [
                 meta: {}
             },
             {
-                path: 'effective-sets',
-                name: 'effective-sets',
-                component: () => import('../pages/EffectiveSets'),
-                meta: {}
-            },
-            {
-                path: 'for-body',
-                name: 'for-body',
-                component: () => import('../pages/ForBody'),
-                meta: {}
-            },
-            {
-                path: 'for-face',
-                name: 'for-face',
-                component: () => import('../pages/ForFace'),
-                meta: {}
-            },
-            {
                 path: 'product/:id',
                 name: 'product',
                 component: () => {
@@ -133,7 +115,26 @@ const routes = [
                 component: () => import('../pages/Seaweed'),
                 meta: {}
             },
-        ],
+            {
+                path: 'category-page/:category',
+                name: 'category-page',
+                component: () => import('../pages/CategoryPage'),
+                children: [{
+                    path: ':subCategory',
+                    name: 'sub-category-page',
+                    component: () => import('../pages/CategoryPage'),
+                    meta: {},
+                    prop: true
+                }],
+                meta: {}
+            },
+            {
+                path: 'authorization',
+                name: 'authorization',
+                component: () => import('../pages/mobile/AuthorizationMobile'),
+                meta: {}
+            }
+        ]
     },
     {
         path: '/404',

@@ -41,7 +41,9 @@
                                 readonly
                                 v-for="(item,index) in item.children"
                                 :key="index">
-                                <v-expansion-panel-header expand-icon="">
+                                <v-expansion-panel-header
+                                    @click="toPageMenu(item)"
+                                    expand-icon="">
                                     {{item.name}}
                                 </v-expansion-panel-header>
                             </v-expansion-panel>
@@ -71,25 +73,57 @@
                     {
                         name: 'Для лица',
                         children: [
-                            {name: 'Что-то еще 1'},
-                            {name: 'Что-то еще 2'}
+                            {
+                                name: 'Крема',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'cream'}
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Скрабы',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'scrubs'}
+                                    }
+                                }
+                            }
                         ],
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-face'
+                            rout: {
+                                name: 'category-page',
+                                params: {
+                                    category: 'for-face'
+                                }
+                            }
                         }
                     },
                     {
                         name: 'Для тела',
                         children: [
-                            {name: 'Что-то еще 1'},
+                            {
+                                name: 'Лосьоны',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'lotions'
+                                        }
+                                    }
+                                }
+                            },
                             {name: 'Что-то еще 2'}
                         ],
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -98,7 +132,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -107,7 +141,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -116,7 +150,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -125,7 +159,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -134,7 +168,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -143,7 +177,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -152,7 +186,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'for-body'
+                            rout: {name: 'for-body'}
                         }
                     },
                     {
@@ -161,7 +195,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'effective-sets'
+                            rout: {name: 'effective-sets'}
                         }
                     },
                     {
@@ -173,7 +207,7 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: 'about-us'
+                            rout: {name: 'about-us'}
                         }
                     },
                     {
@@ -182,7 +216,7 @@
                         meta: {
                             color: '#fff',
                             'background-color': '#2F7484',
-                            rout: 'about-us'
+                            rout: {name: 'about-us'}
                         }
                     }
                 ],
@@ -199,8 +233,8 @@
             },
             toPageMenu(item) {
                 if (!item.children?.length) {
-                    if(item.meta?.rout) {
-                        this.toPage({name: item.meta.rout})
+                    if (item.meta?.rout) {
+                        this.toPage({name: item.meta.rout.name, params: item.meta.rout.params})
                     }
                 }
             }

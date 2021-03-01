@@ -4,7 +4,7 @@
             <img width="100%" src="../../public/slider.svg"/>
         </div>
         <div>
-            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData"/>
+            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productDataShowStock"/>
             <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
                                    :product-data="productDataShowStock.slice(0, 4)"/>
         </div>
