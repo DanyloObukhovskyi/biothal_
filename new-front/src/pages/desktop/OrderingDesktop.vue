@@ -260,9 +260,6 @@
         border-radius: 50px;
         width: 190px;
         height: 44px !important;
-        background-color: #2F7484 !important;
-        text-transform: none !important;
-        font-weight: 500;
         font-size: 12px;
         line-height: 17px;
 

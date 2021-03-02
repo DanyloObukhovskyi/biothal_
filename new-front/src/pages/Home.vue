@@ -269,21 +269,4 @@
         flex-direction: row;
         justify-content: center;
     }
-
-    .main-title {
-        font-weight: 200;
-        font-size: 34px;
-        line-height: 46px;
-        margin: 40px;
-        text-transform: uppercase;
-
-        @media screen and (max-width: 600px) {
-            font-weight: 700;
-            text-transform: none;
-            font-size: 14px;
-            line-height: 18px;
-            text-align: left;
-            margin: 0 0 20px 0;
-        }
-    }
 </style>

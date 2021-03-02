@@ -7,7 +7,8 @@
                 <img width="108" height="32" src="../../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-icon">
-                <v-icon color="#000" size="18" @click="toPage({name: 'account-settings'})">
+                <v-icon color="#000" size="18"
+                        @click="$refs['AccountMenuMobile'].visible = true">
                     mdi-account-outline
                 </v-icon>
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
@@ -53,17 +54,20 @@
             </v-expansion-panels>
         </v-navigation-drawer>
 
+        <AccountMenuMobile ref="AccountMenuMobile"/>
         <Basket ref="Basket"/>
     </div>
 </template>
 
 <script>
     import Basket from "../Basket";
+    import AccountMenuMobile from "./AccountMenuMobile";
 
     export default {
         name: "MenuMobile",
         components: {
-            Basket
+            Basket,
+            AccountMenuMobile
         },
         data() {
             return {

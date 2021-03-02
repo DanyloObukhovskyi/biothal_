@@ -1,9 +1,9 @@
 <template>
-    <div class="ordering__wrapper">
-        <div class="ordering__top">
-            <div class="ordering__top__title">Оформление заказа</div>
+    <div class="page-form__wrapper">
+        <div class="page-form__top">
+            <div class="page-form__top__title">Оформление заказа</div>
         </div>
-        <div class="ordering__middle">
+        <div class="page-form__middle">
             <v-form style="width: 100%;">
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="ordering__bottom">
+        <div class="page-form__bottom">
             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
         </div>
     </div>
@@ -112,9 +112,7 @@
 </script>
 
 <style scoped lang="scss">
-
-    .ordering {
-
+    .page-form {
         &__wrapper {
             display: flex;
             flex-direction: column;
@@ -149,33 +147,6 @@
         }
     }
 
-    .main-input-label {
-        font-weight: 200;
-        font-size: 12px;
-        line-height: 16px;
-        color: #7E7E7E;
-        margin: 15px 0 0 0;
-    }
-
-    .main-input-field {
-        width: 100%;
-        height: 54px;
-        background: #fff;
-        border-radius: 2px;
-    }
-
-    .checkout-button {
-        border-radius: 50px;
-        max-width: 335px;
-        width: 100%;
-        height: 54px !important;
-        background-color: #2F7484 !important;
-        text-transform: none !important;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 22px;
-    }
-
     .terms-use {
         display: flex;
         justify-content: space-between;
@@ -188,21 +159,6 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-        }
-    }
-</style>
-
-<style lang="scss">
-    .ordering__wrapper {
-        background-color: #f7f7f7;
-
-        & .v-input__slot {
-            border-radius: 4px !important;
-            margin: 0 0 20px 0 !important;
-        }
-
-        & .v-text-field__details {
-            display: none;
         }
     }
 </style>

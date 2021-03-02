@@ -1,10 +1,31 @@
 <template>
     <div class="page-form__wrapper">
         <div class="page-form__top">
-            <div class="page-form__top__title">Авторизация</div>
+            <div class="page-form__top__title">Регистрация</div>
         </div>
         <div class="page-form__middle">
             <v-form style="width: 100%;">
+                <div>
+                    <p class="main-input-label">Введите имя</p>
+                    <v-text-field
+                        class="main-input-field"
+                        flat
+                        rounded/>
+                </div>
+                <div>
+                    <p class="main-input-label">Введите фамилию</p>
+                    <v-text-field
+                        class="main-input-field"
+                        flat
+                        rounded/>
+                </div>
+                <div>
+                    <p class="main-input-label">Введите дату</p>
+                    <v-text-field
+                        class="main-input-field"
+                        flat
+                        rounded/>
+                </div>
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
@@ -15,7 +36,7 @@
                         rounded/>
                 </div>
                 <div>
-                    <p class="main-input-label">Введите пароль</p>
+                    <p class="main-input-label">Введите email</p>
                     <v-text-field
                         class="main-input-field"
                         flat
@@ -29,18 +50,20 @@
                     v-model="rememberMe"/>
             </div>
             <div class="remember-me__right">
-                Запомнить меня
+                Не хочу получать писем с акциями
             </div>
         </div>
         <div class="page-form__bottom">
-            <v-btn dark class="checkout-button" elevation="0">Войти</v-btn>
+            <v-btn dark class="checkout-button" elevation="0">
+                Зарегистрироваться
+            </v-btn>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "AuthorizationMobile",
+        name: "RegistrationMobile",
         data() {
             return {
                 rememberMe: false
@@ -51,6 +74,7 @@
 
 <style scoped lang="scss">
     .page-form {
+
         &__wrapper {
             display: flex;
             flex-direction: column;
@@ -85,6 +109,7 @@
         }
     }
 
+
     .main-input-label {
         font-weight: 200;
         font-size: 12px;
@@ -111,7 +136,7 @@
         &__right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: flex-start;
         }
     }
 </style>

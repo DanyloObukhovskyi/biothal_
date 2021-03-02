@@ -29,16 +29,16 @@
         </div>
         <div class="footer__block-2">
             <div class="footer__block-2__block-2-1">
-                <v-btn text class="list-item" dark @click="toPage({name: 'for-face'})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
                     - Для лица
                 </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'for-body'})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
                     - Для тела
                 </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'for-face'})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
                     - Эффективные наборы
                 </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'effective-sets'})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
                     - О компании
                 </v-btn>
             </div>

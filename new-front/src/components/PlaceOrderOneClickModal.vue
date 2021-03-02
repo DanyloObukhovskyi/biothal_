@@ -84,12 +84,6 @@
     }
 
     .checkout-button {
-        border-radius: 50px;
-        width: 225px;
-        height: 34px !important;
-        background-color: #2F7484 !important;
-        text-transform: none !important;
-        font-weight: 500;
         font-size: 11px;
         line-height: 15px;
         margin-top: 15px;

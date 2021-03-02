@@ -35,7 +35,7 @@
                     <v-list-item-group
                         v-model="catalog"
                         color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'for-face'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
                             <v-list-item-content>
                                 - Для лица
                             </v-list-item-content>

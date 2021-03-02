@@ -29,7 +29,7 @@
             </div>
 
             <div class="product-info__pay">
-                <v-btn class="product-info__pay__button" width="335" height="54" dark color="#2F7484" elevation="0">
+                <v-btn class="product-info__pay__button" height="54" dark color="#2F7484" elevation="0">
                     Добавить в корзину
                 </v-btn>
             </div>
@@ -264,6 +264,8 @@
             &__button {
                 border-radius: 60px;
                 text-transform: none;
+                width: 100%;
+                max-width: 335px;
             }
         }
 

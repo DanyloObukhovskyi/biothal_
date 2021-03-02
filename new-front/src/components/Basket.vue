@@ -13,9 +13,9 @@
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </div>
-            <div class="ordering__wrapper">
+            <div class="page-form__wrapper">
                 <div>
-                    <div class="ordering__top">
+                    <div class="page-form__top">
                         <div style="margin-bottom: 17px; font-size: 12px">Еще 735 грн и сработает скидка 50%</div>
                         <v-progress-linear v-model="linear"
                                            color="#2F7484"
@@ -23,8 +23,8 @@
                                            class="main-linear"
                                            height="12"/>
                     </div>
-                    <div class="ordering__middle">
-                        <div class="ordering__middle__product-set">
+                    <div class="page-form__middle">
+                        <div class="page-form__middle__product-set">
                             <ProductCardsSet type-set="basket" :is-show-title="false"/>
                         </div>
                         <div class="total__wrapper">
@@ -146,7 +146,7 @@
         border-radius: 60px;
     }
 
-    .ordering {
+    .page-form {
         &__wrapper {
             display: flex;
             flex-direction: column;
@@ -189,15 +189,6 @@
     }
 
     .checkout-button {
-        border-radius: 50px;
-        max-width: 335px;
-        width: 100%;
-        height: 54px !important;
-        background-color: #2F7484 !important;
-        text-transform: none !important;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 22px;
         margin-top: 15px;
 
         &__wrapper {

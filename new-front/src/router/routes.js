@@ -1,4 +1,5 @@
 import global from "../mixins/global";
+
 const isMobile = global.computed.isMobile()
 
 const routes = [
@@ -17,34 +18,6 @@ const routes = [
                 component: () => import('../pages/Home')
             },
             {
-                path: 'for-face',
-                name: 'for-face',
-                component: () => import('../pages/ForFace'),
-                meta: {
-                    label: 'Для лица'
-                },
-                children: [
-                    {
-                        path: 'masks',
-                        name: 'masks',
-                        component: {render: h => h('router-view')},
-                        meta: {
-                            label: 'Маски'
-                        },
-                        children: [
-                            {
-                                path: 'product/:id',
-                                component: () => {
-                                    return isMobile ? import('../pages/mobile/ProductMobile') : import('../pages/desktop/ProductDesktop')
-                                },
-                                meta: {},
-                                props: true
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
                 path: 'checkout',
                 name: 'checkout',
                 component: () => import('../pages/Checkout'),
@@ -53,7 +26,33 @@ const routes = [
             {
                 path: 'account-settings',
                 name: 'account-settings',
-                component: () => import('../pages/AccountSettings'),
+                component: () => {
+                    return isMobile ? import('../pages/mobile/AccountSettingsMobile') : import('../pages/AccountSettings')
+                },
+                meta: {}
+            },
+            {
+                path: 'order-list',
+                name: 'order-list',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/OrderListMobile') : import('../pages/mobile/OrderListMobile')
+                },
+                meta: {}
+            },
+            {
+                path: 'group-discount-participants',
+                name: 'group-discount-participants',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/GroupDiscountParticipantsMobile') : import('../pages/mobile/GroupDiscountParticipantsMobile')
+                },
+                meta: {}
+            },
+            {
+                path: 'bank-cards',
+                name: 'bank-cards',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/BankCardsMobile') : import('../pages/mobile/BankCardsMobile')
+                },
                 meta: {}
             },
             {
@@ -132,6 +131,12 @@ const routes = [
                 path: 'authorization',
                 name: 'authorization',
                 component: () => import('../pages/mobile/AuthorizationMobile'),
+                meta: {}
+            },
+            {
+                path: 'registration',
+                name: 'registration',
+                component: () => import('../pages/mobile/RegistrationMobile'),
                 meta: {}
             }
         ]
