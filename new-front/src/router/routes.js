@@ -128,6 +128,12 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'info-page/:category',
+                name: 'info-page',
+                component: () => import('../pages/desktop/InfoPage'),
+                meta: {}
+            },
+            {
                 path: 'authorization',
                 name: 'authorization',
                 component: () => import('../pages/mobile/AuthorizationMobile'),
