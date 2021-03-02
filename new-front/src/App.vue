@@ -33,6 +33,10 @@
     div::-webkit-scrollbar
     {
         width: 7px;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
     }
 
     div::-webkit-scrollbar-thumb

@@ -27,7 +27,7 @@ const routes = [
                 path: 'account-settings',
                 name: 'account-settings',
                 component: () => {
-                    return isMobile ? import('../pages/mobile/AccountSettingsMobile') : import('../pages/AccountSettings')
+                    return isMobile ? import('../pages/mobile/AccountSettingsMobile') : import('../pages/desktop/AccountSettingsDesktop')
                 },
                 meta: {}
             },

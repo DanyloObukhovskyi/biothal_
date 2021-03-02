@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name: "OrderList",
+        name: "OrderListMobile",
         data() {
             return {
                 isOrders: true
