@@ -31,13 +31,13 @@
                         </v-btn>
                     </v-slide-item>
                     <v-slide-item>
-                        <v-btn @click="toPage({name: 'about-us'})"
+                        <v-btn @click="toPage({name: 'info-page', params: {category: 'about-us'}})"
                                value="aboutBiothal" plain>
                             <span>O Biothal</span>
                         </v-btn>
                     </v-slide-item>
                     <v-slide-item>
-                        <v-btn @click="toPage({name: 'become-distributor'})"
+                        <v-btn @click="toPage({name: 'info-page', params: {category: 'become-distributor'}})"
                                value="becomeDistributor" plain>
                             <span>Стать дистрибьютером</span>
                         </v-btn>

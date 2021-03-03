@@ -40,12 +40,12 @@
                                 - Для лица
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'for-body'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
                             <v-list-item-content>
                                 - Для тела
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'effective-sets'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
                             <v-list-item-content>
                                 - Эффективные наборы
                             </v-list-item-content>
@@ -59,22 +59,22 @@
                     <v-list-item-group
                         v-model="aboutUs"
                         color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'production'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'production'}})">
                             <v-list-item-content>
                                 - Производство
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'philosophy'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'philosophy'}})">
                             <v-list-item-content>
                                 - Философия
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'sea'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'sea'}})">
                             <v-list-item-content>
                                 - Море
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'seaweed'})">
+                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'seaweed'}})">
                             <v-list-item-content>
                                 - Водоросли
                             </v-list-item-content>
@@ -96,7 +96,7 @@
                                 Facebook
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
+                        <v-list-item class="list-item"
                                      target="_blank">
                             <v-list-item-icon>
                                 <v-icon color="#000">mdi-twitter</v-icon>

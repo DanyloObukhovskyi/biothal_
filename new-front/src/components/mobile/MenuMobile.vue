@@ -18,6 +18,7 @@
         </v-app-bar>
 
         <v-navigation-drawer
+            style="height: auto"
             app
             v-model="menuVisible"
             absolute
@@ -78,11 +79,29 @@
                         name: 'Для лица',
                         children: [
                             {
-                                name: 'Крема',
+                                name: 'Очищение',
                                 meta: {
                                     rout: {
                                         name: 'sub-category-page',
-                                        params: {category: 'for-face', subCategory: 'cream'}
+                                        params: {category: 'for-face', subCategory: 'cleansing'}
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Тоники',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'tonics'}
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Кремы',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'creams'}
                                     }
                                 }
                             },
@@ -92,6 +111,24 @@
                                     rout: {
                                         name: 'sub-category-page',
                                         params: {category: 'for-face', subCategory: 'scrubs'}
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Маски',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'masks'}
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Сыворотки',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {category: 'for-face', subCategory: 'serums'}
                                     }
                                 }
                             }
@@ -111,6 +148,18 @@
                         name: 'Для тела',
                         children: [
                             {
+                                name: 'Гели для душа',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'shower-gels'
+                                        }
+                                    }
+                                }
+                            },
+                            {
                                 name: 'Лосьоны',
                                 meta: {
                                     rout: {
@@ -122,75 +171,76 @@
                                     }
                                 }
                             },
-                            {name: 'Что-то еще 2'}
+                            {
+                                name: 'Кремы',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'creams'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Масла',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'oils'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Скрабы',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'scrubs'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Соли для ванн',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'bath-salts'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Массажные щетки',
+                                meta: {
+                                    rout: {
+                                        name: 'sub-category-page',
+                                        params: {
+                                            category: 'for-body',
+                                            subCategory: 'massage-brushes'
+                                        }
+                                    }
+                                }
+                            }
                         ],
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Гели для душа',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Лосьоны',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Кремы',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Масла',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Скрабы',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Соли для ванн',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
-                        }
-                    },
-                    {
-                        name: 'Массажные щетки',
-                        children: [],
-                        meta: {
-                            color: '#000',
-                            'background-color': '#fff',
-                            rout: {name: 'for-body'}
+                            rout: {
+                                name: 'category-page',
+                                params: {
+                                    category: 'for-body'
+                                }
+                            }
                         }
                     },
                     {
@@ -199,19 +249,96 @@
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: {name: 'effective-sets'}
+                            rout: {
+                                name: 'info-page',
+                                params: {
+                                    category: 'effective-sets'
+                                }
+                            }
                         }
                     },
                     {
-                        name: 'О компании',
+                        name: 'Оплата и доставка',
+                        children: [],
+                        meta: {
+                            color: '#000',
+                            'background-color': '#fff',
+                            rout: {
+                                name: 'info-page',
+                                params: {
+                                    category: 'payment-and-delivery'
+                                }
+                            }
+                        }
+                    },
+                    {
+                        name: 'O Biothal',
                         children: [
-                            {name: 'Что-то еще 1'},
-                            {name: 'Что-то еще 2'}
+                            {
+                                name: 'Философия бренда',
+                                meta: {
+                                    rout: {
+                                        name: 'info-page',
+                                        params: {
+                                            category: 'philosophy'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Водоросли',
+                                meta: {
+                                    rout: {
+                                        name: 'info-page',
+                                        params: {
+                                            category: 'seaweed'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Производство',
+                                meta: {
+                                    rout: {
+                                        name: 'info-page',
+                                        params: {
+                                            category: 'production'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Водорослевый комплекс "Algo+"',
+                                meta: {
+                                    rout: {
+                                        name: 'info-page',
+                                        params: {
+                                            category: 'algo'
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                name: 'Сертификаты',
+                                meta: {
+                                    rout: {
+                                        name: 'info-page',
+                                        params: {
+                                            category: 'certificates'
+                                        }
+                                    }
+                                }
+                            },
                         ],
                         meta: {
                             color: '#000',
                             'background-color': '#fff',
-                            rout: {name: 'about-us'}
+                            rout: {
+                                name: 'info-page',
+                                params: {
+                                    category: 'about-us'
+                                }
+                            }
                         }
                     },
                     {
@@ -220,7 +347,12 @@
                         meta: {
                             color: '#fff',
                             'background-color': '#2F7484',
-                            rout: {name: 'about-us'}
+                            rout: {
+                                name: 'info-page',
+                                params: {
+                                    category: 'become-distributor'
+                                }
+                            }
                         }
                     }
                 ],

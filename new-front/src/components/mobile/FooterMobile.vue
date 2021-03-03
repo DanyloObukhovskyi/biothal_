@@ -22,9 +22,9 @@
                 <img width="127" height="38" src="../../../public/logo2.svg"/>
             </div>
             <div style="display: flex; column-gap: 10px">
-                <v-icon color="#fff" size="17">mdi-facebook</v-icon>
-                <v-icon color="#fff" size="17">mdi-twitter</v-icon>
-                <v-icon color="#fff" size="17">mdi-instagram</v-icon>
+                <a href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
+                <a target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-twitter</v-icon></a>
+                <a href="https://www.instagram.com/biothal.cosmetics" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
             </div>
         </div>
         <div class="footer__block-2">
@@ -35,10 +35,10 @@
                 <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
                     - Для тела
                 </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
                     - Эффективные наборы
                 </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
+                <v-btn text class="list-item" dark @click="toPage({name: 'info-page', params: {category: 'about-us'}})">
                     - О компании
                 </v-btn>
             </div>
@@ -53,7 +53,10 @@
         </div>
         <div class="footer__block-3">
             <div>
-                <v-btn elevation="0" class="main-button">
+                <v-btn
+                    elevation="0"
+                    class="main-button"
+                    @click="toPage({name: 'info-page', params: {category: 'become-distributor'}})">
                     Стать дистрибьютером
                 </v-btn>
             </div>
@@ -182,6 +185,10 @@
             padding: 25px 20px;
             background-color: #fff;
         }
+    }
+
+    .link-to-site {
+        text-decoration: none;
     }
 </style>
 

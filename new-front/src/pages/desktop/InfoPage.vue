@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="slider-wrapper">
+        <div class="slider-wrapper" v-if="!isMobile">
             <img width="100%" src="../../../public/slider.svg"/>
         </div>
         <div class="info-page__title">
@@ -32,12 +32,26 @@
             title() {
                 const category = this.$route.params.category
                 switch (category) {
+                    case "production":
+                        return "Производство";
                     case "philosophy":
                         return "Философия";
-                    case "for-body":
-                        return "Для тела";
+                    case "sea":
+                        return "Море";
+                    case "seaweed":
+                        return "Водоросли";
+                    case "about-us":
+                        return "O Biothal";
                     case "effective-sets":
                         return "Эффективные наборы";
+                    case "payment-and-delivery":
+                        return "Оплата и доставка";
+                    case "algo":
+                        return "Водорослевый комплекс \"Algo+\"";
+                    case "certificates":
+                        return 'Сертификаты';
+                    case "become-distributor":
+                        return "Стать дистрибьютером";
                     default:
                         return category;
                 }
@@ -54,11 +68,19 @@
             text-transform: uppercase;
             font-size: 34px;
             margin: 50px;
+
+            @media screen and (max-width: 600px) {
+                margin: 20px;
+            }
         }
 
         &__content {
             &__wrapper {
                 padding: 0 45px 45px 45px;
+
+                @media screen and (max-width: 600px) {
+                    padding: 0 20px 20px 20px;
+                }
             }
         }
 
@@ -66,5 +88,4 @@
             width: 100%;
         }
     }
-
 </style>

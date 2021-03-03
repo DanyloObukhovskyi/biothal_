@@ -164,6 +164,28 @@
                         return "Для тела";
                     case "effective-sets":
                         return "Эффективные наборы";
+                    case 'cleansing':
+                        return 'Очищение';
+                    case 'tonics':
+                        return 'Тоники';
+                    case 'creams':
+                        return 'Кремы';
+                    case 'scrubs':
+                        return 'Скрабы';
+                    case 'masks':
+                        return 'Маски';
+                    case 'serums':
+                        return 'Сыворотки';
+                    case 'shower-gels':
+                        return 'Гели для душа';
+                    case 'lotions':
+                        return 'Лосьоны';
+                    case 'oils':
+                        return 'Масла';
+                    case 'bath-salts':
+                        return 'Соли для ванн';
+                    case 'massage-brushes':
+                        return 'Массажные щетки';
                     default:
                         return category;
                 }

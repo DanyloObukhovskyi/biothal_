@@ -62,18 +62,6 @@ const routes = [
                 meta: {}
             },
             {
-                path: 'about-us',
-                name: 'about-us',
-                component: () => import('../pages/AboutUs'),
-                meta: {}
-            },
-            {
-                path: 'become-distributor',
-                name: 'become-distributor',
-                component: () => import('../pages/BecomeDistributor'),
-                meta: {}
-            },
-            {
                 path: 'product/:id',
                 name: 'product',
                 component: () => {
@@ -88,30 +76,6 @@ const routes = [
                 component: () => {
                     return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/OrderingDesktop')
                 },
-                meta: {}
-            },
-            {
-                path: 'production',
-                name: 'production',
-                component: () => import('../pages/Production'),
-                meta: {}
-            },
-            {
-                path: 'philosophy',
-                name: 'philosophy',
-                component: () => import('../pages/Philosophy'),
-                meta: {}
-            },
-            {
-                path: 'sea',
-                name: 'sea',
-                component: () => import('../pages/Sea'),
-                meta: {}
-            },
-            {
-                path: 'seaweed',
-                name: 'seaweed',
-                component: () => import('../pages/Seaweed'),
                 meta: {}
             },
             {
