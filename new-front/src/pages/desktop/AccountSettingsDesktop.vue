@@ -12,7 +12,7 @@
                                 <div class="default-cursor">
                                     Алина Борикорна
                                 </div>
-                                <div class="point-cursor account-settings__logout" @click="toPage({name: 'home'})">
+                                <div class="point-cursor account-settings__logout" @click="logout">
                                     Выйти
                                     <v-icon size="12">logout</v-icon>
                                 </div>
@@ -77,6 +77,8 @@
                 ],
                 changeItem: 0
             }
+        },
+        methods: {
         }
     }
 </script>

@@ -11,6 +11,7 @@
                         placeholder="+38(___) ___-__-__"
                         v-mask="'+38(###) ###-##-##'"
                         class="main-input-field"
+                        v-model="user.number"
                         flat
                         rounded/>
                 </div>
@@ -18,6 +19,7 @@
                     <p class="main-input-label">Введите пароль</p>
                     <v-text-field
                         class="main-input-field"
+                        v-model="user.password"
                         flat
                         rounded/>
                 </div>
@@ -33,7 +35,7 @@
             </div>
         </div>
         <div class="page-form__bottom">
-            <v-btn dark class="checkout-button" elevation="0">Войти</v-btn>
+            <v-btn dark class="checkout-button" elevation="0" @click="login">Войти</v-btn>
         </div>
     </div>
 </template>
@@ -43,7 +45,21 @@
         name: "AuthorizationMobile",
         data() {
             return {
-                rememberMe: false
+                rememberMe: false,
+                user: {
+                    number: '',
+                    password: ''
+                }
+            }
+        },
+        methods: {
+            async login() {
+                try {
+                    await this.$store.dispatch('LOGIN', this.model);
+                    this.toPage({name: 'home'})
+                } catch (e) {
+                    console.log(e)
+                }
             }
         }
     }

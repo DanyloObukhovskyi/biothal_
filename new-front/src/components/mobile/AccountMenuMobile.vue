@@ -15,7 +15,7 @@
                 <v-expansion-panel-header
                     style="background-color: #fff; color: #000"
                     :expand-icon="item.meta.icon"
-                    @click="toPageMenu(item)">
+                    @click="item.click ? item.click() : toPageMenu(item)">
                     {{item.name}}
                 </v-expansion-panel-header>
             </v-expansion-panel>
@@ -69,7 +69,8 @@
                         meta: {
                             icon: 'logout',
                             rout: {name: 'home'}
-                        }
+                        },
+                        click: this.logout
                     }
                 ]
 
@@ -90,7 +91,7 @@
                     }
                 ]
 
-                return isLogin
+                return this.isAuthorize ? isLogin : isLogout
             }
         },
         methods: {

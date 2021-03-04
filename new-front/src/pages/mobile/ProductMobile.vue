@@ -14,7 +14,7 @@
                 <div class="product-info__other__icons">
                     <ThreeDotsSlides/>
                     <v-icon size="10" color="#000">mdi-gift-outline</v-icon>
-                    <v-icon size="10" color="#000">mdi-heart-outline</v-icon>
+                    <v-icon size="10" color="#000" v-if="isShowFavorite">mdi-heart-outline</v-icon>
                 </div>
             </div>
 

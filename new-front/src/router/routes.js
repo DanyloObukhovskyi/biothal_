@@ -1,6 +1,7 @@
 import global from "../mixins/global";
 
 const isMobile = global.computed.isMobile()
+const isShowFavorite = global.data().isShowFavorite
 
 const routes = [
     {
@@ -58,6 +59,7 @@ const routes = [
             {
                 path: 'favorites',
                 name: 'favorites',
+                redirect: isShowFavorite ? false : '/home',
                 component: () => import('../pages/Favorites'),
                 meta: {}
             },

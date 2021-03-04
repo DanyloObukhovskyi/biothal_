@@ -44,8 +44,32 @@
                 </v-slide-group>
             </div>
             <div class="app-bar-menu-icon">
-                <v-icon color="#000" size="18" @click="toPage({name: 'favorites'})">mdi-heart-outline</v-icon>
-                <v-icon color="#000" size="18" @click="toPage({name: 'account-settings'})">mdi-account-outline</v-icon>
+                <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs, value }">
+                        <v-btn
+                            width="20"
+                            height="20"
+                            icon
+                            v-bind="attrs"
+                            v-on="on">
+                            <v-icon color="#000" size="18">mdi-account-outline</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                            class="point-cursor"
+                            v-for="(item, index) in accountMenuItems"
+                            :key="index">
+                            <v-list-item-title
+                                @click="item.click ? item.click() : toPage(item.meta.rout)">
+                                {{ item.name }}
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+                <v-icon color="#000" size="18" @click="toPage({name: 'favorites'})" v-if="isShowFavorite">
+                    mdi-heart-outline
+                </v-icon>
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
                     mdi-briefcase-outline
                 </v-icon>
@@ -312,10 +336,51 @@
                             }
                         }
                     }
+                ],
+            }
+        },
+        computed: {
+            accountMenuItems() {
+                const isLogin = [
+                    {
+                        name: 'Войти',
+                        meta: {
+                            icon: 'login',
+                            rout: {name: 'authorization'}
+                        }
+                    },
+                    {
+                        name: 'Зарегистрироваться',
+                        meta: {
+                            icon: 'app_registration',
+                            rout: {name: 'registration'}
+                        }
+                    }
                 ]
+
+                const isLogout = [
+                    {
+                        name: 'Личный кабинет',
+                        meta: {
+                            icon: 'mode_edit_outline',
+                            rout: {name: 'account-settings'}
+                        }
+                    },
+                    {
+                        name: 'Выйти',
+                        meta: {
+                            icon: 'logout',
+                            rout: {name: 'home'}
+                        },
+                        click: this.logout
+                    }
+                ]
+
+                return this.isAuthorize ? isLogout : isLogin
             }
         },
         methods: {
+
         }
     }
 </script>

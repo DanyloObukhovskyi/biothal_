@@ -1,7 +1,7 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
         <div class="product__sale" v-if="isShowStock">-50%</div>
-        <div class="product__heart">
+        <div class="product__heart"  v-if="isShowFavorite">
             <v-btn
                 v-show="isFavoritesShow || isFavorites"
                 icon
