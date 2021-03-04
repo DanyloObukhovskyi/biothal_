@@ -63,7 +63,7 @@
             align-items: flex-end;
             text-align: center;
             row-gap: 20px;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
         }
     }
 

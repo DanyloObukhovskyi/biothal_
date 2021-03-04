@@ -32,89 +32,82 @@
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item-group
-                        v-model="catalog"
-                        color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
-                            <v-list-item-content>
-                                - Для лица
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
-                            <v-list-item-content>
-                                - Для тела
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
-                            <v-list-item-content>
-                                - Эффективные наборы
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
+                    <v-list-item class="list-item"
+                                 @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
+                        <v-list-item-content>
+                            - Для лица
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item"
+                                 @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
+                        <v-list-item-content>
+                            - Для тела
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item"
+                                 @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
+                        <v-list-item-content>
+                            - Эффективные наборы
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </div>
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
-                    <v-list-item-group
-                        v-model="aboutUs"
-                        color="primary">
-                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'production'}})">
-                            <v-list-item-content>
-                                - Производство
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'philosophy'}})">
-                            <v-list-item-content>
-                                - Философия
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'sea'}})">
-                            <v-list-item-content>
-                                - Море
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'seaweed'}})">
-                            <v-list-item-content>
-                                - Водоросли
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
+                    <v-list-item class="list-item"
+                                 @click="toPage({name: 'info-page', params: {category: 'production'}})">
+                        <v-list-item-content>
+                            - Производство
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item"
+                                 @click="toPage({name: 'info-page', params: {category: 'philosophy'}})">
+                        <v-list-item-content>
+                            - Философия
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'sea'}})">
+                        <v-list-item-content>
+                            - Море
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'seaweed'}})">
+                        <v-list-item-content>
+                            - Водоросли
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </div>
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Мы в сетях</v-list-item-title>
-                    <v-list-item-group
-                        v-model="socialNetwork"
-                        color="primary">
-                        <v-list-item class="list-item" href="https://www.facebook.com/biothal.ua/" target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-facebook</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Facebook
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item"
-                                     target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-twitter</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Twitter
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
-                                     target="_blank">
-                            <v-list-item-icon>
-                                <v-icon color="#000">mdi-instagram</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                Instagram
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-item-group>
+                    <v-list-item class="list-item" href="https://www.facebook.com/biothal.ua/" target="_blank">
+                        <v-list-item-icon>
+                            <v-icon color="#000">mdi-facebook</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            Facebook
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item"
+                                 target="_blank">
+                        <v-list-item-icon>
+                            <v-icon color="#000">mdi-twitter</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            Twitter
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
+                                 target="_blank">
+                        <v-list-item-icon>
+                            <v-icon color="#000">mdi-instagram</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            Instagram
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </div>
         </div>
@@ -134,11 +127,7 @@
     export default {
         name: "FooterDesktop",
         data() {
-            return {
-                catalog: null,
-                aboutUs: null,
-                socialNetwork: null
-            }
+            return {}
         }
     }
 </script>

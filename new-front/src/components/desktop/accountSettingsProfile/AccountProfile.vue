@@ -4,7 +4,7 @@
             <div class="page-form__middle">
                 <v-form style="width: 100%;">
                     <div>
-                        <p class="main-input-label">Введите имя</p>
+                        <p class="main-input-label" style="margin: 0">Введите имя</p>
                         <v-text-field
                             class="main-input-field"
                             flat

@@ -9,12 +9,12 @@
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title style="display: flex; justify-content: space-between">
-                                <div>
+                                <div class="default-cursor">
                                     Алина Борикорна
                                 </div>
-                                <div>
+                                <div class="point-cursor account-settings__logout" @click="toPage({name: 'home'})">
                                     Выйти
-                                    <v-icon>logout</v-icon>
+                                    <v-icon size="12">logout</v-icon>
                                 </div>
                             </v-list-item-title>
                         </v-list-item-content>
@@ -91,6 +91,22 @@
             width: 100%;
             text-align: center;
             padding: 20px;
+        }
+
+        &__title {
+            font-size: 18px;
+            font-weight: 200;
+            line-height: 25px;
+            letter-spacing: 0em;
+            margin: 0 20px 20px 20px;
+        }
+
+        &__logout {
+            font-size: 12px;
+            display: flex;
+            column-gap: 4px;
+            align-items: center;
+            justify-content: center;
         }
 
         &__content {

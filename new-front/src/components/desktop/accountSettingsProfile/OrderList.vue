@@ -24,7 +24,7 @@
     .order-list {
         &__wrapper {
             background-color: #fff;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
             max-width: 480px;
             width: 100%;
             margin: auto;

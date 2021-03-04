@@ -74,7 +74,7 @@
         &__wrapper {
             background-color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
             display: flex;
             flex-direction: column;
             row-gap: 20px;
