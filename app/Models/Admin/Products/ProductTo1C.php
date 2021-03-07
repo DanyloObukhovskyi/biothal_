@@ -8,4 +8,6 @@ class ProductTo1C extends Model
 {
     protected $table = "product_to_1c";
     protected $guarded = [];
+    public $timestamps = false;
+    public $incrementing = false;
 }
