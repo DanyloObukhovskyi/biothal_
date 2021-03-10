@@ -11,10 +11,10 @@
             <div class="container-fluid col-sm-12" >
                 <div class="h1-prod col-sm-1">Заказы</div>
                 <div class="pull-right col-sm-3">
-                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>
-                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>
-                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>
+{{--                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>--}}
+{{--                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>--}}
+{{--                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+{{--                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>--}}
                 </div>
                 <div class="col-sm-8">
                 </div>
@@ -115,19 +115,40 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    <input type="checkbox" name="selected[]" value="4681" />
-                                    <input type="hidden" name="shipping_code[]" value="pickup.pickup" /></td>
-                                <td class="text-right">4681</td>
-                                <td class="text-left">Яна Маргарян</td>
-                                <td class="text-left">Отправлен в 1С</td>
-                                <td class="text-right">540 грн</td>
-                                <td class="text-left">28.01.2021</td>
-                                <td class="text-left">28.01.2021</td>
-                                <td class="text-right"><a href="/admin/orders/viewOrders" data-toggle="tooltip" title="Посмотреть" class="btn btn-info"><i class="fa fa-eye"></i></a>
-{{--                                <a href="" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>--}}
-                            </tr>
+                                @foreach($orders as $order)
+                                    <tr>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="selected[]" value="{{$order['id']}}" />
+                                        </td>
+                                        <td class="text-right">
+                                            {{$order['id']}}
+                                        </td>
+                                        <td class="text-left">
+                                            @if($order['user_address']['name'] && $order['user_address']['LastName'])
+                                                {{$order['user_address']['name']}} {{$order['user_address']['LastName']}}
+                                            @else
+                                                "N/a"
+                                            @endif
+                                        </td>
+                                        <td class="text-left">
+                                            {{$order['order_status']['name']}}
+                                        </td>
+                                        <td class="text-right">{{$order['total_price']}} грн</td>
+                                        <td class="text-left">
+                                            {{Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}}
+                                        </td>
+                                        <td class="text-left">
+                                            {{Carbon\Carbon::parse($order['updated_at'])->format('Y-m-d')}}
+                                        </td>
+                                        <td class="text-right">
+                                            <a
+                                                href="{{route('admin.orders.viewOrders', ['id' => $order['id']])}}"
+                                                data-toggle="tooltip" title="Посмотреть"
+                                                class="btn btn-info">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

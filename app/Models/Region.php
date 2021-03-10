@@ -11,4 +11,8 @@ class Region extends Model
     protected $fillable = [
         'id', 'region'
     ];
+
+    public function userRegions () {
+        $this->hasMany('App\Models\UserOrderAddress');
+    }
 }

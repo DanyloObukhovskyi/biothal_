@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Products\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class Cart_Product extends Model
