@@ -90,8 +90,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/information', 'NewProductsController@information')
                 ->name('admin.products.information');
 
-            Route::get('/changeInformation', 'NewProductsController@changeInformation')
+            Route::get('/changeInformation/{id}', 'NewProductsController@changeInformation')
                 ->name('admin.products.changeInformation');
+
+            Route::post('/updateInformation/{id}', 'NewProductsController@updateInformation')
+                ->name('admin.products.updateInformation');
+
+            Route::get('/createInformation', 'NewProductsController@createInformation')
+                ->name('admin.products.createInformation');
+
+            Route::post('/saveInformation', 'NewProductsController@saveInformation')
+                ->name('admin.products.saveInformation');
+
+            Route::post('/deleteInformation', 'NewProductsController@deleteInformation')
+                ->name('admin.products.deleteInformation');
 
             Route::get('/get', 'ProductsController@getProductForChange')
                 ->name('admin.product.get');

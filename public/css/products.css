@@ -1,4 +1,9 @@
 /*for unknown page*/
+.control-label.required:after {
+    content:"*";
+    color:red;
+}
+
 .dis{
     color: #93a1a1;
 }
