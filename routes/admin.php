@@ -81,8 +81,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/pageNew', 'NewProductsController@indexNew')
                 ->name('admin.products.pageNew');
 
-            Route::get('/changeNewProd/{id}', 'NewProductsController@changeProd')
+            Route::get('/createNewProd', 'NewProductsController@createProd')
+                ->name('admin.products.createProd');
+
+            Route::post('/createNewProd', 'NewProductsController@createProdProcess')
+                ->name('admin.products.createProdProcess');
+
+            Route::get('/changeNewProd/{id}', 'NewProductsController@getProd')
                 ->name('admin.products.changeNewProd');
+
+            Route::post('/changeNewProd/{id}', 'NewProductsController@updateProduct')
+                ->name('admin.products.updateProductNew');
 
             Route::post('/deleteProd', 'NewProductsController@deleteProd')
                 ->name('admin.products.deleteNewProd');

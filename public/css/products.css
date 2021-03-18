@@ -5144,3 +5144,6 @@ button.close {
     .hidden-print {
         display: none !important; } }
 
+.nav-tabs {
+    margin-bottom: 1rem;
+}

@@ -11,7 +11,7 @@
                 <div class="container-fluid col-sm-12" >
                     <div class="h1-prod col-sm-1">Товары</div>
                     <div class="pull-right col-sm-3">
-                        <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('admin.products.createProd') }}" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                         <button type="submit" form="form-product" formaction="" data-toggle="tooltip" title="Копировать" class="btn btn-default"><i class="fa fa-copy"></i></button>
                         <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                     </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="breadcrumb col-sm-3">
                         <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                        <div><a href="">/ Товары</a></div>
+                        <div><a href="{{route('admin.products.pageNew')}}">/ Товары</a></div>
                     </div>
 
                 </div>
@@ -136,23 +136,28 @@
     <script>
 
         $('#input-title-product').on('keyup', function (e) {
-            if(e.key === 'Enter') {
-                var text = $('#input-title-product').val();
-                var url = new URL($("#filter-href").attr("href"));
-                var searchParams = new URLSearchParams(url.search);
-                searchParams.set("title_product", text);
-                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
-            }
+          var text = $('#input-title-product').val();
+          var url = new URL($("#filter-href").attr("href"));
+          var searchParams = new URLSearchParams(url.search);
+          if(text != '') {
+            searchParams.set("title_product", text);
+          } else {
+            searchParams.delete("title_product");
+          }
+          $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
         })
 
         $('#input-status').change(function () {
             var status = $(this).val();
+            var url = new URL($("#filter-href").attr("href"));
+            var searchParams = new URLSearchParams(url.search);
+
             if(status != '') {
-                var url = new URL($("#filter-href").attr("href"));
-                var searchParams = new URLSearchParams(url.search);
-                searchParams.set("status", status);
-                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+              searchParams.set("status", status);
+            } else {
+              searchParams.delete("status");
             }
+            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
         })
 
         $('#but-del').click(function () {

@@ -15,7 +15,7 @@
                     <button type="submit" form="form-product" data-toggle="tooltip" title="Сохранить" class="btn btn-primary">
                         <i class="fa fa-save"></i>
                     </button>
-                    <a href="#" data-toggle="tooltip" title="Отменить" class="btn btn-default">
+                    <a href="{{ route('admin.products.pageNew') }}" data-toggle="tooltip" title="Отменить" class="btn btn-default">
                         <i class="fa fa-reply"></i>
                     </a>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="breadcrumb col-sm-3" style="background: none">
                     <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                    <div><a href="">/ Товары</a></div>
+                    <div><a href="{{route('admin.products.pageNew')}}">/ Товары</a></div>
                 </div>
             </div>
         </div>
@@ -32,10 +32,26 @@
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Редактирование</h3>
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i> @if(isset($id))Редактирование@elseСоздание@endif</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="#" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form action="{{ isset($id) ? route('admin.products.createProdProcess', ['id' => $product['id']]) : route('admin.products.createProd') }}" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
+                        @csrf
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tab-general" role="tab" aria-controls="home" aria-selected="true">Основное</a>
@@ -69,23 +85,24 @@
 
 @section('script')
 <script type="text/javascript">
-    var apt_row = {{ $product->productApts->count() }};
-    function addAptengb() {
-        html  = '<div id="apt_rowen-gb' + apt_row + '" class="row" style="margin-bottom: 20px">';
-        html += '<div class="col-sm-2"><input type="text" name="product_apt_name[en-gb][]" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
-        html += '<div class="col-sm-8"><textarea name="product_apt_desc[en-gb][]"  id="apt_desc_1' + apt_row + '" cols="45" rows="5" ></textarea></div>';
-        html += '<div class="col-sm-1"><input type="text" name="tab_sort_order[en-gb][]" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
-        html += '<div class="col-sm-1"><a onclick="$(\'#apt_rowen-gb' + apt_row  + '\').remove();" class="btn btn-danger"><i class="fa fa-minus-circle fa-fw"></i></a></div>';
+    var apt_row = {{ !empty($product) ? $product->productApts->count() : 0}};
+    function addApt(lang_id) {
+        html  = '<div id="apt_row_' + lang_id + '_' + apt_row + '" class="row" style="margin-bottom: 20px">';
+        html += '<input type="hidden" name="product_apt[' + apt_row + '][language_id]" value ="' + lang_id + '">';
+        html += '<div class="col-sm-2"><input type="text" name="product_apt_name[' + apt_row + ']" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
+        html += '<div class="col-sm-8"><textarea name="product_apt_desc[' + apt_row + ']"  id="apt_desc_1_' + apt_row + '" cols="45" rows="5" ></textarea></div>';
+        html += '<div class="col-sm-1"><input type="text" name="tab_sort_order[' + apt_row + ']" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
+        html += '<div class="col-sm-1"><a onclick="$(\'#apt_row_' + lang_id + '_' + apt_row  + '\').remove();" class="btn btn-danger"><i class="fa fa-minus-circle fa-fw"></i></a></div>';
         html += '</div>';
 
-        $('#aptsen-gb #put-here').before(html);
-        $('#apt_desc_1'+apt_row).summernote({height: 300});
+        $('#apts_' + lang_id + ' #put-here-' + lang_id).before(html);
+        $('#apt_desc_1_'+apt_row).summernote({height: 300});
         apt_row++;
     }
     $('#languages_apt a:first').tab('show');
 </script>
 <script type="text/javascript">
-  var image_row = {{ $product->productImages->count() }};
+  var image_row = {{ !empty($product) ? $product->productImages->count(): 0 }};
 
   function addImage() {
     html  = '<tr id="image-row' + image_row + '">';
