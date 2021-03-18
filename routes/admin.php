@@ -81,8 +81,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/pageNew', 'NewProductsController@indexNew')
                 ->name('admin.products.pageNew');
 
-            Route::get('/changeNewProd/{id}', 'NewProductsController@changeProd')
+            Route::get('/createNewProd', 'NewProductsController@createProd')
+                ->name('admin.products.createProd');
+
+            Route::post('/createNewProd', 'NewProductsController@createProdProcess')
+                ->name('admin.products.createProdProcess');
+
+            Route::get('/changeNewProd/{id}', 'NewProductsController@getProd')
                 ->name('admin.products.changeNewProd');
+
+            Route::post('/changeNewProd/{id}', 'NewProductsController@updateProduct')
+                ->name('admin.products.updateProductNew');
 
             Route::post('/deleteProd', 'NewProductsController@deleteProd')
                 ->name('admin.products.deleteNewProd');
@@ -90,8 +99,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/information', 'NewProductsController@information')
                 ->name('admin.products.information');
 
-            Route::get('/changeInformation', 'NewProductsController@changeInformation')
+            Route::get('/changeInformation/{id}', 'NewProductsController@changeInformation')
                 ->name('admin.products.changeInformation');
+
+            Route::post('/updateInformation/{id}', 'NewProductsController@updateInformation')
+                ->name('admin.products.updateInformation');
+
+            Route::get('/createInformation', 'NewProductsController@createInformation')
+                ->name('admin.products.createInformation');
+
+            Route::post('/saveInformation', 'NewProductsController@saveInformation')
+                ->name('admin.products.saveInformation');
+
+            Route::post('/deleteInformation', 'NewProductsController@deleteInformation')
+                ->name('admin.products.deleteInformation');
 
             Route::get('/get', 'ProductsController@getProductForChange')
                 ->name('admin.product.get');

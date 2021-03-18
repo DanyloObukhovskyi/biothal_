@@ -8,4 +8,6 @@ class ProductDescription extends Model
 {
     protected $table = "product_description";
     protected $guarded = [];
+    public $timestamps = false;
+    public $incrementing = false;
 }

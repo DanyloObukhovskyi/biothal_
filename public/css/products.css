@@ -1,4 +1,9 @@
 /*for unknown page*/
+.control-label.required:after {
+    content:"*";
+    color:red;
+}
+
 .dis{
     color: #93a1a1;
 }
@@ -5139,3 +5144,6 @@ button.close {
     .hidden-print {
         display: none !important; } }
 
+.nav-tabs {
+    margin-bottom: 1rem;
+}
