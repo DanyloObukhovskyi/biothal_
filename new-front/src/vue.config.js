@@ -1,11 +1,15 @@
-const path = require('path');
 
 module.exports = {
-  configureWebpack: {
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, 'src/')
-      }
+    devServer: {
+        hot: true,
+        port: process.env.VUE_APP_WEB_PORT
+    },
+
+    configureWebpack: {
+        resolve: {
+            alias: {
+                "@": path.resolve(__dirname, 'src/')
+            }
+        }
     }
-  },
 }
