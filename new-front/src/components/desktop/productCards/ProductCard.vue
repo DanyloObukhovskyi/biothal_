@@ -1,0 +1,123 @@
+<template>
+    <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
+        <div class="product__sale" v-if="isShowStock">-50%</div>
+        <div class="product__heart"  v-if="isShowFavorite">
+            <v-btn
+                v-show="isFavoritesShow || isFavorites"
+                icon
+                large
+                size="18"
+                color="#000"
+                @click="()=>{isFavorites = !isFavorites}">
+                <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
+            </v-btn>
+        </div>
+        <img width="100%" src="../../../../public/product-images/product-image.svg"/>
+        <div class="product__rating">
+            <Rating/>
+            <div>5 отзывов</div>
+        </div>
+        <div class="product__description">
+            <div @click="toPage({name: 'product', params: {id: 1}})" class="product__description__text">Очищающая маска для лица Конопля Водоросли</div>
+            <div class="product__description__price default-cursor">1920 грн</div>
+        </div>
+        <div>
+            <v-btn dark class="product__button" elevation="0">Купить</v-btn>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Rating from "../../Rating";
+
+    export default {
+        name: "ProductCard",
+        props: {
+            dataCard: {
+                type: Object,
+                default: ()=>[]
+            },
+            isShowStock: {
+                type: Boolean,
+                default: false
+            }
+        },
+        components: {
+            Rating
+        },
+        data() {
+            return {
+                isFavorites: false,
+                isFavoritesShow: false,
+            }
+        }
+    }
+</script>
+
+<style scoped lang="scss">
+
+    .product {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding: 17px 30px 20px 17px;
+        row-gap: 10px;
+
+         &:hover {
+            box-shadow: 0 0 33px #f2f2f2;
+
+             & .product__button {
+                 background-color: #000 !important;
+             }
+         }
+
+        &__sale {
+            vertical-align: middle;
+            color: #fff;
+            background-color: #000;
+            border-radius: 50%;
+            width: 72px;
+            height: 72px;
+            line-height:72px;
+            font-weight: 300;
+            font-size: 21px;
+            position: absolute;
+        }
+
+        &__heart {
+            text-align: right;
+            height: 16.5px;
+        }
+
+        &__rating {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        &__description {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            &__text {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &__price {
+                font-weight: 800;
+            }
+        }
+
+        &__button {
+            border-radius: 50px;
+            width: 180px;
+            height: 48px;
+            background-color: #2F7484 !important;
+        }
+    }
+
+    $rating-dense-padding: 2rem !important;
+</style>

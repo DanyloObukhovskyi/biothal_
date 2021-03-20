@@ -9,7 +9,7 @@ class ShoppingCart extends Model
     protected $table = 'shopping_cart';
 
     protected $fillable = [
-        'uuid', 'user_id', 'order_type_id', 'order_import'
+        'uuid', 'user_id', 'order_type_id', 'order_import', 'total'
     ];
 
     public const ACTIVE = 'active';
