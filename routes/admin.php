@@ -34,8 +34,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/', 'OrdersController@index')
                 ->name('admin.orders.orders');
 
-            Route::get('/viewOrders', 'OrdersController@viewOrders')
+            Route::get('/viewOrders/{id}', 'OrdersController@viewOrders')
                 ->name('admin.orders.viewOrders');
+
+            Route::post('/save/history', 'OrdersController@saveHistory');
+
+            Route::get("/get/history", "OrdersController@getOrderHistoryByPage");
         });
 
 
@@ -77,7 +81,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/pageNew', 'NewProductsController@indexNew')
                 ->name('admin.products.pageNew');
 
-            Route::get('/changeNewProd', 'NewProductsController@changeProd')
+            Route::get('/changeNewProd/{id}', 'NewProductsController@changeProd')
                 ->name('admin.products.changeNewProd');
 
             Route::get('/information', 'NewProductsController@information')

@@ -3,21 +3,7 @@
 @section('content')
     @include('layouts.nav')
     @include('layouts.carousel')
-    <style type="text/css">
-        a {
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: none;
-            color: black;
-        }
-        p {
-            color: black
-        }
-        h5 {
-            color: black
-        }
-    </style>
+
 
     <div class="home-container">
         <div class="main-body-container">

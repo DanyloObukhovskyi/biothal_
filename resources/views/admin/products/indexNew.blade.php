@@ -36,23 +36,28 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="input-name">Название товара</label>
-                                    <input type="text" name="filter_name" value="" placeholder="Название товара"
-                                           id="input-name" class="form-control"/>
+                                    <input type="text" name="filter_name" value="@if(!empty(request()->input('title_product'))) {{request()->input('title_product')}} @endif" placeholder="Название товара"
+                                           id="input-title-product" class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="input-status">Статус</label>
                                     <select name="filter_status" id="input-status" class="form-control">
-                                        <option value="*"></option>
-                                        <option value="1">Включено</option>
-                                        <option value="0">Отключено</option>
+                                        <option value=""> Вибирите статус</option>
+                                        @foreach(config('products.products_statuses') as
+                                            $product_status_key => $product_status)
+                                            <option value="{{$product_status_key}}"
+                                            @if(request()->input('status') !== null && request()->input('status') == $product_status_key) selected @endif>{{$product_status}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-1">
-                                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i
-                                        class="fa fa-filter"></i> Фильтр
+                                <button type="button" id="button-filter" class="btn btn-primary pull-right">
+                                    <a href="{{route('admin.products.pageNew')}}" id="filter-href" style="color: #ffffff !important;">
+                                        <i class="fa fa-filter"></i> Фильтр
+                                    </a>
                                 </button>
                             </div>
                             <div class="col-sm-1">
@@ -86,25 +91,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="selected[]" value="132"/>
-                                    </td>
-                                    <td class="text-center">
-                                        <img
-                                            src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
-                                            alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
-                                    </td>
-                                    <td class="text-left"> Очищающая маска для лица Конопля Водоросли</td>
-                                    <td class="text-right"> 759</td>
-                                    <td class="text-right">
-                                        <span class="label label-success">26</span>
-                                    </td>
-                                    <td class="text-left">Включено</td>
-                                    <td class="text-right">
-                                        <a href="changeNewProd" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i
-                                                class="fa fa-pencil"></i></a></td>
-                                </tr>
+
+                                    @foreach($products as $product_key => $product)
+                                        <tr>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="selected[]" value="{{$product['id']}}"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <img
+                                                    src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
+                                                    alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
+                                            </td>
+                                            <td class="text-left"> {{$product['product_description']['name']}}</td>
+                                            <td class="text-right">
+                                                @if(!empty($product['price_with_sale']))
+                                                    {{$product['price_with_sale']}}
+                                                @else
+                                                    {{$product['price']}}
+                                                @endif
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="label label-success">{{$product['quantity']}}</span>
+                                            </td>
+                                            <td class="text-left">{{config('products.products_statuses')[$product['status']]}}</td>
+                                            <td class="text-right">
+                                                <a href="{{route('admin.products.changeNewProd', ['id' => $product['id']])}}" data-toggle="tooltip" title="Редактировать" class="btn btn-primary">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -117,4 +133,26 @@
 @section('script')
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+
+        $('#input-title-product').on('keyup', function (e) {
+            if(e.key === 'Enter') {
+                var text = $('#input-title-product').val();
+                var url = new URL($("#filter-href").attr("href"));
+                var searchParams = new URLSearchParams(url.search);
+                searchParams.set("title_product", text);
+                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+            }
+        })
+
+        $('#input-status').change(function () {
+            var status = $(this).val();
+            if(status != '') {
+                var url = new URL($("#filter-href").attr("href"));
+                var searchParams = new URLSearchParams(url.search);
+                searchParams.set("status", status);
+                $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+            }
+        })
+    </script>
 @endsection

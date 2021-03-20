@@ -39,8 +39,6 @@
                             <li class="active"><a href="#tab-general" data-toggle="tab">Основное</a></li>
                             <li><a href="#tab-data" data-toggle="tab">Данные</a></li>
                             <li><a href="#tab-links" data-toggle="tab">Связи</a></li>
-                            <li><a href="#tab-attribute" data-toggle="tab">Атрибуты</a></li>
-                            <li><a href="#tab-discount" data-toggle="tab">Скидка</a></li>
                             <li><a href="#tab-image" data-toggle="tab">Изображения</a></li>
                             <li><a href="#tab-apt" data-toggle="tab">Вкладки</a></li>
                         </ul>
@@ -57,8 +55,8 @@
                                             <label class="col-sm-2 control-label" for="input-name1">Название
                                                 товара</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[1][name]"
-                                                       value=" Очищающая маска для лица Конопля Водоросли"
+                                                <input type="text" name="product_description[{{$product['id']}}][name]"
+                                                       value="{{$product['productDescription']['name']}}"
                                                        placeholder="Название товара" id="input-name1"
                                                        class="form-control"/>
                                             </div>
@@ -67,9 +65,11 @@
                                             <label class="col-sm-2 control-label"
                                                    for="input-description1">Описание</label>
                                             <div class="col-sm-10">
-                                                <textarea id="summernote" name="product_description[1][description]"
+                                                <textarea id="summernote" name="product_description[{{$product['id']}}][description]"
                                                           placeholder="Описание" id="input-description1"
-                                                          class="form-control summernote">&lt;div class=&quot;col-sm-6  border-right&quot; style=&quot;outline: 0px; padding-right: 20px; padding-left: 10px; width: 807.734px; border-right: 1px solid rgb(204, 204, 204); color: rgb(41, 37, 63); font-family: standard; font-size: 16px;&quot;&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;Маска-пленка – незаменимое средство для глубокого очищения и отшелушивания кожи. Специальная формула, обогащенная морскими водорослями и конопляным маслом, борется с воспалениями и повышенной жирностью кожи. После нанесения маска постепенно застывает, образуя на коже пленку, которая легко и быстро удаляет загрязнения из пор. Уже после первого применения заметен очищающий эффект маски, кожа становится ровной и матовой, сужаются поры. Регулярное использование очищающей маски позволит справится с воспалениями,&amp;nbsp; уменьшить диаметр пор и устранить жирный блеск.&lt;/p&gt;&lt;h2 style=&quot;outline: 0px; line-height: 1.3; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; font-size: 18px; padding: 10px 0px 0px; color: rgb(51, 51, 51); text-align: center; text-transform: uppercase;&quot;&gt;ПРЕИМУЩЕСТВА&lt;br style=&quot;outline: 0px;&quot;&gt;&lt;/h2&gt;&lt;ul style=&quot;outline: 0px; margin-bottom: 10px; padding-left: 15px;&quot;&gt;&lt;li style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;Глубокое очищение пор&lt;/li&gt;&lt;li style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;Эффективное действие против несовершенств кожи&lt;/li&gt;&lt;li style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;Заметный эффект уже после первого применения&lt;/li&gt;&lt;/ul&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;&lt;u style=&quot;outline: 0px;&quot;&gt;Спирулина&lt;/u&gt;&amp;nbsp;стимулирует выработку коллагена в коже, повышая ее упругость и эластичность. Содержащиеся в составе линолевая, арахидоновая и стеаридоновая кислоты оказывают противовоспалительное и дезинфицирующее действие на жирную и проблемную кожу.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;&lt;u style=&quot;outline: 0px;&quot;&gt;Конопляное масло&lt;/u&gt;&amp;nbsp;оказывает мощное антибактериальное, заживляющее и регенерирующее действие. Регулирует секрецию сальных желез, устраняет воспаления и препятствует их повторному появлению.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;&lt;u style=&quot;outline: 0px;&quot;&gt;Экстракт канадского кипрея&lt;/u&gt;&amp;nbsp;устраняет покраснение и раздражение кожи, обладает антибактериальным и противовоспалительным эффектом.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;&lt;u style=&quot;outline: 0px;&quot;&gt;Бамбуковый уголь&lt;/u&gt;&amp;nbsp;выводит токсины на поверхность кожи, обладает антисептическими свойствами.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; line-height: 20px !important;&quot;&gt;&lt;u style=&quot;outline: 0px;&quot;&gt;Комплекс Альго +&lt;/u&gt;&amp;nbsp;насыщает кожу влагой и микроэлементами, оказывает подтягивающее и укрепляющее действие, повышает упругость и эластичность кожи.&lt;/p&gt;&lt;/div&gt;&lt;h2 style=&quot;outline: 0px; line-height: 1.3; margin-right: 0px; margin-bottom: 15px; margin-left: 0px; font-size: 18px; padding: 10px 0px 0px; color: rgb(51, 51, 51); font-family: standard; text-align: center;&quot;&gt;РЕЗУЛЬТАТЫ&lt;/h2&gt;&lt;p style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;&lt;b&gt;&amp;nbsp; Уменьшение количества воспалений&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;&lt;b&gt;&amp;nbsp; Устранение комедонов и загрязнений&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;&lt;b&gt;&amp;nbsp; Сужение пор&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; line-height: 20px !important;&quot;&gt;&lt;b&gt;&amp;nbsp; Здоровый цвет лица&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; font-size: 16px; color: rgb(41, 37, 63); font-family: standard; line-height: 20px !important;&quot;&gt;95% отметили, что кожа стала заметно чище после первого применения маски.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; font-size: 16px; color: rgb(41, 37, 63); font-family: standard; line-height: 20px !important;&quot;&gt;90% заметили улучшения цвета лица и сужение пор.&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; font-size: 16px; color: rgb(41, 37, 63); font-family: standard; line-height: 20px !important;&quot;&gt;88% согласились, что количество воспалений значительно сократилось&lt;/p&gt;&lt;p style=&quot;outline: 0px; margin-bottom: 10px; font-size: 16px; color: rgb(41, 37, 63); font-family: standard; line-height: 20px !important;&quot;&gt;*результаты независимых потребительских испытаний 2018 года, группа участников 130 человек, продолжительность 14 дней&lt;/p&gt;</textarea>
+                                                          class="form-control summernote">
+                                                    {{$product['productDescription']['description']}}
+                                                </textarea>
                                             </div>
                                         </div>
 
@@ -77,8 +77,8 @@
                                             <label class="col-sm-2 control-label" for="input-meta-title1">Мета-тег
                                                 Title</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[1][meta_title]"
-                                                       value="Маска-пленка – незаменимое средство для глубокого очищения и отшелушивания кожи."
+                                                <input type="text" name="product_description[{{$product['id']}}][meta_title]"
+                                                       value="{{$product['productDescription']['meta_title']}}"
                                                        placeholder="Мета-тег Title" id="input-meta-title1"
                                                        class="form-control"/>
                                             </div>
@@ -91,7 +91,8 @@
                                             <div class="col-sm-10">
                                                 <input
                                                     type="text"
-                                                    name="product_description[1][meta_h1]" value=""
+                                                    name="product_description[{{$product['id']}}][meta_h1]"
+                                                    value="{{$product['productDescription']['meta_h1']}}"
                                                     placeholder="HTML тег H1"
                                                     id="input-meta-h11"
                                                     class="form-control"/>
@@ -102,18 +103,22 @@
                                             <label class="col-sm-2 control-label" for="input-meta-description1">Мета-тег
                                                 Description</label>
                                             <div class="col-sm-10">
-                                                <textarea name="product_description[1][meta_description]" rows="5"
+                                                <textarea name="product_description[{{$product['id']}}][meta_description]" rows="5"
                                                           placeholder="Мета-тег Description"
-                                                          id="input-meta-description1" class="form-control"></textarea>
+                                                          id="input-meta-description1" class="form-control">
+                                                    {{$product['productDescription']['meta_description']}}
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="input-meta-keyword1">Мета-тег
                                                 Keyword</label>
                                             <div class="col-sm-10">
-                                                <textarea name="product_description[1][meta_keyword]" rows="5"
+                                                <textarea name="product_description[{{$product['id']}}][meta_keyword]" rows="5"
                                                           placeholder="Мета-тег Keyword" id="input-meta-keyword1"
-                                                          class="form-control"></textarea>
+                                                          class="form-control">
+                                                    {{$product['productDescription']['meta_keyword']}}
+                                                </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -121,7 +126,8 @@
                                                     data-toggle="tooltip"
                                                     title="теги разделяются запятой">Теги товара</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="product_description[1][tag]" value=""
+                                                <input type="text" name="product_description[{{$product['id']}}][tag]"
+                                                       value="{{$product['productDescription']['tag']}}"
                                                        placeholder="Теги товара" id="input-tag1" class="form-control"/>
                                             </div>
                                         </div>
@@ -133,7 +139,7 @@
                                     <label class="col-sm-2 control-label" for="input-model">Модель</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="model"
-                                               value=" Очищающая маска для лица Конопля Водоросли" placeholder="Модель"
+                                               value="{{$product['model']}}" placeholder="Модель"
                                                id="input-model" class="form-control"/>
                                     </div>
                                 </div>
@@ -142,7 +148,7 @@
                                                                                                 title="SKU или код производителя">Краткое описание</span></label>
                                     <div class="col-sm-10">
                                         <input type="text" name="sku"
-                                               value="Маска-пленка на основе конопляного масла и морских водорослей эффективно очищает поры от загрязнений и излишков кожного сала, уменьшает воспаления, выравнивает цвет лица."
+                                               value="{{$product['sku']}}"
                                                placeholder="Краткое описание" id="input-sku" class="form-control"/>
                                     </div>
                                 </div>
@@ -150,7 +156,7 @@
                                     <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip"
                                                                                                 title="Универсальный код товара">Англ.название</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="upc" value="Cannabis Seaweed Cleansing Mask"
+                                        <input type="text" name="upc" value="{{$product['upc']}}"
                                                placeholder="Англ.название" id="input-upc" class="form-control"/>
                                     </div>
                                 </div>
@@ -158,7 +164,7 @@
                                     <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip"
                                                                                                 title="Европейский код товара">Артикул</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="ean" value="137" placeholder="Артикул" id="input-ean"
+                                        <input type="text" name="ean" value="{{$product['ean']}}" placeholder="Артикул" id="input-ean"
                                                class="form-control"/>
                                     </div>
                                 </div>
@@ -166,21 +172,21 @@
                                     <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip"
                                                                                                 title="Японский код товара">Объем</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="jan" value="1265" placeholder="Объем" id="input-jan"
+                                        <input type="text" name="jan" value="{{$product['jan']}}" placeholder="Объем" id="input-jan"
                                                class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-price">Цена</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="price" value="759" placeholder="Цена" id="input-price"
+                                        <input type="text" name="price" value="{{$product['price']}}" placeholder="Цена" id="input-price"
                                                class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-quantity">Количество</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="quantity" value="25" placeholder="Количество"
+                                        <input type="text" name="quantity" value="{{$product['quantity']}}" placeholder="Количество"
                                                id="input-quantity" class="form-control"/>
                                     </div>
                                 </div>
@@ -189,7 +195,7 @@
                                             data-toggle="tooltip"
                                             title="Минимальное количество товара в заказе (меньше данного кол-ва товара, добавление в корзину будет запрещено )">Минимальное количество</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="minimum" value="1" placeholder="Минимальное количество"
+                                        <input type="text" name="minimum" value="{{$product['minimum']}}" placeholder="Минимальное количество"
                                                id="input-minimum" class="form-control"/>
                                     </div>
                                 </div>
@@ -198,8 +204,16 @@
                                         склада</label>
                                     <div class="col-sm-10">
                                         <select name="subtract" id="input-subtract" class="form-control">
-                                            <option value="1" selected="selected">Да</option>
-                                            <option value="0">Нет</option>
+                                            @foreach(config('products.product_subtract') as
+                                                $product_subtract_key => $product_subtract)
+                                                <option value="{{$product_subtract_key}}"
+                                                       @if($product_subtract_key == $product['subtract'])
+                                                            selected="selected"
+                                                        @endif
+                                                >
+                                                    {{$product_subtract}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -209,10 +223,14 @@
                                             title="Статус показывается, когда товара нет на складе">Отсутствие на складе</span></label>
                                     <div class="col-sm-10">
                                         <select name="stock_status_id" id="input-stock-status" class="form-control">
-                                            <option value="6" selected="selected">2-3 Days</option>
-                                            <option value="7">В наличии</option>
-                                            <option value="5">Нет в наличии</option>
-                                            <option value="8">Предзаказ</option>
+                                            @foreach($stock_statuses as $stock_status)
+                                                <option value="{{$stock_status['stock_status_id']}}"
+                                                    @if($stock_status['stock_status_id'] == $product['stock_status_id'])
+                                                        selected="selected"
+                                                    @endif>
+                                                    {{$stock_status['name']}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -220,8 +238,15 @@
                                     <label class="col-sm-2 control-label" for="input-status">Статус</label>
                                     <div class="col-sm-10">
                                         <select name="status" id="input-status" class="form-control">
-                                            <option value="1" selected="selected">Включено</option>
-                                            <option value="0">Отключено</option>
+                                            @foreach(config('products.products_statuses') as
+                                                $product_status_key => $product_status)
+                                                <option value="{{$product_status_key}}"
+                                                    @if ($product['status'] == $product_status_key)
+                                                        selected="selected"
+                                                    @endif>
+                                                    {{$product_status}}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -229,7 +254,10 @@
                                     <label class="col-sm-2 control-label" for="input-sort-order">Порядок
                                         сортировки</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="sort_order" value="1" placeholder="Порядок сортировки"
+                                        <input type="text"
+                                               name="sort_order"
+                                               value="{{$product['sort_order']}}"
+                                               placeholder="Порядок сортировки"
                                                id="input-sort-order" class="form-control"/>
                                     </div>
                                 </div>
@@ -239,7 +267,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-code_1c">Код 1С</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="code_1c" value="8d4e9ad1-b166-11ea-ba82-3417ebd478d7"
+                                        <input type="text" name="code_1c" value="{{$product['productTo1C']['1c_id']}}"
                                                placeholder="Код 1С" id="input-code_1c" class="form-control"/>
                                     </div>
                                 </div>
@@ -248,85 +276,21 @@
                                     <label class="col-sm-2 control-label" for="input-category">Main category:</label>
                                     <div class="col-sm-10">
                                         <select id="main_category_id" name="main_category_id" class="form-control">
-                                            <option value="0" selected="selected"> --- Не выбрано ---</option>
-                                            <option value="33" selected="selected">Для лица</option>
-                                            <option value="66">Для лица &gt; Маски</option>
+                                            <option value="0"
+                                                @if (empty($product['productCategory']['category_id']))
+                                                    selected="selected"
+                                                @endif> --- Не выбрано ---</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category['id']}}"
+                                                    @if ($category['id'] == $product['productCategory']['category_id'])
+                                                        selected="selected"
+                                                    @endif
+                                                >{{$category['full_name']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-category"><span
-                                            data-toggle="tooltip"
-                                            title="(Автозаполнение)">Показывать в категориях</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="category" value=""
-                                               placeholder="Показывать в категориях" id="input-category"
-                                               class="form-control"/>
-                                        <div id="product-category" class="well well-sm"
-                                             style="height: 150px; overflow: auto;">
-                                            <div id="product-category33"><i class="fa fa-minus-circle"></i> Для лица
-                                                <input type="hidden" name="product_category[]" value="33"/>
-                                            </div>
-                                            <div id="product-category66"><i class="fa fa-minus-circle"></i> Для лица
-                                                &gt; Маски <input type="hidden" name="product_category[]" value="66"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab-attribute">
-                                <div class="table-responsive">
-                                    <table id="attribute" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <td class="text-left">Атрибут</td>
-                                            <td class="text-left">Текст</td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td class="text-left">
-                                                <button type="button" onclick="addAttribute();" data-toggle="tooltip"
-                                                        title="Добавить" class="btn btn-primary"><i
-                                                        class="fa fa-plus-circle"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab-discount">
-                                <div class="table-responsive">
-                                    <table id="discount" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <td class="text-left">Группа клиентов</td>
-                                            <td class="text-right">Количество</td>
-                                            <td class="text-right">Приоритет</td>
-                                            <td class="text-right">Цена</td>
-                                            <td class="text-left">Дата начала</td>
-                                            <td class="text-left">Дата окончания</td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="6"></td>
-                                            <td class="text-left">
-                                                <button type="button" onclick="addDiscount();" data-toggle="tooltip"
-                                                        title="Добавить" class="btn btn-primary"><i
-                                                        class="fa fa-plus-circle"></i></button>
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+
                             </div>
                             <div class="tab-pane" id="tab-image">
                                 <div class="table-responsive">
@@ -341,8 +305,9 @@
                                         <tr>
                                             <td class="text-left"><a href="" id="thumb-image" data-toggle="image"
                                                                      class="img-thumbnail"><img
-                                                        src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-100x100.jpg"
+                                                        src="{{url('image/products/' . $product->image->name)}}"
                                                         alt="" title=""
+                                                        width="100"
                                                         data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png"/></a><input
                                                     type="hidden" name="image"
                                                     value="catalog/maska-dlja-lica-konoplja-vodorosli.jpg"
@@ -361,6 +326,24 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach ($product->productImages as $key => $productImages)
+                                            <tr id="image-row{{ $key }}">
+                                                <td class="text-left">
+                                                    <a href="" id="thumb-image{{ $key }}" data-toggle="image" class="img-thumbnail">
+                                                        <img src="{{url('image/products/' . $productImages->image->name)}}" width="100" alt="" title="">
+                                                    </a>
+                                                    <input type="hidden" name="product_image[$key][image]" value="catalog/3.jpg" id="input-image0">
+                                                </td>
+                                                <td class="text-right" style="vertical-align: middle;">
+                                                    <input type="text" name="product_image[{{ $key }}][sort_order]" value="{{ $productImages->sort_order }}" placeholder="Порядок сортировки" class="form-control">
+                                                </td>
+                                                <td class="text-left" style="vertical-align: middle;">
+                                                    <button type="button" onclick="$('#image-row{{ $key }}').remove();" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить">
+                                                        <i class="fa fa-minus-circle"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                         <tfoot>
                                         <tr>
@@ -456,6 +439,21 @@
         apt_row++;
     }
     $('#languages_apt a:first').tab('show');
+</script>
+<script type="text/javascript">
+  var image_row = {{ $product->productImages->count() }};
+
+  function addImage() {
+    html  = '<tr id="image-row' + image_row + '">';
+    html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+    html += '  <td class="text-right" style="vertical-align: middle;"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="Порядок сортировки" class="form-control" /></td>';
+    html += '  <td class="text-left" style="vertical-align: middle;"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+    html += '</tr>';
+
+    $('#images tbody').append(html);
+
+    image_row++;
+  }
 </script>
 <script type="text/javascript">
     $('#language a:first').tab('show');
