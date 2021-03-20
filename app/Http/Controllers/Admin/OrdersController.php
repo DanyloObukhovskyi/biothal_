@@ -14,10 +14,11 @@ use App\Models\{
     OrderStatuses,
 };
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Orders\OrderPageRequest;
 
 class OrdersController extends Controller
 {
-    public function index(Request $request)
+    public function index(OrderPageRequest $request)
     {
         $statuses = ShoppingCart::STATUS;
         $order_statuses = OrderStatuses::all()->toArray();
@@ -26,8 +27,39 @@ class OrdersController extends Controller
             'productHistory',
             'orderStatus',
             'shoppingCart'
-        ])->get()->toArray();
+        ]);
+        if (!empty($request->input('filter_order_id'))) {
+            $orders = $orders->where('id', $request->input('filter_order_id'));
+        }
 
+        if (!empty($request->input('filter_order_status')) &&
+            $request->input('filter_order_status') !== "*") {
+            $orders = $orders->where('order_status_id', $request->input('filter_order_id'));
+        }
+
+        if (!empty($request->input('filter_total'))) {
+            $filter_total = $request->input('filter_total');
+            $orders = $orders->whereHas('shoppingCart', function ($query) use ($filter_total) {
+                $query->where('total', $filter_total);
+            });
+        }
+
+        if (!empty($request->input('filter_customer'))) {
+            $filter_customer = $request->input('filter_customer');
+            $orders = $orders->whereHas('userAddress', function ($query) use ($filter_customer) {
+                $query->where('full_name', $filter_customer);
+            });
+        }
+
+        if (!empty($request->input('filter_date_added'))) {
+            $orders = $orders->where('created_at', $request->input('filter_date_added'));
+        }
+
+        if (!empty($request->input('filter_date_modified'))) {
+            $orders = $orders->where('updated_at', $request->input('filter_date_modified'));
+        }
+
+        $orders = $orders->get()->toArray();
         foreach ($orders as $order_key => $order) {
             if (!empty($order['shopping_cart'])) {
                 $products = Cart_Product::where('cart_products.cart_id', $order['shopping_cart']['id'])
@@ -39,6 +71,9 @@ class OrdersController extends Controller
                 }
 
                 $orders[$order_key]['total_price'] = $total_price;
+                if (empty($order['shopping_cart']['total'])) {
+                    ShoppingCart::where('id', $order['shopping_cart']['id'])->update(['total' => $total_price]);
+                }
             }
         }
 
