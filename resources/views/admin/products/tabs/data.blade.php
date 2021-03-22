@@ -129,4 +129,20 @@
                    id="input-sort-order" class="form-control"/>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="input-is-recommended">Рекомендуемый товар</label>
+        <div class="col-sm-10">
+            <select name="is_recommended" id="input-is-recommended" class="form-control">
+                @foreach(config('products.product_is_recommended') as $product_is_recommended_key => $product_is_recommended)
+                    <option value="{{$product_is_recommended_key}}"
+                            @if(!empty($product) && $product_is_recommended_key == $product['is_recommended'] || empty($product) && $product_is_recommended_key == 0)
+                            selected="selected"
+                        @endif
+                    >
+                        {{$product_is_recommended}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 </div>
