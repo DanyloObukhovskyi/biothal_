@@ -39,9 +39,9 @@
                     <tr id="image-row{{ $key }}">
                         <td class="text-left">
                             <a onclick="getModal('{{ $key }}')" data-toggle="modal" data-target="#myModal" id="thumb-image{{ $key }}" data-toggle="image" class="img-thumbnail">
-                                <img id="sub_image_{{ $key }}" src=" {{Storage::disk('public')->url('storage/img/products/'. $productImages->image->name)}}" width="100" alt="" title="">
+                                <img id="sub_image_{{ $key }}" src=" {{Storage::disk('public')->url('storage/img/products/'. $productImages->images->name)}}" width="100" alt="" title="">
                             </a>
-                            <input type="hidden" name="product_image[$key][image]" value="catalog/3.jpg" id="input-image0">
+                            <input type="hidden" name="product_image[{{ $key }}][image]" value="{{ $productImages->image }}" id="input-image0">
                         </td>
                         <td class="text-right" style="vertical-align: middle;">
                             <input type="text" name="product_image[{{ $key }}][sort_order]" value="{{ $productImages->sort_order }}" placeholder="Порядок сортировки" class="form-control">
