@@ -8,5 +8,9 @@ return [
     'product_subtract' => [
         0 => "Нет",
         1 => "Да"
+    ],
+    'product_is_recommended' => [
+        0 => "Нет",
+        1 => "Да"
     ]
 ];

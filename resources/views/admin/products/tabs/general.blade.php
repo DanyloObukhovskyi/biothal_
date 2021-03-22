@@ -33,14 +33,24 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-short-description1">Краткое описание</label>
+                <div class="col-sm-10">
+                    <input type="text" name="product_description[1][short_description]"
+                           value="{{$product['productDescription']['short_description'] ?? ''}}"
+                           placeholder="Краткое описание" id="input-short-description1"
+                           class="form-control"/>
+                </div>
+            </div>
+
             <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-meta-title1">Мета-тег
                     Title</label>
                 <div class="col-sm-10">
                     <input type="text" name="product_description[1][meta_title]"
-                       value="{{$product['productDescription']['meta_title'] ?? ''}}"
-                       placeholder="Мета-тег Title" id="input-meta-title1"
-                       class="form-control"/>
+                           value="{{$product['productDescription']['meta_title'] ?? ''}}"
+                           placeholder="Мета-тег Title" id="input-meta-title1"
+                           class="form-control"/>
                 </div>
             </div>
 

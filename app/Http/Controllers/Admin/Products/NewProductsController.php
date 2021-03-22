@@ -25,7 +25,7 @@ use App\Models\Admin\Products\{
 
 use App\Models\Admin\UrlAlias;
 
-use App\Models\{Categories, Image, StockStatus, Admin\Products\Product};
+use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,7 +67,6 @@ class NewProductsController extends Controller
     }
 
     public function createProdProcess(ProductCreate $request){
-
         /* START: updating data for product*/
         $product = Product::create(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
@@ -85,10 +84,30 @@ class NewProductsController extends Controller
                 $product_description
             );
         }
-
+        if(isset($request['product_image'])){
+            ProductImages::where('product_id', $product['id'])->delete();
+            foreach($request['product_image'] as $productImage){
+                if(!empty($productImage['image'])){
+                    ProductImages::create([
+                        'product_id' => $product['id'],
+                        'image' => $productImage['image'],
+                        'sort_order' => $productImage['sort_order'] ?? null
+                    ]);
+                }
+            }
+        }
         ProductDescription::where('product_id', $product['id'])->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
 
+        /* START: updating categories data for product*/
+        foreach ($request['categoryProducts'] as $product_category) {
+            CategoryProducts::insert(
+                [
+                    'product_id' => $product['id'],
+                    'category_id' => $product_category
+                ]
+            );
+        }
         /* START: updating relations data for product*/
         if (!empty($request['productTo1C']['1c_id'])) {
             $product->productTo1C()->updateOrInsert(
@@ -158,7 +177,18 @@ class NewProductsController extends Controller
 
         ProductDescription::where('product_id', $id)->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
-
+        if(isset($request['product_image'])){
+            ProductImages::where('product_id', $product['id'])->delete();
+            foreach($request['product_image'] as $productImage){
+                if(!empty($productImage['image'])){
+                    ProductImages::create([
+                        'product_id' => $product['id'],
+                        'image' => $productImage['image'],
+                        'sort_order' => $productImage['sort_order'] ?? null
+                    ]);
+                }
+            }
+        }
         /* START: updating data for product*/
         $product->update(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
@@ -174,9 +204,18 @@ class NewProductsController extends Controller
         }
         /* END: updating relations data for product*/
 
-        /* START: updating images data for product*/
+        /* START: updating categories data for product*/
+        foreach ($request['categoryProducts'] as $product_category) {
+            CategoryProducts::where('product_id', '=', $product['id'])->delete();
 
-        /* END: updating images data for product*/
+            CategoryProducts::insert(
+                [
+                    'product_id' => $product['id'],
+                    'category_id' => $product_category
+                ]
+            );
+        }
+        /* END: updating categories data for product*/
 
         /* START: updating apts data for product*/
         ProductApts::where('product_id', $id)->delete();
