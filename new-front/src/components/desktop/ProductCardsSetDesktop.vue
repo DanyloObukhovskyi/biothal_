@@ -53,7 +53,6 @@
             productData: {
                 type: Array
             }
-
         },
         data() {
             return {

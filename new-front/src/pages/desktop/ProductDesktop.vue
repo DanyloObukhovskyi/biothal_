@@ -5,17 +5,16 @@
 
         <div class="block-product">
             <div class="block-product-base-info">
-
                 <div class="block-product-base-info__image">
-                    <img src="../../../public/product-images/product-image.svg" :alt="id.toString()"
-                         class="image__product"/>
+                    <img :src="require('../../../public/product-images/' + productData['image']['name'])" :alt="productData['image']['name']"
+                         class="product__image"/>
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
 
                 <div class="block-product-base-info__info">
                     <div class="info-title">
-                        <span class="info-title__title">Увлажняющая маска для лица Апельсин Бергамот</span>
-                        <span class="info-title__subtitle">Orange Bergamot Hydra Mask</span>
+                        <span class="info-title__title">{{ productData['product_description']['name'] }}</span>
+                        <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
                     </div>
 
                     <div class="info-rating">
@@ -24,17 +23,13 @@
                     </div>
 
                     <div class="info-price">
-                        <span class="info-price__price">633 грн</span>
-                        <span class="info-price__discount">1265 грн</span>
+                        <span class="info-price__price">{{ productData['price'] }} грн</span>
+                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>
                         <p class="info-price__in-stock">В наличии</p>
                     </div>
 
                     <div class="info-description">
-                        Маска оказывает мгновенное увлажняющее действие, разглаживая кожу и повышая ее эластичность и
-                        упругость.
-                        Создает на коже защитную пленку, которая предохраняет от потери влаги и негативного воздействия
-                        внешних
-                        факторов.
+                        {{ productData['product_description']['description'] }}
                     </div>
 
                     <div class="info-count">
@@ -95,42 +90,7 @@
                         :key="i"
                         :value="'tab-' + i">
                         <v-card flat>
-                            Увлажняющая маска моментально насыщает кожу необходимой влагой, тонизирует и укрепляет кожу.
-                            Формула на основе масел, коллагена и гиалуроновой кислоты эффективно борется с морщинками,
-                            повышает упругость и эластичность кожи. Регулярное использование маски заметно подтягивает
-                            овал лица, помогает предотвратить преждевременное старение кожи. Кожа приобретает гладкость,
-                            бархатистость и здоровое сияние.
-
-                            ПРЕИМУЩЕСТВА
-
-                            • Моментальный эффект увлажнения;
-                            • Эффективна против первых признаков старения;
-                            • Заметный эффект уже после первого применения.
-
-                            Гиалуроновая кислота удерживает в коже влагу, помогая повысить ее плотность и разгладить
-                            морщинки. В состав входит 2 вида гиалуроновой кислоты:
-
-                            • Гиалуроновая кислота средней молекулярной массы работает на поверхности кожи, увлажняя
-                            верхний эпидермальный слой.
-                            • Низкомолекулярная гиалуроновая кислота воздействует на глубокие слои, восполняя недостаток
-                            влаги изнутри.
-
-                            Масло крамбе содержит редкие жирные кислоты, которые обуславливают его отличные смягчающие и
-                            питающие свойства. Оказывает разглаживающий эффект, убирает мелкие морщинки, делает кожу
-                            более гладкой и бархатистой.
-
-                            Масло кивано нейтрализует действие свободных радикалов, предотвращает преждевременное
-                            старение кожи.
-
-                            Масло брокколи – эффективно борется с акне, интенсивно смягчает кожу, защищает ее от
-                            негативного воздействия ультрафиолета.
-
-                            Масло авокадо устраняет шелушения, воспаления, замедляет процессы старения. Благодаря
-                            большому количеству витамина А, содержащемуся в авокадо, кожа дольше сохраняет молодость и
-                            сияние.
-
-                            Комплекс Альго + насыщает кожу влагой и микроэлементами, оказывает подтягивающее и
-                            укрепляющее действие, повышает упругость и эластичность кожи.
+                            1
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -193,10 +153,7 @@
             async fetchProductDetails() {
                 let data = await this.axios.get('product/' + this.id);
 
-                console.log('product_id = '+this.id)
-                this.productData = data.data.products.data;
-                console.log(this.productData)
-
+                this.productData = data.data.productDetails[0];
             }
         },
     }

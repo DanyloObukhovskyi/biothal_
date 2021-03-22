@@ -51,6 +51,8 @@
                 isFavoritesShow: false,
             }
         },
+        mounted() {
+        },
         methods:{
         }
     }

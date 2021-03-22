@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     public function getProduct($id){
-        Log::info($id);
         $category_products = CategoryProducts::where('product_id', $id)->first();
-//        Log::info($category_products);
 
         $catProd_category_id = $category_products['category_id'];
         $category_string = '';
@@ -27,15 +25,17 @@ class ProductController extends Controller
         } else {
             $category_srting = (!empty($product_cat['title'])) ? $product_cat['title'] : '' ;
         }
+
+        $productDetails = Product::with('image', 'categories', 'productDescription')->where( 'id', $id)->get();
         $products = Product::with('image', 'categories')->get();
 
         return response()->json([
-            'products' => 'good'
-//            'id' => $id,
-//            'products' => $products,
-//            'category_products' => $category_products,
-//            'catProd_category_id' => $catProd_category_id,
-//            'category_string' => $category_string
+            'id' => $id,
+            'products' => $products,
+            'productDetails' => $productDetails,
+            'category_products' => $category_products,
+            'catProd_category_id' => $catProd_category_id,
+            'category_string' => $category_string
         ]);
     }
 }

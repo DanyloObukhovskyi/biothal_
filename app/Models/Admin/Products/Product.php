@@ -2,12 +2,11 @@
 
 namespace App\Models\Admin\Products;
 
-use App\Models\Admin\Accessories\Accessories;
+use App\Models\Image;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
-use App\Models\Image;
-use App\Models\ProductDescription;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\Accessories\Accessories;
 
 class Product extends Model
 {
@@ -23,7 +22,7 @@ class Product extends Model
 
     public function image()
     {
-        return $this->hasOne(Image::class,'id','image_id');
+        return $this->hasOne(Image::class,'id','id');
     }
 
     public function productImages()
