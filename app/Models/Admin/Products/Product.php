@@ -5,6 +5,7 @@ namespace App\Models\Admin\Products;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\Image;
+use App\Models\ProductDescription;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -35,7 +36,7 @@ class Product extends Model
     }
 
     public function productDescription () {
-        return $this->hasOne('App\Models\ProductDescription','product_id','id');
+        return $this->hasOne(ProductDescription::class,'product_id','id');
     }
 
     public function productTo1C () {

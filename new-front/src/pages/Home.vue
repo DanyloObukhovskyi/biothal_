@@ -4,9 +4,9 @@
             <img width="100%" src="../../public/slider.svg"/>
         </div>
         <div>
-            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productDataShowStock"/>
+            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData"/>
             <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
-                                   :product-data="productDataShowStock.slice(0, 4)"/>
+                                   :product-data="productData.slice(0, 4)"/>
         </div>
 
         <div class="category-card__wrapper">
@@ -17,9 +17,9 @@
         </div>
 
         <div class="gifts-and-discounts-content">
-            <ProductCardsSet v-if="!isMobile" title="Бестселлеры" :product-data="productData"/>
+            <ProductCardsSet v-if="!isMobile" title="Бестселлеры" :product-data="best_seller"/>
             <ProductCardsSetMobile v-if="isMobile" title="Бестселлеры"
-                                   :product-data="productData.slice(0, 4)"/>
+                                   :product-data="best_seller.slice(0, 4)"/>
         </div>
         <div class="description-biothal">
             <p class="main-title">Интернет-магазин Biothal</p>
@@ -126,71 +126,21 @@
         },
         data() {
             return {
+                best_seller: [],
+                productData: [],
                 isShowDescription: false,
-                productData: [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    }
-                ],
-                productDataShowStock: [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    }
-                ]
+            }
+        },
+        mounted() {
+            this.getProductData();
+        },
+        methods: {
+            async getProductData() {
+                let data = await this.axios.get('home');
+
+                this.productData = data.data.products.data;
+                this.best_seller = data.data.best_seller.data;
+                console.log(this.productData)
             }
         }
     }

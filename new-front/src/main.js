@@ -9,7 +9,7 @@ import axios from 'axios';
 import vue_axios from 'vue-axios';
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
-debugger
+
 axios.defaults.headers = {
     'Content-Type': 'application/json;',
     Accept: '*/*'

@@ -3,9 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::namespace('api')->get('home', 'HomeController@index');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::namespace('api')->get('product/{id}', 'ProductController@getProduct')->name('product_id');
+
+//Route::namespace('api')->get('test', function(){
+//    return response()->json([
+//        'data' => 'My first test string'
+//    ]);
+//});
+
 
 

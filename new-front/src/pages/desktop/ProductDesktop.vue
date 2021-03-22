@@ -41,17 +41,17 @@
                         <span class="info-count__title">Количество</span>
                         <div>
                             <v-icon
-                                @click="decrementCountGood"
-                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
-                                class="info-count__input-control">
-                                mdi-minus
-                            </v-icon>
-                            <input v-model="count_good" type="number" style="width: 42px"/>
-                            <v-icon
                                 @click="incrementCountGood"
                                 :style="{'background-color': variables.basecolor, color: '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-plus
+                            </v-icon>
+                            <input v-model="count_good" type="number" style="width: 42px"/>
+                            <v-icon
+                                @click="decrementCountGood"
+                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
+                                class="info-count__input-control">
+                                mdi-minus
                             </v-icon>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
         components: {PathBreadcrumb, TheMask, ProductCardsSet, Rating},
         props: {
             product_id: {
-                type: [Number, String],
+                type: Number,
                 default: 1
             },
         },
@@ -164,6 +164,9 @@
             validPhoneInput() {
                 return this.phone.length === 10
             }
+        },
+        mounted() {
+            // this.fetchProductDetails();
         },
         data() {
             return {
@@ -211,6 +214,14 @@
                 if (this.count_good > 1) {
                     --this.count_good;
                 }
+            },
+            async fetchProductDetails() {
+                let data = await this.axios.get('product/'+this.product_id);
+
+                console.log(this.product_id)
+
+                this.productData = data.data.products.data;
+                this.best_seller = data.data.best_seller.data;
             }
         },
     }
