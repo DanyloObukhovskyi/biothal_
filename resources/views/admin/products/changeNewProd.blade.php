@@ -248,8 +248,8 @@
   var image_row = {{ !empty($product) ? $product->productImages->count(): 0 }};
 
   function addImage() {
-    html  = '<tr onclick="getModal('+ image_row +')" id="image-row' + image_row + '" data-toggle="modal" data-target="#myModal">';
-    html += '  <td class="text-left"><a id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img id="sub_image_' + image_row + '" src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+    html  = '<tr  id="image-row' + image_row + '">';
+    html += '  <td class="text-left"><a onclick="getModal('+ image_row +')" data-toggle="modal" data-target="#myModal" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img id="sub_image_' + image_row + '" src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
     html += '  <td class="text-right" style="vertical-align: middle;"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="Порядок сортировки" class="form-control" /></td>';
     html += '  <td class="text-left" style="vertical-align: middle;"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
     html += '</tr>';
