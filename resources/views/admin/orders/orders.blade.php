@@ -34,63 +34,56 @@
             <div class="panel-body">
                 <div class="well">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="input-order-id">№ Заказа</label>
-                                <input type="text" name="filter_order_id" value="" placeholder="№ Заказа" id="input-order-id" class="form-control" />
+                        <form class="form" method="GET" action="{{route('admin.orders.orders')}}" style="width: 100%;" >
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-order-id">№ Заказа</label>
+                                    <input type="text" name="filter_order_id" value="" placeholder="№ Заказа" id="input-order-id" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-customer">Клиент</label>
+                                    <input type="text" name="filter_customer" value="" placeholder="Клиент" id="input-customer" class="form-control" />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="input-customer">Клиент</label>
-                                <input type="text" name="filter_customer" value="" placeholder="Клиент" id="input-customer" class="form-control" />
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-order-status">Статус заказа</label>
+                                    <select name="filter_order_status" id="input-order-status" class="form-control">
+                                        <option value="*"></option>
+                                        @foreach($order_statuses as $order_status)
+                                            <option value="{{$order_status['id']}}">{{$order_status['name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-total">Итого</label>
+                                    <input type="text" name="filter_total" value="" placeholder="Итого" id="input-total" class="form-control" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="input-order-status">Статус заказа</label>
-                                <select name="filter_order_status" id="input-order-status" class="form-control">
-                                    <option value="*"></option>
-                                    <option value="0">Пропавшие заказы</option>
-                                    <option value="24">В обработке</option>
-                                    <option value="18">Возврат</option>
-                                    <option value="11">Дозаказ</option>
-                                    <option value="21">на карту, отправлен</option>
-                                    <option value="22">На карту, предзаказ</option>
-                                    <option value="17">Наложка</option>
-                                    <option value="20">наложка предзаказ</option>
-                                    <option value="10">Недозвон 1</option>
-                                    <option value="14">Недозвон 2</option>
-                                    <option value="1">Новый</option>
-                                    <option value="15">Ожидаем оплату</option>
-                                    <option value="16">Оплачен</option>
-                                    <option value="3">Отменён</option>
-                                    <option value="23">Отправлен в 1С</option>
-                                    <option value="19">отправлен наложка</option>
-                                </select>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-date-added">Дата добавления</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <input type="text" name="filter_date_added" value="" placeholder="Дата добавления" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                        </span></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-date-modified">Дата изменения</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <input type="text" name="filter_date_modified" value="" placeholder="Дата изменения" data-date-format="YYYY-MM-DD" id="input-date-modified" class="form-control" />
+                                        <span class="input-group-btn">
+                                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                                         </span>
+                                    </div>
+                                </div>
+                                <button type="submit" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> Фильтр</button>
+                                @if (request()->has(['filter_customer', 'filter_order_id', 'filter_order_status', 'filter_date_modified', 'filter_total', 'filter_date_added']))
+                                    <a style="    margin: 23px 10px 2px 2px;" href="{{route('admin.orders.orders')}}" class="btn btn-default pull-right">Reset Filters</a>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="input-total">Итого</label>
-                                <input type="text" name="filter_total" value="" placeholder="Итого" id="input-total" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="input-date-added">Дата добавления</label>
-                                <div class="input-group date">
-                                    <input type="text" name="filter_date_added" value="" placeholder="Дата добавления" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
-                                    <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                  </span></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="input-date-modified">Дата изменения</label>
-                                <div class="input-group date">
-                                    <input type="text" name="filter_date_modified" value="" placeholder="Дата изменения" data-date-format="YYYY-MM-DD" id="input-date-modified" class="form-control" />
-                                    <span class="input-group-btn">
-                  <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                  </span></div>
-                            </div>
-                            <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> Фильтр</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <form method="post" action="" enctype="multipart/form-data" id="form-order">

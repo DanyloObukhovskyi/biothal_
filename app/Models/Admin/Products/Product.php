@@ -6,6 +6,7 @@ use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
 use App\Models\Image;
+use App\Models\ProductDescription;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model

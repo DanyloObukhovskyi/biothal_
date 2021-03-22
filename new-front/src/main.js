@@ -5,6 +5,64 @@ import router from "./router";
 import "./plugins/vue-the-mask";
 import globalMixins from "./mixins/global"
 import store from './store/index';
+import axios from 'axios';
+import vue_axios from 'vue-axios';
+
+axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
+
+axios.defaults.headers = {
+    'Content-Type': 'application/json;',
+    Accept: '*/*'
+}
+
+axios.interceptors.request.use(config =>{
+    config.headers['Content-Type'] = 'application/json'
+
+    return config;
+})
+
+
+axios.interceptors.response.use(
+    response => {
+        return Promise.resolve(response)
+    },
+    error => {
+        if (error.response.status) {
+            switch (error.response.status) {
+                case 400:
+
+                    //do something
+                    break;
+
+                case 401:
+                    alert("session expired");
+                    break;
+                case 403:
+                    router.replace({
+                        path: "/login",
+                        query: { redirect: router.currentRoute.fullPath }
+                    });
+                    break;
+                case 404:
+                    alert('page not exist');
+                    break;
+                case 502:
+                    setTimeout(() => {
+                        router.replace({
+                            path: "/login",
+                            query: {
+                                redirect: router.currentRoute.fullPath
+                            }
+                        });
+                    }, 1000);
+            }
+            return Promise.reject(error.response);
+        }
+    }
+);
+
+
+Vue.use(vue_axios, axios);
 
 import '@/styles/main.scss';
 
