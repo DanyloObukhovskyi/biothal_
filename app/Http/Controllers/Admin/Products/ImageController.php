@@ -17,9 +17,8 @@ class ImageController extends Controller
 {
     public function index()
     {
-        $images = [];
         $imagesGlobal = [];
-        $imagesAll = Image::all();
+        $images = Image::paginate(15);
         $imagesGlobalAll = ImageGlobal::all();
         // Если нет изображений, выводим подсказку
 //        if (count($imagesAll) == 0) {
@@ -28,19 +27,6 @@ class ImageController extends Controller
 //        if (count($imagesGlobalAll) == 0) {
 //            return view('admin.images.index', ['imagesGlobal' => null]);
 //        }
-
-        $n = 0; // Номер группы
-        $i = 0; // Итератор
-        // Делаю групы по 4 изображения, для удобного размещения на форме
-        foreach ($imagesAll as $image) {
-            $imageS[$i + 1] = $image;
-            $i++;
-            $images[$n] = $imageS;
-           if ($i % 4 == 0) {
-                $imageS = null;
-                $n++;
-            }
-        }
 
         $n = 0; // Номер группы
         $i = 0; // Итератор
@@ -109,21 +95,23 @@ class ImageController extends Controller
 
     public function addImage(ValidImgRequest $request)
     {
-//        dd($request->toArray());
         // Проверяем есть ли файл
         if (!$request->hasFile('img')) {
             return redirect()->route('admin.images.page');
+        } else {
+            foreach($request->file('img') as $img){
+                $name = $img->getClientOriginalName();
+
+                // Помещаем файл в репозиторий
+                $img->move(public_path("storage/img/products"), $name);
+                // Добавляем файл в базу
+                Image::create([
+                    'name' => $name
+                ]);
+
+            }
+            return redirect()->route('admin.images.page');
         }
-        $name = $request->file('img')->getClientOriginalName();
-
-        // Помещаем файл в репозиторий
-        $request->file('img')->move(public_path("storage/img/products"), $name);
-        // Добавляем файл в базу
-        Image::create([
-            'name' => $name
-        ]);
-
-        return redirect()->route('admin.images.page');
     }
 
     public function addGlobalImage(ValidImgRequest $request)
@@ -169,5 +157,13 @@ class ImageController extends Controller
             $image2->delete();
         }
         return true;
+    }
+
+    public function getImages(Request $request) {
+        $images = Image::query();
+
+        return response()->json([
+            'data' => $images->paginate($request->input('count', 12))
+        ]);
     }
 }

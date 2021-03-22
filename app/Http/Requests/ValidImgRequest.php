@@ -24,7 +24,7 @@ class ValidImgRequest extends FormRequest
     public function rules()
     {
         return [
-            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
