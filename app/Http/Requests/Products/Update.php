@@ -24,10 +24,15 @@ class Update extends FormRequest
     public function rules()
     {
         return [
+            'price' => 'required',
+            'quantity' => 'required',
+            'minimum' => 'required',
+            'sort_order' => 'required',
             'product_description.*.description' => 'max:10000',
             'product_description.*.name' => 'max:255|required',
             'product_description.*.meta_description' => 'max:299',
             'product_description.*.meta_keywords' => 'max:250',
+            'product_description.*.meta_title' => 'required',
         ];
     }
 

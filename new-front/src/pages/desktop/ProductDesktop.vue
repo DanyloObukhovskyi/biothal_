@@ -6,20 +6,15 @@
         <div class="block-product">
             <div class="block-product-base-info">
                 <div class="block-product-base-info__image">
-                    <img :src="require('../../../public/product-images/' + productData['image']['name'])" :alt="productData['image']['name']"
-                         class="product__image"/>
+                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"
+                         class="image__product"/>
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
 
                 <div class="block-product-base-info__info">
                     <div class="info-title">
-                        <span class="info-title__title">{{ productData['product_description']['name'] }}</span>
+                        <span class="info-title__title">{{ productData['product_description']['name'] || '' }}</span>
                         <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
-                    </div>
-
-                    <div class="info-rating">
-                        <Rating :color="variables.basecolor"/>
-                        <span class="info-rating__comment">5 отзывов</span>
                     </div>
 
                     <div class="info-price">
@@ -86,11 +81,21 @@
 
                 <v-tabs-items style="margin-top: 30px" v-model="tab">
                     <v-tab-item
-                        v-for="i in 4"
-                        :key="i"
-                        :value="'tab-' + i">
+                        :value="'tab-1'">
                         <v-card flat>
-                            1
+                            {{ productData['composition'] }}
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        :value="'tab-2'">
+                        <v-card flat>
+                            {{ productData['product_description']['description']  }}
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        :value="'tab-3'">
+                        <v-card flat>
+                            {{  }}
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -132,7 +137,7 @@
             return {
                 tab: null,
                 items: [
-                    'Описание', 'Состав', 'Применение', 'Отзывы'
+                    'Описание', 'Состав', 'Применение'
                 ],
                 variables,
                 count_good: 1,
@@ -154,6 +159,7 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails[0];
+                console.log(this.productData)
             }
         },
     }

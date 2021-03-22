@@ -26,7 +26,9 @@ class ProductController extends Controller
             $category_srting = (!empty($product_cat['title'])) ? $product_cat['title'] : '' ;
         }
 
-        $productDetails = Product::with('image', 'categories', 'productDescription')->where( 'id', $id)->get();
+        $prod = Product::with('productApts')->where( 'id', $id)->get();
+        Log::info($prod);
+        $productDetails = Product::with('image', 'categories', 'productDescription', 'productsAttributes')->where( 'id', $id)->get();
         $products = Product::with('image', 'categories')->get();
 
         return response()->json([

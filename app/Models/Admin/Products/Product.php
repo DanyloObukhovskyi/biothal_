@@ -22,7 +22,7 @@ class Product extends Model
 
     public function image()
     {
-        return $this->hasOne(Image::class,'id','id');
+        return $this->hasOne(Image::class,'id', 'id');
     }
 
     public function productImages()
@@ -32,7 +32,7 @@ class Product extends Model
 
     public function productApts()
     {
-        return $this->hasMany(ProductApts::class);
+        return $this->hasMany(ProductApts::class,'product_id', 'id');
     }
 
     public function getSale()

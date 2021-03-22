@@ -99,9 +99,9 @@
     function addApt(lang_id) {
         html  = '<div id="apt_row_' + lang_id + '_' + apt_row + '" class="row" style="margin-bottom: 20px">';
         html += '<input type="hidden" name="product_apt[' + apt_row + '][language_id]" value ="' + lang_id + '">';
-        html += '<div class="col-sm-2"><input type="text" name="product_apt_name[' + apt_row + ']" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
-        html += '<div class="col-sm-8"><textarea name="product_apt_desc[' + apt_row + ']"  id="apt_desc_1_' + apt_row + '" cols="45" rows="5" ></textarea></div>';
-        html += '<div class="col-sm-1"><input type="text" name="tab_sort_order[' + apt_row + ']" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
+        html += '<div class="col-sm-2"><input type="text" name="product_apt[' + apt_row + '][tab_title]" value="" id="apt_name' + apt_row + '" class="form-control" /></div>';
+        html += '<div class="col-sm-8"><textarea name="product_apt[' + apt_row + '][tab_desc]"  id="apt_desc_1_' + apt_row + '" cols="45" rows="5" ></textarea></div>';
+        html += '<div class="col-sm-1"><input type="text" name="product_apt[' + apt_row + '][sort_order]" value="" id="sort_order' + apt_row + '" size="5" class="form-control"/></div>';
         html += '<div class="col-sm-1"><a onclick="$(\'#apt_row_' + lang_id + '_' + apt_row  + '\').remove();" class="btn btn-danger"><i class="fa fa-minus-circle fa-fw"></i></a></div>';
         html += '</div>';
 
