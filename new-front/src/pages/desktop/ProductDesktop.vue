@@ -72,30 +72,20 @@
                     <v-tabs-slider color="#000"></v-tabs-slider>
 
                     <v-tab
-                        :href="`#tab-${index+1}`"
-                        v-for="(item, index) in items"
-                        :key="item">
-                        {{ item }}
+                        :href="`#tab-${idx}`"
+                        v-for="(item, idx) in this.items"
+                        :key="idx">
+                        {{ item['tab_title'] }}
                     </v-tab>
                 </v-tabs>
 
                 <v-tabs-items style="margin-top: 30px" v-model="tab">
                     <v-tab-item
-                        :value="'tab-1'">
+                        v-for="(item, idx) in this.items"
+                        :key="idx"
+                        :value="'tab-' + idx">
                         <v-card flat>
-                            {{ productData['composition'] }}
-                        </v-card>
-                    </v-tab-item>
-                    <v-tab-item
-                        :value="'tab-2'">
-                        <v-card flat>
-                            {{ productData['product_description']['description']  }}
-                        </v-card>
-                    </v-tab-item>
-                    <v-tab-item
-                        :value="'tab-3'">
-                        <v-card flat>
-                            {{  }}
+                            {{ item['tab_desc'] }}
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -136,11 +126,9 @@
         data() {
             return {
                 tab: null,
-                items: [
-                    'Описание', 'Состав', 'Применение'
-                ],
                 variables,
                 count_good: 1,
+                items: [],
                 is_discount: true,
                 phone: '',
                 productData: []
@@ -159,7 +147,8 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails[0];
-                console.log(this.productData)
+                this.items = this.productData['product_apts'];
+                console.log(this.items)
             }
         },
     }
