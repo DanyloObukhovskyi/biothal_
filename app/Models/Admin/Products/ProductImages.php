@@ -10,12 +10,12 @@ class ProductImages extends Model
     protected $table = 'product_images';
 
     protected $fillable = [
-        'product_id', 'image_id', 'sort_order'
+        'product_id', 'image', 'sort_order'
     ];
 
-    public function image()
+    public function images()
     {
-        return $this->hasOne(Image::class,'id','image_id');
+        return $this->hasOne(Image::class,'id','image');
     }
 
     public $timestamps = FALSE;

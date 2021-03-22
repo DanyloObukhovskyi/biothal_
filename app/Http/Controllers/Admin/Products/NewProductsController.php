@@ -91,7 +91,7 @@ class NewProductsController extends Controller
                     ProductImages::create([
                         'product_id' => $product['id'],
                         'image' => $productImage['image'],
-                        'sort_order' => $productImage['sort_order'] ?? null
+                        'sort_order' => $productImage['sort_order'] ?? 0
                     ]);
                 }
             }
@@ -150,7 +150,6 @@ class NewProductsController extends Controller
 
 
     public function updateProduct(ProductUpdate $request, $id){
-
         $product = Product::find($id);
         if (empty($product)) {
             abort(404);
@@ -175,7 +174,7 @@ class NewProductsController extends Controller
                     ProductImages::create([
                         'product_id' => $product['id'],
                         'image' => $productImage['image'],
-                        'sort_order' => $productImage['sort_order'] ?? null
+                        'sort_order' => $productImage['sort_order'] ?? 0
                     ]);
                 }
             }
