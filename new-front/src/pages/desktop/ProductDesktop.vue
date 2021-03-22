@@ -7,7 +7,7 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img src="../../../public/product-images/product-image.svg" :alt="product_id.toString()"
+                    <img src="../../../public/product-images/product-image.svg" :alt="id.toString()"
                          class="image__product"/>
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
@@ -41,17 +41,17 @@
                         <span class="info-count__title">Количество</span>
                         <div>
                             <v-icon
-                                @click="decrementCountGood"
-                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
-                                class="info-count__input-control">
-                                mdi-minus
-                            </v-icon>
-                            <input v-model="count_good" type="number" style="width: 42px"/>
-                            <v-icon
                                 @click="incrementCountGood"
                                 :style="{'background-color': variables.basecolor, color: '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-plus
+                            </v-icon>
+                            <input v-model="count_good" type="number" style="width: 42px"/>
+                            <v-icon
+                                @click="decrementCountGood"
+                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
+                                class="info-count__input-control">
+                                mdi-minus
                             </v-icon>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
         name: "ProductDesktop",
         components: {PathBreadcrumb, TheMask, ProductCardsSet, Rating},
         props: {
-            product_id: {
+            id: {
                 type: [Number, String],
                 default: 1
             },
@@ -165,6 +165,9 @@
                 return this.phone.length === 10
             }
         },
+        mounted() {
+            this.fetchProductDetails();
+        },
         data() {
             return {
                 tab: null,
@@ -172,35 +175,10 @@
                     'Описание', 'Состав', 'Применение', 'Отзывы'
                 ],
                 variables,
-                count_good: 2,
+                count_good: 1,
                 is_discount: true,
                 phone: '',
-                productData: [
-                    {
-                        id: 1,
-                        img: 'public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 2,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg'
-                    }
-                ]
+                productData: []
             }
         },
         methods: {
@@ -211,6 +189,14 @@
                 if (this.count_good > 1) {
                     --this.count_good;
                 }
+            },
+            async fetchProductDetails() {
+                let data = await this.axios.get('product/' + this.id);
+
+                console.log('product_id = '+this.id)
+                this.productData = data.data.products.data;
+                console.log(this.productData)
+
             }
         },
     }

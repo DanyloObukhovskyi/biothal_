@@ -46,48 +46,20 @@
                 type: String,
                 default: ''
             },
-            productData: {
-                type: Array,
-                default: () => [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    }
-                ]
-            },
             typeSet: {
                 type: String,
                 default: 'product'
+            },
+            productData: {
+                type: Array
             }
+
         },
         data() {
-            return {}
+            return {
+            }
+        },
+        methods: {
         }
     }
 </script>

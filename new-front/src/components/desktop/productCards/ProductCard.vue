@@ -12,14 +12,14 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img width="100%" src="../../../../public/product-images/product-image.svg"/>
+        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})" width="100%" :src="require('../../../../public/product-images/' + dataCard['image']['name'])" :alt="dataCard['image']['name']"/>
         <div class="product__rating">
             <Rating/>
             <div>5 отзывов</div>
         </div>
         <div class="product__description">
-            <div @click="toPage({name: 'product', params: {id: 1}})" class="product__description__text">Очищающая маска для лица Конопля Водоросли</div>
-            <div class="product__description__price default-cursor">1920 грн</div>
+            <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">{{ dataCard['product_description']['name'] }}</div>
+            <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
         </div>
         <div>
             <v-btn dark class="product__button" elevation="0">Купить</v-btn>
@@ -34,8 +34,7 @@
         name: "ProductCard",
         props: {
             dataCard: {
-                type: Object,
-                default: ()=>[]
+                type: Object
             },
             isShowStock: {
                 type: Boolean,
@@ -47,9 +46,12 @@
         },
         data() {
             return {
+                imageSource: '',
                 isFavorites: false,
                 isFavoritesShow: false,
             }
+        },
+        methods:{
         }
     }
 </script>
@@ -87,6 +89,12 @@
         &__heart {
             text-align: right;
             height: 16.5px;
+        }
+
+        &__image {
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         &__rating {
