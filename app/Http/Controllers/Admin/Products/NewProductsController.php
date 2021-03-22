@@ -25,7 +25,7 @@ use App\Models\Admin\Products\{
 
 use App\Models\Admin\UrlAlias;
 
-use App\Models\{Categories, Image, StockStatus, Admin\Products\Product};
+use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -99,6 +99,15 @@ class NewProductsController extends Controller
         ProductDescription::where('product_id', $product['id'])->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
 
+        /* START: updating categories data for product*/
+        foreach ($request['categoryProducts'] as $product_category) {
+            CategoryProducts::insert(
+                [
+                    'product_id' => $product['id'],
+                    'category_id' => $product_category
+                ]
+            );
+        }
         /* START: updating relations data for product*/
         if (!empty($request['productTo1C']['1c_id'])) {
             $product->productTo1C()->updateOrInsert(
@@ -195,9 +204,18 @@ class NewProductsController extends Controller
         }
         /* END: updating relations data for product*/
 
-        /* START: updating images data for product*/
+        /* START: updating categories data for product*/
+        foreach ($request['categoryProducts'] as $product_category) {
+            CategoryProducts::where('product_id', '=', $product['id'])->delete();
 
-        /* END: updating images data for product*/
+            CategoryProducts::insert(
+                [
+                    'product_id' => $product['id'],
+                    'category_id' => $product_category
+                ]
+            );
+        }
+        /* END: updating categories data for product*/
 
         /* START: updating apts data for product*/
         ProductApts::where('product_id', $id)->delete();
