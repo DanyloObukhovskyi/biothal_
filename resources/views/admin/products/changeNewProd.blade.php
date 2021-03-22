@@ -58,7 +58,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <form action="{{ isset($id) ? route('admin.products.createProdProcess', ['id' => $product['id']]) : route('admin.products.createProd') }}" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
+                    <form action="{{ isset($id) ? route('admin.products.changeNewProd', ['id' => $product['id']]) : route('admin.products.createProd') }}" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
                         @csrf
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
