@@ -13,7 +13,7 @@
                 <td class="text-left"><a onclick="getModal('main')" data-toggle="modal" data-target="#myModal" id="thumb-image" data-toggle="image"
                                          class="img-thumbnail"><img
                                 id="main"
-                                src="{{ !empty($product->image->name) ? url('image/products/' . $product->image->name) : 'https://biothal.com.ua/image/cache/no_image-100x100.png'}}"
+                                src="{{ !empty($product->image->name) ? Storage::disk('public')->url('storage/img/products/'. $product->image->name) : 'https://biothal.com.ua/image/cache/no_image-100x100.png'}}"
                                 alt="" title=""
                                 width="100"
                                 data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png"/></a><input
@@ -39,7 +39,7 @@
                     <tr id="image-row{{ $key }}">
                         <td class="text-left">
                             <a onclick="getModal('{{ $key }}')" data-toggle="modal" data-target="#myModal" id="thumb-image{{ $key }}" data-toggle="image" class="img-thumbnail">
-                                <img id="sub_image_{{ $key }}" src="{{url('image/products/' . $productImages->image->name)}}" width="100" alt="" title="">
+                                <img id="sub_image_{{ $key }}" src=" {{Storage::disk('public')->url('storage/img/products/'. $productImages->image->name)}}" width="100" alt="" title="">
                             </a>
                             <input type="hidden" name="product_image[$key][image]" value="catalog/3.jpg" id="input-image0">
                         </td>

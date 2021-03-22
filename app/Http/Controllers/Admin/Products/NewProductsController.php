@@ -67,7 +67,6 @@ class NewProductsController extends Controller
     }
 
     public function createProdProcess(ProductCreate $request){
-
         /* START: updating data for product*/
         $product = Product::create(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
@@ -85,7 +84,18 @@ class NewProductsController extends Controller
                 $product_description
             );
         }
-
+        if(isset($request['product_image'])){
+            ProductImages::where('product_id', $product['id'])->delete();
+            foreach($request['product_image'] as $productImage){
+                if(!empty($productImage['image'])){
+                    ProductImages::create([
+                        'product_id' => $product['id'],
+                        'image' => $productImage['image'],
+                        'sort_order' => $productImage['sort_order'] ?? null
+                    ]);
+                }
+            }
+        }
         ProductDescription::where('product_id', $product['id'])->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
 
@@ -158,7 +168,18 @@ class NewProductsController extends Controller
 
         ProductDescription::where('product_id', $id)->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
-
+        if(isset($request['product_image'])){
+            ProductImages::where('product_id', $product['id'])->delete();
+            foreach($request['product_image'] as $productImage){
+                if(!empty($productImage['image'])){
+                    ProductImages::create([
+                        'product_id' => $product['id'],
+                        'image' => $productImage['image'],
+                        'sort_order' => $productImage['sort_order'] ?? null
+                    ]);
+                }
+            }
+        }
         /* START: updating data for product*/
         $product->update(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
