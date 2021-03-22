@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="{{asset('css/products.css')}}">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <style>
+        .viewbox-container{
+            z-index: 1100 !important;
+        }
+        .card-body:hover{
+            box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -81,6 +89,8 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="storage" value="{{Storage::disk('public')->url('storage/img/products/')}}" />
 @endsection
 
 @section('script')
@@ -100,13 +110,146 @@
         apt_row++;
     }
     $('#languages_apt a:first').tab('show');
+
+    function getImages(page)
+    {
+        let storage = $('#storage').val();
+        $('#paginate').hide();
+        $.ajax({
+            method: 'GET',
+            url: "/admin/Images/getImages",
+            data: {
+                page: page
+            },
+            success : function(result){
+                let images = result.data.data;
+                let to = result.data.to;
+                let from = result.data.from;
+                let pages = result.data.last_page;
+                let total = result.data.total;
+                let per_page = result.data.per_page;
+                let current_page = result.data.current_page;
+
+                if($.trim(images)){
+                    let htmls = '';
+                    images.forEach((item, key) => {
+                        let html = '<div class="card-body justify-content-start col-3" style="display:inline-flex; column-count: 4; padding: 0.25rem;">'+
+                                        '<input type="radio" id="pictures_'+item.id+'" onclick="setImage('+item.id+',\''+item.name+'\')"'+
+                                        'value="'+item.id+'">'+
+                                        '<label class="text-center" style="color:black;" for="pictures_'+item.id+'" id="pictures_label_'+item.id+'">'+
+                                            '<a href="'+storage + item.name+'" class="thumbnail">'+
+                                                '<img class="img-fluid" style="min-height: 5em"'+
+                                                'src="'+storage + item.name+'"'+
+                                                'width="200" height="200" alt="Изображение товара">'+
+                                            '</a>'+
+                                            '<h5>'+item.name+'</h5>'+
+                                        '</label>'+
+                                    '</div>';
+                        htmls = htmls + html;
+                    });
+                    $('#imagesModal').html(htmls);
+                    let paginate = '<ul class="pagination">'+
+                                        '<li href="javascript:void(0)" onclick="'+ (current_page > 1 ?  "getImages("+ (current_page - 1) +")" : "" ) +'" aria-disabled="true" aria-label="« Previous" class="page-item '+ (current_page <= 1 ? "disabled" : "") +'">'+
+                                            '<a aria-hidden="true" class="page-link">‹</a>'+
+                                        '</li>';
+                    for (var i = 1; i <= pages; i++) {
+                        paginate = paginate + '<li href="javascript:void(0)" onclick="'+ (i === current_page ? "" : "getImages("+ i +")") +'" class="page-item '+ (i === current_page ? "active" : "")  +'">'+
+                                                    '<a class="page-link">'+ i +'</a>' +
+                                                '</li>';
+                    }
+                    paginate = paginate + '<li href="javascript:void(0)" onclick="'+ (current_page != pages ? "getImages("+ (current_page + 1) +")" : "") +'"  class="page-item '+ (current_page != pages ? "" : "disabled") +'">'+
+                                            '<a rel="next" aria-label="Next »" class="page-link">›</a>'+
+                                        '</li>'+
+                                    '</ul>';
+                    $('#paginate_data').html(paginate);
+                    $('#all_count').text(total)
+                    $('#page_count').text(pages)
+                    $('#from').text(from);
+                    $('#to').text(to);
+                    $('#paginate').show();
+                    $('.thumbnail').viewbox({
+                        template: '<div class="viewbox-container"><div class="viewbox-body"><div class="viewbox-header"></div><div class="viewbox-content"></div><div class="viewbox-footer"></div></div></div>',
+
+                        // loading spinner
+                        loader: '<div class="loader"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>',
+
+                        // show title
+                        setTitle: true,
+
+                        // margin in px
+                        margin: 20,
+
+                        // duration in ms
+                        resizeDuration: 300,
+                        openDuration: 200,
+                        closeDuration: 200,
+
+                        // show close button
+                        closeButton: true,
+
+                        // show nav buttons
+                        navButtons: true,
+
+                        // close on side click
+                        closeOnSideClick: true,
+
+                        // go to next image on content click
+                        nextOnContentClick: true,
+
+                        // enable touch gestures
+                        useGestures: true,
+
+                        // image extensions
+                        // used to determine if a target url is an image file
+                        imageExt: ['png', 'jpg', 'jpeg', 'webp', 'gif']
+                    });
+                } else {
+                    let html = '<p style="margin-top: 20px;margin-bottom: 20px;">ГАЛЕРЕЯ - ПУСТА!</p>';
+                    $('#imagesModal').html(html);
+                }
+            }
+        });
+    }
+
+    function getModal(image)
+    {
+        $('#image').val(image);
+        getImages(1);
+    }
+
+    function addNewImage()
+    {
+        let direction = $('#image').val();
+        let image = '';
+        let input = ''
+        if(direction === 'main'){
+            image = $('#'+ direction);
+            input = $('#input-image_'+ direction);
+        } else {
+            image = $('#sub_image_'+ direction);
+            input = $('#input-image'+ direction);
+        }
+        let id = $('#image_id').val();
+        let name = $('#image_name').val();
+        let storage = $('#storage').val();
+        if(id > 0){
+            input.val(id);
+            image.attr('src', storage + name);
+        }
+    }
+
+    function setImage(id, name)
+    {
+        $('#image_id').val(id);
+        $('#image_name').val(name);
+    }
 </script>
 <script type="text/javascript">
   var image_row = {{ !empty($product) ? $product->productImages->count(): 0 }};
 
   function addImage() {
-    html  = '<tr id="image-row' + image_row + '">';
-    html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
+    html  = '<tr onclick="getModal('+ image_row +')" id="image-row' + image_row + '" data-toggle="modal" data-target="#myModal">';
+    html += '  <td class="text-left"><a id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img id="sub_image_' + image_row + '" src="https://biothal.com.ua/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="https://biothal.com.ua/image/cache/no_image-100x100.png" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
     html += '  <td class="text-right" style="vertical-align: middle;"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="Порядок сортировки" class="form-control" /></td>';
     html += '  <td class="text-left" style="vertical-align: middle;"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
     html += '</tr>';
@@ -127,4 +270,5 @@
     <script type="text/javascript">
         $('.summernote').summernote();
     </script>
+
 @endsection

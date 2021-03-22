@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Orders;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidImgRequest extends FormRequest
+class OrderPageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class ValidImgRequest extends FormRequest
     public function rules()
     {
         return [
-            //'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'filter_order_id' => 'nullable|numeric',
+            'filter_customer' => 'nullable|size:100000',
+            'filter_total' => 'nullable|numeric',
+            'filter_date_added' => 'nullable|date',
+            'filter_date_modified' => 'nullable|date',
         ];
     }
 }

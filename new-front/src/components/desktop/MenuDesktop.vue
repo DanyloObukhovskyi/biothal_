@@ -1,7 +1,7 @@
 <template>
     <div class="menu-wrapper">
         <v-system-bar color="#000" class="menu-wrapper__system-bar default-cursor" dark height="34">
-            <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
+            <div @click="testRequest">Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
             <div><img width="18" height="18" src="../../../public/package.svg"/></div>
         </v-system-bar>
         <v-app-bar height="60" width="100%" class="pa-0" color="#fff">
@@ -380,7 +380,9 @@
             }
         },
         methods: {
-
+            async testRequest() {
+                const test = await this.axios.get('test')
+            }
         }
     }
 </script>

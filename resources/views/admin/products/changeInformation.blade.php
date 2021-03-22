@@ -56,7 +56,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-general">
                                 <ul class="nav nav-tabs" id="language">
-                                    <li><a href="#language1" data-toggle="tab"><img src="{{ url('image/en-gb.png')}}" title="English" /> English</a></li>
+                                    <li class="active"><a href="#language1" data-toggle="tab"><img src="{{ url('image/en-gb.png')}}" title="English" /> English</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane" id="language_1">
