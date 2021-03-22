@@ -17,7 +17,7 @@ use App\Models\Admin\Products\{
     ProductTo1C,
     ProductImages,
     ProductsAttributes,
-    ProductDescription
+    ProductDescription,
     Information,
     InformationAttributes,
     InformationToLayout
@@ -25,11 +25,7 @@ use App\Models\Admin\Products\{
 
 use App\Models\Admin\UrlAlias;
 
-use App\Models\{
-    Categories,
-    StockStatus,
-    Admin\Products\Product
-};
+use App\Models\{Categories, Image, StockStatus, Admin\Products\Product};
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -120,6 +116,7 @@ class NewProductsController extends Controller
 
     public function getProd($id){
         $product = Product::find($id);
+        $images = Image::paginate(15);
         if (empty($product)) {
             abort(404);
         }
@@ -136,7 +133,8 @@ class NewProductsController extends Controller
             'id',
             'product',
             'stock_statuses',
-            'categories'
+            'categories',
+            'images'
         ));
     }
 
