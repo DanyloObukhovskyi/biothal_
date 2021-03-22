@@ -7,7 +7,7 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img src="../../../public/product-images/product-image.svg" :alt="product_id.toString()"
+                    <img src="../../../public/product-images/product-image.svg" :alt="id.toString()"
                          class="image__product"/>
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
@@ -155,8 +155,8 @@
         name: "ProductDesktop",
         components: {PathBreadcrumb, TheMask, ProductCardsSet, Rating},
         props: {
-            product_id: {
-                type: Number,
+            id: {
+                type: [Number, String],
                 default: 1
             },
         },
@@ -166,7 +166,7 @@
             }
         },
         mounted() {
-            // this.fetchProductDetails();
+            this.fetchProductDetails();
         },
         data() {
             return {
@@ -175,35 +175,10 @@
                     'Описание', 'Состав', 'Применение', 'Отзывы'
                 ],
                 variables,
-                count_good: 2,
+                count_good: 1,
                 is_discount: true,
                 phone: '',
-                productData: [
-                    {
-                        id: 1,
-                        img: 'public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 2,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg'
-                    }
-                ]
+                productData: []
             }
         },
         methods: {
@@ -216,12 +191,12 @@
                 }
             },
             async fetchProductDetails() {
-                let data = await this.axios.get('product/'+this.product_id);
+                let data = await this.axios.get('product/' + this.id);
 
-                console.log(this.product_id)
-
+                console.log('product_id = '+this.id)
                 this.productData = data.data.products.data;
-                this.best_seller = data.data.best_seller.data;
+                console.log(this.productData)
+
             }
         },
     }

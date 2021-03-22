@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('api')->get('home', 'HomeController@index');
 
-Route::namespace('api')->get('product/{id}', 'ProductController@getProduct')->name('product_id');
+Route::namespace('api')->get('product/{id}', 'ProductController@getProduct');
 
 //Route::namespace('api')->get('test', function(){
 //    return response()->json([

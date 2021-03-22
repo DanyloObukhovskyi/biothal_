@@ -12,27 +12,23 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img class="product__image" @click="toPage({name: 'product_id', params: {id: dataCard['id']}})" width="100%" :src="require('../../../../public/product-images/' + dataCard['image']['name'])" :alt="dataCard['image']['name']"/>
+        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})" width="100%" :src="require('../../../../public/product-images/' + dataCard['image']['name'])" :alt="dataCard['image']['name']"/>
         <div class="product__rating">
             <Rating/>
             <div>5 отзывов</div>
         </div>
         <div class="product__description">
-            <div @click="toProductDetails(dataCard['id'])" class="product__description__text">{{ dataCard['product_description']['name'] }}</div>
+            <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">{{ dataCard['product_description']['name'] }}</div>
             <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
         </div>
         <div>
             <v-btn dark class="product__button" elevation="0">Купить</v-btn>
         </div>
-
-<!--        <product-desktop ref="product" :product_id="dataCard['id']">-->
-<!--        </product-desktop>-->
     </div>
 </template>
 
 <script>
     import Rating from "../../Rating";
-    // import ProductDesktop from "../../../pages/desktop/ProductDesktop";
 
     export default {
         name: "ProductCard",
@@ -46,8 +42,7 @@
             }
         },
         components: {
-            Rating,
-            // ProductDesktop
+            Rating
         },
         data() {
             return {
@@ -57,9 +52,6 @@
             }
         },
         methods:{
-            toProductDetails(product_id) {
-                // this.$refs['product'].fetchProductDetails(product_id);
-            }
         }
     }
 </script>

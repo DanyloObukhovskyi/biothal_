@@ -140,7 +140,7 @@
 
                 this.productData = data.data.products.data;
                 this.best_seller = data.data.best_seller.data;
-                console.log(this.productData)
+                // console.log(this.productData)
             }
         }
     }
