@@ -1,7 +1,8 @@
 export default {
     data() {
         return {
-            isShowFavorite: false
+            isShowFavorite: false,
+            api: process.env.VUE_APP_REQUEST_BASE_URL
         }
     },
     computed: {

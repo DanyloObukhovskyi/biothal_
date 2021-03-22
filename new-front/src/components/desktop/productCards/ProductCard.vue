@@ -12,7 +12,7 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})" width="100%" :src="require('../../../../public/product-images/' + dataCard['image']['name'])" :alt="dataCard['image']['name']"/>
+        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})" width="100%" :src="this.api+'storage/img/products/' + dataCard['image']['name']" :alt="dataCard['image']['name']"/>
         <div class="product__rating">
             <Rating/>
             <div>5 отзывов</div>
