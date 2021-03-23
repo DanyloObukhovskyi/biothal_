@@ -2,11 +2,12 @@
 
 namespace App\Models\Admin\Products;
 
-use App\Models\Image;
+use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
+use App\Models\Image;
+use App\Models\Admin\Products\ProductDescription;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Admin\Accessories\Accessories;
 
 class Product extends Model
 {
