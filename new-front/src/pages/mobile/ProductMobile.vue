@@ -7,10 +7,6 @@
                 <img src="../../../public/product-images/product-image.svg"/>
             </div>
             <div class="product-info__other">
-                <div class="product-info__other__rating">
-                    <span class="product-info__other__rating__comment">5 отзывов</span>
-                    <Rating color="#000" :size="10"/>
-                </div>
                 <div class="product-info__other__icons">
                     <ThreeDotsSlides/>
                     <v-icon size="10" color="#000">mdi-gift-outline</v-icon>
@@ -81,7 +77,6 @@
     import {TheMask} from 'vue-the-mask';
     import PathBreadcrumb from "@/components/PathBreadcrumb";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
-    import Rating from "../../components/Rating";
     import ThreeDotsSlides from "../../components/ThreeDotsSlides";
     import ProductCardsSetMobile from "../../components/mobile/ProductCardsSetMobile";
 
@@ -91,7 +86,6 @@
             PathBreadcrumb,
             TheMask,
             ProductCardsSet,
-            Rating,
             ThreeDotsSlides,
             ProductCardsSetMobile
         },
@@ -205,19 +199,6 @@
         &__other {
             display: flex;
             justify-content: space-between;
-
-            &__rating {
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                column-gap: 4px;
-
-                &__comment {
-                    font-size: 10px;
-                    font-weight: 200;
-                    line-height: 14px;
-                }
-            }
 
             &__icons {
                 display: flex;

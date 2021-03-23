@@ -17,8 +17,11 @@ class CategoryController extends Controller
             ->get()->pluck('product_id')->toArray();
         $products = Product::whereIn('id', $products_ids)->paginate('10');
         $this_category = Categories::with('products')->where('id', '=', $id)->first();
-        return view('category', compact('products', 'this_category'));
 
+        return response()->json([
+            'products' => $products,
+            'this_category' => $this_category
+        ]);
     }
 
     public function getParentCategory($id, Request $request){

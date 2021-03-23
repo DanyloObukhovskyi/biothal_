@@ -116,6 +116,4 @@
             cursor: pointer;
         }
     }
-
-    $rating-dense-padding: 2rem !important;
 </style>

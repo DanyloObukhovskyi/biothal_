@@ -118,6 +118,4 @@
         font-size: 11px;
         line-height: 15px;
     }
-
-    $rating-dense-padding: 2rem !important;
 </style>

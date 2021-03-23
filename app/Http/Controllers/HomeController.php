@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Products\Product;
+use App\Models\Categories;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
@@ -20,6 +21,15 @@ class HomeController extends Controller
         return response()->json([
             'products' => $products,
             'best_seller' => $best_seller
+        ]);
+    }
+
+    public function menu()
+    {
+        $categories = Categories::with('children')->where('parent_id', null)->get();
+
+        return response()->json([
+            'categories' => $categories
         ]);
     }
     public function about()

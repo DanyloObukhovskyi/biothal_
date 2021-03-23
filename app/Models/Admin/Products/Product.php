@@ -28,12 +28,12 @@ class Product extends Model
 
     public function productImages()
     {
-        return $this->hasMany(ProductImages::class);
+        return $this->hasMany(ProductImages::class, 'product_id', 'id')->orderBy('sort_order', 'asc')->with('images');
     }
 
     public function productApts()
     {
-        return $this->hasMany(ProductApts::class,'product_id', 'id');
+        return $this->hasMany(ProductApts::class,'product_id', 'id')->orderBy('sort_order', 'asc');
     }
 
     public function getSale()

@@ -7,16 +7,16 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img src="../../../public/product-images/product-image.svg" :alt="id.toString()"
+                    <img :src="this.api+'/storage/img/products/' + productData['image']['name']" :alt="productData['image']['name']"
                          class="image__product" :class="subImages" @click="getSubImages()"/>
-                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"
-                         class="image__product"/>
+<!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
+<!--                         class="image__product"/>-->
                     <div class="image__discount" v-if="is_discount">-50%</div>
                 </div>
 
                 <div class="block-product-base-info__info">
                     <div class="info-title">
-                        <span class="info-title__title">{{ productData['product_description']['name'] || '' }}</span>
+                        <span class="info-title__title">{{ description['name'] || '' }}</span>
                         <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
                     </div>
 
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="info-description">
-                        {{ productData['product_description']['description'] }}
+                        {{ description['description'] }}
                     </div>
 
                     <div class="info-count">
@@ -96,7 +96,7 @@
         </div>
 
         <div>
-            <ProductCardsSet type-set="product" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ"/>
+            <ProductCardsSet type-set="product" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ" :product-data="recommendedProduct"/>
         </div>
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
     </div>
@@ -107,7 +107,6 @@
     import {TheMask} from 'vue-the-mask';
     import PathBreadcrumb from "@/components/PathBreadcrumb";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
-    import Rating from "../../components/Rating";
     import VueGallerySlideshow from 'vue-gallery-slideshow';
 
     export default {
@@ -116,7 +115,6 @@
             PathBreadcrumb,
             TheMask,
             ProductCardsSet,
-            Rating,
             VueGallerySlideshow
         },
         props: {
@@ -130,7 +128,7 @@
                 return this.phone.length === 10
             }
         },
-        mounted() {
+        created() {
             this.fetchProductDetails();
         },
         data() {
@@ -141,21 +139,17 @@
                 items: [],
                 is_discount: true,
                 phone: '',
-                productData: [],
-                images: [
-                    'https://placekitten.com/801/800',
-                    'https://placekitten.com/802/800',
-                    'https://placekitten.com/803/800',
-                    'https://placekitten.com/804/800',
-                    'https://placekitten.com/805/800',
-                    'https://placekitten.com/806/800',
-                    'https://placekitten.com/807/800',
-                    'https://placekitten.com/808/800',
-                    'https://placekitten.com/809/800',
-                    'https://placekitten.com/810/800',
-                ],
+                productData: {
+                    image: {},
+                    product_description:{}
+                    },
+                attr: [],
+                description: [],
+                productImages: [],
+                recommendedProduct: [],
+                images: [],
                 index: null,
-                subImages: null
+                subImages: null,
             }
         },
         methods: {
@@ -170,21 +164,29 @@
             async fetchProductDetails() {
                 let data = await this.axios.get('product/' + this.id);
 
-                console.log('product_id = '+this.id)
-                this.productData = data.data.products.data;
+                this.productData = data.data.productDetails;
+                this.description = this.productData['product_description']
+                this.items = this.productData['product_apts'];
+                this.productImages = this.productData.product_images;
+                this.recommendedProduct = data.data.recommendedProduct;
+
+                if (this.productImages) {
+                    let url = [];
+                    let api = this.api + '/storage/img/products/';
+                    this.productImages.map(function(value, key) {
+                        url.push(api + value['images']['name']);
+                    });
+                    this.images = url;
+                }
+
                 if(this.images[0]){
                     this.subImages = 'images'
                 }
-                console.log(this.productData)
-
             },
-            getSubImages() {
+            async getSubImages() {
                 if(this.images[0]){
                     this.index = 0;
                 }
-                this.productData = data.data.productDetails[0];
-                this.items = this.productData['product_apts'];
-                console.log(this.items)
             }
         },
     }
@@ -255,26 +257,6 @@
 
         }
 
-        &-rating {
-            display: flex;
-            align-items: center;
-
-            &__rating {
-
-                & > button:hover {
-
-                    &::before {
-                        text-shadow: 0 0 0 12px blue;
-                    }
-                }
-            }
-
-            &__comment {
-                font-size: 12px;
-                margin-left: 12px;
-            }
-
-        }
 
         &-price {
 
@@ -425,5 +407,11 @@
         }
 
         text-align: center;
+    }
+    .images{
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+        }
     }
 </style>

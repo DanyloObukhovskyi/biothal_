@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Products\Product;
+use App\Models\Admin\Products\ProductImages;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
 use Illuminate\Http\Request;
@@ -25,9 +26,11 @@ class ProductController extends Controller
         } else {
             $category_srting = (!empty($product_cat['title'])) ? $product_cat['title'] : '' ;
         }
-
-        $productDetails = Product::with('image', 'categories', 'productDescription', 'productApts')->where( 'id', $id)->get();
         $products = Product::with('image', 'categories')->get();
+
+        $recommendedProduct = Product::with('image', 'productDescription')->where('is_recommended', '=', 1)->get();
+
+        $productDetails = Product::with('image', 'categories', 'productDescription', 'productApts', 'productImages')->where( 'id', $id)->first();
 
         return response()->json([
             'id' => $id,
@@ -35,6 +38,7 @@ class ProductController extends Controller
             'productDetails' => $productDetails,
             'category_products' => $category_products,
             'catProd_category_id' => $catProd_category_id,
+            'recommendedProduct' => $recommendedProduct,
             'category_string' => $category_string
         ]);
     }

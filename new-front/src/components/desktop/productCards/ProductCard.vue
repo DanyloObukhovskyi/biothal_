@@ -12,11 +12,9 @@
                 <v-icon>{{isFavorites ? 'mdi-cards-heart' : 'mdi-heart-outline'}}</v-icon>
             </v-btn>
         </div>
-        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})" width="100%" :src="this.api+'storage/img/products/' + dataCard['image']['name']" :alt="dataCard['image']['name']"/>
-        <div class="product__rating">
-            <Rating/>
-            <div>5 отзывов</div>
-        </div>
+        <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
+             width="100%" :src="this.api+'/storage/img/products/' + dataCard['image']['name']" :alt="dataCard['image']['name']"/>
+
         <div class="product__description">
             <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">{{ dataCard['product_description']['name'] }}</div>
             <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
@@ -28,7 +26,6 @@
 </template>
 
 <script>
-    import Rating from "../../Rating";
 
     export default {
         name: "ProductCard",
@@ -42,7 +39,6 @@
             }
         },
         components: {
-            Rating
         },
         data() {
             return {
@@ -99,12 +95,6 @@
             }
         }
 
-        &__rating {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
         &__description {
             display: flex;
             flex-direction: column;
@@ -128,6 +118,4 @@
             background-color: #2F7484 !important;
         }
     }
-
-    $rating-dense-padding: 2rem !important;
 </style>

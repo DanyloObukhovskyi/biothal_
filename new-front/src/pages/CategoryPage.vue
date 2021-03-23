@@ -158,6 +158,7 @@
             category() {
                 const category = this.$route.params.subCategory ? this.$route.params.subCategory : this.$route.params.category
                 switch (category) {
+
                     case "for-face":
                         return "Для лица";
                     case "for-body":
@@ -192,9 +193,14 @@
             }
         },
         created() {
-
+            this.fetchProductDetails();
         },
-        methods: {}
+        methods: {
+            async fetchProductDetails() {
+                let data = await this.axios.get('product/' + this.id);
+
+            }
+        }
     }
 </script>
 

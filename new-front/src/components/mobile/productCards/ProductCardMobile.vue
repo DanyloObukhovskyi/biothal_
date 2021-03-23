@@ -100,6 +100,4 @@
             background-color: #2F7484 !important;
         }
     }
-
-    $rating-dense-padding: 2rem !important;
 </style>
