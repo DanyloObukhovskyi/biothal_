@@ -50,7 +50,7 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
-                            <v-btn dark color="#2F7484" elevation="0">Купить</v-btn>
+                            <v-btn dark color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
                             <span class="info-pay-control__text">Добавить в избранное</span>
                         </div>
                         <div class="info-pay-control__buy-fast">
@@ -107,6 +107,7 @@
     import PathBreadcrumb from "@/components/PathBreadcrumb";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import VueGallerySlideshow from 'vue-gallery-slideshow';
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "ProductDesktop",
@@ -153,6 +154,15 @@
             }
         },
         methods: {
+            ...mapActions('basket', {
+               addProduct: 'ADD_PRODUCT'
+            }),
+            addToCart() {
+                const product = this.productData;
+                product.quantity = this.count_good;
+
+                this.addProduct(product)
+            },
             incrementCountGood() {
                 ++this.count_good;
             },

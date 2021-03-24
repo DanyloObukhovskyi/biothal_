@@ -33,16 +33,17 @@ use App\Http\Controllers\Controller;
 
 class NewProductsController extends Controller
 {
-    public function indexNew(Request $request){
+    public function indexNew(Request $request)
+    {
         $products = Product::with('productDescription');
-        if(!empty($request->all())) {
-            if($request->input('status') !== null) {
+        if (!empty($request->all())) {
+            if ($request->input('status') !== null) {
                 $products = $products->where('status', $request->input('status'));
             }
-            if(!empty($request->input('title_product'))) {
+            if (!empty($request->input('title_product'))) {
                 $title = $request->input('title_product');
                 $products = $products->whereHas('productDescription', function ($query) use ($title) {
-                    $query->where('name', 'like', '%'.$title.'%');
+                    $query->where('name', 'like', '%' . $title . '%');
                 });
             }
         }
@@ -50,7 +51,8 @@ class NewProductsController extends Controller
         return view('admin.products.indexNew', compact('products'));
     }
 
-    public function createProd(){
+    public function createProd()
+    {
 
         $stock_statuses = StockStatus::all()->toArray();
         $categories = Categories::whereNotNull('parent_id')->get()->toArray();
@@ -66,7 +68,8 @@ class NewProductsController extends Controller
         ));
     }
 
-    public function createProdProcess(ProductCreate $request){
+    public function createProdProcess(ProductCreate $request)
+    {
         /* START: updating data for product*/
         $product = Product::create(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
@@ -84,10 +87,10 @@ class NewProductsController extends Controller
                 $product_description
             );
         }
-        if(isset($request['product_image'])){
+        if (isset($request['product_image'])) {
             ProductImages::where('product_id', $product['id'])->delete();
-            foreach($request['product_image'] as $productImage){
-                if(!empty($productImage['image'])){
+            foreach ($request['product_image'] as $productImage) {
+                if (!empty($productImage['image'])) {
                     ProductImages::create([
                         'product_id' => $product['id'],
                         'image' => $productImage['image'],
@@ -111,8 +114,8 @@ class NewProductsController extends Controller
         /* START: updating relations data for product*/
         if (!empty($request['productTo1C']['1c_id'])) {
             $product->productTo1C()->updateOrInsert(
-                [ 'product_id' => $product['id'] ],
-                [ '1c_id' => $request['productTo1C']['1c_id']]
+                ['product_id' => $product['id']],
+                ['1c_id' => $request['productTo1C']['1c_id']]
             );
         }
         /* END: updating relations data for product*/
@@ -130,10 +133,12 @@ class NewProductsController extends Controller
         }
         /* END: updating apts data for product*/
 
-        return redirect()->route('admin.products.updateProductNew', ['id' => $product['id']])->with('success','Товар был успешно создан!');
+        return redirect()->route('admin.products.updateProductNew', ['id' => $product['id']])
+            ->with('success', 'Товар был успешно создан!');
     }
 
-    public function getProd($id){
+    public function getProd($id)
+    {
         $product = Product::find($id);
         $images = Image::paginate(15);
         if (empty($product)) {
@@ -158,7 +163,8 @@ class NewProductsController extends Controller
     }
 
 
-    public function updateProduct(ProductUpdate $request, $id){
+    public function updateProduct(ProductUpdate $request, $id)
+    {
         $product = Product::find($id);
         if (empty($product)) {
             abort(404);
@@ -176,10 +182,10 @@ class NewProductsController extends Controller
 
         ProductDescription::where('product_id', $id)->whereNotIn('language_id', array_keys($request['product_description']))->delete();
         /* END: updating main data for product*/
-        if(isset($request['product_image'])){
+        if (isset($request['product_image'])) {
             ProductImages::where('product_id', $product['id'])->delete();
-            foreach($request['product_image'] as $productImage){
-                if(!empty($productImage['image'])){
+            foreach ($request['product_image'] as $productImage) {
+                if (!empty($productImage['image'])) {
                     ProductImages::create([
                         'product_id' => $product['id'],
                         'image' => $productImage['image'],
@@ -197,8 +203,8 @@ class NewProductsController extends Controller
         /* START: updating relations data for product*/
         if (!empty($request['productTo1C']['1c_id'])) {
             $product->productTo1C()->updateOrInsert(
-                [ 'product_id' => $id ],
-                [ '1c_id' => $request['productTo1C']['1c_id']]
+                ['product_id' => $id],
+                ['1c_id' => $request['productTo1C']['1c_id']]
             );
         }
         /* END: updating relations data for product*/
@@ -225,10 +231,11 @@ class NewProductsController extends Controller
         }
         /* END: updating apts data for product*/
 
-        return back()->with('success','Товар был успешно обновлен!');
+        return back()->with('success', 'Товар был успешно обновлен!');
     }
 
-    public function information(){
+    public function information()
+    {
         $articles = Information::paginate(10);
 
         return view('admin.products.information', compact(
@@ -236,7 +243,8 @@ class NewProductsController extends Controller
         ));
     }
 
-    public function changeInformation($id){
+    public function changeInformation($id)
+    {
         $article = Information::where('information_id', $id)->first();
 
         $url = UrlAlias::where([
@@ -246,18 +254,20 @@ class NewProductsController extends Controller
 
         return view('admin.products.changeInformation', compact(
             'article',
-                    'url'
+            'url'
         ));
     }
 
-    public function createInformation(){
+    public function createInformation()
+    {
         return view('admin.products.createInformation');
     }
 
-    public function updateInformation(InformationUpdateRequest $request, $id){
+    public function updateInformation(InformationUpdateRequest $request, $id)
+    {
         $article = Information::where('information_id', $id)->first();
 
-        if(empty($article)){
+        if (empty($article)) {
             abort(404);
         }
 
@@ -278,12 +288,12 @@ class NewProductsController extends Controller
         $articleLayout->layout_id = $request->information_layout;
         $articleLayout->save();
 
-        if(isset($request->keyword)){
+        if (isset($request->keyword)) {
             $url = UrlAlias::where([
                 'type' => 'information',
                 'query' => $id
             ])->first();
-            if(!empty($url)){
+            if (!empty($url)) {
                 $url->keyword = $request->keyword;
                 $url->save();
             } else {
@@ -298,7 +308,8 @@ class NewProductsController extends Controller
         return redirect()->back()->with('success', 'Вы успешно обновили статью');
     }
 
-    public function saveInformation(InformationCreateRequest $request){
+    public function saveInformation(InformationCreateRequest $request)
+    {
         $article = Information::create([
             'bottom' => isset($request->bottom) ? true : false,
             'sort_order' => $request->sort_order,
@@ -320,7 +331,7 @@ class NewProductsController extends Controller
             'layout_id' => $request->information_layout
         ]);
 
-        if(isset($request->keyword)){
+        if (isset($request->keyword)) {
             UrlAlias::create([
                 'type' => 'information',
                 'query' => $article->information_id,
@@ -328,7 +339,7 @@ class NewProductsController extends Controller
             ]);
         }
 
-        return redirect('admin/products/changeInformation/'.$article->information_id)->with('success', 'Вы успешно создали статью');
+        return redirect('admin/products/changeInformation/' . $article->information_id)->with('success', 'Вы успешно создали статью');
     }
 
     public function deleteInformation(Request $request)

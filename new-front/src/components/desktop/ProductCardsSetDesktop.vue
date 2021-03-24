@@ -11,6 +11,7 @@
             </div>
             <div class="product-card__content" v-if="typeSet === 'basket'">
                 <ProductCardBasket v-for="item in productData"
+                                   @delete="$emit('delete', item.id)"
                                    :key="item.id"
                                    :data-card="item"/>
             </div>

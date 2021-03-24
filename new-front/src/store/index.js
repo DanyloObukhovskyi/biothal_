@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
 import session from './modules/session'
+import basket from "./modules/basket";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        session
+        session,
+        basket
     },
     state: {},
     actions: {},

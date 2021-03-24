@@ -2,16 +2,16 @@
     <div class="product-basket__wrapper">
         <div class="product-basket">
             <img class="product-basket__image" height="150" width="150"
-                 src="../../../../public/product-images/product-image.svg"/>
+                 :src="this.api+'/storage/img/products/' + dataCard.image.name" :alt="dataCard.image.name"/>
         </div>
         <div class="product-basket">
-            <div class="product-basket__title" @click="toPage({name: 'product', params: {id: 1}})">
-                Очищающая маска для лица Конопля Водоросли
+            <div class="product-basket__title" @click="toPage({name: 'product', params: {id: dataCard.id}})">
+                {{ dataCard.product_description.name }}
             </div>
             <div class="product-basket__text">
-                <div class="product-basket__text__price">1920 грн</div>
+                <div class="product-basket__text__price">{{ dataCard.price }} грн</div>
                 <div class="product-basket__text__delete-basket">
-                    <v-btn dark class="product__button" elevation="0" @click="$emit('delete')">
+                    <v-btn dark class="product__button" elevation="0" @click="addToCart">
                         Добавить
                     </v-btn>
                 </div>
@@ -22,6 +22,8 @@
 
 <script>
 
+    import {mapActions} from "vuex";
+
     export default {
         name: "ProductCardBasketMenu",
         props: {
@@ -31,12 +33,17 @@
                 }
             }
         },
-        data() {
-            return {
-                count_good: 0,
-            }
-        },
-        methods: {}
+        methods: {
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT'
+            }),
+            addToCart() {
+                const product = this.dataCard;
+                product.quantity = 1;
+
+                this.addProduct(product)
+            },
+        }
     }
 </script>
 

@@ -20,12 +20,14 @@
             <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
         </div>
         <div>
-            <v-btn dark class="product__button" elevation="0">Купить</v-btn>
+            <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>
         </div>
     </div>
 </template>
 
 <script>
+
+    import {mapActions} from "vuex";
 
     export default {
         name: "ProductCard",
@@ -38,8 +40,6 @@
                 default: false
             }
         },
-        components: {
-        },
         data() {
             return {
                 imageSource: '',
@@ -47,9 +47,16 @@
                 isFavoritesShow: false,
             }
         },
-        mounted() {
-        },
         methods:{
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT'
+            }),
+            addProductToCart() {
+                const product = this.dataCard;
+                product.quantity = 1;
+
+                this.addProduct(product)
+            }
         }
     }
 </script>

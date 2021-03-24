@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 class CartController extends Controller
 {
     use GlobalTrait;
+
     public function insInCartHome(Request $request)
     {
 
@@ -288,5 +289,4 @@ class CartController extends Controller
         return response()->json(['countAll' => $countAll, 'sumAll' => $sumAll, 'sumAll_not_sale' => $sumAll_not_sale, 'procent_modal' => $procent_modal, 'success' => 1]);
 
     }
-
 }
