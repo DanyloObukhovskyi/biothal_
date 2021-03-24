@@ -386,9 +386,8 @@
         methods: {
             async fetchMenuData() {
                 let data = await this.axios.get('menu');
-                console.log(data.data.categories)
-                this.menuItems = data.data.categories;
 
+                this.menuItems = data.data.categories;
             }
         }
     }

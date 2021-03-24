@@ -32,6 +32,16 @@ class HomeController extends Controller
             'categories' => $categories
         ]);
     }
+
+
+    public function footer()
+    {
+        $categories = Categories::where('parent_id', null)->get();
+
+        return response()->json([
+            'categories' => $categories
+        ]);
+    }
     public function about()
     {
         return view('company.about');

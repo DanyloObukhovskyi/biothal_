@@ -7,7 +7,7 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img :src="this.api+'/storage/img/products/' + productData['image']['name']" :alt="productData['image']['name']"
+                    <img :src="image" :alt="productData['image']['name']"
                          class="image__product" :class="subImages" @click="getSubImages()"/>
 <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
 <!--                         class="image__product"/>-->
@@ -22,12 +22,11 @@
 
                     <div class="info-price">
                         <span class="info-price__price">{{ productData['price'] }} грн</span>
-                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>
+<!--                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>-->
                         <p class="info-price__in-stock">В наличии</p>
                     </div>
 
-                    <div class="info-description">
-                        {{ description['description'] }}
+                    <div class="info-description" v-html="description['description']">
                     </div>
 
                     <div class="info-count">
@@ -148,6 +147,7 @@
                 productImages: [],
                 recommendedProduct: [],
                 images: [],
+                image: '',
                 index: null,
                 subImages: null,
             }
@@ -169,7 +169,7 @@
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
-
+                this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
                 if (this.productImages) {
                     let url = [];
                     let api = this.api + '/storage/img/products/';

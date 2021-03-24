@@ -128,6 +128,16 @@
         name: "FooterDesktop",
         data() {
             return {}
+        },
+        created() {
+            this.fetchFooterData()
+        },
+        methods: {
+            async fetchFooterData() {
+                let data = await this.axios.get('footer');
+
+                this.menuItems = data.data.categories;
+            }
         }
     }
 </script>

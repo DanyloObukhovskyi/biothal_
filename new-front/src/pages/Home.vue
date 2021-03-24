@@ -139,6 +139,7 @@
                 let data = await this.axios.get('home');
 
                 this.productData = data.data.products.data;
+                console.log(this.productData)
                 this.best_seller = data.data.best_seller.data;
             }
         }

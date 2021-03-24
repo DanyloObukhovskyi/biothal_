@@ -56,6 +56,9 @@
                         return category;
                 }
             }
+        },
+        created() {
+            console.log(this.$route.params.category)
         }
     }
 </script>
