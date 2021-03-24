@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\ProductImages;
 use App\Models\Categories;
@@ -28,9 +29,13 @@ class ProductController extends Controller
         }
         $products = Product::with('image', 'categories')->get();
 
-        $recommendedProduct = Product::with('image', 'productDescription')->where('is_recommended', '=', 1)->get();
+        $recommendedProduct = Product::with('image', 'productDescription')
+            ->where('is_recommended', '=', 1)
+            ->get();
 
-        $productDetails = Product::with('image', 'categories', 'productDescription', 'productApts', 'productImages')->where( 'id', $id)->first();
+        $productDetails = Product::with('image', 'categories', 'productDescription', 'productApts', 'productImages')
+            ->where( 'id', $id)
+            ->first();
 
         return response()->json([
             'id' => $id,
@@ -41,5 +46,14 @@ class ProductController extends Controller
             'recommendedProduct' => $recommendedProduct,
             'category_string' => $category_string
         ]);
+    }
+
+    public function getRecommendedProduct()
+    {
+        $recommendedProduct = Product::with('image', 'productDescription')
+            ->where('is_recommended', '=', 1)
+            ->get();
+
+        return response()->json($recommendedProduct);
     }
 }
