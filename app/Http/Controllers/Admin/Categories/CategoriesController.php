@@ -8,13 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
 
     public function index(Request $request)
     {
-
         $categories = Categories::all();
         if (count($categories) == 0) {
             return view('admin.categories.index', ['categories' => null]);
@@ -48,6 +48,9 @@ class CategoriesController extends Controller
 
     public function addCategory(CategoryAddRequest $request)
     {
+
+        Log::info($request->all());
+        dd($request->all());
         $categoriesCount = count(Categories::all());
         $select = $request->parent_id == "NoCategory" ? null : $request->parent_id;
 

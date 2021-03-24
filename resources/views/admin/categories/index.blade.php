@@ -31,13 +31,25 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
+                            <label class="input-group-text" for="padre_category_select_change">
+                                Тип категории
+                            </label>
+                        </div>
+                        <select class="custom-select" id="padre_category_select_change"
+                                name="padre_category_select">
+                            <option value="ForProduct" class="no_category">Для товаров</option>
+                            <option value="info">Информационная категория</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">Название категории</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Название категории" id="category_title"
                                aria-label="Category name" aria-describedby="basic-addon1" name="title_category"
                                autocomplete="off">
                     </div>
-
 {{--                    <input type="checkbox" id="demand" name="demand_category" value="check">--}}
 {{--                    <label for="demand">--}}
 {{--                        Категория - потребность--}}

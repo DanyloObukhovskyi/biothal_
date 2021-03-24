@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class Add extends FormRequest
 {
@@ -23,6 +24,7 @@ class Add extends FormRequest
      */
     public function rules()
     {
+        Log::info($this);
         return [
             'title' => 'required',
             'ordering' => 'required|integer|between:1,9999',
