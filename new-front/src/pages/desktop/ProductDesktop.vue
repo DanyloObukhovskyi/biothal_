@@ -1,8 +1,14 @@
 <template>
     <div class="base-page-wrapper product-wrapper">
-
-        <path-breadcrumb labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>
-
+<div>
+    <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
+    <span> / </span>
+    <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
+    <span> / </span>
+    <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
+    <span> / </span>
+    <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
+</div>
         <div class="block-product">
             <div class="block-product-base-info">
 
@@ -20,13 +26,13 @@
                         <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
                     </div>
 
-                    <div class="info-price">
+                    <div class="info-price" >
                         <span class="info-price__price">{{ productData['price'] }} грн</span>
 <!--                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>-->
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
-                    <div class="info-description" v-html="description['description']">
+                    <div class="info-description"  v-html="description['description']">
                     </div>
 
                     <div class="info-count">
@@ -103,7 +109,6 @@
 <script>
     import variables from '@/styles/main.scss'
     import {TheMask} from 'vue-the-mask';
-    import PathBreadcrumb from "@/components/PathBreadcrumb";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import VueGallerySlideshow from 'vue-gallery-slideshow';
     import {mapActions, mapGetters} from "vuex";
@@ -111,7 +116,6 @@
     export default {
         name: "ProductDesktop",
         components: {
-            PathBreadcrumb,
             TheMask,
             ProductCardsSet,
             VueGallerySlideshow
@@ -150,6 +154,8 @@
                 image: '',
                 index: null,
                 subImages: null,
+                subCategory: [],
+                mainCategory: []
             }
         },
         methods: {
@@ -171,7 +177,6 @@
                 }
             },
             async fetchProductDetails() {
-                console.log(this.id)
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
@@ -180,6 +185,9 @@
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
                 this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
+                this.subCategory = data.data.product_category;
+                this.mainCategory = data.data.main_product_category;
+
                 if (this.productImages) {
                     let url = [];
                     let api = this.api + '/storage/img/products/';
@@ -225,7 +233,7 @@
 
         .image {
             &__product {
-                width: auto;
+                max-width: 100%;
                 height: 100%;
             }
 
@@ -430,5 +438,9 @@
     .description-content {
         justify-content: center;
         display: flex;
+    }
+
+    .breadcrumb {
+        cursor: pointer;
     }
 </style>

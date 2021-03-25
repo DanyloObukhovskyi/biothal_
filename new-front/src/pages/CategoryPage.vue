@@ -1,8 +1,16 @@
 <template>
     <div>
-        <div class="slider-wrapper" v-if="!isMobile">
-            <img width="100%" src="../../public/slider.svg"/>
-        </div>
+        <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000">
+            <div class="slide">
+                <img width="100%" src="../../public/slider.svg"/>
+            </div>
+            <div class="slide">
+                <img width="100%" src="../../public/logo.svg"/>
+            </div>
+            <div class="slide">
+                <img width="100%" src="../../public/slider.svg"/>
+            </div>
+        </agile>
         <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :product-data="productData"/>
         <ProductCardsSetMobile v-if="isMobile" :title="categoryTitle"
                                :product-data="productData.slice(0, 4).concat(productData.slice(8, 12))"/>
@@ -111,13 +119,7 @@
         computed: {
             route() {
                 return this.$route.params;
-            },
-            category() {
-                return this.$route.params.category || 0;
-            },
-            subCategory() {
-                return this.$route.params.subCategory || 0;
-            },
+            }
         },
         created() {
             this.fetchCategory();
@@ -132,11 +134,11 @@
         },
         methods: {
             async fetchCategory() {
-                this.url = (!this.subCategory) ? 'category/' + this.category : 'category/' + this.category + '/' +  this.subCategory;
+                let url = (!this.$route.params.subCategory) ? 'category/' + this.$route.params.category : 'category/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
 
-                let data = await this.axios.get(this.url);
-
+                let data = await this.axios.get(url);
                 this.productData = data.data.products.data;
+
                 this.categoryTitle =  data.data.this_category.title;
             }
         }

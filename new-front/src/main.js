@@ -7,6 +7,7 @@ import globalMixins from "./mixins/global"
 import store from './store/index';
 import axios from 'axios';
 import vue_axios from 'vue-axios';
+import VueAgile from 'vue-agile';
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
 
@@ -61,7 +62,7 @@ axios.interceptors.response.use(
     }
 );
 
-
+Vue.use(VueAgile)
 Vue.use(vue_axios, axios);
 
 import '@/styles/main.scss';

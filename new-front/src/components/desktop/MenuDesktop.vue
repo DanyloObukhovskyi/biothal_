@@ -402,7 +402,6 @@
             },
             test(){
                 this.orders = this.$refs['Basket'].products.length
-                console.log(this.$refs['Basket'].products.length)
             }
         }
     }

@@ -1,8 +1,16 @@
 <template>
     <div class="home-wrapper">
-        <div class="slider-wrapper">
-            <img width="100%" src="../../public/slider.svg"/>
-        </div>
+        <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000">
+            <div class="slide">
+                <img width="100%" src="../../public/slider.svg"/>
+            </div>
+            <div class="slide">
+                <img width="100%" src="../../public/logo.svg"/>
+            </div>
+            <div class="slide">
+                <img width="100%" src="../../public/slider.svg"/>
+            </div>
+        </agile>
         <div>
             <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData"/>
             <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
@@ -111,6 +119,7 @@
 </template>
 
 <script>
+    import { VueAgile } from 'vue-agile';
     import ProductCard from "../components/desktop/productCards/ProductCard";
     import CategoryCard from "../components/CategoryCard";
     import ProductCardsSet from "../components/desktop/ProductCardsSetDesktop";
@@ -119,6 +128,7 @@
     export default {
         name: "Home",
         components: {
+            agile: VueAgile,
             ProductCard,
             CategoryCard,
             ProductCardsSet,

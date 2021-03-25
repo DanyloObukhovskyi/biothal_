@@ -8,8 +8,6 @@ Route::namespace('api')->get('menu', 'HomeController@menu');
 
 Route::namespace('api')->get('footer', 'HomeController@footer');
 
-Route::namespace('api')->get('category/{parent_id}/{id}', 'CategoryController@getCategory');
-
 Route::namespace('api')->get('category/{id}/{children_id}', 'CategoryController@getSubCategory');
 
 Route::namespace('api')->get('category/{id}', 'CategoryController@getCategory');
@@ -28,8 +26,3 @@ Route::group(['namespace' => 'Api'], function () {
     Route::namespace('api')
         ->get('product/{id}', 'ProductController@getProduct');
 });
-//Route::namespace('api')->get('test', function(){
-//    return response()->json([
-//        'data' => 'My first test string'
-//    ]);
-//});
