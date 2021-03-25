@@ -116,11 +116,12 @@ export default {
         currentGlobalSales() {
             let current = null;
 
-            for (let sales of this.globalSales) {
-                if (sales.sum_modal <= this.productsSum) {
-                    current = sales;
-                }
+            for (const [key, sales] of Object.entries(this.globalSales)) {
+                    if (sales.sum_modal <= this.productsSum) {
+                        current = sales;
+                    }
             }
+
             return current;
         },
         nextGlobalSales() {

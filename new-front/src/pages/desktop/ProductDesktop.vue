@@ -7,7 +7,7 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img :src="this.api+'/storage/img/products/' + productData['image']['name']" :alt="productData['image']['name']"
+                    <img :src="image" :alt="productData['image']['name']"
                          class="image__product" :class="subImages" @click="getSubImages()"/>
 <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
 <!--                         class="image__product"/>-->
@@ -22,12 +22,11 @@
 
                     <div class="info-price">
                         <span class="info-price__price">{{ productData['price'] }} грн</span>
-                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>
-                        <p class="info-price__in-stock">В наличии</p>
+<!--                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>-->
+<!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
-                    <div class="info-description">
-                        {{ description['description'] }}
+                    <div class="info-description" v-html="description['description']">
                     </div>
 
                     <div class="info-count">
@@ -77,8 +76,8 @@
                     <v-tab
                         :href="`#tab-${idx}`"
                         v-for="(item, idx) in this.items"
-                        :key="idx">
-                        {{ item['tab_title'] }}
+                        :key="idx"
+                        v-html="item['tab_title']">
                     </v-tab>
                 </v-tabs>
 
@@ -87,8 +86,7 @@
                         v-for="(item, idx) in this.items"
                         :key="idx"
                         :value="'tab-' + idx">
-                        <v-card flat>
-                            {{ item['tab_desc'] }}
+                        <v-card class="description-content" flat v-html="item['tab_desc']">
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -149,6 +147,7 @@
                 productImages: [],
                 recommendedProduct: [],
                 images: [],
+                image: '',
                 index: null,
                 subImages: null,
             }
@@ -172,6 +171,7 @@
                 }
             },
             async fetchProductDetails() {
+                console.log(this.id)
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
@@ -179,7 +179,7 @@
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
-
+                this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
                 if (this.productImages) {
                     let url = [];
                     let api = this.api + '/storage/img/products/';
@@ -219,11 +219,13 @@
             width: 50%;
             height: 380px;
             position: relative;
+            justify-content: center;
+            display: inline-flex;
         }
 
         .image {
             &__product {
-                width: 100%;
+                width: auto;
                 height: 100%;
             }
 
@@ -423,5 +425,10 @@
             cursor: pointer;
             box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
         }
+    }
+
+    .description-content {
+        justify-content: center;
+        display: flex;
     }
 </style>

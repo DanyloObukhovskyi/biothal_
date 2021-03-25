@@ -32,24 +32,24 @@
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item class="list-item"
-                                 @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
+                    <v-list-item class="list-item" v-for="(item, index) in menuItems" :key="index"
+                                 @click="toPage({name: 'category-page', params: {category: item.slug }})">
                         <v-list-item-content>
-                            - Для лица
+                            - {{ item.title }}
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item class="list-item"
-                                 @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
-                        <v-list-item-content>
-                            - Для тела
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item"
-                                 @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
-                        <v-list-item-content>
-                            - Эффективные наборы
-                        </v-list-item-content>
-                    </v-list-item>
+<!--                    <v-list-item class="list-item"-->
+<!--                                 @click="toPage({name: 'category-page', params: {category: 'for-body'}})">-->
+<!--                        <v-list-item-content>-->
+<!--                            - Для тела-->
+<!--                        </v-list-item-content>-->
+<!--                    </v-list-item>-->
+<!--                    <v-list-item class="list-item"-->
+<!--                                 @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">-->
+<!--                        <v-list-item-content>-->
+<!--                            - Эффективные наборы-->
+<!--                        </v-list-item-content>-->
+<!--                    </v-list-item>-->
                 </v-list>
             </div>
             <div class="footer__middle__block">
@@ -127,7 +127,19 @@
     export default {
         name: "FooterDesktop",
         data() {
-            return {}
+            return {
+                menuItems: []
+            }
+        },
+        created() {
+            this.fetchFooterData()
+        },
+        methods: {
+            async fetchFooterData() {
+                let data = await this.axios.get('footer');
+
+                this.menuItems = data.data.categories;
+            }
         }
     }
 </script>

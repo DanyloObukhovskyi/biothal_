@@ -29,17 +29,9 @@
         </div>
         <div class="footer__block-2">
             <div class="footer__block-2__block-2-1">
-                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-face'}})">
-                    - Для лица
-                </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'for-body'}})">
-                    - Для тела
-                </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">
-                    - Эффективные наборы
-                </v-btn>
-                <v-btn text class="list-item" dark @click="toPage({name: 'info-page', params: {category: 'about-us'}})">
-                    - О компании
+                <v-btn text class="list-item" dark v-for="(item, index) in menuItems.slice(0, 4)" :key="index"
+                       @click="toPage({name: 'category-page', params: {category: item.slug }})">
+                    - {{ item.title }}
                 </v-btn>
             </div>
             <div class="footer__block-2__block-2-2">
@@ -82,7 +74,18 @@
             return {
                 catalog: null,
                 aboutUs: null,
-                socialNetwork: null
+                socialNetwork: null,
+                menuItems: []
+            }
+        },
+        created() {
+            this.fetchFooterData()
+        },
+        methods: {
+            async fetchFooterData() {
+                let data = await this.axios.get('footer');
+
+                this.menuItems = data.data.categories;
             }
         }
     }

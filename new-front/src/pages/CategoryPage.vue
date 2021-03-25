@@ -1,7 +1,10 @@
 <template>
     <div>
-        <ProductCardsSetDesktop v-if="!isMobile" :title="category" :product-data="productData"/>
-        <ProductCardsSetMobile v-if="isMobile" :title="category"
+        <div class="slider-wrapper" v-if="!isMobile">
+            <img width="100%" src="../../public/slider.svg"/>
+        </div>
+        <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :product-data="productData"/>
+        <ProductCardsSetMobile v-if="isMobile" :title="categoryTitle"
                                :product-data="productData.slice(0, 4).concat(productData.slice(8, 12))"/>
         <div class="main-title seo-text-title">{{seoText}}</div>
         <div class="seo-text-description">
@@ -87,118 +90,54 @@
             ProductCardsSetDesktop,
             ProductCardsSetMobile
         },
+        prop: {
+            category: {
+                type: [Number, String],
+                default: 0
+            },
+            subCategory: {
+                type: [Number, String],
+                default: 0
+            },
+        },
         data() {
             return {
-                productData: [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 4,
-                        img: '../../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 5,
-                        img: '../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: true
-                    },
-                    {
-                        id: 7,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 8,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 9,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 10,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 11,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    },
-                    {
-                        id: 12,
-                        img: '../../public/product-images/product-images.svg',
-                        isShowStock: false
-                    }
-                ],
+                url: '',
+                productData: [],
+                categoryTitle: '',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ'
             }
         },
         computed: {
+            route() {
+                return this.$route.params;
+            },
             category() {
-                const category = this.$route.params.subCategory ? this.$route.params.subCategory : this.$route.params.category
-                switch (category) {
-
-                    case "for-face":
-                        return "Для лица";
-                    case "for-body":
-                        return "Для тела";
-                    case "effective-sets":
-                        return "Эффективные наборы";
-                    case 'cleansing':
-                        return 'Очищение';
-                    case 'tonics':
-                        return 'Тоники';
-                    case 'creams':
-                        return 'Кремы';
-                    case 'scrubs':
-                        return 'Скрабы';
-                    case 'masks':
-                        return 'Маски';
-                    case 'serums':
-                        return 'Сыворотки';
-                    case 'shower-gels':
-                        return 'Гели для душа';
-                    case 'lotions':
-                        return 'Лосьоны';
-                    case 'oils':
-                        return 'Масла';
-                    case 'bath-salts':
-                        return 'Соли для ванн';
-                    case 'massage-brushes':
-                        return 'Массажные щетки';
-                    default:
-                        return category;
-                }
-            }
+                return this.$route.params.category || 0;
+            },
+            subCategory() {
+                return this.$route.params.subCategory || 0;
+            },
         },
         created() {
-            this.fetchProductDetails();
+            this.fetchCategory();
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler (newRoute, oldRoute) {
+                    this.fetchCategory();
+                },
+            }
         },
         methods: {
-            async fetchProductDetails() {
-                let data = await this.axios.get('product/' + this.id);
+            async fetchCategory() {
+                this.url = (!this.subCategory) ? 'category/' + this.category : 'category/' + this.category + '/' +  this.subCategory;
 
+                let data = await this.axios.get(this.url);
+
+                this.productData = data.data.products.data;
+                this.categoryTitle =  data.data.this_category.title;
             }
         }
     }

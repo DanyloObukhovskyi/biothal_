@@ -42,7 +42,6 @@
         },
         data() {
             return {
-                imageSource: '',
                 isFavorites: false,
                 isFavoritesShow: false,
             }
