@@ -31,13 +31,13 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="padre_category_select_change">
+                            <label class="input-group-text" for="type_category_change">
                                 Тип категории
                             </label>
                         </div>
-                        <select class="custom-select" id="padre_category_select_change"
-                                name="padre_category_select">
-                            <option value="ForProduct" class="no_category">Для товаров</option>
+                        <select class="custom-select" id="type_category_change"
+                                name="type_category">
+                            <option value="forProduct" class="no_category">Для товаров</option>
                             <option value="info">Информационная категория</option>
                         </select>
                     </div>
