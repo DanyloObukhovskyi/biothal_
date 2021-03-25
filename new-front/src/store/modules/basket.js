@@ -1,5 +1,6 @@
 const state = {
-    products: []
+    products: [],
+    globalSales: []
 }
 
 const mutations = {
@@ -34,6 +35,9 @@ const mutations = {
             }
             return p;
         })
+    },
+    SET_GLOBAL_SALES(state, globalSales) {
+        state.globalSales = globalSales;
     }
 }
 
@@ -50,10 +54,14 @@ const actions = {
     DECREMENT_PRODUCT_QUANTITY(context, productId) {
         context.commit('DECREMENT_PRODUCT_QUANTITY', productId);
     },
+    SET_GLOBAL_SALES(context, globalSales) {
+        context.commit('SET_GLOBAL_SALES', globalSales);
+    }
 }
 
 const getters = {
-    products: state => state.products
+    products: state => state.products,
+    globalSales: state => state.globalSales
 }
 
 export default {

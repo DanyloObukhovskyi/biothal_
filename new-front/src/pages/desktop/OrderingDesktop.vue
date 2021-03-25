@@ -3,12 +3,17 @@
         <div class="ordering__content">
             <div class="ordering__top">
                 <div class="ordering__top__title">Оформление заказа</div>
-                <div style="margin-bottom: 17px; font-size: 12px">Еще 735 грн и сработает скидка 50%</div>
-                <v-progress-linear v-model="linear"
-                                   color="#2F7484"
-                                   background-color="#ddd"
-                                   class="main-linear"
-                                   height="12"/>
+                <template v-if="globalSales.length > 0 && nextGlobalSales !== null">
+                    <div style="margin-bottom: 17px; font-size: 12px">
+                        Еще {{ nextGlobalSales.sum_modal - productsSum }} грн и сработает скидка
+                        {{ nextGlobalSales.procent_modal }}%
+                    </div>
+                    <v-progress-linear :value="linear"
+                                       color="#2F7484"
+                                       background-color="#ddd"
+                                       class="main-linear"
+                                       height="12"/>
+                </template>
             </div>
             <div class="ordering__middle">
                 <div class="ordering__middle__left">
@@ -90,7 +95,9 @@
                 </div>
                 <div class="ordering__middle__right">
                     <div class="ordering__middle__right__product-set">
-                        <ProductCardsSet type-set="basket" :is-show-title="false"/>
+                        <ProductCardsSet type-set="basket"
+                                         :product-data="products"
+                                         :is-show-title="false"/>
                     </div>
                     <div class="total__wrapper">
                         <div class="total">
@@ -133,6 +140,7 @@
     import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
     import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "OrderingDesktop",
@@ -141,35 +149,54 @@
             PlaceOrderOneClick,
             ProductCardsSet
         },
-        data() {
-            return {
-                linear: 70,
-                productData: [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg'
+        computed: {
+            ...mapGetters('basket', [
+                'products',
+                'globalSales'
+            ]),
+            currentGlobalSales() {
+                let current = null;
+
+                for (let sales of this.globalSales) {
+                    if (sales.sum_modal <= this.productsSum) {
+                        current = sales;
                     }
-                ]
+                }
+                return current;
+            },
+            nextGlobalSales() {
+                let next = null;
+
+                for (let sales of this.globalSales) {
+                    if (sales.sum_modal > this.productsSum) {
+                        next = sales;
+                        break;
+                    }
+                }
+                return next;
+            },
+            linear() {
+                let percentage = 0;
+                if (this.nextGlobalSales !== null) {
+                    const number = this.nextGlobalSales.sum_modal / 100;
+                    percentage = this.productsSum / number;
+                }
+                return Math.round(percentage);
+            },
+            productsSum() {
+                let sum = 0;
+                for (let product of this.products) {
+                    sum += +product.price * +product.quantity;
+                }
+                return sum;
+            },
+            productsSumWithSales() {
+                let sum = this.productsSum;
+
+                if (this.currentGlobalSales !== null) {
+                    sum = sum - ((sum / 100) * this.currentGlobalSales.procent_modal);
+                }
+                return sum;
             }
         }
     }

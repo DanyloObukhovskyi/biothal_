@@ -105,13 +105,13 @@ export default {
         return {
             visible: false,
             deliveryPrice: 40,
-            globalSales: [],
             recommendedProducts: [],
         }
     },
     computed: {
         ...mapGetters('basket', [
-            'products'
+            'products',
+            'globalSales'
         ]),
         currentGlobalSales() {
             let current = null;
@@ -173,7 +173,8 @@ export default {
     },
     methods: {
         ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT'
+            deleteProduct: 'DELETE_PRODUCT',
+            setGlobalSales: 'SET_GLOBAL_SALES'
         }),
         visibleModal(visible) {
             window.scrollTo(0, 0)
@@ -182,13 +183,13 @@ export default {
         getGlobalSales() {
             this.axios.post('sales/global')
                 .then(({data}) => {
-                    this.globalSales = data;
+                    this.setGlobalSales(data)
                 })
         },
         getRecommendedProduct() {
             this.axios.post('products/recommended')
                 .then(({data}) => {
-                    this.recommendedProducts = data;
+                    this.recommendedProducts = data
                 })
         }
     },
