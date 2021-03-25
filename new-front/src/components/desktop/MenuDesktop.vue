@@ -73,6 +73,10 @@
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
                     mdi-briefcase-outline
                 </v-icon>
+                <div color="#000" size="18" class="basket_lenght" @click="$refs['Basket'].visibleModal(true)">
+                    ({{ orders }})
+                </div>
+
             </div>
         </v-app-bar>
         <Basket ref="Basket"/>
@@ -337,7 +341,8 @@
                 //         }
                 //     }
                 // ],
-                menuItems: []
+                menuItems: [],
+                orders: 0,
             }
         },
         computed: {
@@ -380,14 +385,24 @@
                 return this.isAuthorize ? isLogout : isLogin
             }
         },
+        watch: {
+
+        },
         created() {
             this.fetchMenuData();
+        },
+        mounted() {
+            this.test();
         },
         methods: {
             async fetchMenuData() {
                 let data = await this.axios.get('menu');
 
                 this.menuItems = data.data.categories;
+            },
+            test(){
+                this.orders = this.$refs['Basket'].products.length
+                console.log(this.$refs['Basket'].products.length)
             }
         }
     }
@@ -420,6 +435,7 @@
         display: flex;
         flex-direction: row;
         column-gap: 11px;
+        height: 21px;
 
         &:hover {
             cursor: pointer;
@@ -452,5 +468,9 @@
             line-height: 18px;
             color: #000;
         }
+    }
+
+    .basket_lenght{
+        margin: -2px;
     }
 </style>
