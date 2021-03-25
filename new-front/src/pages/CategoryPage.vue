@@ -138,7 +138,6 @@
 
                 this.productData = data.data.products.data;
                 this.categoryTitle =  data.data.this_category.title;
-                console.log(this.productData)
             }
         }
     }

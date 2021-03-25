@@ -8,13 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
 
     public function index(Request $request)
     {
-
         $categories = Categories::all();
         if (count($categories) == 0) {
             return view('admin.categories.index', ['categories' => null]);
@@ -28,12 +28,15 @@ class CategoriesController extends Controller
                 ->editColumn('parent_id', function ($row) {
                     return $row->parent_id != null ? $row->Category->title : "Без родительской категории";
                 })
+                ->editColumn('type_category', function ($row) {
+                    return $row->type_category == 0 ? "Для товаров" : "Информационная";
+                })
                 ->editColumn('is_demand', function ($row) {
                     return $row->is_demand == 1 ? "Потребность" : "Категория";
                 })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) . '"class="btn btn-outline-dark fa fa-wrench"></button>';
+                    $btn = '<button type="button" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) .'" data-type-category-change="' . $row->type_category . '"class="btn btn-outline-dark fa fa-wrench"></button>';
 
                     return $btn;
                 })
@@ -48,9 +51,14 @@ class CategoriesController extends Controller
 
     public function addCategory(CategoryAddRequest $request)
     {
+
+//        Log::info($request->all());
+//        dd($request->all());
         $categoriesCount = count(Categories::all());
         $select = $request->parent_id == "NoCategory" ? null : $request->parent_id;
-
+        $type_category = $request->type_category == "forProduct" ? 0 : 1;
+//        Log::info($type_category);
+//        dd();
         Categories::create([
             'parent_id' => $select,
             'title' => $request->title,
@@ -164,10 +172,13 @@ class CategoriesController extends Controller
 
     public function changeCategory(CategoryAddRequest $request)
     {
+        Log::info($request->all());
         $parentId = $request->parent_id == "NoCategory" ? null : $request->parent_id;
+        $type_category = $request->type_category == "forProduct" ? 0 : 1;
         $category = Categories::find($request->id);
         $category->update([
             'parent_id' => $parentId,
+            'type_category' => $type_category,
             'title' => $request->title,
             'ordering' => $request->ordering,
             'is_demand' => $request->is_demand,

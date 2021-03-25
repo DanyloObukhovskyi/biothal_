@@ -120,10 +120,14 @@ $(function () {
     $(document).on("click", "[id^=category_change]", function () {
         var id = $(this).data('id');
         var parentId = $(this).data('parentId');
+        var typeCategory = $(this).data('typeCategoryChange');
+        console.log('1 '+typeCategory)
         var title = $(this).data('title');
         var order = $(this).data('order');
         var demand = $(this).data('demand');
 
+
+        $("#type_category_change").val(typeCategory); // typeCategory
         $("#title_category_change").val(title); // Title
         $("#category_hidden_id").val(id);     // Id
         $("#ordering_category_change").val(order);  // Ordering
@@ -143,6 +147,8 @@ $(function () {
 
     $(document).on("click", "#b_change_category", function () {
         var parent_id = $('#padre_category_select_change').val();
+        var type_category = $('#type_category_change').val();
+        console.log('2 '+type_category)
         var title = $('#title_category_change').val();
         var ordering = $('#ordering_category_change').val();
         var is_demand = $('#demand_change').prop("checked") ? 1 : 0;
@@ -153,6 +159,7 @@ $(function () {
             method: 'POST',
             data: {
                 "parent_id": parent_id,
+                "type_category": type_category,
                 "title": title,
                 "ordering": ordering,
                 "is_demand": is_demand,
@@ -193,6 +200,7 @@ $(function () {
     $(document).on("click", '#add_category', function () {
         $('#add_category').attr("disabled", true);
         var parent_id = $('#padre_category_select').val();
+        var type_category = $('#type_category').val();
         var title = $('#category_title').val();
         var ordering = $('#ordering_category').val();
         // var is_demand = $('#demand').prop("checked") ? 1 : 0;
@@ -201,6 +209,7 @@ $(function () {
             method: 'POST',
             data: {
                 "parent_id": parent_id,
+                "type_category": type_category,
                 "title": title,
                 "ordering": ordering,
                 // "is_demand": is_demand, //to do удалить demand из базы, контролерра и вообще кругом
@@ -236,6 +245,7 @@ $(function () {
                     }
                     $('#add_category').attr("disabled", false);
                     $("#padre_category_select option[value=NoCategory]").prop('selected', true);
+                    $("#type_category option[value=forProduct]").prop('selected', true);
                     $('#category_title').val("");
                     $('#ordering_category').val(null);
                     $("#demand").prop("checked", false);
@@ -254,6 +264,7 @@ $(function () {
         columns: [
             {"data": "number", "name": "id"},
             {"data": "parent_id", "name": "parent_id"},
+            {"data": "type_category", "name": "type_category"},
             {"data": "title", "name": "title"},
             {"data": "ordering", "name": "ordering"},
             // {"data": "is_demand", "name": "is_demand"},
