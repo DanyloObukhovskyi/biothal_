@@ -1,10 +1,13 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
         <div class="product__sale" v-if="isShowStock">-50%</div>
-        <img class="product__image" src="../../../../public/product-images/product-image.svg"/>
+        <img class="product__image"
+             @click="toPage({name: 'product', params: {id: dataCard['id']}})"
+             :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
+             :alt="dataCard['image']['name']"/>
         <div class="product__description">
-            <div @click="toPage({name: 'product', params: {id: 1}})" class="product__description__text">Очищающая маска для лица Конопля Водоросли</div>
-            <div class="product__description__price default-cursor">1920 грн</div>
+            <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">{{ dataCard['product_description']['name'] }}</div>
+            <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
         </div>
         <div>
             <v-btn dark class="product__button" elevation="0">Купить</v-btn>
@@ -17,8 +20,7 @@
         name: "ProductCardMobile",
         props: {
             dataCard: {
-                type: Object,
-                default: ()=>[]
+                type: Object
             },
             isShowStock: {
                 type: Boolean,

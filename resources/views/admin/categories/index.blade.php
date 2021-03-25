@@ -31,13 +31,13 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="type_category_change">
+                            <label class="input-group-text" for="type_category">
                                 Тип категории
                             </label>
                         </div>
-                        <select class="custom-select" id="type_category_change"
+                        <select required class="custom-select" id="type_category"
                                 name="type_category">
-                            <option value="forProduct" class="no_category">Для товаров</option>
+                            <option checked value="forProduct" class="no_category">Для товаров</option>
                             <option value="info">Информационная категория</option>
                         </select>
                     </div>
@@ -101,6 +101,19 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
+                            <label class="input-group-text" for="type_category_change">
+                                Тип категории
+                            </label>
+                        </div>
+                        <select class="custom-select" id="type_category_change"
+                                name="type_category">
+                            <option value="forProduct" class="no_category">Для товаров</option>
+                            <option value="info">Информационная категория</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">Название категории</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Название категории"
@@ -152,6 +165,7 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Родительская категория</th>
+                            <th scope="col">Тип категории</th>
                             <th scope="col">Название</th>
                             <th scope="col">Порядок сортировки</th>
                             <th scope="col">Редактировать</th>

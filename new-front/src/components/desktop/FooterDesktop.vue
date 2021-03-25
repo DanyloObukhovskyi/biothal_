@@ -139,7 +139,6 @@
                 let data = await this.axios.get('footer');
 
                 this.menuItems = data.data.categories;
-                console.log(this.menuItems)
             }
         }
     }

@@ -23,7 +23,7 @@
                     <div class="info-price">
                         <span class="info-price__price">{{ productData['price'] }} грн</span>
 <!--                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>-->
-                        <p class="info-price__in-stock">В наличии</p>
+<!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
                     <div class="info-description" v-html="description['description']">
@@ -76,8 +76,8 @@
                     <v-tab
                         :href="`#tab-${idx}`"
                         v-for="(item, idx) in this.items"
-                        :key="idx">
-                        {{ item['tab_title'] }}
+                        :key="idx"
+                        v-html="item['tab_title']">
                     </v-tab>
                 </v-tabs>
 
@@ -86,8 +86,7 @@
                         v-for="(item, idx) in this.items"
                         :key="idx"
                         :value="'tab-' + idx">
-                        <v-card flat>
-                            {{ item['tab_desc'] }}
+                        <v-card class="description-content" flat v-html="item['tab_desc']">
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -162,6 +161,7 @@
                 }
             },
             async fetchProductDetails() {
+                console.log(this.id)
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
@@ -209,11 +209,13 @@
             width: 50%;
             height: 380px;
             position: relative;
+            justify-content: center;
+            display: inline-flex;
         }
 
         .image {
             &__product {
-                width: 100%;
+                width: auto;
                 height: 100%;
             }
 
@@ -413,5 +415,10 @@
             cursor: pointer;
             box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
         }
+    }
+
+    .description-content {
+        justify-content: center;
+        display: flex;
     }
 </style>

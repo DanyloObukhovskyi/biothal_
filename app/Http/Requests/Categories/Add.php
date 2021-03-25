@@ -24,7 +24,6 @@ class Add extends FormRequest
      */
     public function rules()
     {
-        Log::info($this);
         return [
             'title' => 'required',
             'ordering' => 'required|integer|between:1,9999',

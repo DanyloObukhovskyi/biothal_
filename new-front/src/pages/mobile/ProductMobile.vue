@@ -4,7 +4,7 @@
         <div class="product-info__wrapper">
             <div class="product-info__discount" v-if="is_discount">-50%</div>
             <div class="product-info__image">
-                <img src="../../../public/product-images/product-image.svg"/>
+                <img :src="image" :alt="productData['image']['name']" :class="subImages" @click="getSubImages()"/>
             </div>
             <div class="product-info__other">
                 <div class="product-info__other__icons">
@@ -15,13 +15,13 @@
             </div>
 
             <div class="product-info__title">
-                <span>Увлажняющая маска для лица Апельсин Бергамот</span>
-                <span>Orange Bergamot Hydra Mask</span>
+                <span>{{ description['name'] || '' }}</span>
+                <span>{{ productData['product_description']['short_description'] }}</span>
             </div>
 
             <div class="product-info__price">
-                <span class="product-info__price__price">233 грн.</span>
-                <span class="product-info__price__discount">Старая цена: 545 грн.</span>
+                <span class="product-info__price__price">{{ productData['price'] }} грн</span>
+<!--                <span class="product-info__price__discount">Старая цена: 545 грн.</span>-->
             </div>
 
             <div class="product-info__pay">
@@ -40,23 +40,19 @@
                     <v-tab
                         active-class="product-info__tabs__active"
                         class="product-info__tabs__default"
-                        :href="`#tab-${index+1}`"
-                        v-for="(item, index) in items"
-                        :key="item">
-                        {{ item }}
+                        :href="`#tab-${idx}`"
+                        v-for="(item, idx) in items"
+                        :key="idx">
+                        {{ item['tab_title'] }}
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item
-                        v-for="i in 4"
-                        :key="i"
-                        :value="'tab-' + i">
+                        v-for="(item, idx) in items"
+                        :key="idx"
+                        :value="'tab-' + idx">
                         <v-card flat class="tab-text">
-                            Увлажняющая маска моментально насыщает кожу необходимой влагой, тонизирует и укрепляет кожу.
-                            Формула на основе масел, коллагена и гиалуроновой кислоты эффективно борется с морщинками,
-                            повышает упругость и эластичность кожи. Регулярное использование маски заметно подтягивает
-                            овал лица, помогает предотвратить преждевременное старение кожи. Кожа приобретает гладкость,
-                            бархатистость и здоровое сияние.
+                            {{ item['tab_desc'] }}
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
@@ -69,6 +65,9 @@
             <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
             <div><img width="18" height="18" src="../../../public/package.svg"/></div>
         </v-system-bar>
+
+        <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
+
     </div>
 </template>
 
@@ -79,6 +78,7 @@
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import ThreeDotsSlides from "../../components/ThreeDotsSlides";
     import ProductCardsSetMobile from "../../components/mobile/ProductCardsSetMobile";
+    import VueGallerySlideshow from 'vue-gallery-slideshow';
 
     export default {
         name: "Product",
@@ -87,10 +87,11 @@
             TheMask,
             ProductCardsSet,
             ThreeDotsSlides,
-            ProductCardsSetMobile
+            ProductCardsSetMobile,
+            VueGallerySlideshow
         },
         props: {
-            product_id: {
+            id: {
                 type: [Number, String],
                 default: 1
             },
@@ -107,42 +108,29 @@
                 return this.phone.length === 10
             }
         },
+        created() {
+            this.fetchProductDetails();
+        },
         data() {
             return {
                 tab: null,
-                items: [
-                    'Описание', 'Состав', 'Применение', 'Отзывы'
-                ],
+                items: [],
                 variables,
-                count_good: 2,
+                count_good: 1,
                 is_discount: true,
                 phone: '',
-                productData: [
-                    {
-                        id: 1,
-                        img: 'public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 2,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg'
-                    }
-                ]
+                productData: {
+                    image: {},
+                    product_description:{}
+                },
+                attr: [],
+                description: [],
+                productImages: [],
+                recommendedProduct: [],
+                images: [],
+                image: '',
+                index: null,
+                subImages: null,
             }
         },
         methods: {
@@ -152,6 +140,33 @@
             decrementCountGood() {
                 if (this.count_good > 1) {
                     --this.count_good;
+                }
+            },
+            async fetchProductDetails() {
+                console.log(this.id)
+                let data = await this.axios.get('product/' + this.id);
+                this.productData = data.data.productDetails;
+                this.description = this.productData['product_description']
+                this.items = this.productData['product_apts'];
+                this.productImages = this.productData.product_images;
+                this.recommendedProduct = data.data.recommendedProduct;
+                this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
+                if (this.productImages) {
+                    let url = [];
+                    let api = this.api + '/storage/img/products/';
+                    this.productImages.map(function(value, key) {
+                        url.push(api + value['images']['name']);
+                    });
+                    this.images = url;
+                }
+
+                if(this.images[0]){
+                    this.subImages = 'images'
+                }
+            },
+            async getSubImages() {
+                if(this.images[0]){
+                    this.index = 0;
                 }
             }
         },

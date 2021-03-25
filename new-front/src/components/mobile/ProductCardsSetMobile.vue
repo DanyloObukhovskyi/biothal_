@@ -54,10 +54,7 @@
         type: Array
       }
     },
-      created() {
-        console.log(productData)
-      },
-      data() {
+    data() {
       return {}
     }
   }

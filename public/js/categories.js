@@ -120,13 +120,14 @@ $(function () {
     $(document).on("click", "[id^=category_change]", function () {
         var id = $(this).data('id');
         var parentId = $(this).data('parentId');
-        var typeCategory = $(this).data('typeCategory');
+        var typeCategory = $(this).data('typeCategoryChange');
+        console.log('1 '+typeCategory)
         var title = $(this).data('title');
         var order = $(this).data('order');
         var demand = $(this).data('demand');
 
 
-        $("#type_category_change").val(typeCategory); // Title
+        $("#type_category_change").val(typeCategory); // typeCategory
         $("#title_category_change").val(title); // Title
         $("#category_hidden_id").val(id);     // Id
         $("#ordering_category_change").val(order);  // Ordering
@@ -146,7 +147,8 @@ $(function () {
 
     $(document).on("click", "#b_change_category", function () {
         var parent_id = $('#padre_category_select_change').val();
-        var type_category = $('#type_category').val();
+        var type_category = $('#type_category_change').val();
+        console.log('2 '+type_category)
         var title = $('#title_category_change').val();
         var ordering = $('#ordering_category_change').val();
         var is_demand = $('#demand_change').prop("checked") ? 1 : 0;
