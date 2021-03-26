@@ -51,7 +51,11 @@ class HomeController extends Controller
 
     public function footer()
     {
-        $info_categories = Categories::select('id')->where('type_category', 1)->get();
+        $info_categories = Categories::where([
+            'type_category' => 1
+        ])->with([
+            'childrenInformation',
+        ])->get();
         $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();
         $bottom_article = Information::whereIn('information_id', Arr::pluck($information_ids, 'information_id'))
             ->where('bottom', 1)
@@ -62,7 +66,8 @@ class HomeController extends Controller
 
         return response()->json([
             'article' => $article,
-            'categories' => $categories
+            'categories' => $categories,
+            'info_categories' => $info_categories
         ]);
     }
     public function about()

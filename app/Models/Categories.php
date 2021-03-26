@@ -52,6 +52,11 @@ class Categories extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
+    public function childrenInformation()
+    {
+        return $this->hasMany(InformationToLayout::class,'layout_id','id')->with(['info','attribute']);
+    }
 }
 
 
