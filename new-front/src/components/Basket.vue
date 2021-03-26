@@ -111,53 +111,13 @@ export default {
     computed: {
         ...mapGetters('basket', [
             'products',
-            'globalSales'
+            'globalSales',
+            'currentGlobalSales',
+            'nextGlobalSales',
+            'linear',
+            'productsSum',
+            'productsSumWithSales'
         ]),
-        currentGlobalSales() {
-            let current = null;
-
-            for (const [key, sales] of Object.entries(this.globalSales)) {
-                    if (sales.sum_modal <= this.productsSum) {
-                        current = sales;
-                    }
-            }
-
-            return current;
-        },
-        nextGlobalSales() {
-            let next = null;
-
-            for (let sales of this.globalSales) {
-                if (sales.sum_modal > this.productsSum) {
-                    next = sales;
-                    break;
-                }
-            }
-            return next;
-        },
-        linear() {
-            let percentage = 0;
-            if (this.nextGlobalSales !== null) {
-                const number = this.nextGlobalSales.sum_modal / 100;
-                percentage = this.productsSum / number;
-            }
-            return Math.round(percentage);
-        },
-        productsSum() {
-            let sum = 0;
-            for (let product of this.products) {
-                sum += +product.price * +product.quantity;
-            }
-            return sum;
-        },
-        productsSumWithSales() {
-            let sum = this.productsSum;
-
-            if (this.currentGlobalSales !== null) {
-                sum = sum - ((sum / 100) * this.currentGlobalSales.procent_modal);
-            }
-            return sum;
-        }
     },
     watch: {
         visible(newValue) {

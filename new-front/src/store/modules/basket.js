@@ -61,7 +61,55 @@ const actions = {
 
 const getters = {
     products: state => state.products,
-    globalSales: state => state.globalSales
+    globalSales: state => state.globalSales,
+    currentGlobalSales: (state, getters) => {
+        let current = null;
+
+        for (const [key, sales] of Object.entries(state.globalSales)) {
+            if (sales.sum_modal <= getters.productsSum) {
+                current = sales;
+            }
+        }
+        return current;
+    },
+    nextGlobalSales: (state, getters) => {
+        let next = null;
+
+        for (let sales of state.globalSales) {
+            if (sales.sum_modal > getters.productsSum) {
+                next = sales;
+                break;
+            }
+        }
+        return next;
+    },
+    linear: (state, getters) => {
+        let percentage = 0;
+
+        if (getters.nextGlobalSales !== null) {
+            const number = getters.nextGlobalSales.sum_modal / 100;
+
+            if (state.productsSum > number) {
+                percentage = state.productsSum / number;
+            }
+        }
+        return Math.round(percentage);
+    },
+    productsSum: state => {
+        let sum = 0;
+        for (let product of state.products) {
+            sum += +product.price * +product.quantity;
+        }
+        return sum;
+    },
+    productsSumWithSales: (state, getters) => {
+        let sum = getters.productsSum;
+
+        if (getters.currentGlobalSales !== null) {
+            sum = sum - ((sum / 100) * getters.currentGlobalSales.procent_modal);
+        }
+        return sum;
+    }
 }
 
 export default {
