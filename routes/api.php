@@ -27,9 +27,15 @@ Route::group(['namespace' => 'Api'], function () {
 
     Route::namespace('api')
         ->get('product/{id}', 'ProductController@getProduct');
+
+    Route::group(['prefix' => 'checkout'], function () {
+        Route::post('/regions', 'CheckoutController@getRegions')
+            ->name('checkout.regions.get');
+
+        Route::post('/cities', 'CheckoutController@getRegionCities')
+            ->name('checkout.cities.get');
+
+        Route::post('/postal/offices', 'CheckoutController@getPostalOffices')
+            ->name('checkout.postal.offices.get');
+    });
 });
-//Route::namespace('api')->get('test', function(){
-//    return response()->json([
-//        'data' => 'My first test string'
-//    ]);
-//});

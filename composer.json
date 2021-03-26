@@ -49,6 +49,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "laravelcollective/html": "^6.2",
+        "lis-dev/nova-poshta-api-2": "^0.1.6",
         "spatie/array-to-xml": "^2.16",
         "spatie/laravel-sluggable": "^2.6",
         "stripe/stripe-php": "^7.61",

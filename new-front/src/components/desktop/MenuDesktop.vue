@@ -77,8 +77,8 @@
                     v-if="products.length > 0"
                     color="black"
                     :content="products.length"
-                    overlap
-                ></v-badge>
+                    overlap>
+                </v-badge>
             </div>
         </v-app-bar>
         <Basket ref="Basket"/>
@@ -86,397 +86,396 @@
 </template>
 
 <script>
-    import Basket from "../Basket";
-    import {mapGetters} from "vuex";
+import Basket from "../Basket";
+import {mapGetters} from "vuex";
 
-    export default {
-        name: "MenuDesktop",
-        components: {
-            Basket
-        },
-        data() {
-            return {
-                // menuItems: [
-                //     {
-                //         name: 'Для лица',
-                //         children: [
-                //             {
-                //                 name: 'Очищение',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'cleansing'}
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Тоники',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'tonics'}
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Кремы',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'creams'}
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Скрабы',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'scrubs'}
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Маски',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'masks'}
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Сыворотки',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {category: 'for-face', subCategory: 'serums'}
-                //                     }
-                //                 }
-                //             }
-                //         ],
-                //         meta: {
-                //             rout: {
-                //                 name: 'category-page',
-                //                 params: {category: 'for-face'}
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name: 'Для тела',
-                //         children: [
-                //             {
-                //                 name: 'Гели для душа',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'shower-gels'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Лосьоны',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'lotions'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Кремы',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'creams'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Масла',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'oils'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Скрабы',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'scrubs'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Соли для ванн',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'bath-salts'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Массажные щетки',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'sub-category-page',
-                //                         params: {
-                //                             category: 'for-body',
-                //                             subCategory: 'massage-brushes'
-                //                         }
-                //                     }
-                //                 }
-                //             }
-                //         ],
-                //         meta: {
-                //             rout: {
-                //                 name: 'category-page',
-                //                 params: {category: 'for-body'}
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name: 'Эффективные наборы',
-                //         children: [],
-                //         meta: {
-                //             rout: {
-                //                 name: 'category-page',
-                //                 params: {category: 'effective-sets'}
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name: 'O Biothal',
-                //         children: [
-                //             {
-                //                 name: 'Философия бренда',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'info-page',
-                //                         params: {
-                //                             category: 'philosophy'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Водоросли',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'info-page',
-                //                         params: {
-                //                             category: 'seaweed'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Производство',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'info-page',
-                //                         params: {
-                //                             category: 'production'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Водорослевый комплекс "Algo+"',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'info-page',
-                //                         params: {
-                //                             category: 'algo'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //             {
-                //                 name: 'Сертификаты',
-                //                 meta: {
-                //                     rout: {
-                //                         name: 'info-page',
-                //                         params: {
-                //                             category: 'certificates'
-                //                         }
-                //                     }
-                //                 }
-                //             },
-                //         ],
-                //         meta: {
-                //             rout: {
-                //                 name: 'info-page',
-                //                 params: {category: 'about-us'}
-                //             }
-                //         }
-                //     },
-                //     {
-                //         name: 'Стать дистрибьютером',
-                //         children: [],
-                //         meta: {
-                //             rout: {
-                //                 name: 'info-page',
-                //                 params: {category: 'become-distributor'}
-                //             }
-                //         }
-                //     }
-                // ],
-                menuItems: [],
-                orders: 0,
-            }
-        },
-        computed: {
-            ...mapGetters('basket', [
-                'products'
-            ]),
-            accountMenuItems() {
-                const isLogin = [
-                    {
-                        name: 'Войти',
-                        meta: {
-                            icon: 'login',
-                            rout: {name: 'authorization'}
-                        }
-                    },
-                    {
-                        name: 'Зарегистрироваться',
-                        meta: {
-                            icon: 'app_registration',
-                            rout: {name: 'registration'}
-                        }
+export default {
+    name: "MenuDesktop",
+    components: {
+        Basket
+    },
+    data() {
+        return {
+            // menuItems: [
+            //     {
+            //         name: 'Для лица',
+            //         children: [
+            //             {
+            //                 name: 'Очищение',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'cleansing'}
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Тоники',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'tonics'}
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Кремы',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'creams'}
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Скрабы',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'scrubs'}
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Маски',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'masks'}
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Сыворотки',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {category: 'for-face', subCategory: 'serums'}
+            //                     }
+            //                 }
+            //             }
+            //         ],
+            //         meta: {
+            //             rout: {
+            //                 name: 'category-page',
+            //                 params: {category: 'for-face'}
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: 'Для тела',
+            //         children: [
+            //             {
+            //                 name: 'Гели для душа',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'shower-gels'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Лосьоны',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'lotions'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Кремы',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'creams'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Масла',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'oils'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Скрабы',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'scrubs'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Соли для ванн',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'bath-salts'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Массажные щетки',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'sub-category-page',
+            //                         params: {
+            //                             category: 'for-body',
+            //                             subCategory: 'massage-brushes'
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         ],
+            //         meta: {
+            //             rout: {
+            //                 name: 'category-page',
+            //                 params: {category: 'for-body'}
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: 'Эффективные наборы',
+            //         children: [],
+            //         meta: {
+            //             rout: {
+            //                 name: 'category-page',
+            //                 params: {category: 'effective-sets'}
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: 'O Biothal',
+            //         children: [
+            //             {
+            //                 name: 'Философия бренда',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'info-page',
+            //                         params: {
+            //                             category: 'philosophy'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Водоросли',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'info-page',
+            //                         params: {
+            //                             category: 'seaweed'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Производство',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'info-page',
+            //                         params: {
+            //                             category: 'production'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Водорослевый комплекс "Algo+"',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'info-page',
+            //                         params: {
+            //                             category: 'algo'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Сертификаты',
+            //                 meta: {
+            //                     rout: {
+            //                         name: 'info-page',
+            //                         params: {
+            //                             category: 'certificates'
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //         ],
+            //         meta: {
+            //             rout: {
+            //                 name: 'info-page',
+            //                 params: {category: 'about-us'}
+            //             }
+            //         }
+            //     },
+            //     {
+            //         name: 'Стать дистрибьютером',
+            //         children: [],
+            //         meta: {
+            //             rout: {
+            //                 name: 'info-page',
+            //                 params: {category: 'become-distributor'}
+            //             }
+            //         }
+            //     }
+            // ],
+            menuItems: [],
+            orders: 0,
+        }
+    },
+    computed: {
+        ...mapGetters('basket', [
+            'products'
+        ]),
+        accountMenuItems() {
+            const isLogin = [
+                {
+                    name: 'Войти',
+                    meta: {
+                        icon: 'login',
+                        rout: {name: 'authorization'}
                     }
-                ]
-
-                const isLogout = [
-                    {
-                        name: 'Личный кабинет',
-                        meta: {
-                            icon: 'mode_edit_outline',
-                            rout: {name: 'account-settings'}
-                        }
-                    },
-                    {
-                        name: 'Выйти',
-                        meta: {
-                            icon: 'logout',
-                            rout: {name: 'home'}
-                        },
-                        click: this.logout
+                },
+                {
+                    name: 'Зарегистрироваться',
+                    meta: {
+                        icon: 'app_registration',
+                        rout: {name: 'registration'}
                     }
-                ]
+                }
+            ]
 
-                return this.isAuthorize ? isLogout : isLogin
-            }
-        },
-        watch: {
+            const isLogout = [
+                {
+                    name: 'Личный кабинет',
+                    meta: {
+                        icon: 'mode_edit_outline',
+                        rout: {name: 'account-settings'}
+                    }
+                },
+                {
+                    name: 'Выйти',
+                    meta: {
+                        icon: 'logout',
+                        rout: {name: 'home'}
+                    },
+                    click: this.logout
+                }
+            ]
 
-        },
-        created() {
-            this.fetchMenuData();
-        },
-        mounted() {
-            this.test();
-        },
-        methods: {
-            async fetchMenuData() {
-                let data = await this.axios.get('menu');
+            return this.isAuthorize ? isLogout : isLogin
+        }
+    },
+    watch: {
 
-                this.menuItems = data.data.categories;
-            },
-            test(){
-                this.orders = this.$refs['Basket'].products.length
-                console.log(this.$refs['Basket'].products.length)
-            }
+    },
+    created() {
+        this.fetchMenuData();
+    },
+    mounted() {
+        this.test();
+    },
+    methods: {
+        async fetchMenuData() {
+            let data = await this.axios.get('menu');
+
+            this.menuItems = data.data.categories;
+        },
+        test(){
+            this.orders = this.$refs['Basket'].products.length
         }
     }
+}
 </script>
 
 <style scoped lang="scss">
-    .menu-wrapper {
-        &__system-bar {
-            display: flex;
-            justify-content: center;
-            color: #fff;
-            font-weight: 200;
-            font-style: normal;
-            font-size: 12px;
-            line-height: 16.39px;
-            column-gap: 5.5px;
-        }
-    }
-
-    .app-bar-menu-wrapper {
+.menu-wrapper {
+    &__system-bar {
         display: flex;
-        flex-direction: row;
-        /*127px - width logo, 43px - padding left logo, 11px - padding icon, 18px - width icon, 43px - padding right icons*/
-        width: calc(100% - 127px - 43px - 18px - 11px - 18px - 11px - 18px - 43px);
         justify-content: center;
+        color: #fff;
+        font-weight: 200;
+        font-style: normal;
+        font-size: 12px;
+        line-height: 16.39px;
+        column-gap: 5.5px;
     }
+}
 
-    .app-bar-menu-icon {
-        padding-right: 43px;
-        display: flex;
-        flex-direction: row;
-        column-gap: 11px;
-        height: 21px;
+.app-bar-menu-wrapper {
+    display: flex;
+    flex-direction: row;
+    /*127px - width logo, 43px - padding left logo, 11px - padding icon, 18px - width icon, 43px - padding right icons*/
+    width: calc(100% - 127px - 43px - 18px - 11px - 18px - 11px - 18px - 43px);
+    justify-content: center;
+}
 
-        &:hover {
-            cursor: pointer;
-        }
+.app-bar-menu-icon {
+    padding-right: 43px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 11px;
+    height: 21px;
+
+    &:hover {
+        cursor: pointer;
     }
+}
 
-    .main-toolbar-title {
-        padding-left: 43px;
+.main-toolbar-title {
+    padding-left: 43px;
 
-        &:hover {
-            cursor: pointer;
-        }
+    &:hover {
+        cursor: pointer;
     }
+}
 </style>
 
 <style lang="scss">
-    .menu-wrapper {
-        & .v-toolbar__content {
-            padding: 0 !important;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 100%;
-        }
+.menu-wrapper {
+    & .v-toolbar__content {
+        padding: 0 !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
     }
+}
 
-    .app-bar-menu-wrapper {
-        & .v-btn__content {
-            font-size: 13px;
-            line-height: 18px;
-            color: #000;
-        }
+.app-bar-menu-wrapper {
+    & .v-btn__content {
+        font-size: 13px;
+        line-height: 18px;
+        color: #000;
     }
+}
 
-    .basket_lenght{
-        margin: -2px;
-    }
+.basket_lenght{
+    margin: -2px;
+}
 </style>

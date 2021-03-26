@@ -89,8 +89,8 @@ const getters = {
         if (getters.nextGlobalSales !== null) {
             const number = getters.nextGlobalSales.sum_modal / 100;
 
-            if (state.productsSum > number) {
-                percentage = state.productsSum / number;
+            if (getters.productsSum > number) {
+                percentage = getters.productsSum / number;
             }
         }
         return Math.round(percentage);

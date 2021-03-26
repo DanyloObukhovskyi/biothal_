@@ -35,110 +35,114 @@
 
 <script>
 
-    import {mapActions} from "vuex";
+import {mapActions} from "vuex";
 
-    export default {
-        name: "ProductCard",
-        props: {
-            dataCard: {
-                type: Object
-            },
-            isShowStock: {
-                type: Boolean,
-                default: false
-            }
+export default {
+    name: "ProductCard",
+    props: {
+        dataCard: {
+            type: Object
         },
-        data() {
-            return {
-                isFavorites: false,
-                isFavoritesShow: false,
-                showMessage: false,
-                snackbar: {
-                    right: true,
-                    color: 'green',
-                    timeout: 900,
-                    multiLine: true
-                }
-            }
-        },
-        methods:{
-            ...mapActions('basket', {
-                addProduct: 'ADD_PRODUCT'
-            }),
-            addProductToCart() {
-                this.showMessage = true;
-
-                const product = this.dataCard;
-                product.quantity = 1;
-
-                this.addProduct(product)
+        isShowStock: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            isFavorites: false,
+            isFavoritesShow: false,
+            showMessage: false,
+            snackbar: {
+                top: true,
+                right: true,
+                color: 'green',
+                timeout: 900,
+                multiLine: true
             }
         }
+    },
+    methods:{
+        ...mapActions('basket', {
+            addProduct: 'ADD_PRODUCT'
+        }),
+        addProductToCart() {
+            this.showMessage = true;
+
+            const product = this.dataCard;
+            product.quantity = 1;
+
+            this.addProduct(product)
+        }
     }
+}
 </script>
 
 <style scoped lang="scss">
 
-    .product {
-        text-align: center;
+.product {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 17px 30px 20px 17px;
+    row-gap: 10px;
+
+    &:hover {
+        box-shadow: 0 0 33px #f2f2f2;
+
+        & .product__button {
+            background-color: #000 !important;
+        }
+    }
+
+    &__sale {
+        vertical-align: middle;
+        color: #fff;
+        background-color: #000;
+        border-radius: 50%;
+        width: 72px;
+        height: 72px;
+        line-height:72px;
+        font-weight: 300;
+        font-size: 21px;
+        position: absolute;
+    }
+
+    &__heart {
+        text-align: right;
+        height: 16.5px;
+    }
+
+    &__image {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__description {
         display: flex;
         flex-direction: column;
-        padding: 17px 30px 20px 17px;
         row-gap: 10px;
 
-         &:hover {
-            box-shadow: 0 0 33px #f2f2f2;
-
-             & .product__button {
-                 background-color: #000 !important;
-             }
-         }
-
-        &__sale {
-            vertical-align: middle;
-            color: #fff;
-            background-color: #000;
-            border-radius: 50%;
-            width: 72px;
-            height: 72px;
-            line-height:72px;
-            font-weight: 300;
-            font-size: 21px;
-            position: absolute;
-        }
-
-        &__heart {
-            text-align: right;
-            height: 16.5px;
-        }
-
-        &__image {
+        &__text {
+            height: 50px;
+            justify-content: center;
+            display: flex;
             &:hover {
                 cursor: pointer;
             }
         }
 
-        &__description {
-            display: flex;
-            flex-direction: column;
-            row-gap: 10px;
-
-            &__text {
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-
-            &__price {
-                font-weight: 800;
-            }
-        }
-
-        &__button {
-            border-radius: 50px;
-            width: 180px;
-            height: 48px;
-            background-color: #2F7484 !important;
+        &__price {
+            font-weight: 800;
         }
     }
+
+    &__button {
+        border-radius: 50px;
+        width: 180px;
+        height: 48px;
+        background-color: #2F7484 !important;
+    }
+}
 </style>
