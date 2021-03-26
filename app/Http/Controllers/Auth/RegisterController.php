@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\Create as createUser;
+use App\Models\EmailForEmailNewsletter;
 
 class RegisterController extends Controller
 {
@@ -63,12 +65,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(createUser $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        //dd($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'sur_name' => $request->surname,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
         ]);
+
+        EmailForEmailNewsletter::create([
+            'email' => $user->email,
+            'is_receive' => $request->is_receive
+        ]);
+
+        return response()->json([
+            'message' => 'Вы успешно зарегистрировались',
+        ], 201);
     }
 }

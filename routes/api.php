@@ -33,3 +33,8 @@ Route::group(['namespace' => 'Api'], function () {
 //        'data' => 'My first test string'
 //    ]);
 //});
+
+Route::namespace('api')->post('register', 'Auth\RegisterController@create');
+Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
+Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
+Route::namespace('api')->post('checkUser', 'Auth\UserController@checkUser');

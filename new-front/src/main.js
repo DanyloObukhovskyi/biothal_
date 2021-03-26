@@ -7,12 +7,16 @@ import globalMixins from "./mixins/global"
 import store from './store/index';
 import axios from 'axios';
 import vue_axios from 'vue-axios';
+import Notification from 'vue-notification';
+import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
+import VueLoading from 'vuejs-loading-plugin'
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
 
 axios.defaults.headers = {
     'Content-Type': 'application/json;',
-    Accept: '*/*'
+    Accept: 'application/json, */*'
 }
 
 axios.interceptors.request.use(config =>{
@@ -20,6 +24,7 @@ axios.interceptors.request.use(config =>{
 
     return config;
 })
+
 
 
 axios.interceptors.response.use(
@@ -63,6 +68,15 @@ axios.interceptors.response.use(
 
 
 Vue.use(vue_axios, axios);
+Vue.use(Notification);
+Vue.use(VueLodash, { lodash: lodash });
+Vue.use(VueLoading, {
+    dark: true, // default false
+    text: 'Загрузка....', // default 'Loading'
+    loading: false, // default false
+    background: 'rgb(255,255,255)', // set custom background
+    classes: ['loader_opacity'] // array, object or string
+})
 
 import '@/styles/main.scss';
 
@@ -71,10 +85,10 @@ Vue.config.productionTip = false
 Vue.mixin(globalMixins)
 
 router.beforeEach((to, from, next) => {
-    const token = store.getters.getToken;
-    if (['authorization', 'registration'].includes(to.name) && token) {
+    const authorization = store.getters.getAuthorization;
+    if (['authorization', 'registration'].includes(to.name) && authorization) {
         next({name: 'account-settings'})
-    } else if (['account-settings', 'order-list', 'group-discount-participants', 'bank-cards'].includes(to.name) && !token) {
+    } else if (['account-settings', 'order-list', 'group-discount-participants', 'bank-cards'].includes(to.name) && !authorization) {
         next({name: 'authorization'})
     } else {
         next()
