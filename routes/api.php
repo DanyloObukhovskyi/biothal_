@@ -34,7 +34,12 @@ Route::group(['namespace' => 'Api'], function () {
 //    ]);
 //});
 
-Route::namespace('api')->post('register', 'Auth\RegisterController@create');
-Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
-Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
-Route::namespace('api')->post('checkUser', 'Auth\UserController@checkUser');
+//Route::namespace('api')->post('register', 'Auth\RegisterController@create');
+//Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
+//Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
+//Route::namespace('api')->post('checkUser', 'Auth\UserController@checkUser');
+
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+Route::post('me', 'AuthController@me');
