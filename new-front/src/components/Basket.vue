@@ -81,7 +81,7 @@
                                      type-set="basket-menu"
                                      :is-show-title="false"/>
                     <ProductCardsSetMobile v-if="isMobile"
-                                           :product-data="recommendedProducts"
+                                           :product-data="recommendedProducts.slice(0, 4)"
                                            ype-set="product"
                                            title="Рекомендуемые товары"/>
                 </div>

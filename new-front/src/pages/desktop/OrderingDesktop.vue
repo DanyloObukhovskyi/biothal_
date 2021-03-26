@@ -18,10 +18,11 @@
             <div class="ordering__middle">
                 <div class="ordering__middle__left">
                     <div>
-                        <v-form>
+                        <v-form autocomplete="off">
                             <div>
                                 <p class="main-input-label">Введите номер телефона *</p>
                                 <v-text-field
+                                    v-model="number"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -31,6 +32,7 @@
                             <div>
                                 <p class="main-input-label">Введите имя *</p>
                                 <v-text-field
+                                    v-model="name"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -40,6 +42,7 @@
                             <div>
                                 <p class="main-input-label">Введите фамилию *</p>
                                 <v-text-field
+                                    v-model="surname"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -48,34 +51,54 @@
                             </div>
                             <div>
                                 <p class="main-input-label">Введите область *</p>
-                                <v-text-field
+                                <v-autocomplete
+                                    :items="regions"
+                                    color="#2F7484"
+                                    :loading="regionsLoading"
+                                    v-model="region"
                                     class="main-input-field"
-                                    background-color="#F7F7F7"
+                                    height="44"
+                                    name="name"
                                     flat
                                     rounded
-                                    height="44"/>
+                                    background-color="#F7F7F7">
+                                </v-autocomplete>
                             </div>
                             <div>
                                 <p class="main-input-label">Введите город *</p>
-                                <v-text-field
+                                <v-autocomplete
+                                    :items="cities"
+                                    :loading="citiesLoading"
+                                    v-model="city"
+                                    color="#2F7484"
+                                    :item-text="(c) => c.name"
                                     class="main-input-field"
-                                    background-color="#F7F7F7"
+                                    height="44"
                                     flat
                                     rounded
-                                    height="44"/>
+                                    background-color="#F7F7F7">
+                                </v-autocomplete>
                             </div>
                             <div>
                                 <p class="main-input-label">Выберите отделение Новой Почты *</p>
-                                <v-text-field
+                                <v-autocomplete
+                                    :items="postalOffices"
+                                    :loading="postalOfficesLoading"
+                                    v-model="postalOffice"
+                                    color="#2F7484"
+                                    :item-text="(c) => c.name"
+                                    name="name"
                                     class="main-input-field"
-                                    background-color="#F7F7F7"
+                                    height="44"
                                     flat
                                     rounded
-                                    height="44"/>
+                                    background-color="#F7F7F7">
+                                </v-autocomplete>
                             </div>
                             <div>
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-text-field
+                                    v-model="paymentMethod"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -96,6 +119,7 @@
                 <div class="ordering__middle__right">
                     <div class="ordering__middle__right__product-set">
                         <ProductCardsSet type-set="basket"
+                                         @delete="deleteProduct"
                                          :product-data="products"
                                          :is-show-title="false"/>
                     </div>
@@ -105,7 +129,7 @@
                                 Стоимость товаров:
                             </div>
                             <div class="total__right">
-                                5555 грн.
+                                {{ productsSum }} грн.
                             </div>
                         </div>
                         <div class="total">
@@ -113,7 +137,15 @@
                                 Стоимость доставки:
                             </div>
                             <div class="total__right">
-                                40 грн.
+                                {{ deliveryPrice }} грн.
+                            </div>
+                        </div>
+                        <div class="total" v-if="currentGlobalSales !== null">
+                            <div class="total__left">
+                                Скидка:
+                            </div>
+                            <div class="total__right">
+                                {{ currentGlobalSales.procent_modal }}%.
                             </div>
                         </div>
                         <div class="total">
@@ -121,7 +153,7 @@
                                 Итого к оплате:
                             </div>
                             <div class="total__right" style="font-weight: 700">
-                                2320 грн.
+                                {{ productsSumWithSales + deliveryPrice }} грн.
                             </div>
                         </div>
                     </div>
@@ -129,7 +161,7 @@
             </div>
         </div>
         <div>
-            <ProductCardsSet title="Рекомендуемые товары"/>
+            <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts"/>
         </div>
 
         <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
@@ -140,7 +172,7 @@
     import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
     import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
-    import {mapGetters} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "OrderingDesktop",
@@ -149,55 +181,98 @@
             PlaceOrderOneClick,
             ProductCardsSet
         },
+        data() {
+           return {
+               deliveryPrice: 40,
+               number: null,
+               name: null,
+               surname: null,
+               region: '',
+               city: '',
+               postalOffice: '',
+               paymentMethod: null,
+               recommendedProducts: [],
+               regions: [],
+               regionsLoading: false,
+               cities: [],
+               citiesLoading: false,
+               postalOffices: [],
+               postalOfficesLoading: false,
+           }
+        },
         computed: {
             ...mapGetters('basket', [
                 'products',
-                'globalSales'
-            ]),
-            currentGlobalSales() {
-                let current = null;
-
-                for (let sales of this.globalSales) {
-                    if (sales.sum_modal <= this.productsSum) {
-                        current = sales;
-                    }
+                'globalSales',
+                'currentGlobalSales',
+                'nextGlobalSales',
+                'linear',
+                'productsSum',
+                'productsSumWithSales'
+            ])
+        },
+        watch: {
+            region() {
+                if (this.region !== null && this.region !== '') {
+                    this.getCities()
+                    this.postalOffices = [];
+                    this.city = '';
                 }
-                return current;
             },
-            nextGlobalSales() {
-                let next = null;
-
-                for (let sales of this.globalSales) {
-                    if (sales.sum_modal > this.productsSum) {
-                        next = sales;
-                        break;
-                    }
+            city() {
+                if (this.region !== null && this.region !== '') {
+                    this.getPostalOffices()
                 }
-                return next;
-            },
-            linear() {
-                let percentage = 0;
-                if (this.nextGlobalSales !== null) {
-                    const number = this.nextGlobalSales.sum_modal / 100;
-                    percentage = this.productsSum / number;
-                }
-                return Math.round(percentage);
-            },
-            productsSum() {
-                let sum = 0;
-                for (let product of this.products) {
-                    sum += +product.price * +product.quantity;
-                }
-                return sum;
-            },
-            productsSumWithSales() {
-                let sum = this.productsSum;
-
-                if (this.currentGlobalSales !== null) {
-                    sum = sum - ((sum / 100) * this.currentGlobalSales.procent_modal);
-                }
-                return sum;
             }
+        },
+        methods: {
+            ...mapActions('basket', {
+                deleteProduct: 'DELETE_PRODUCT'
+            }),
+            getRecommendedProduct() {
+                this.axios.post('products/recommended')
+                    .then(({data}) => {
+                        this.recommendedProducts = data
+                    })
+            },
+            getRegionsAndCities() {
+                this.regionsLoading = true;
+
+                this.axios.post('checkout/regions')
+                    .then(({data}) => {
+                        this.regions = data;
+                        this.regionsLoading = false;
+                    })
+            },
+            getCities() {
+                this.citiesLoading = true;
+
+                const data = {
+                    region: this.region,
+                }
+                this.axios.post('checkout/cities', data)
+                    .then(({data}) => {
+                        this.cities = data;
+                        this.citiesLoading = false;
+                    })
+            },
+            getPostalOffices() {
+                this.postalOfficesLoading = true;
+
+                const city = this.cities.find(c => c.name === this.city)
+
+                this.axios.post('checkout/postal/offices', {city})
+                    .then(({data}) => {
+                        this.postalOffices = data;
+                        this.postalOfficesLoading = false;
+                    })
+            }
+        },
+        mounted() {
+            this.getRecommendedProduct();
+            this.getRegionsAndCities();
+
+            window.testtest = this;
         }
     }
 </script>

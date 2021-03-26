@@ -32,8 +32,8 @@
                     :readonly="item.children ? !item.children.length : true">
                     <v-expansion-panel-header
                         :expand-icon="showIconItemMenu(item)">
-                        <span  @click="toPage({name: 'category-page', params:{ category: item.slug }} )">
-                            {{item.title}}
+                        <span @click="toPage({name: 'category-page', params:{ category: item.slug }} )">
+                            {{ item.title }}
                         </span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content class="inner-list">
@@ -46,7 +46,7 @@
                                 <v-expansion-panel-header
                                     @click="toPage({name: 'sub-category-page', params:{ category: item.category.slug, subCategory: item.slug }} )"
                                     expand-icon="">
-                                    - {{item.title}}
+                                    - {{ item.title }}
                                 </v-expansion-panel-header>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -87,8 +87,9 @@
 </template>
 
 <script>
-    import Basket from "../Basket";
-    import AccountMenuMobile from "./AccountMenuMobile";
+import Basket from "../Basket";
+import AccountMenuMobile from "./AccountMenuMobile";
+import {mapGetters} from "vuex";
 
     export default {
         name: "MenuMobile",
@@ -130,17 +131,17 @@
 
 <style lang="scss">
 
-    .inner-list {
-        & .v-expansion-panel-content__wrap {
-            padding: 0;
-        }
-
-        & .v-expansion-panel:before {
-            box-shadow: none !important;
-        }
-
-        & .v-expansion-panel-header {
-            padding-left: 55px;
-        }
+.inner-list {
+    & .v-expansion-panel-content__wrap {
+        padding: 0;
     }
+
+    & .v-expansion-panel:before {
+        box-shadow: none !important;
+    }
+
+    & .v-expansion-panel-header {
+        padding-left: 55px;
+    }
+}
 </style>
