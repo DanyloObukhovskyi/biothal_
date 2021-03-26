@@ -73,9 +73,12 @@ export default {
             product.quantity = 1;
 
             this.addProduct(product)
+        },
+            test() {
+                console.log(this.$route.params.id)
+            }
         }
     }
-}
 </script>
 
 <style scoped lang="scss">

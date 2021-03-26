@@ -10,7 +10,7 @@ use App\Models\Categories;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
-class HomeController extends Controller
+    class HomeController extends Controller
 {
     /**
      * Show the application dashboard.
@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $categories = Categories::with('children')->where([['parent_id', null], ['type_category', 0]])->get();
 
-        $info_categories = Categories::with('childrenArticle')->where([['parent_id', null], ['type_category', 1]])->get();
+        $info_categories = Categories::with('children')->where([['parent_id', null], ['type_category', 1]])->get();
 
 //        Релейшн
 //        $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();

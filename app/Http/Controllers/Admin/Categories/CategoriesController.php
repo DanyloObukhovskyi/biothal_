@@ -44,7 +44,7 @@ class CategoriesController extends Controller
                 ->make(true);
         }
 
-        $categories = Categories::where('parent_id', null)->get();
+        $categories = Categories::where([['parent_id', null], ['type_category', 0]])->get();
 
         return view('admin.categories.index', ['categories' => $categories]);
     }

@@ -131,11 +131,19 @@ $(function () {
         $("#category_hidden_id").val(id);     // Id
         $("#ordering_category_change").val(order);  // Ordering
 
-        if (parentId != null) { // Материнская категория
-            $("#padre_category_select_change option[value=" + "\"" + parentId + "\"" + "]").prop('selected', true);
-        } else {
+        if (typeCategory) {
             $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
+            $("#padre_category_select_change").attr('disabled', true);
+        } else {
+            $("#padre_category_select_change").attr('disabled', false);
+
+            if (parentId != null) { // Материнская категория
+                $("#padre_category_select_change option[value=" + "\"" + parentId + "\"" + "]").prop('selected', true);
+            } else {
+                $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
+            }
         }
+
 
         if (typeCategory) { // Тип категории
             $("#type_category_change option[value=info]").prop('selected', true);
@@ -202,6 +210,7 @@ $(function () {
 
     // Добавление Категорий
     $(document).on("click", '#add_category', function () {
+        $('#padre_category_select').attr('disabled', false);
         $('#add_category').attr("disabled", true);
         var parent_id = $('#padre_category_select').val();
         var type_category = $('#type_category').val();
@@ -285,7 +294,7 @@ $(function () {
 
         if(type_category === 'info'){
             $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
-            $("#padre_category_select_change").attr('disabled',true);
+            $("#padre_category_select_change").attr('disabled', true);
         } else {
             $('#padre_category_select_change').attr('disabled', false);
         }
@@ -295,7 +304,7 @@ $(function () {
 
         if(type_category === 'info'){
             $("#padre_category_select option[value=NoCategory]").prop('selected', true);
-            $("#padre_category_select").attr('disabled',true);
+            $("#padre_category_select").attr('disabled', true);
         } else {
             $('#padre_category_select').attr('disabled', false);
         }
