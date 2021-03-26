@@ -73,9 +73,12 @@
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
                     mdi-briefcase-outline
                 </v-icon>
-                <div color="#000" size="18" class="basket_lenght" @click="$refs['Basket'].visibleModal(true)">
-                    ({{ products.length }})
-                </div>
+                <v-badge
+                    v-if="products.length > 0"
+                    color="black"
+                    :content="products.length"
+                    overlap
+                ></v-badge>
             </div>
         </v-app-bar>
         <Basket ref="Basket"/>
