@@ -10,15 +10,6 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip"
-                                                                    title="SKU или код производителя">Краткое описание</span></label>
-        <div class="col-sm-10">
-            <input type="text" name="sku"
-                   value="{{$product['sku'] ?? ''}}"
-                   placeholder="Краткое описание" id="input-sku" class="form-control"/>
-        </div>
-    </div>
-    <div class="form-group">
         <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip"
                                                                     title="Универсальный код товара">Англ.название</span></label>
         <div class="col-sm-10">

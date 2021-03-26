@@ -11,10 +11,10 @@
             <div class="product-basket__right__text">
                 <div>Количество</div>
                 <div style="display: flex; flex-direction: row">
-                    <v-icon class="main-icon-btn" size="12" @click="dataCard.quantity > 0 ? decrementQuantity(dataCard.id) : null">
+                    <v-icon class="main-icon-btn" size="12" @click="dataCard.quantity > dataCard.minimum ? decrementQuantity(dataCard.id) : null">
                         mdi-minus
                     </v-icon>
-                    <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="0"/>
+                    <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="dataCard.minimum"/>
                     <v-icon class="main-icon-btn" size="12" @click="incrementQuantity(dataCard.id)">mdi-plus</v-icon>
                 </div>
                 <div class="product-basket__right__text__price">Цена: {{ dataCard.price }} грн.</div>
@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         ...mapActions('basket', {
+
             incrementQuantity: 'INCREMENT_PRODUCT_QUANTITY',
             decrementQuantity: 'DECREMENT_PRODUCT_QUANTITY'
         }),

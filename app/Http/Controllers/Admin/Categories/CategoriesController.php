@@ -51,19 +51,16 @@ class CategoriesController extends Controller
 
     public function addCategory(CategoryAddRequest $request)
     {
-
-//        Log::info($request->all());
-//        dd($request->all());
         $categoriesCount = count(Categories::all());
         $select = $request->parent_id == "NoCategory" ? null : $request->parent_id;
         $type_category = $request->type_category == "forProduct" ? 0 : 1;
-//        Log::info($type_category);
-//        dd();
+
         Categories::create([
             'parent_id' => $select,
             'title' => $request->title,
             'ordering' => $request->ordering,
-            'is_demand' => 0
+            'is_demand' => 0,
+            'type_category' => $type_category
         ]);
 
         if ($categoriesCount == 0){
@@ -172,16 +169,16 @@ class CategoriesController extends Controller
 
     public function changeCategory(CategoryAddRequest $request)
     {
-        Log::info($request->all());
         $parentId = $request->parent_id == "NoCategory" ? null : $request->parent_id;
         $type_category = $request->type_category == "forProduct" ? 0 : 1;
         $category = Categories::find($request->id);
+
         $category->update([
             'parent_id' => $parentId,
-            'type_category' => $type_category,
             'title' => $request->title,
             'ordering' => $request->ordering,
             'is_demand' => $request->is_demand,
+            'type_category' => $type_category,
         ]);
 
         return response()->json([

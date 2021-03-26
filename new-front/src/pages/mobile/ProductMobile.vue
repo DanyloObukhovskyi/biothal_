@@ -1,18 +1,27 @@
 <template>
     <div class="product-mobile__wrapper">
-        <path-breadcrumb style="text-align: left; justify-content: left" labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>
+<!--        <path-breadcrumb  labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>-->
+        <div style="margin:10px; text-align: left; justify-content: left">
+            <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
+            <span class="arrow"> &#x1F852; </span>
+            <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
+            <span class="arrow"> &#x1F852; </span>
+            <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
+            <span class="arrow"> &#x1F852; </span>
+            <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
+        </div>
         <div class="product-info__wrapper">
             <div class="product-info__discount" v-if="is_discount">-50%</div>
             <div class="product-info__image">
-                <img :src="image" :alt="productData['image']['name']" :class="subImages" @click="getSubImages()"/>
+                <img style="width: 100%" :src="image" :alt="productData['image']['name']" :class="subImages" @click="getSubImages()"/>
             </div>
-            <div class="product-info__other">
-                <div class="product-info__other__icons">
-                    <ThreeDotsSlides/>
-                    <v-icon size="10" color="#000">mdi-gift-outline</v-icon>
-                    <v-icon size="10" color="#000" v-if="isShowFavorite">mdi-heart-outline</v-icon>
-                </div>
-            </div>
+<!--            <div class="product-info__other">-->
+<!--                <div class="product-info__other__icons">-->
+<!--                    <ThreeDotsSlides/>-->
+<!--                    <v-icon size="10" color="#000">mdi-gift-outline</v-icon>-->
+<!--                    <v-icon size="10" color="#000" v-if="isShowFavorite">mdi-heart-outline</v-icon>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="product-info__title">
                 <span>{{ description['name'] || '' }}</span>
@@ -42,8 +51,8 @@
                         class="product-info__tabs__default"
                         :href="`#tab-${idx}`"
                         v-for="(item, idx) in items"
-                        :key="idx">
-                        {{ item['tab_title'] }}
+                        :key="idx"
+                        v-html="item['tab_title']">
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
@@ -51,15 +60,14 @@
                         v-for="(item, idx) in items"
                         :key="idx"
                         :value="'tab-' + idx">
-                        <v-card flat class="tab-text">
-                            {{ item['tab_desc'] }}
+                        <v-card flat class="tab-text" v-html="item['tab_desc']" >
                         </v-card>
                     </v-tab-item>
                 </v-tabs-items>
             </div>
         </div>
         <div>
-            <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары"/>
+            <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары" :product-data="recommendedProduct"/>
         </div>
         <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
             <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
@@ -106,6 +114,17 @@
             },
             validPhoneInput() {
                 return this.phone.length === 10
+            },
+            route() {
+                return this.$route.params;
+            }
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler (newRoute, oldRoute) {
+                    this.fetchProductDetails();
+                },
             }
         },
         created() {
@@ -131,6 +150,8 @@
                 image: '',
                 index: null,
                 subImages: null,
+                subCategory: [],
+                mainCategory: []
             }
         },
         methods: {
@@ -143,14 +164,17 @@
                 }
             },
             async fetchProductDetails() {
-                console.log(this.id)
                 let data = await this.axios.get('product/' + this.id);
+
                 this.productData = data.data.productDetails;
                 this.description = this.productData['product_description']
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
-                this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
+                this.image = this.api + '/storage/img/products/' + this.productData['image']['name'];
+                this.subCategory = data.data.product_category;
+                this.mainCategory = data.data.main_product_category;
+
                 if (this.productImages) {
                     let url = [];
                     let api = this.api + '/storage/img/products/';
@@ -328,5 +352,10 @@
         & .v-tabs {
             height: 17px !important;
         }
+    }
+
+    .arrow {
+        content: "\01F852";
+        font-weight: 900;
     }
 </style>

@@ -21,8 +21,6 @@ class ProductController extends Controller
             $main_product_category = Categories::where('id', $product_category['parent_id'])->first();
         }
 
-        $products = Product::with('image', 'categories')->get();
-
         $recommendedProduct = Product::with('image', 'productDescription')
             ->where('is_recommended', '=', 1)
             ->get();
@@ -33,7 +31,6 @@ class ProductController extends Controller
 
         return response()->json([
             'id' => $id,
-            'products' => $products,
             'productDetails' => $productDetails,
             'recommendedProduct' => $recommendedProduct,
             'product_category' => $product_category,

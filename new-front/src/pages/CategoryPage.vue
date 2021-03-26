@@ -110,7 +110,6 @@
         },
         data() {
             return {
-                url: '',
                 productData: [],
                 categoryTitle: '',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ'
