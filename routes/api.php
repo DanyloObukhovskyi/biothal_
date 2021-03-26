@@ -14,8 +14,6 @@ Route::namespace('api')->get('category/{id}', 'CategoryController@getCategory');
 
 Route::namespace('api')->get('info-page/{id}', 'ArticleController@getArticle');
 
-Route::namespace('api')->get('info-page-footer/{id}', 'ArticleController@getArticle');
-
 Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'sales'], function () {
         Route::post('/global', 'SalesController@getGlobalSales')

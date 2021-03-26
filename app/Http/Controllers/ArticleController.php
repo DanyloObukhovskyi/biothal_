@@ -13,11 +13,17 @@ class ArticleController extends Controller
 
     public function getArticle($id){
         $layout_id = Categories::where('slug', $id)->first();
-        $information_id = InformationToLayout::where('layout_id', $layout_id['id'])->first();
-        if ($information_id) {
-            $article = InformationAttributes::where('information_id', $information_id['information_id'])->first();
+        $article = InformationAttributes::where('slug', $id)->first();
+
+        if ($article !== null) {
+            $article = InformationAttributes::where('slug', $id)->first();
         } else {
-            $article = [];
+            $information_id = InformationToLayout::where('layout_id', $layout_id['id'])->first();
+            if ($information_id !== null) {
+                $article = InformationAttributes::where('information_id', $information_id['information_id'])->first();
+            } else {
+                $article = [];
+            }
         }
 
         return response()->json([
@@ -25,7 +31,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function getArticleFromFooter($id){
+    public function getSubArticle($id){
         $article = InformationAttributes::where('slug', $id)->first();
 
         return response()->json([

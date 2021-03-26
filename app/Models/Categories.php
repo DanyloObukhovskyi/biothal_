@@ -34,11 +34,7 @@ class Categories extends Model
 
     public function childrenArticle()
     {
-//        $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();
-//        $bottom_article = Information::whereIn('information_id', Arr::pluck($information_ids, 'information_id'))
-//            ->where('bottom', 1)
-//            ->get();
-//        return InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
+        return $this->hasMany(InformationToLayout::class,'layout_id','id')->with(['info','attribute']);
     }
 
     use HasSlug;
@@ -53,10 +49,6 @@ class Categories extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function childrenInformation()
-    {
-        return $this->hasMany(InformationToLayout::class,'layout_id','id')->with(['info','attribute']);
-    }
 }
 
 

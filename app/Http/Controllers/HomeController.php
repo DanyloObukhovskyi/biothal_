@@ -30,19 +30,14 @@ use Illuminate\Support\Facades\Log;
 
     public function menu()
     {
+        $info_categories = Categories::where([
+            'parent_id' => null,
+            'type_category' => 1
+        ])->with('childrenArticle')->get();
+
         $categories = Categories::with('children')->where([['parent_id', null], ['type_category', 0]])->get();
 
-        $info_categories = Categories::with('children')->where([['parent_id', null], ['type_category', 1]])->get();
-
-//        Релейшн
-//        $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();
-//        $bottom_article = Information::whereIn('information_id', Arr::pluck($information_ids, 'information_id'))
-//            ->where('bottom', 1)
-//            ->get();
-//        $article = InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
-
         return response()->json([
-//            'article' => $article,
             'categories' => $categories,
             'info_categories' => $info_categories
         ]);
@@ -51,11 +46,7 @@ use Illuminate\Support\Facades\Log;
 
     public function footer()
     {
-        $info_categories = Categories::where([
-            'type_category' => 1
-        ])->with([
-            'childrenInformation',
-        ])->get();
+        $info_categories = Categories::select('id')->where('type_category', 1)->get();
         $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();
         $bottom_article = Information::whereIn('information_id', Arr::pluck($information_ids, 'information_id'))
             ->where('bottom', 1)
@@ -66,8 +57,7 @@ use Illuminate\Support\Facades\Log;
 
         return response()->json([
             'article' => $article,
-            'categories' => $categories,
-            'info_categories' => $info_categories
+            'categories' => $categories
         ]);
     }
     public function about()
