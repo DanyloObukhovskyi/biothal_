@@ -137,19 +137,9 @@
                                             <td class="text-left">Основной магазин</td>
                                             <td class="text-left"><select name="information_layout" class="form-control">
                                                     <option value="" selected="selected">Выбрать из списка</option>
-                                                    <option value="3">Category</option>
-                                                    <option value="7">Checkout</option>
-                                                    <option value="8">Contact</option>
-                                                    <option value="4">Default</option>
-                                                    <option value="1">Home</option>
-                                                    <option value="11">Information</option>
-                                                    <option value="16">O Biothal</option>
-                                                    <option value="2">Product</option>
-                                                    <option value="19">Водоросли</option>
-                                                    <option value="23">Контакты</option>
-                                                    <option value="18">Море</option>
-                                                    <option value="20">Производство</option>
-                                                    <option value="17">Философия</option>
+                                                    @foreach($layouts as $layout)
+                                                        <option value="{{$layout->id}}">{{ $layout->title }}</option>
+                                                    @endforeach
                                                 </select></td>
                                         </tr>
                                         </tbody>

@@ -4,23 +4,9 @@
             <img width="100%" src="../../../public/slider.svg"/>
         </div>
         <div class="info-page__title">
-            {{title}}
+            {{article.title || 'Статья еще не была добавлена'}}
         </div>
-        <div class="info-page__content__wrapper">
-            <p>Во Франции, на севере Бретани, находится заповедная территория, дикая и нетронутая природа, крупнейшая
-                долина и историческое место сбора водорослей в Европе.
-                На протяжении многих лет здесь производят косметику на основе морских ингредиентов.</p>
-            <p>Именно здесь Специалисты компании Biothal в тесном сотрудничестве с известными микробиологами и
-                альгологами
-                разрабатывают уникальные формулы продуктов являющихся бесспорным лидером в области Спа услуг, ухода за
-                кожей
-                лица и тела. Успешное сочетание натуральных ингредиентов с современными технологиями позволило нам
-                создать
-                уникальные средства для продления молодости кожи с максимальным терапевтическим эффектом</p>
-            <p>Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской силы,
-                который работает в абсолютной синергии с кожей и соответствует самым высоким мировым стандартам
-                качества.
-                Тысячи женщин уже оценили профессиональный подход марки и высокую эффективность продуктов Biothal.</p>
+        <div class="info-page__content__wrapper" v-html="article.description">
         </div>
     </div>
 </template>
@@ -28,37 +14,35 @@
 <script>
     export default {
         name: "InfoPage",
+        data() {
+            return {
+                title: '',
+                article: []
+            }
+        },
         computed: {
-            title() {
-                const category = this.$route.params.category
-                switch (category) {
-                    case "production":
-                        return "Производство";
-                    case "philosophy":
-                        return "Философия";
-                    case "sea":
-                        return "Море";
-                    case "seaweed":
-                        return "Водоросли";
-                    case "about-us":
-                        return "O Biothal";
-                    case "effective-sets":
-                        return "Эффективные наборы";
-                    case "payment-and-delivery":
-                        return "Оплата и доставка";
-                    case "algo":
-                        return "Водорослевый комплекс \"Algo+\"";
-                    case "certificates":
-                        return 'Сертификаты';
-                    case "become-distributor":
-                        return "Стать дистрибьютером";
-                    default:
-                        return category;
-                }
+            route() {
+                return this.$route.params;
+            }
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler (newRoute, oldRoute) {
+                    this.fetchInfoPage();
+                },
             }
         },
         created() {
-            console.log(this.$route.params.category)
+            this.fetchInfoPage();
+        },
+        methods: {
+            async fetchInfoPage() {
+                let data = await this.axios.get('info-page/' + this.$route.params.id);
+
+                this.article =  data.data.article;
+                this.title =  this.$route.params.id;
+            }
         }
     }
 </script>

@@ -32,49 +32,21 @@
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item class="list-item" v-for="(item, index) in menuItems" :key="index"
+                    <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory" :key="index"
                                  @click="toPage({name: 'category-page', params: {category: item.slug }})">
                         <v-list-item-content>
                             - {{ item.title }}
                         </v-list-item-content>
                     </v-list-item>
-<!--                    <v-list-item class="list-item"-->
-<!--                                 @click="toPage({name: 'category-page', params: {category: 'for-body'}})">-->
-<!--                        <v-list-item-content>-->
-<!--                            - Для тела-->
-<!--                        </v-list-item-content>-->
-<!--                    </v-list-item>-->
-<!--                    <v-list-item class="list-item"-->
-<!--                                 @click="toPage({name: 'category-page', params: {category: 'effective-sets'}})">-->
-<!--                        <v-list-item-content>-->
-<!--                            - Эффективные наборы-->
-<!--                        </v-list-item-content>-->
-<!--                    </v-list-item>-->
                 </v-list>
             </div>
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
-                    <v-list-item class="list-item"
-                                 @click="toPage({name: 'info-page', params: {category: 'production'}})">
+                    <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage" :key="index"
+                                 @click="toPage({name: 'info-page', params: {id: item.slug}, })">
                         <v-list-item-content>
-                            - Производство
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item"
-                                 @click="toPage({name: 'info-page', params: {category: 'philosophy'}})">
-                        <v-list-item-content>
-                            - Философия
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'sea'}})">
-                        <v-list-item-content>
-                            - Море
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item" @click="toPage({name: 'info-page', params: {category: 'seaweed'}})">
-                        <v-list-item-content>
-                            - Водоросли
+                            - {{ item.title }}
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -128,7 +100,8 @@
         name: "FooterDesktop",
         data() {
             return {
-                menuItems: []
+                menuItemsCategory: [],
+                menuItemsInfoPage: []
             }
         },
         created() {
@@ -138,7 +111,9 @@
             async fetchFooterData() {
                 let data = await this.axios.get('footer');
 
-                this.menuItems = data.data.categories;
+                this.menuItemsCategory = data.data.categories;
+                this.menuItemsInfoPage = data.data.article;
+                console.log(this.menuItemsInfoPage)
             }
         }
     }

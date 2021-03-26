@@ -1,14 +1,14 @@
 <template>
     <div class="base-page-wrapper product-wrapper">
-<div>
-    <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
-    <span> / </span>
-    <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
-    <span> / </span>
-    <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
-    <span> / </span>
-    <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
-</div>
+    <div>
+        <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
+        <span> / </span>
+        <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
+        <span> / </span>
+        <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
+        <span> / </span>
+        <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
+    </div>
         <div class="block-product">
             <div class="block-product-base-info">
 
@@ -47,7 +47,7 @@
                             <input v-model="count_good" type="number" style="width: 42px"/>
                             <v-icon
                                 @click="decrementCountGood"
-                                :style="{'background-color': count_good <= 1 ? variables.disablecolor : variables.basecolor, color: count_good <= 1 ? '#000000' : '#ffffff'}"
+                                :style="{'background-color': count_good <= minimum_quantity ? variables.disablecolor : variables.basecolor, color: count_good <= minimum_quantity ? '#000000' : '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-minus
                             </v-icon>
@@ -57,7 +57,7 @@
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
                             <v-btn dark color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
-                            <span class="info-pay-control__text">Добавить в избранное</span>
+<!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
                         <div class="info-pay-control__buy-fast">
                             <v-text-field
@@ -102,6 +102,7 @@
         <div>
             <ProductCardsSet type-set="product" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ" :product-data="recommendedProduct"/>
         </div>
+
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
     </div>
 </template>
@@ -129,6 +130,17 @@
         computed: {
             validPhoneInput() {
                 return this.phone.length === 10
+            },
+            route() {
+                return this.$route.params;
+            }
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler (newRoute, oldRoute) {
+                    this.fetchProductDetails();
+                },
             }
         },
         created() {
@@ -139,6 +151,7 @@
                 tab: null,
                 variables,
                 count_good: 1,
+                minimum_quantity: '',
                 items: [],
                 is_discount: true,
                 phone: '',
@@ -172,7 +185,7 @@
                 ++this.count_good;
             },
             decrementCountGood() {
-                if (this.count_good > 1) {
+                if (this.count_good > this.minimum_quantity) {
                     --this.count_good;
                 }
             },
@@ -187,6 +200,8 @@
                 this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
                 this.subCategory = data.data.product_category;
                 this.mainCategory = data.data.main_product_category;
+                this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
+                this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
 
                 if (this.productImages) {
                     let url = [];

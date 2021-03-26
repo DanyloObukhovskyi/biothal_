@@ -37,7 +37,7 @@
                         </div>
                         <select required class="custom-select" id="type_category"
                                 name="type_category">
-                            <option checked value="forProduct" class="no_category">Для товаров</option>
+                            <option selected value="forProduct" class="no_category">Для товаров</option>
                             <option value="info">Информационная категория</option>
                         </select>
                     </div>

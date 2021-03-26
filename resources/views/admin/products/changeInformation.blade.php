@@ -58,8 +58,8 @@
                                 <ul class="nav nav-tabs" id="language">
                                     <li class="active"><a href="#language1" data-toggle="tab"><img src="{{ url('image/en-gb.png')}}" title="English" /> English</a></li>
                                 </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="language_1">
+                                <div class="tab-content ">
+                                    <div class="tab-pane active" id="language_1">
                                         <br>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label required" for="input-title1">Название статьи</label>
@@ -141,20 +141,10 @@
                                         <tr>
                                             <td class="text-left">Основной магазин</td>
                                             <td class="text-left"><select name="information_layout" class="form-control">
-                                                    <option value=""></option>
-                                                    <option {{ $article->layout->layout_id === 3 ? 'selected' : '' }} value="3">Category</option>
-                                                    <option {{ $article->layout->layout_id === 7 ? 'selected' : '' }} value="7">Checkout</option>
-                                                    <option {{ $article->layout->layout_id === 8 ? 'selected' : '' }} value="8">Contact</option>
-                                                    <option {{ $article->layout->layout_id === 4 ? 'selected' : '' }} value="4">Default</option>
-                                                    <option {{ $article->layout->layout_id === 1 ? 'selected' : '' }} value="1">Home</option>
-                                                    <option {{ $article->layout->layout_id === 11 ? 'selected' : '' }} value="11">Information</option>
-                                                    <option {{ $article->layout->layout_id === 16 ? 'selected' : '' }} value="16">O Biothal</option>
-                                                    <option {{ $article->layout->layout_id === 2 ? 'selected' : '' }} value="2">Product</option>
-                                                    <option {{ $article->layout->layout_id === 19 ? 'selected' : '' }} value="19">Водоросли</option>
-                                                    <option {{ $article->layout->layout_id === 23 ? 'selected' : '' }} value="23">Контакты</option>
-                                                    <option {{ $article->layout->layout_id === 18 ? 'selected' : '' }} value="18">Море</option>
-                                                    <option {{ $article->layout->layout_id === 20 ? 'selected' : '' }} value="20">Производство</option>
-                                                    <option {{ $article->layout->layout_id === 17 ? 'selected' : '' }} value="17">Философия</option>
+                                                    <option value="0">Без схемы</option>
+                                                    @foreach($layouts as $layout)
+                                                        <option {{ $article->layout->layout_id === $layout->id ? 'selected' : '' }} value="{{$layout->id}}">{{ $layout->title }}</option>
+                                                    @endforeach
                                                 </select></td>
                                         </tr>
                                         </tbody>

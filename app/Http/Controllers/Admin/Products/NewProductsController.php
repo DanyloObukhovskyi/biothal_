@@ -12,6 +12,7 @@ use App\Http\Requests\Products\Information\{
     Update as InformationUpdateRequest
 };
 
+use Illuminate\Support\Facades\Log;
 use App\Models\Admin\Products\{
     ProductApts,
     ProductTo1C,
@@ -245,7 +246,9 @@ class NewProductsController extends Controller
 
     public function changeInformation($id)
     {
-        $article = Information::where('information_id', $id)->first();
+        $article = Information::with('attributes')->where('information_id', $id)->first();
+
+        $layouts = Categories::where('type_category', 1)->get(); // Получение всех информационных категорий
 
         $url = UrlAlias::where([
             'type' => 'information',
@@ -253,6 +256,7 @@ class NewProductsController extends Controller
         ])->first();
 
         return view('admin.products.changeInformation', compact(
+            'layouts',
             'article',
             'url'
         ));
@@ -260,7 +264,11 @@ class NewProductsController extends Controller
 
     public function createInformation()
     {
-        return view('admin.products.createInformation');
+        $layouts = Categories::where('type_category', 1)->get(); // Получение всех информационных категорий
+
+        return view('admin.products.createInformation', compact(
+            'layouts'
+        ));
     }
 
     public function updateInformation(InformationUpdateRequest $request, $id)

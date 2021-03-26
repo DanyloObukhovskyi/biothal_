@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Products\Information;
+use App\Models\Admin\Products\InformationAttributes;
+use App\Models\Admin\Products\InformationToLayout;
+use Illuminate\Support\Arr;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Models\Admin\Products\Product;
@@ -11,9 +15,7 @@ class Categories extends Model
 {
     protected $table = 'categories';
 
-    protected $fillable = [
-        'parent_id', 'title', 'ordering', 'is_demand'
-    ];
+    protected $guarded = [];
 
     public function Category()
     {
@@ -28,6 +30,15 @@ class Categories extends Model
     public function children()
     {
         return $this->hasMany(Categories::class,'parent_id','id')->with('Category');
+    }
+
+    public function childrenArticle()
+    {
+//        $information_ids = InformationToLayout::select('information_id')->whereIn('layout_id', Arr::pluck($info_categories, 'id'))->get();
+//        $bottom_article = Information::whereIn('information_id', Arr::pluck($information_ids, 'information_id'))
+//            ->where('bottom', 1)
+//            ->get();
+//        return InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
     }
 
     use HasSlug;

@@ -95,7 +95,7 @@ const routes = [
                 prop: true
             },
             {
-                path: 'info-page/:category',
+                path: 'info-page/:id',
                 name: 'info-page',
                 component: () => import('../pages/desktop/InfoPage'),
                 meta: {}
