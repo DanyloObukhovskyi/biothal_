@@ -73,10 +73,12 @@
                 <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
                     mdi-briefcase-outline
                 </v-icon>
-                <div color="#000" size="18" class="basket_lenght" @click="$refs['Basket'].visibleModal(true)">
-                    ({{ orders }})
-                </div>
-
+                <v-badge
+                    v-if="products.length > 0"
+                    color="black"
+                    :content="products.length"
+                    overlap
+                ></v-badge>
             </div>
         </v-app-bar>
         <Basket ref="Basket"/>
@@ -85,6 +87,7 @@
 
 <script>
     import Basket from "../Basket";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "MenuDesktop",
@@ -346,6 +349,9 @@
             }
         },
         computed: {
+            ...mapGetters('basket', [
+                'products'
+            ]),
             accountMenuItems() {
                 const isLogin = [
                     {

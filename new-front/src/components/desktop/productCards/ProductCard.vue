@@ -22,6 +22,14 @@
         <div>
             <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>
         </div>
+        <v-snackbar
+            v-model="showMessage"
+            v-bind="snackbar">
+            <v-icon color="white" size="25">
+                check_circle_outline
+            </v-icon>
+            Товар добавлен в корзину
+        </v-snackbar>
     </div>
 </template>
 
@@ -44,6 +52,13 @@
             return {
                 isFavorites: false,
                 isFavoritesShow: false,
+                showMessage: false,
+                snackbar: {
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                }
             }
         },
         methods:{
@@ -51,6 +66,8 @@
                 addProduct: 'ADD_PRODUCT'
             }),
             addProductToCart() {
+                this.showMessage = true;
+
                 const product = this.dataCard;
                 product.quantity = 1;
 
