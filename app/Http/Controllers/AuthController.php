@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\Login as LoginRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -12,12 +14,24 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
+        $user = User::where('phone_number', $request->phone_number)->first();
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if(!empty($user)){
+            if(!$token = auth()->attempt([
+                'email' => $user->email,
+                'password' => $request->password
+            ])){
+                return response()->json([
+                    'message' => 'Проверьте ваши учетные данные',
+                ], 413);
+            }
+
+        } else {
+            return response()->json([
+                'message' => 'Проверьте ваши учетные данные',
+            ], 413);
         }
 
         return $this->respondWithToken($token);
@@ -46,6 +60,19 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
+    public function checkUser()
+    {
+        $user = auth()->user();
+        $exist = false;
+        if(!empty($user)){
+            $exist = true;
+        }
+
+        return response()->json([
+            'exist' => $exist
         ]);
     }
 }

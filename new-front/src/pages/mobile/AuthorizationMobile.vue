@@ -13,6 +13,7 @@
                         class="main-input-field"
                         :rules="phoneRules"
                         v-model="user.phone_number"
+                        :error-messages="errorValid.phone_number"
                         flat
                         rounded/>
                 </div>
@@ -23,6 +24,7 @@
                         v-model="user.password"
                         type="password"
                         :rules="passRules"
+                        :error-messages="errorValid.password"
                         flat
                         rounded/>
                 </div>
@@ -33,6 +35,7 @@
                         v-model="user.password_confirmation"
                         type="password"
                         :rules="passConfirmRules"
+                        :error-messages="errorValid.password_confirmation"
                         flat
                         rounded/>
                 </div>
@@ -95,23 +98,23 @@
                     let data
                     try {
                         data = await this.axios.post('login' , user);
-                        if(data){
-                            this.$refs.form.reset()
-                            let login = data.data.success
-                            try {
-                                await this.$store.dispatch('LOGIN', login);
-                                this.toPage({name: 'home'})
-                            } catch (e) {
-                                console.log(e)
-                            }
-                            this.$notify({
-                                type: 'success',
-                                title: 'Добро Пожаловать!',
-                                text: 'Вы успешно вошли в свою учетную запись'
-                            });
-                        }
                     } catch (e) {
                         this.errorMessagesValidation(e);
+                    }
+                    if(data){
+                        this.$refs.form.reset()
+                        let login = data.data.access_token
+                        try {
+                            await this.$store.dispatch('LOGIN', login);
+                            this.toPage({name: 'home'})
+                        } catch (e) {
+                            console.log(e)
+                        }
+                        this.$notify({
+                            type: 'success',
+                            title: 'Добро Пожаловать!',
+                            text: 'Вы успешно вошли в свою учетную запись'
+                        });
                     }
                     this.$loading(false)
                 } else {

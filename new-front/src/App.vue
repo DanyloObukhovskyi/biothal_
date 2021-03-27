@@ -9,22 +9,36 @@
 
     export default {
         name: 'App',
-        mounted() {
+        created() {
             this.checkUser()
         },
         methods:{
             async checkUser(){
                 try {
-                    let data = await this.axios.post('checkUser');
-                    if(data){
-                        let login = data.data.login
-                        try {
-                            await this.$store.dispatch('LOGIN', login);
-                        } catch (e) {
-                            console.log(e)
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
                         }
+                        return true;
+                    } else {
+                        return false;
                     }
                 } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
                     this.errorMessagesValidation(e);
                 }
             }

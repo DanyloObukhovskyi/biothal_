@@ -6,7 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\EmailForEmailNewsletter;
 use Laravel\Cashier\Billable;
+use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -65,5 +67,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function emailReceive()
+    {
+        return $this->hasOne(EmailForEmailNewsletter::class,'email','email');
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class,'id','image_id');
     }
 }

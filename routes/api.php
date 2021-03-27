@@ -34,12 +34,17 @@ Route::group(['namespace' => 'Api'], function () {
 //    ]);
 //});
 
-//Route::namespace('api')->post('register', 'Auth\RegisterController@create');
 //Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
 //Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
-//Route::namespace('api')->post('checkUser', 'Auth\UserController@checkUser');
 
+Route::post('register', 'Auth\RegisterController@create');
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
 Route::post('refresh', 'AuthController@refresh');
 Route::post('me', 'AuthController@me');
+Route::post('checkUser', 'AuthController@checkUser');
+Route::post('profile', 'ProfileController@getProfile');
+Route::post('updateProfile', 'ProfileController@updateProfile');
+Route::post('changePassword', 'ProfileController@changePassword');
+Route::post('addImage', 'ProfileController@addImage');
+Route::post('deleteImage', 'ProfileController@deleteImage');

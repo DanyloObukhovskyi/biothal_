@@ -13,7 +13,7 @@ export default {
             return screen.width <= 600
         },
         isAuthorize() {
-            return this.$store.getters.getAuthorization;
+            return this.$store.getters.getToken;
         }
     },
     methods: {
@@ -23,9 +23,16 @@ export default {
                 this.$router.push({name: rout.name, params: rout.params})
             }
         },
-        logout() {
-            this.$store.commit("SET_AUTHORIZATION", false);
-            this.axios.post('logout');
+        async logout() {
+            const token = this.$store.getters.getToken;
+            await this.axios.post('logout',{
+
+            },{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            this.$store.commit("SET_TOKEN", null);
             this.toPage({name: 'home'})
         },
         errorMessagesValidation(e) {

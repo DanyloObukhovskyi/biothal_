@@ -40,16 +40,15 @@ axios.interceptors.response.use(
                     break;
 
                 case 401:
-                    alert("session expired");
+                    this.$store.commit("SET_TOKEN", null);
                     break;
                 case 403:
-                    router.replace({
-                        path: "/login",
-                        query: { redirect: router.currentRoute.fullPath }
-                    });
+                    // router.replace({
+                    //     path: "/login",
+                    //     query: { redirect: router.currentRoute.fullPath }
+                    // });
                     break;
                 case 404:
-                    alert('page not exist');
                     break;
                 case 502:
                     setTimeout(() => {
@@ -61,6 +60,7 @@ axios.interceptors.response.use(
                         });
                     }, 1000);
             }
+
             return Promise.reject(error.response);
         }
     }
@@ -85,10 +85,10 @@ Vue.config.productionTip = false
 Vue.mixin(globalMixins)
 
 router.beforeEach((to, from, next) => {
-    const authorization = store.getters.getAuthorization;
-    if (['authorization', 'registration'].includes(to.name) && authorization) {
+    const token = store.getters.getToken;
+    if (['authorization', 'registration'].includes(to.name) && token) {
         next({name: 'account-settings'})
-    } else if (['account-settings', 'order-list', 'group-discount-participants', 'bank-cards'].includes(to.name) && !authorization) {
+    } else if (['account-settings', 'order-list', 'group-discount-participants', 'bank-cards'].includes(to.name) && !token) {
         next({name: 'authorization'})
     } else {
         next()

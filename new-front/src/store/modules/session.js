@@ -10,7 +10,7 @@ const mutations = {
 
 const actions = {
     LOGIN(context, data) {
-        const token = 'test-token'
+        const token = data
         context.commit('SET_TOKEN', token);
     }
 }
