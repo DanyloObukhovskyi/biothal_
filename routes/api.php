@@ -15,6 +15,9 @@ Route::namespace('api')->get('category/{id}', 'CategoryController@getCategory');
 Route::namespace('api')->get('info-page/{id}', 'ArticleController@getArticle');
 
 Route::group(['namespace' => 'Api'], function () {
+    Route::post('auth/user', 'UserController@getAuthUser')
+        ->name('get.auth.user');
+
     Route::group(['prefix' => 'sales'], function () {
         Route::post('/global', 'SalesController@getGlobalSales')
             ->name('sales.global.all');
@@ -37,6 +40,12 @@ Route::group(['namespace' => 'Api'], function () {
 
         Route::post('/postal/offices', 'CheckoutController@getPostalOffices')
             ->name('checkout.postal.offices.get');
+
+        Route::post('/payment/methods', 'CheckoutController@getPaymentMethods')
+            ->name('payment.methods.get');
+
+        Route::post('/create/order', 'CheckoutController@createOrder')
+            ->name('create.order.get');
     });
 });
 //Route::namespace('api')->get('test', function(){

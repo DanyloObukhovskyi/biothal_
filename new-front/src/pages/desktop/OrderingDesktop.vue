@@ -27,6 +27,7 @@
                                     background-color="#F7F7F7"
                                     flat
                                     rounded
+                                    color="#2F7484"
                                     height="44"/>
                             </div>
                             <div>
@@ -37,6 +38,7 @@
                                     background-color="#F7F7F7"
                                     flat
                                     rounded
+                                    color="#2F7484"
                                     height="44"/>
                             </div>
                             <div>
@@ -47,6 +49,7 @@
                                     background-color="#F7F7F7"
                                     flat
                                     rounded
+                                    color="#2F7484"
                                     height="44"/>
                             </div>
                             <div>
@@ -97,19 +100,23 @@
                             </div>
                             <div>
                                 <p class="main-input-label">Выберите способ оплаты *</p>
-                                <v-text-field
+                                <v-select
+                                    :items="paymentMethods"
                                     v-model="paymentMethod"
+                                    :item-text="p => p.name"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
                                     rounded
-                                    height="44"/>
+                                    color="#2F7484"
+                                    height="44"
+                                ></v-select>
                             </div>
                         </v-form>
                     </div>
                     <div class="ordering__middle__left__checkout">
                         <div class="checkout-button__wrapper">
-                            <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
+                            <v-btn dark class="checkout-button" elevation="0" @click="checkout">Оформить заказ</v-btn>
                         </div>
                         <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
                             Оформить в 1 клик
@@ -198,6 +205,7 @@
                citiesLoading: false,
                postalOffices: [],
                postalOfficesLoading: false,
+               paymentMethods: []
            }
         },
         computed: {
@@ -266,13 +274,35 @@
                         this.postalOffices = data;
                         this.postalOfficesLoading = false;
                     })
+            },
+            getPaymentMethods() {
+                this.axios.post('checkout/payment/methods')
+                    .then(({data}) => {
+                        this.paymentMethods = data;
+                    })
+            },
+            checkout() {
+                const data = {
+                    number: this.number,
+                    name: this.name,
+                    surname: this.surname,
+                    city: this.city.name,
+                    region: this.region,
+                    postalOffice: this.postalOffice,
+                    paymentMethods: this.paymentMethods,
+                    products: this.products
+                };
+
+                this.axios.post('checkout/create/order', data)
+                    .then(({data}) => {
+
+                    })
             }
         },
         mounted() {
             this.getRecommendedProduct();
             this.getRegionsAndCities();
-
-            window.testtest = this;
+            this.getPaymentMethods();
         }
     }
 </script>

@@ -12,6 +12,7 @@
                         v-mask="'+38(###) ###-##-##'"
                         class="main-input-field"
                         flat
+                        v-model="number"
                         rounded/>
                 </div>
                 <div>
@@ -19,6 +20,7 @@
                     <v-text-field
                         class="main-input-field"
                         flat
+                        v-model="name"
                         rounded/>
                 </div>
                 <div>
@@ -26,28 +28,51 @@
                     <v-text-field
                         class="main-input-field"
                         flat
+                        v-model="surname"
                         rounded/>
                 </div>
                 <div>
                     <p class="main-input-label">Введите область</p>
-                    <v-text-field
+                    <v-autocomplete
+                        :items="regions"
+                        color="#2F7484"
+                        :loading="regionsLoading"
+                        v-model="region"
                         class="main-input-field"
+                        height="44"
+                        name="name"
                         flat
-                        rounded/>
+                        rounded>
+                    </v-autocomplete>
                 </div>
                 <div>
                     <p class="main-input-label">Введите город</p>
-                    <v-text-field
+                    <v-autocomplete
+                        :items="cities"
+                        :loading="citiesLoading"
+                        v-model="city"
+                        color="#2F7484"
+                        :item-text="(c) => c.name"
                         class="main-input-field"
+                        height="44"
                         flat
-                        rounded/>
+                        rounded>
+                    </v-autocomplete>
                 </div>
                 <div>
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
-                    <v-text-field
+                    <v-autocomplete
+                        :items="postalOffices"
+                        :loading="postalOfficesLoading"
+                        v-model="postalOffice"
+                        color="#2F7484"
+                        :item-text="(c) => c.name"
+                        name="name"
                         class="main-input-field"
+                        height="44"
                         flat
-                        rounded/>
+                        rounded>
+                    </v-autocomplete>
                 </div>
             </v-form>
         </div>
@@ -66,12 +91,14 @@
             </div>
         </div>
         <div class="page-form__bottom">
-            <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
+            <v-btn dark class="checkout-button" elevation="0" @click="checkout">Оформить заказ</v-btn>
         </div>
     </div>
 </template>
 
 <script>
+
+import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "OrderingMobile",
@@ -79,34 +106,115 @@
         data() {
             return {
                 termsUse: false,
-                linear: 70,
-                productData: [
-                    {
-                        id: 1,
-                        img: '../../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 2,
-                        img: '../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 3,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 4,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 5,
-                        img: '../../public/product-images/product-images.svg'
-                    },
-                    {
-                        id: 6,
-                        img: '../../public/product-images/product-images.svg'
-                    }
-                ]
+                deliveryPrice: 40,
+                number: null,
+                name: null,
+                surname: null,
+                region: '',
+                city: '',
+                postalOffice: '',
+                paymentMethod: null,
+                recommendedProducts: [],
+                regions: [],
+                regionsLoading: false,
+                cities: [],
+                citiesLoading: false,
+                postalOffices: [],
+                postalOfficesLoading: false,
+                paymentMethods: []
             }
+        },
+        computed: {
+            ...mapGetters('basket', [
+                'products',
+                'globalSales',
+                'currentGlobalSales',
+                'nextGlobalSales',
+                'linear',
+                'productsSum',
+                'productsSumWithSales'
+            ])
+        },
+        watch: {
+            region() {
+                if (this.region !== null && this.region !== '') {
+                    this.getCities()
+                    this.postalOffices = [];
+                    this.city = '';
+                }
+            },
+            city() {
+                if (this.region !== null && this.region !== '') {
+                    this.getPostalOffices()
+                }
+            }
+        },
+        methods: {
+            ...mapActions('basket', {
+                deleteProduct: 'DELETE_PRODUCT'
+            }),
+            getRecommendedProduct() {
+                this.axios.post('products/recommended')
+                    .then(({data}) => {
+                        this.recommendedProducts = data
+                    })
+            },
+            getRegionsAndCities() {
+                this.regionsLoading = true;
+
+                this.axios.post('checkout/regions')
+                    .then(({data}) => {
+                        this.regions = data;
+                        this.regionsLoading = false;
+                    })
+            },
+            getCities() {
+                this.citiesLoading = true;
+
+                const data = {
+                    region: this.region,
+                }
+                this.axios.post('checkout/cities', data)
+                    .then(({data}) => {
+                        this.cities = data;
+                        this.citiesLoading = false;
+                    })
+            },
+            getPostalOffices() {
+                this.postalOfficesLoading = true;
+
+                const city = this.cities.find(c => c.name === this.city)
+
+                this.axios.post('checkout/postal/offices', {city})
+                    .then(({data}) => {
+                        this.postalOffices = data;
+                        this.postalOfficesLoading = false;
+                    })
+            },
+            getPaymentMethods() {
+                this.axios.post('checkout/payment/methods')
+                    .then(({data}) => {
+                        this.paymentMethods = data;
+                    })
+            },
+            checkout() {
+                const data = {
+                    number: this.number,
+                    name: this.name,
+                    surname: this.surname,
+                    city: this.city.name,
+                    region: this.region,
+                    postalOffice: this.postalOffice,
+                    products: this.products
+                };
+
+                this.axios.post('checkout/create/order', data)
+            }
+        },
+        mounted() {
+            this.getRecommendedProduct();
+            this.getRegionsAndCities();
+            this.getPaymentMethods();
         }
     }
 </script>
