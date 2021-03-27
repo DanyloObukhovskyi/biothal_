@@ -4,48 +4,55 @@
             <div class="page-form__top__title">Оформление заказа</div>
         </div>
         <div class="page-form__middle">
-            <v-form style="width: 100%;">
+            <v-form ref="orderForm" style="width: 100%;" v-model="validProfile">
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
                         placeholder="+38(___) ___-__-__"
                         v-mask="'+38(###) ###-##-##'"
                         class="main-input-field"
+                        :error-messages="errorValid.number"
+                        :rules="numberRules"
                         flat
                         v-model="number"
                         rounded/>
                 </div>
-                <div>
+                <div class="mt-25px">
                     <p class="main-input-label">Введите имя</p>
                     <v-text-field
                         class="main-input-field"
                         flat
                         v-model="name"
+                        :error-messages="errorValid.name"
+                        :rules="nameRules"
                         rounded/>
                 </div>
-                <div>
+                <div class="mt-25px">
                     <p class="main-input-label">Введите фамилию</p>
                     <v-text-field
                         class="main-input-field"
                         flat
                         v-model="surname"
+                        :error-messages="errorValid.surname"
+                        :rules="surnameRules"
                         rounded/>
                 </div>
-                <div>
+                <div class="mt-25px">
                     <p class="main-input-label">Введите область</p>
                     <v-autocomplete
                         :items="regions"
                         color="#2F7484"
                         :loading="regionsLoading"
                         v-model="region"
+                        :error-messages="errorValid.region"
+                        :rules="regionRules"
                         class="main-input-field"
-                        height="44"
                         name="name"
                         flat
                         rounded>
                     </v-autocomplete>
                 </div>
-                <div>
+                <div class="mt-25px">
                     <p class="main-input-label">Введите город</p>
                     <v-autocomplete
                         :items="cities"
@@ -53,23 +60,25 @@
                         v-model="city"
                         color="#2F7484"
                         :item-text="(c) => c.name"
+                        :error-messages="errorValid.city"
+                        :rules="cityRules"
                         class="main-input-field"
-                        height="44"
                         flat
                         rounded>
                     </v-autocomplete>
                 </div>
-                <div>
+                <div class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
                     <v-autocomplete
                         :items="postalOffices"
                         :loading="postalOfficesLoading"
                         v-model="postalOffice"
+                        :error-messages="errorValid.postalOffice"
+                        :rules="postalOfficeRules"
                         color="#2F7484"
                         :item-text="(c) => c.name"
                         name="name"
                         class="main-input-field"
-                        height="44"
                         flat
                         rounded>
                     </v-autocomplete>
@@ -91,7 +100,14 @@
             </div>
         </div>
         <div class="page-form__bottom">
-            <v-btn dark class="checkout-button" elevation="0" @click="checkout">Оформить заказ</v-btn>
+            <v-btn dark
+                   class="checkout-button"
+                   :style="{
+                        opacity: !termsUse ? '.5' : '1'
+                   }"
+                   @click="checkout">
+                Оформить заказ
+            </v-btn>
         </div>
     </div>
 </template>
@@ -107,13 +123,13 @@ import {mapActions, mapGetters} from "vuex";
             return {
                 termsUse: false,
                 deliveryPrice: 40,
-                number: null,
-                name: null,
-                surname: null,
+                number: '',
+                name: '',
+                surname: '',
                 region: '',
                 city: '',
                 postalOffice: '',
-                paymentMethod: null,
+                paymentMethod: '',
                 recommendedProducts: [],
                 regions: [],
                 regionsLoading: false,
@@ -121,7 +137,17 @@ import {mapActions, mapGetters} from "vuex";
                 citiesLoading: false,
                 postalOffices: [],
                 postalOfficesLoading: false,
-                paymentMethods: []
+                paymentMethods: [],
+                validProfile: false,
+                errorValid: {
+                    name: '',
+                    surname: '',
+                    email: '',
+                    number: '',
+                    region: '',
+                    city: '',
+                    postalOffice: ''
+                },
             }
         },
         computed: {
@@ -133,7 +159,45 @@ import {mapActions, mapGetters} from "vuex";
                 'linear',
                 'productsSum',
                 'productsSumWithSales'
-            ])
+            ]),
+            numberRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                ];
+            },
+            nameRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое имя',
+                    v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+                ]
+            },
+            surnameRules() {
+                return [
+                    v => !!v || 'Вы не ввели свою фамилию',
+                    v => v.length >= 2 || 'фамилия должна содержать больше чем 2 символа',
+                ]
+            },
+            regionRules() {
+                return [
+                    v => !!v || 'Вы не выбрали регион',
+                ]
+            },
+            cityRules() {
+                return [
+                    v => !!v || 'Вы не выбрали город',
+                ]
+            },
+            postalOfficeRules() {
+                return [
+                    v => !!v || 'Вы не выбрали город',
+                ]
+            },
+            paymentMethodRules() {
+                return [
+                    v => !!v || 'Вы не выбрали метод доставки',
+                ]
+            }
         },
         watch: {
             region() {
@@ -153,6 +217,17 @@ import {mapActions, mapGetters} from "vuex";
             ...mapActions('basket', {
                 deleteProduct: 'DELETE_PRODUCT'
             }),
+            clearValidation() {
+                this.errorValid = {
+                    name: '',
+                    surname: '',
+                    email: '',
+                    number: '',
+                    region: '',
+                    city: '',
+                    postalOffice: ''
+                }
+            },
             getRecommendedProduct() {
                 this.axios.post('products/recommended')
                     .then(({data}) => {
@@ -197,19 +272,45 @@ import {mapActions, mapGetters} from "vuex";
                         this.paymentMethods = data;
                     })
             },
-            checkout() {
-                const data = {
-                    number: this.number,
-                    name: this.name,
-                    surname: this.surname,
-                    city: this.city.name,
-                    region: this.region,
-                    postalOffice: this.postalOffice,
-                    products: this.products
-                };
+            async checkout() {
+                this.$loading(true)
 
-                this.axios.post('checkout/create/order', data)
-            }
+                try {
+                    this.$loading(true)
+                    this.clearValidation()
+                    let validate = await this.$refs['orderForm'].validate();
+
+                    if (validate) {
+                        const form = {
+                            number: this.number,
+                            name: this.name,
+                            surname: this.surname,
+                            city: this.city.name,
+                            region: this.region,
+                            postalOffice: this.postalOffice,
+                            paymentMethods: this.paymentMethods,
+                            products: this.products
+                        };
+
+                        let data = await this.axios.post('checkout/create/order', form)
+
+                        if (data) {
+                            let message = data.data.message
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+
+                            this.clearValidation()
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
+            },
         },
         mounted() {
             this.getRecommendedProduct();
@@ -268,5 +369,8 @@ import {mapActions, mapGetters} from "vuex";
             flex-direction: column;
             align-items: flex-end;
         }
+    }
+    .mt-25px {
+        margin-top: 25px;
     }
 </style>

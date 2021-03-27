@@ -18,11 +18,15 @@
             <div class="ordering__middle">
                 <div class="ordering__middle__left">
                     <div>
-                        <v-form autocomplete="off">
+                        <v-form autocomplete="off" ref="orderForm" style="width: 100%;" v-model="validProfile">
                             <div>
                                 <p class="main-input-label">Введите номер телефона *</p>
                                 <v-text-field
                                     v-model="number"
+                                    :error-messages="errorValid.number"
+                                    :rules="numberRules"
+                                    placeholder="+38(___) ___-__-__"
+                                    v-mask="'+38(###) ###-##-##'"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -30,10 +34,12 @@
                                     color="#2F7484"
                                     height="44"/>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Введите имя *</p>
                                 <v-text-field
                                     v-model="name"
+                                    :error-messages="errorValid.name"
+                                    :rules="nameRules"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -41,10 +47,12 @@
                                     color="#2F7484"
                                     height="44"/>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Введите фамилию *</p>
                                 <v-text-field
                                     v-model="surname"
+                                    :error-messages="errorValid.surname"
+                                    :rules="surnameRules"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -52,13 +60,15 @@
                                     color="#2F7484"
                                     height="44"/>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Введите область *</p>
                                 <v-autocomplete
                                     :items="regions"
                                     color="#2F7484"
                                     :loading="regionsLoading"
                                     v-model="region"
+                                    :error-messages="errorValid.region"
+                                    :rules="regionRules"
                                     class="main-input-field"
                                     height="44"
                                     name="name"
@@ -67,12 +77,14 @@
                                     background-color="#F7F7F7">
                                 </v-autocomplete>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Введите город *</p>
                                 <v-autocomplete
                                     :items="cities"
                                     :loading="citiesLoading"
                                     v-model="city"
+                                    :error-messages="errorValid.city"
+                                    :rules="cityRules"
                                     color="#2F7484"
                                     :item-text="(c) => c.name"
                                     class="main-input-field"
@@ -82,12 +94,14 @@
                                     background-color="#F7F7F7">
                                 </v-autocomplete>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Выберите отделение Новой Почты *</p>
                                 <v-autocomplete
                                     :items="postalOffices"
                                     :loading="postalOfficesLoading"
                                     v-model="postalOffice"
+                                    :error-messages="errorValid.postalOffice"
+                                    :rules="postalOfficeRules"
                                     color="#2F7484"
                                     :item-text="(c) => c.name"
                                     name="name"
@@ -98,11 +112,12 @@
                                     background-color="#F7F7F7">
                                 </v-autocomplete>
                             </div>
-                            <div>
+                            <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
                                     :items="paymentMethods"
                                     v-model="paymentMethod"
+                                    :rules="paymentMethodRules"
                                     :item-text="p => p.name"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
@@ -176,287 +191,359 @@
 </template>
 
 <script>
-    import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
-    import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
-    import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
-    import {mapActions, mapGetters} from "vuex";
+import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
+import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
+import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
+import {mapActions, mapGetters} from "vuex";
 
-    export default {
-        name: "OrderingDesktop",
-        components: {
-            ProductCardBasket,
-            PlaceOrderOneClick,
-            ProductCardsSet
-        },
-        data() {
-           return {
-               deliveryPrice: 40,
-               number: null,
-               name: null,
-               surname: null,
-               region: '',
-               city: '',
-               postalOffice: '',
-               paymentMethod: null,
-               recommendedProducts: [],
-               regions: [],
-               regionsLoading: false,
-               cities: [],
-               citiesLoading: false,
-               postalOffices: [],
-               postalOfficesLoading: false,
-               paymentMethods: []
-           }
-        },
-        computed: {
-            ...mapGetters('basket', [
-                'products',
-                'globalSales',
-                'currentGlobalSales',
-                'nextGlobalSales',
-                'linear',
-                'productsSum',
-                'productsSumWithSales'
-            ])
-        },
-        watch: {
-            region() {
-                if (this.region !== null && this.region !== '') {
-                    this.getCities()
-                    this.postalOffices = [];
-                    this.city = '';
-                }
+export default {
+    name: "OrderingDesktop",
+    components: {
+        ProductCardBasket,
+        PlaceOrderOneClick,
+        ProductCardsSet
+    },
+    data() {
+        return {
+            deliveryPrice: 40,
+            number: '',
+            name: '',
+            surname: '',
+            region: '',
+            city: '',
+            postalOffice: '',
+            paymentMethod: '',
+            recommendedProducts: [],
+            regions: [],
+            regionsLoading: false,
+            cities: [],
+            citiesLoading: false,
+            postalOffices: [],
+            postalOfficesLoading: false,
+            paymentMethods: [],
+            validProfile: false,
+            errorValid: {
+                name: '',
+                surname: '',
+                email: '',
+                number: '',
+                region: '',
+                city: '',
+                postalOffice: ''
             },
-            city() {
-                if (this.region !== null && this.region !== '') {
-                    this.getPostalOffices()
-                }
-            }
-        },
-        methods: {
-            ...mapActions('basket', {
-                deleteProduct: 'DELETE_PRODUCT'
-            }),
-            getRecommendedProduct() {
-                this.axios.post('products/recommended')
-                    .then(({data}) => {
-                        this.recommendedProducts = data
-                    })
-            },
-            getRegionsAndCities() {
-                this.regionsLoading = true;
-
-                this.axios.post('checkout/regions')
-                    .then(({data}) => {
-                        this.regions = data;
-                        this.regionsLoading = false;
-                    })
-            },
-            getCities() {
-                this.citiesLoading = true;
-
-                const data = {
-                    region: this.region,
-                }
-                this.axios.post('checkout/cities', data)
-                    .then(({data}) => {
-                        this.cities = data;
-                        this.citiesLoading = false;
-                    })
-            },
-            getPostalOffices() {
-                this.postalOfficesLoading = true;
-
-                const city = this.cities.find(c => c.name === this.city)
-
-                this.axios.post('checkout/postal/offices', {city})
-                    .then(({data}) => {
-                        this.postalOffices = data;
-                        this.postalOfficesLoading = false;
-                    })
-            },
-            getPaymentMethods() {
-                this.axios.post('checkout/payment/methods')
-                    .then(({data}) => {
-                        this.paymentMethods = data;
-                    })
-            },
-            checkout() {
-                const data = {
-                    number: this.number,
-                    name: this.name,
-                    surname: this.surname,
-                    city: this.city.name,
-                    region: this.region,
-                    postalOffice: this.postalOffice,
-                    paymentMethods: this.paymentMethods,
-                    products: this.products
-                };
-
-                this.axios.post('checkout/create/order', data)
-                    .then(({data}) => {
-
-                    })
-            }
-        },
-        mounted() {
-            this.getRecommendedProduct();
-            this.getRegionsAndCities();
-            this.getPaymentMethods();
         }
+    },
+    computed: {
+        ...mapGetters('basket', [
+            'products',
+            'globalSales',
+            'currentGlobalSales',
+            'nextGlobalSales',
+            'linear',
+            'productsSum',
+            'productsSumWithSales'
+        ]),
+        numberRules() {
+            return [
+                v => !!v || 'Вы не ввели свое телефоный номер',
+                v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+            ];
+        },
+        nameRules() {
+            return [
+                v => !!v || 'Вы не ввели свое имя',
+                v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+            ]
+        },
+        surnameRules() {
+            return [
+                v => !!v || 'Вы не ввели свою фамилию',
+                v => v.length >= 2 || 'фамилия должна содержать больше чем 2 символа',
+            ]
+        },
+        regionRules() {
+            return [
+                v => !!v || 'Вы не выбрали регион',
+            ]
+        },
+        cityRules() {
+            return [
+                v => !!v || 'Вы не выбрали город',
+            ]
+        },
+        postalOfficeRules() {
+            return [
+                v => !!v || 'Вы не выбрали город',
+            ]
+        },
+        paymentMethodRules() {
+            return [
+                v => !!v || 'Вы не выбрали метод доставки',
+            ]
+        }
+    },
+    watch: {
+        region() {
+            if (this.region !== null && this.region !== '') {
+                this.getCities()
+                this.postalOffices = [];
+                this.city = '';
+            }
+        },
+        city() {
+            if (this.region !== null && this.region !== '') {
+                this.getPostalOffices()
+            }
+        }
+    },
+    methods: {
+        ...mapActions('basket', {
+            deleteProduct: 'DELETE_PRODUCT'
+        }),
+        getRecommendedProduct() {
+            this.axios.post('products/recommended')
+                .then(({data}) => {
+                    this.recommendedProducts = data
+                })
+        },
+        getRegionsAndCities() {
+            this.regionsLoading = true;
+
+            this.axios.post('checkout/regions')
+                .then(({data}) => {
+                    this.regions = data;
+                    this.regionsLoading = false;
+                })
+        },
+        getCities() {
+            this.citiesLoading = true;
+
+            const data = {
+                region: this.region,
+            }
+            this.axios.post('checkout/cities', data)
+                .then(({data}) => {
+                    this.cities = data;
+                    this.citiesLoading = false;
+                })
+        },
+        getPostalOffices() {
+            this.postalOfficesLoading = true;
+
+            const city = this.cities.find(c => c.name === this.city)
+
+            this.axios.post('checkout/postal/offices', {city})
+                .then(({data}) => {
+                    this.postalOffices = data;
+                    this.postalOfficesLoading = false;
+                })
+        },
+        getPaymentMethods() {
+            this.axios.post('checkout/payment/methods')
+                .then(({data}) => {
+                    this.paymentMethods = data;
+                })
+        },
+        clearValidation() {
+            this.errorValid = {
+                name: '',
+                surname: '',
+                email: '',
+                number: '',
+                region: '',
+                city: '',
+                postalOffice: ''
+            }
+        },
+        async checkout() {
+            this.$loading(true)
+
+            try {
+                this.$loading(true)
+                this.clearValidation()
+                let validate = await this.$refs['orderForm'].validate();
+
+                if (validate) {
+                    const form = {
+                        number: this.number,
+                        name: this.name,
+                        surname: this.surname,
+                        city: this.city.name,
+                        region: this.region,
+                        postalOffice: this.postalOffice,
+                        paymentMethods: this.paymentMethods,
+                        products: this.products
+                    };
+
+                    let data = await this.axios.post('checkout/create/order', form)
+
+                    if (data) {
+                        let message = data.data.message
+                        this.$notify({
+                            type: 'success',
+                            title: 'Успех!',
+                            text: message
+                        });
+
+                        this.clearValidation()
+                    }
+                }
+                this.$loading(false)
+            } catch (e) {
+                this.$loading(false)
+                this.errorMessagesValidation(e);
+            }
+        },
+    },
+    mounted() {
+        this.getRecommendedProduct();
+        this.getRegionsAndCities();
+        this.getPaymentMethods();
     }
+}
 </script>
 
 <style scoped lang="scss">
 
-    .ordering {
+.ordering {
 
-        &__wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: scroll;
-        }
-
-        &__content {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        &__top {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-
-            &__title {
-                font-size: 18px;
-                margin: 20px;
-            }
-        }
-
-        &__middle {
-            display: flex;
-            flex-direction: row;
-            margin-top: 30px;
-            flex-wrap: wrap;
-
-            &__left {
-                display: flex;
-                flex-direction: column;
-                width: 50%;
-
-                &__checkout {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-
-                    @media screen and (max-width: 991px) {
-                        flex-direction: column;
-                        justify-content: center;
-                    }
-                }
-            }
-
-            &__right {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                width: 50%;
-
-                &__product-set {
-                    height: 610px;
-                    overflow: auto;
-                    padding: 7px;
-                }
-            }
-        }
-    }
-
-    .main-input-label {
-        padding: 0 0 0 20px;
-        margin: 0;
-        font-weight: 200;
-        font-size: 12px;
-        line-height: 16px;
-    }
-
-    .main-input-field {
-        margin: 0;
-        padding: 5px;
-    }
-
-    .checkout-button {
-        border-radius: 50px;
-        width: 190px;
-        height: 44px !important;
-        font-size: 12px;
-        line-height: 17px;
-
-        &__wrapper {
-            display: flex;
-
-            @media screen and (max-width: 991px) {
-                justify-content: center;
-            }
-        }
-    }
-
-    .checkout-link {
+    &__wrapper {
         display: flex;
-        font-weight: 200;
-        font-size: 12px;
-        line-height: 16px;
-        text-decoration-line: underline;
-        margin: auto 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: scroll;
+    }
 
-        &:hover {
-            cursor: pointer;
-        }
+    &__content {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-        @media screen and (max-width: 991px) {
-            justify-content: center;
-            margin-top: 10px;
+    &__top {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        &__title {
+            font-size: 18px;
+            margin: 20px;
         }
     }
 
-    .total {
+    &__middle {
         display: flex;
         flex-direction: row;
-        font-weight: 200;
-        font-size: 11px;
-        line-height: 15px;
-
-        &__wrapper {
-            padding: 20px 0 0 70px;
-        }
+        margin-top: 30px;
+        flex-wrap: wrap;
 
         &__left {
+            display: flex;
+            flex-direction: column;
             width: 50%;
+
+            &__checkout {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                @media screen and (max-width: 991px) {
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
         }
 
         &__right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             width: 50%;
-            text-align: right;
+
+            &__product-set {
+                height: 610px;
+                overflow: auto;
+                padding: 7px;
+            }
         }
     }
+}
 
-    .main-linear {
-        border-radius: 60px;
-    }
-</style>
+.main-input-label {
+    padding: 0 0 0 20px;
+    margin: 0;
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 16px;
+}
 
-<style lang="scss">
-    .ordering__wrapper {
-        & .v-input__slot {
-            border-radius: 4px !important;
-            margin: 0 0 20px 0 !important;
+.main-input-field {
+    margin: 0;
+    padding: 5px;
+}
+
+.checkout-button {
+    border-radius: 50px;
+    width: 190px;
+    height: 44px !important;
+    font-size: 12px;
+    line-height: 17px;
+
+    &__wrapper {
+        display: flex;
+
+        @media screen and (max-width: 991px) {
+            justify-content: center;
         }
-
-        & .v-text-field__details {
-            display: none;
-        }
     }
+}
+
+.checkout-link {
+    display: flex;
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration-line: underline;
+    margin: auto 0;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 991px) {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+.total {
+    display: flex;
+    flex-direction: row;
+    font-weight: 200;
+    font-size: 11px;
+    line-height: 15px;
+
+    &__wrapper {
+        padding: 20px 0 0 70px;
+    }
+
+    &__left {
+        width: 50%;
+    }
+
+    &__right {
+        width: 50%;
+        text-align: right;
+    }
+}
+
+.main-linear {
+    border-radius: 60px;
+}
+
+.mt-18px {
+    margin-top: 18px;
+}
 </style>

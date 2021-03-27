@@ -247,9 +247,6 @@
         mounted() {
             this.fetchProfile()
         },
-        created(){
-
-        },
         watch: {
             '$parent.profile.name': function (val) {
                 this.fetchProfile()

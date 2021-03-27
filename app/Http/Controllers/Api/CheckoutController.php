@@ -93,6 +93,8 @@ class CheckoutController extends Controller
             $orderProduct->save();
         }
 
-        return response()->json('ok');
+        return response()->json([
+            'message' => 'Заказ оформлен!'
+        ]);
     }
 }
