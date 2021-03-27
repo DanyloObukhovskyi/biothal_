@@ -78,7 +78,6 @@ $palette-disable-color: #EFEFEF;
     }
 
     & .v-text-field__details {
-        display: none;
     }
 }
 
@@ -130,4 +129,7 @@ $palette-disable-color: #EFEFEF;
 
 .point-cursor {
     cursor: pointer;
+}
+.loader_opacity{
+    opacity: 0.5;
 }

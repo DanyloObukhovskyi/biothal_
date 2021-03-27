@@ -8,12 +8,16 @@ import store from './store/index';
 import axios from 'axios';
 import vue_axios from 'vue-axios';
 import VueAgile from 'vue-agile';
+import Notification from 'vue-notification';
+import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
+import VueLoading from 'vuejs-loading-plugin'
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
 
 axios.defaults.headers = {
     'Content-Type': 'application/json;',
-    Accept: '*/*'
+    Accept: 'application/json, */*'
 }
 
 axios.interceptors.request.use(config =>{
@@ -21,6 +25,7 @@ axios.interceptors.request.use(config =>{
 
     return config;
 })
+
 
 
 axios.interceptors.response.use(
@@ -36,16 +41,15 @@ axios.interceptors.response.use(
                     break;
 
                 case 401:
-                    alert("session expired");
+                    this.$store.commit("SET_TOKEN", null);
                     break;
                 case 403:
-                    router.replace({
-                        path: "/login",
-                        query: { redirect: router.currentRoute.fullPath }
-                    });
+                    // router.replace({
+                    //     path: "/login",
+                    //     query: { redirect: router.currentRoute.fullPath }
+                    // });
                     break;
                 case 404:
-                    alert('page not exist');
                     break;
                 case 502:
                     setTimeout(() => {
@@ -57,6 +61,7 @@ axios.interceptors.response.use(
                         });
                     }, 1000);
             }
+
             return Promise.reject(error.response);
         }
     }
@@ -64,6 +69,15 @@ axios.interceptors.response.use(
 
 Vue.use(VueAgile)
 Vue.use(vue_axios, axios);
+Vue.use(Notification);
+Vue.use(VueLodash, { lodash: lodash });
+Vue.use(VueLoading, {
+    dark: true, // default false
+    text: 'Загрузка....', // default 'Loading'
+    loading: false, // default false
+    background: 'rgb(255,255,255)', // set custom background
+    classes: ['loader_opacity'] // array, object or string
+})
 
 import '@/styles/main.scss';
 

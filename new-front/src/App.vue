@@ -1,13 +1,48 @@
 <template>
     <div id="app">
         <router-view/>
+        <notifications />
     </div>
 </template>
 
 <script>
 
     export default {
-        name: 'App'
+        name: 'App',
+        created() {
+            this.checkUser()
+        },
+        methods:{
+            async checkUser(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
+                }
+            }
+        }
     }
 </script>
 

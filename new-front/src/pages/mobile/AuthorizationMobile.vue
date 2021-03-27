@@ -4,22 +4,38 @@
             <div class="page-form__top__title">Авторизация</div>
         </div>
         <div class="page-form__middle">
-            <v-form style="width: 100%;">
-                <div>
+            <v-form style="width: 100%;" ref="form">
+                <div class="register_input">
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
                         placeholder="+38(___) ___-__-__"
                         v-mask="'+38(###) ###-##-##'"
                         class="main-input-field"
-                        v-model="user.number"
+                        :rules="phoneRules"
+                        v-model="user.phone_number"
+                        :error-messages="errorValid.phone_number"
                         flat
                         rounded/>
                 </div>
-                <div>
+                <div class="register_input">
                     <p class="main-input-label">Введите пароль</p>
                     <v-text-field
                         class="main-input-field"
                         v-model="user.password"
+                        type="password"
+                        :rules="passRules"
+                        :error-messages="errorValid.password"
+                        flat
+                        rounded/>
+                </div>
+                <div class="register_input">
+                    <p class="main-input-label">Подтвердите пароль</p>
+                    <v-text-field
+                        class="main-input-field"
+                        v-model="user.password_confirmation"
+                        type="password"
+                        :rules="passConfirmRules"
+                        :error-messages="errorValid.password_confirmation"
                         flat
                         rounded/>
                 </div>
@@ -28,7 +44,7 @@
         <div class="remember-me">
             <div>
                 <v-checkbox
-                    v-model="rememberMe"/>
+                    v-model="user.rememberMe"/>
             </div>
             <div class="remember-me__right">
                 Запомнить меня
@@ -45,21 +61,70 @@
         name: "AuthorizationMobile",
         data() {
             return {
-                rememberMe: false,
+                errorValid: {
+                    phone_number: '',
+                    password: '',
+                    password_confirmation: ''
+                },
                 user: {
-                    number: '',
-                    password: ''
-                }
+                    phone_number: '',
+                    password: '',
+                    password_confirmation: '',
+                    rememberMe: false
+                },
+                phoneRules: [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                ],
+                passRules: [
+                    v => !!v || 'Вы не ввели пароль',
+                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                ],
+                passConfirmRules: [
+                    v => !!v || 'Вы не подтвердили пароль',
+                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v === this.user.password || 'Пароли не совпадают'
+                ],
             }
         },
         methods: {
             async login() {
-                try {
-                    await this.$store.dispatch('LOGIN', this.model);
-                    this.toPage({name: 'home'})
-                } catch (e) {
-                    console.log(e)
+                this.$loading(true)
+                this.clearValidation()
+                let validate = this.$refs.form.validate();
+
+                if(validate){
+                    let user = this.user
+                    let data
+                    try {
+                        data = await this.axios.post('login' , user);
+                    } catch (e) {
+                        this.errorMessagesValidation(e);
+                    }
+                    if(data){
+                        this.$refs.form.reset()
+                        let login = data.data.access_token
+                        try {
+                            await this.$store.dispatch('LOGIN', login);
+                            this.toPage({name: 'home'})
+                        } catch (e) {
+                            console.log(e)
+                        }
+                        this.$notify({
+                            type: 'success',
+                            title: 'Добро Пожаловать!',
+                            text: 'Вы успешно вошли в свою учетную запись'
+                        });
+                    }
+                    this.$loading(false)
+                } else {
+                    this.$loading(false)
                 }
+            },
+            clearValidation(){
+                this.errorValid.phone_number = '',
+                this.errorValid.password = '',
+                this.errorValid.password_confirmation = ''
             }
         }
     }
@@ -129,5 +194,8 @@
             flex-direction: column;
             align-items: flex-end;
         }
+    }
+    .register_input{
+        margin-bottom: 30px;
     }
 </style>

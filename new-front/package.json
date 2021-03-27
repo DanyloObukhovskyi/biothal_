@@ -13,6 +13,8 @@
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-gallery-slideshow": "^1.5.2",
+    "vue-lodash": "^2.1.2",
+    "vue-notification": "^1.3.20",
     "vue-router": "^3.5.1",
     "vue-the-mask": "^0.11.1",
     "vuetify": "^2.4.3",

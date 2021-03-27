@@ -39,3 +39,23 @@ Route::group(['namespace' => 'Api'], function () {
             ->name('checkout.postal.offices.get');
     });
 });
+//Route::namespace('api')->get('test', function(){
+//    return response()->json([
+//        'data' => 'My first test string'
+//    ]);
+//});
+
+//Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
+//Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
+
+Route::post('register', 'Auth\RegisterController@create');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+Route::post('me', 'AuthController@me');
+Route::post('checkUser', 'AuthController@checkUser');
+Route::post('profile', 'ProfileController@getProfile');
+Route::post('updateProfile', 'ProfileController@updateProfile');
+Route::post('changePassword', 'ProfileController@changePassword');
+Route::post('addImage', 'ProfileController@addImage');
+Route::post('deleteImage', 'ProfileController@deleteImage');

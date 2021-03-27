@@ -10,7 +10,7 @@
                         <v-list-item-content>
                             <v-list-item-title style="display: flex; justify-content: space-between">
                                 <div class="default-cursor">
-                                    Алина Борикорна
+                                    {{ profile.name + ' ' + profile.sur_name }}
                                 </div>
                                 <div class="point-cursor account-settings__logout" @click="logout">
                                     Выйти
@@ -34,9 +34,8 @@
                 </v-navigation-drawer>
             </div>
             <div style="width: calc((100% / 3) * 2)">
-                <BankCards v-if="changeItem === 1"/>
-                <OrderList v-if="changeItem === 2"/>
-                <GroupDiscountParticipants v-if="changeItem === 3"/>
+                <OrderList v-if="changeItem === 1"/>
+                <GroupDiscountParticipants v-if="changeItem === 2"/>
                 <AccountProfile v-if="changeItem === 0"/>
             </div>
         </div>
@@ -53,7 +52,6 @@
         name: "AccountSettingsDesktop",
         components: {
             AccountProfile,
-            BankCards,
             OrderList,
             GroupDiscountParticipants
         },
@@ -66,19 +64,59 @@
                         text: 'Личные данные',
                     },
                     {
-                        text: 'Банковские карты',
-                    },
-                    {
                         text: 'Список заказов',
                     },
                     {
                         text: 'Участники групповой скидки',
                     },
                 ],
-                changeItem: 0
+                changeItem: 0,
+                profile: {
+                    name: '',
+                    sur_name: '',
+                    date: '',
+                    email: '',
+                    phone_number: '',
+                    email_receive: {
+                        is_receive: 0
+                    },
+                    image_id: null,
+                    image:{
+                        name: ''
+                    }
+                }
             }
         },
+        created(){
+            this.isValid()
+            this.getProfile()
+        },
         methods: {
+            async getProfile(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            this.profile = data.data.user
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async isValid(){
+                const token = this.$store.getters.getToken;
+                if(!token){
+                    this.toPage({name: 'AuthorizationMobile'})
+                }
+            }
         }
     }
 </script>

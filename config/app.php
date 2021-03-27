@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TestServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ),
 
     /*
