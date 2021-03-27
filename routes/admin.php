@@ -13,7 +13,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             ->name('admin.logout');
     });
 
-    Route::group(['middleware' => ['auth', 'adminConfirm']], function () {
+    Route::group(['middleware' => ['auth:web', 'adminConfirm']], function () {
         Route::get('dashboard', 'IndexController@index')
             ->name('admin.dashboard');
 

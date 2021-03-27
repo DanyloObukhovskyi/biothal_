@@ -11,9 +11,14 @@ use Symfony\Component\Console\Input\Input;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:web', ['except' => ['login']]);
+    }
+
     public function index()
     {
-        if (auth()->check()){
+        if (auth('web')->check()){
             return redirect()->route('admin.dashboard');
         }
 
@@ -27,12 +32,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->except(['_token']);
-        Auth::attempt($credentials, true);
+        auth('web')->attempt($credentials, true);
 
-        if (Auth::user()->isAdmin()){
+        if (auth('web')->user()->isAdmin()){
             return redirect()->route('admin.dashboard');
         } else {
-            Auth::logout();
+            auth('web')->logout();
             return redirect()->back();
         }
     }
