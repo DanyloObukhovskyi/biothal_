@@ -111,6 +111,7 @@ export default {
         line-height: 14px;
 
         &__text {
+            font-weight: 700;
             &:hover {
                 cursor: pointer;
             }
