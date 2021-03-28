@@ -32,7 +32,7 @@
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory" :key="index"
+                    <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)" :key="index"
                                  @click="toPage({name: 'category-page', params: {category: item.slug }})">
                         <v-list-item-content>
                             - {{ item.title }}
@@ -43,7 +43,7 @@
             <div class="footer__middle__block">
                 <v-list dense>
                     <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
-                    <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage" :key="index"
+                    <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)" :key="index"
                                  @click="toPage({name: 'info-page', params: {id: item.slug}, })">
                         <v-list-item-content>
                             - {{ item.title }}
