@@ -12,13 +12,13 @@ class XmlController extends Controller
     {
         $myObj = new XmlTo1c();
         $nbv = $myObj->xml();
-        dd($nbv);
+//        dd($nbv);
     }
 
     public function xmlto1c()
     {
         $myObj = new XmlTo1c();
         $nbv = $myObj->xmlCurl();
-        dd($nbv);
+//        dd($nbv);
     }
 }

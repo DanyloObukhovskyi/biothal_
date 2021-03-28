@@ -17,7 +17,7 @@ class XmlTo1c
         $xml_data = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
         $this->array_to_xml($data, $xml_data);
         $result = $xml_data->asXML('name.xml');
-        dd($result);
+//        dd($result);
 
     }
 

@@ -1,14 +1,8 @@
 <template>
     <div class="home-wrapper">
         <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000">
-            <div class="slide">
-                <img width="100%" src="../../public/slider.svg"/>
-            </div>
-            <div class="slide">
-                <img width="100%" src="../../public/logo.svg"/>
-            </div>
-            <div class="slide">
-                <img width="100%" src="../../public/slider.svg"/>
+            <div class="slide" v-for="(item, index) in carousel" :key="index">
+                <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
         <div>
@@ -138,7 +132,8 @@
             return {
                 best_seller: [],
                 productData: [],
-                isShowDescription: false,
+                carousel: [],
+                isShowDescription: false
             }
         },
         mounted() {
@@ -148,6 +143,7 @@
             async getProductData() {
                 let data = await this.axios.get('home');
 
+                this.carousel = data.data.carousel;
                 this.productData = data.data.products.data;
                 this.best_seller = data.data.best_seller.data;
             }

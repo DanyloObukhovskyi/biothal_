@@ -7,6 +7,7 @@ use App\Models\Admin\Products\InformationAttributes;
 use App\Models\Admin\Products\InformationToLayout;
 use App\Models\Admin\Products\Product;
 use App\Models\Categories;
+use App\Models\ImageGlobal;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
@@ -19,10 +20,12 @@ use Illuminate\Support\Facades\Log;
      */
     public function index()
     {
+        $carousel = ImageGlobal::all();
         $products = Product::with('image', 'productDescription')->where('sale_id', '!=', null)->limit(9)->paginate(9);
         $best_seller = Product::with('image', 'productDescription')->where('sale_id', '=', null)->paginate(9);
 
         return response()->json([
+            'carousel' => $carousel,
             'products' => $products,
             'best_seller' => $best_seller
         ]);

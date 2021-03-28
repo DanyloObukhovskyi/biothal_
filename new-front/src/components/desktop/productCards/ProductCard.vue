@@ -76,7 +76,7 @@ export default {
             this.showMessage = true;
 
             const product = this.dataCard;
-            product.quantity = 1;
+            product.quantity = (product.minimum !== 0) ? product.minimum : 1;
 
             this.addProduct(product)
         },

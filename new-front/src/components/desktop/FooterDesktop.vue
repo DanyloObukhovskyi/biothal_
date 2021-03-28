@@ -113,7 +113,6 @@
 
                 this.menuItemsCategory = data.data.categories;
                 this.menuItemsInfoPage = data.data.article;
-                console.log(this.menuItemsInfoPage)
             }
         }
     }
