@@ -61,25 +61,25 @@
                     :key="index"
                     :readonly="item.children_article ? !item.children_article.length : true">
                     <v-expansion-panel-header
-                        :expand-icon="showIconItemMenu(item)">
+                        :expand-icon="showIconItemInfoPageMenu(item)">
                         <span  @click="toPage({name: 'info-page', params:{ id: item.slug }} )">
                             {{item.title}}
                         </span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content class="inner-list">
                         <v-divider/>
-                        <v-expansion-panels v-if="item.children_article ? item.children_article.length : false" accordion>
-                            <v-expansion-panel
-                                readonly
-                                v-for="(item,index) in item.children_article"
-                                :key="index">
-                                <v-expansion-panel-header
-                                    @click="toPage({name: 'info-page', params:{ id: item.attribute.slug }} )"
-                                    expand-icon="">
-                                    - {{item.attribute.title}}
-                                </v-expansion-panel-header>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
+                            <v-expansion-panels v-if="item.children_article ? item.children_article.length : false" accordion>
+                                <v-expansion-panel
+                                    readonly
+                                    v-for="(item,index) in item.children_article"
+                                    :key="index">
+                                    <v-expansion-panel-header
+                                        @click="toPage({name: 'info-page', params:{ id: item.attribute.slug }} )"
+                                        expand-icon="">
+                                        - {{item.attribute.title}}
+                                    </v-expansion-panel-header>
+                                </v-expansion-panel>
+                            </v-expansion-panels>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -116,8 +116,10 @@ import {mapGetters} from "vuex";
         },
         methods: {
             showIconItemMenu(item) {
-                const res = item.children ? item.children.length ? 'east' : '' : 'east'
-                return res
+                return item.children ? item.children.length ? 'east' : '' : 'east'
+            },
+            showIconItemInfoPageMenu(item) {
+                return  item.children_article ? item.children_article.length ? 'east' : '' : 'east'
             },
             async fetchMenuData() {
                 let data = await this.axios.get('menu');

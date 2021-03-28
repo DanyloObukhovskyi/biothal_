@@ -41,45 +41,48 @@
                                 </v-list-item>
                             </v-list>
                         </v-menu>
+                        <v-btn v-else @click="toPage({name: 'category-page', params:{ category: item.slug }})" plain>
+                            <span>{{ item.title}}</span>
+                        </v-btn>
                     </v-slide-item>
                 </v-slide-group>
 
                 <!-- Слайдер для информационных категорий-->
 
-                    <v-slide-group
-                        multiple
-                        show-arrows>
-                        <v-slide-item v-for="(itemInfoPage, indexInfoPage) in menuItemsInfoPage" :key="indexInfoPage" >
-                            <v-menu v-if="itemInfoPage.children_article.length" open-on-hover offset-y>
-                                <template v-slot:activator="{ on, attrs, value }">
-                                    <v-btn
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        plain
-                                        @click="toPage({name: 'info-page', params:{ id: itemInfoPage.slug }})">
-                                        <span>{{ itemInfoPage.title }}</span>
-                                        <v-icon>
-                                            {{value ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
-                                        </v-icon>
-                                    </v-btn>
-                                </template>
-                                <v-list>
-                                    <v-list-item
-                                        class="point-cursor"
-                                        v-for="(itemInfoPage, indexInfoPage) in itemInfoPage.children_article"
-                                        :key="indexInfoPage"
-                                        @click="toPage({name: 'info-page', params:{ id: itemInfoPage.attribute.slug }})">
-                                        <v-list-item-title>
-                                            {{ itemInfoPage.attribute.title }}
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                </v-list>
-                            </v-menu>
-                            <v-btn v-else @click="toPage({name: 'info-page', params:{ id: itemInfoPage.attribute.slug }})" plain>
-                                <span>{{ itemInfoPage.attribute.title}}</span>
-                            </v-btn>
-                        </v-slide-item>
-                    </v-slide-group>
+                <v-slide-group
+                    multiple
+                    show-arrows>
+                    <v-slide-item v-for="(itemInfoPage, indexInfoPage) in menuItemsInfoPage" :key="indexInfoPage" >
+                        <v-menu v-if="itemInfoPage.children_article.length !== 0" open-on-hover offset-y>
+                            <template v-slot:activator="{ on, attrs, value }">
+                                <v-btn
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    plain
+                                    @click="toPage({name: 'info-page', params:{ id: itemInfoPage.slug }})">
+                                    <span>{{ itemInfoPage.title }}</span>
+                                    <v-icon>
+                                        {{value ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+                                    </v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item
+                                    class="point-cursor"
+                                    v-for="(itemInfoPage, indexInfoPage) in itemInfoPage.children_article"
+                                    :key="indexInfoPage"
+                                    @click="toPage({name: 'info-page', params:{ id: itemInfoPage.attribute.slug }})">
+                                    <v-list-item-title>
+                                        {{ itemInfoPage.attribute.title  }}
+                                    </v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                        <v-btn v-else @click="toPage({name: 'info-page', params:{ id: itemInfoPage.slug }})" plain>
+                            <span>{{ itemInfoPage.title}}</span>
+                        </v-btn>
+                    </v-slide-item>
+                </v-slide-group>
             </div>
             <div class="app-bar-menu-icon">
                 <v-menu offset-y>

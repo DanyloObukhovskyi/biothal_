@@ -1,7 +1,11 @@
 <template>
     <div>
         <div class="slider-wrapper" v-if="!isMobile">
-            <img width="100%" src="../../../public/slider.svg"/>
+            <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
+                <div class="slide" v-for="(item, index) in carousel" :key="index">
+                    <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
+                </div>
+            </agile>
         </div>
         <div class="info-page__title">
             {{article.title || 'Статья еще не была добавлена'}}
@@ -17,7 +21,8 @@
         data() {
             return {
                 title: '',
-                article: []
+                article: [],
+                carousel: []
             }
         },
         computed: {
@@ -41,6 +46,7 @@
                 let data = await this.axios.get('info-page/' + this.$route.params.id);
 
                 this.article =  data.data.article;
+                this.carousel = data.data.carousel;
                 this.title =  this.$route.params.id;
             }
         }

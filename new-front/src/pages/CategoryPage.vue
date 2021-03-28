@@ -1,14 +1,8 @@
 <template>
     <div>
-        <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000">
-            <div class="slide">
-                <img width="100%" src="../../public/slider.svg"/>
-            </div>
-            <div class="slide">
-                <img width="100%" src="../../public/logo.svg"/>
-            </div>
-            <div class="slide">
-                <img width="100%" src="../../public/slider.svg"/>
+        <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
+            <div class="slide" v-for="(item, index) in carousel" :key="index">
+                <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
         <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :product-data="productData"/>
@@ -110,6 +104,7 @@
         },
         data() {
             return {
+                carousel: [],
                 productData: [],
                 categoryTitle: '',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ'
@@ -136,8 +131,9 @@
                 let url = (!this.$route.params.subCategory) ? 'category/' + this.$route.params.category : 'category/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
 
                 let data = await this.axios.get(url);
-                this.productData = data.data.products.data;
 
+                this.carousel = data.data.carousel;
+                this.productData = data.data.products.data;
                 this.categoryTitle =  data.data.this_category.title;
             }
         }

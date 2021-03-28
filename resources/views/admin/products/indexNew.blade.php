@@ -166,7 +166,6 @@
                 $.each($("input[name='selected[]']:checked"), function () {
                     products_id.push($(this).val());
                 })
-                console.log(products_id);
                 $.ajax({
                     url: 'deleteProd',
                     type:"POST",

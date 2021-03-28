@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Products\InformationAttributes;
 use App\Models\Admin\Products\InformationToLayout;
 use App\Models\Categories;
+use App\Models\ImageGlobal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -26,16 +27,22 @@ class ArticleController extends Controller
             }
         }
 
+        $carousel = ImageGlobal::all();
+
         return response()->json([
-            'article' => $article
+            'article' => $article,
+            'carousel' => $carousel
         ]);
     }
 
     public function getSubArticle($id){
         $article = InformationAttributes::where('slug', $id)->first();
 
+        $carousel = ImageGlobal::all();
+
         return response()->json([
-            'article' => $article
+            'article' => $article,
+            'carousel' => $carousel
         ]);
     }
 }

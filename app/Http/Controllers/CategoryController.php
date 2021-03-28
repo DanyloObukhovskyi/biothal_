@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Products\Product;
+use App\Models\ImageGlobal;
 use Illuminate\Support\Arr;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
@@ -17,7 +18,10 @@ class CategoryController extends Controller
         $products = Product::with('image', 'productDescription')->whereIn('id', $products_ids)->paginate('100');
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
+        $carousel = ImageGlobal::all();
+
         return response()->json([
+            'carousel' => $carousel,
             'products' => $products,
             'this_category' => $this_category
         ]);
@@ -32,7 +36,10 @@ class CategoryController extends Controller
         $products = Product::with('image', 'productDescription')->whereIn('id', $products_ids)->paginate('100');
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
+        $carousel = ImageGlobal::all();
+
         return response()->json([
+            'carousel' => $carousel,
             'products' => $products,
             'this_category' => $this_category
         ]);
