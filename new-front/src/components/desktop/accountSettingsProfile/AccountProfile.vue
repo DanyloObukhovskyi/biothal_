@@ -84,7 +84,7 @@
             <div v-if="$parent.profile.image_id"
                 class="user-image__no-image" @click="changeImage()">
                 <img class="user-image__no-image"
-                     width="100%" :src="this.api+'/storage/img/users/' + $parent.profile.image.name"/>
+                     width="100%" :src="$parent.profile.image ? this.api+'/storage/img/users/' + $parent.profile.image.name : ''"/>
             </div>
             <input type="file" ref="file" id="input_file" class="input_file" v-on:change="handleFileUpload()"/>
             <div

@@ -6,30 +6,30 @@
 @endsection
 
 @section('content')
+
     <div class="prod-header border container-fluid">
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
-                <div class="h1-prod col-sm-1">Заказы</div>
-                <div class="pull-right col-sm-3">
-{{--                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>--}}
-{{--                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>--}}
-{{--                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
-{{--                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>--}}
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Заказы</div>
+                    <div class="pull-right col-sm-6">
+                        {{--                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>--}}
+                        {{--                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>--}}
+                        {{--                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+                        {{--                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>--}}
+                    </div>
+                    <div class="breadcrumb col-sm-12" style="background: none">
+                        <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href="{{route('admin.products.pageNew')}}"> Заказы</a></div>
+                    </div>
                 </div>
-                <div class="col-sm-8">
-                </div>
-                <div class="breadcrumb col-sm-3" style="background: none">
-                    <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                    <div><a href="">/ Заказы</a></div>
-                </div>
-
             </div>
         </div>
     </div>
-    <div class="panel-heading">
-        <h5 class="panel-title"><i class="fa fa-list"></i> Заказы</h5>
-    </div>
-    <div class="border container-fluid">
+
+    <div class="border container-fluid" style="padding-left: 0;
+        padding-right: 0;">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="well">

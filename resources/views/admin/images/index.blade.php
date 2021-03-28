@@ -127,27 +127,26 @@
     <div class="prod-header border container-fluid">
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
-                <div class="h1-prod col-sm-1">Галерея</div>
-                <div class="pull-right col-sm-3">
-                    <a href="javascript:void()" data-toggle="modal" data-target="#example_modal" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                    <button id="deletePic"  type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
+                <div class="row">
+                    <div class="h1-prod col-sm-6">Галерея</div>
+                    <div class="pull-right col-sm-6">
+                        <a href="javascript:void()" data-toggle="modal" data-target="#example_modal" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                        <button id="deletePic"  type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-8">
-                </div>
-                <div class="breadcrumb col-sm-3" style="background: none">
+                <div class="breadcrumb col-sm-12" style="background: none">
                     <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                    <div><a href=""> / Галерея</a></div>
+                    <div style="margin-right: 5px">/ </div>
+                    <div><a href=""> Галерея</a></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="panel-heading">
-        <h5 class="panel-title"><i class="fa fa-list"></i> Галерея</h5>
-    </div>
 
-    <div class="border container-fluid">
+    <div class="border container-fluid" style="padding-left: 0;
+    padding-right: 0;">
         <div class="panel panel-default">
             <!-- Modal -->
             <div class="modal fade" id="example_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

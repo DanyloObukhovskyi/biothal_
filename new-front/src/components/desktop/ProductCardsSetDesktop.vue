@@ -100,7 +100,7 @@
 
         &__item-three {
             width: 30%;
-
+            display: inline-table;
             @media screen and (max-width: 991px) {
                 width: 50%;
             }

@@ -3,32 +3,38 @@
 @section('style')
     <link rel="stylesheet" href="{{asset('css/products.css')}}">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .table-responsive {
+            overflow-x: inherit;
+        }
+        .input-group {
+            display: flex;
+        }
+    </style>
 @endsection
 
 @section('content')
     <div class="prod-header border container-fluid">
-            <div class="row page-header">
-                <div class="container-fluid col-sm-12" >
-                    <div class="h1-prod col-sm-1">Товары</div>
-                    <div class="pull-right col-sm-3">
+        <div class="row page-header">
+            <div class="container-fluid col-sm-12" >
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Товары</div>
+                    <div class="pull-right col-sm-6">
                         <a href="{{ route('admin.products.createProd') }}" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                        <button type="submit" form="form-product" formaction="" data-toggle="tooltip" title="Копировать" class="btn btn-default"><i class="fa fa-copy"></i></button>
+{{--                        <button type="submit" form="form-product" formaction="" data-toggle="tooltip" title="Копировать" class="btn btn-default"><i class="fa fa-copy"></i></button>--}}
                         <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                     </div>
-                    <div class="col-sm-8">
-                    </div>
-                    <div class="breadcrumb col-sm-3">
+                    <div class="breadcrumb col-sm-12" style="background: none">
                         <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                        <div><a href="{{route('admin.products.pageNew')}}">/ Товары</a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href="{{route('admin.products.pageNew')}}"> Товары</a></div>
                     </div>
-
                 </div>
             </div>
+        </div>
     </div>
-    <div class="panel-heading">
-        <h5 class="panel-title"><i class="fa fa-list"></i> Товары</h5>
-    </div>
-    <div class="border container-fluid">
+    <div class="border container-fluid" style="padding-left: 0;
+        padding-right: 0;">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="well">
@@ -60,18 +66,17 @@
                                     </a>
                                 </button>
                             </div>
-                            <div class="col-sm-1">
-                                <button type="button" id="button-sales" class="btn btn-danger pull-right"><i
+                            <div class="col-sm-1" >
+                                <button type="button" id="button-sales" data-toggle="modal" data-target="#choice_your_sale_modal"  class="btn btn-danger pull-right" style="margin-right: 6px;"><i
                                         class="fa fa-percent"></i> Скидки
                                 </button>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" id="button-global-sales" class="btn btn-dark pull-right"><i
+                                <button type="button" id="button-global-sales" data-toggle="modal" data-target="#modal_global_sale" class="btn btn-dark pull-right"><i
                                         class="fa fa-percent"></i> Глобальная скидка
                                 </button>
                             </div>
                         </div>
-                    </div>
 
                     <form action="" method="post" enctype="multipart/form-data" id="form-product">
                         <div class="table-responsive">
@@ -118,6 +123,11 @@
                                                 <a href="{{route('admin.products.changeNewProd', ['id' => $product['id']])}}" data-toggle="tooltip" title="Редактировать" class="btn btn-primary">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                                @if(!empty($product['price_with_sale']))
+                                                    <button type="button" id="delete_sale" data-id="{{ $product['id'] }}" class="btn btn-dark" data-title="tooltip"
+                                                            data-placement="top">Очистить скидки
+                                                    </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -127,6 +137,85 @@
                     </form>
                 </div>
             </div>
+    </div>
+
+    <div class="modal hide bd-example-modal-lg" id="choice_your_sale_modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Присвоить скидку</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <select class="custom-select" id="select_sale_name" name="sale_name">
+                            @if($sales != null)
+                                <option value="NoValue">Выберите скидку</option>
+                                @foreach($sales as $sale)
+                                    <option value="{{$sale->id}}">{{$sale->title}}</option>
+                                @endforeach
+                            @else
+                                <option value="NoValue">Скидок нет</option>
+                            @endif
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" value="" id="sale_first_date_prev" disabled/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" value="" id="sale_last_date_prev" disabled/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" value="" id="sale_percent_prev" disabled/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="b_confirm_your_sales" class="btn btn-warning">Выбрать скидку</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_global_sale" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         style="margin-top: 10%" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example_modal_label">Введите глобальную сумму скидки и процент</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Введите
+                                сумму</span>
+                            </div>
+                            <input type="number" min="1" class="form-control"
+                                   style="font-weight: bold; background: #F7F7F7;" id="sum_modal">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Введите
+                                процент</span>
+                            </div>
+                            <input type="number" min="1" max="100" class="form-control"
+                                   style="font-weight: bold; background: #F7F7F7;" id="procent_modal">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                            <span rel="/globalsale" id="global_sale" type="submit"
+                                  style="margin-top: 10px; width: 225px; padding: 10px" class="btn btn-success btn-myBuy">Добавить глобальную скидку</span>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     @endsection
 
@@ -177,6 +266,5 @@
             }
 
         })
-
     </script>
 @endsection

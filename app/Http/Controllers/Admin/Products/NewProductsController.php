@@ -13,16 +13,15 @@ use App\Http\Requests\Products\Information\{
 };
 
 use Illuminate\Support\Facades\Log;
-use App\Models\Admin\Products\{
-    ProductApts,
+use App\Models\Admin\Products\{ProductApts,
     ProductTo1C,
     ProductImages,
     ProductsAttributes,
     ProductDescription,
     Information,
     InformationAttributes,
-    InformationToLayout
-};
+    InformationToLayout,
+    Sale};
 
 use App\Models\Admin\UrlAlias;
 
@@ -52,7 +51,8 @@ class NewProductsController extends Controller
             }
         }
         $products = $products->get()->toArray();
-        return view('admin.products.indexNew', compact('products'));
+        $sales = Sale::all();
+        return view('admin.products.indexNew', compact('products', 'sales'));
     }
 
     public function createProd()
@@ -241,9 +241,15 @@ class NewProductsController extends Controller
         return back()->with('success', 'Товар был успешно обновлен!');
     }
 
-    public function information()
+    public function information(Request $request)
     {
         $articles = Information::paginate(10);
+
+        if ($request->has('name')) {
+            $articles->sortByAsc('attributes.title');
+        } else if ($request->has('sort')) {
+            $articles->orderBy('sort_order', 'asc');
+        }
 
         return view('admin.products.information', compact(
             'articles'

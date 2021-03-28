@@ -123,8 +123,7 @@ export default {
     }
 
     &__image {
-        height: 70vh;
-        width: 35vw;
+        height: 25vw;
         max-width: 100%;
         &:hover {
             cursor: pointer;

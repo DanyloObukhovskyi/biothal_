@@ -24,11 +24,14 @@
             </div>
         </div>
         <div class="page-form__middle">
-            <v-form style="width: 100%;">
+            <v-form ref="changeProfile" style="width: 100%;" v-model="validProfile">
                 <div>
-                    <p class="main-input-label">Введите имя</p>
+                    <p class="main-input-label" style="margin: 0">Введите имя</p>
                     <v-text-field
                         class="main-input-field"
+                        v-model="change_profile.name"
+                        :error-messages="errorValid.name"
+                        :rules="nameRules"
                         flat
                         rounded/>
                 </div>
@@ -36,6 +39,8 @@
                     <p class="main-input-label">Введите фамилию</p>
                     <v-text-field
                         class="main-input-field"
+                        v-model="change_profile.sur_name"
+                        :error-messages="errorValid.sur_name"
                         flat
                         rounded/>
                 </div>
@@ -43,6 +48,8 @@
                     <p class="main-input-label">Введите дату</p>
                     <v-text-field
                         class="main-input-field"
+                        v-model="change_profile.date"
+                        :error-messages="errorValid.date"
                         flat
                         rounded/>
                 </div>
@@ -51,6 +58,9 @@
                     <v-text-field
                         placeholder="+38(___) ___-__-__"
                         v-mask="'+38(###) ###-##-##'"
+                        v-model="change_profile.phone_number"
+                        :error-messages="errorValid.phone_number"
+                        :rules="phoneRules"
                         class="main-input-field"
                         flat
                         rounded/>
@@ -59,6 +69,9 @@
                     <p class="main-input-label">Введите email</p>
                     <v-text-field
                         class="main-input-field"
+                        v-model="change_profile.email"
+                        :error-messages="errorValid.email"
+                        :rules="emailRules"
                         flat
                         rounded/>
                 </div>
@@ -114,7 +127,232 @@
         name: "AccountSettingsMobile",
         data() {
             return {
-                rememberMe: false
+                errorValid: {
+                    old_password: '',
+                    password: '',
+                    password_confirmation: '',
+                    name: '',
+                    surname: '',
+                    date: '',
+                    email: '',
+                    phone_number: ''
+                },
+                validProfile: false,
+                rememberMe: false,
+                dialog: false,
+                valid: false,
+                file: '',
+                oldPassRules: [
+                    v => !!v || 'Вы не ввели старый пароль',
+                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                ],
+                passRules: [
+                    v => !!v || 'Вы не ввели пароль',
+                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v !== this.change_password.old_password || 'Новый пароль не должен содержать старый'
+                ],
+                passConfirmRules: [
+                    v => !!v || 'Вы не подтвердили пароль',
+                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v === this.change_password.password || 'Пароли не совпадают'
+                ],
+                nameRules: [
+                    v => !!v || 'Вы не ввели свое имя',
+                    v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+                ],
+                emailRules: [
+                    v => !!v || 'Вы не ввели електронную почту',
+                    v => /.+@.+/.test(v) || 'Електронная почта не коректна',
+                ],
+                phoneRules: [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                ],
+                change_password:{
+                    old_password: '',
+                    password: '',
+                    password_confirmation: ''
+                },
+                change_profile: {
+                    name: '',
+                    surname: '',
+                    date: '',
+                    email: '',
+                    phone_number: '',
+                    is_receive: ''
+                }
+            }
+        },
+        mounted() {
+            this.fetchProfile()
+        },
+        methods: {
+            async fetchProfile(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let profile = data.data.user
+                            this.change_profile = profile
+                            this.change_profile.is_receive = profile.email_receive.is_receive
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+                //console.log(this.$parent.profile)
+            },
+            async changePassword(){
+                try {
+                    this.$loading(true)
+                    this.clearValidation()
+                    let validate = await this.$refs['change'].validate();
+
+                    if(validate){
+                        const token = this.$store.getters.getToken;
+                        if(token){
+                            let data = await this.axios.post('changePassword', this.change_password,
+                                {
+                                    headers: {
+                                        'Authorization': `Bearer ${token}`
+                                    }
+                                });
+                            if(data){
+                                let message = data.data.message
+                                this.$notify({
+                                    type: 'success',
+                                    title: 'Успех!',
+                                    text: message
+                                });
+                                this.closeModal()
+                            }
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
+            },
+            clearValidation(){
+                this.errorValid.old_password = '',
+                    this.errorValid.password = '',
+                    this.errorValid.password_confirmation = '',
+                    this.errorValid.name = '',
+                    this.errorValid.surname =  '',
+                    this.errorValid.date =  '',
+                    this.errorValid.email = '',
+                    this.errorValid.phone_number = ''
+            },
+            closeModal(){
+                this.clearValidation()
+                this.$refs.change.reset()
+                this.dialog = false
+            },
+            async changeProfile(){
+                try {
+                    this.$loading(true)
+                    this.clearValidation()
+                    let validate = await this.$refs['changeProfile'].validate();
+
+                    if(validate){
+                        const token = this.$store.getters.getToken;
+                        if(token){
+                            let data = await this.axios.post('updateProfile', this.change_profile,
+                                {
+                                    headers: {
+                                        'Authorization': `Bearer ${token}`
+                                    }
+                                });
+                            if(data){
+                                let message = data.data.message
+                                this.$notify({
+                                    type: 'success',
+                                    title: 'Успех!',
+                                    text: message
+                                });
+                                this.clearValidation()
+                            }
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
+            },
+            changeImage(){
+                document.getElementById('input_file').click();
+            },
+            async handleFileUpload(){
+                this.$loading(true)
+                this.file = this.$refs.file.files[0];
+                try{
+                    const token = this.$store.getters.getToken;
+                    if(token) {
+                        let formData = new FormData();
+                        formData.append('img', this.file);
+                        let data = await this.axios.post('addImage',
+                            formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data',
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            }
+                        )
+                        if(data){
+                            let message = data.data.message
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            let profile = data.data.profile
+                            this.$parent.profile = profile
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async deleteImage()
+            {
+                this.$loading(true)
+                const token = this.$store.getters.getToken;
+                try{
+                    if(token){
+                        let data = await this.axios.post('deleteImage',{},
+                            {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+                        if(data){
+                            let message = data.data.message
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            let profile = data.data.profile
+                            this.$parent.profile = profile
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
             }
         }
     }

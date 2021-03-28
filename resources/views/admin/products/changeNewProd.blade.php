@@ -17,27 +17,29 @@
 @section('content')
     <div class="prod-header border container-fluid">
         <div class="row page-header">
-            <div class="container-fluid col-sm-12">
-                <div class="h1-prod col-sm-1">Товары</div>
-                <div class="pull-right col-sm-3">
-                    <button type="submit" form="form-product" data-toggle="tooltip" title="Сохранить" class="btn btn-primary">
-                        <i class="fa fa-save"></i>
-                    </button>
-                    <a href="{{ route('admin.products.pageNew') }}" data-toggle="tooltip" title="Отменить" class="btn btn-default">
-                        <i class="fa fa-reply"></i>
-                    </a>
-                </div>
-                <div class="col-sm-8">
-                </div>
-                <div class="breadcrumb col-sm-3" style="background: none">
-                    <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                    <div><a href="{{route('admin.products.pageNew')}}">/ Товары</a></div>
+            <div class="container-fluid col-sm-12" >
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Товары</div>
+                    <div class="pull-right col-sm-6">
+                        <button type="submit" form="form-product" data-toggle="tooltip" title="Сохранить" class="btn btn-primary">
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <a href="{{ route('admin.products.pageNew') }}" data-toggle="tooltip" title="Отменить" class="btn btn-default">
+                            <i class="fa fa-reply"></i>
+                        </a>
+                    </div>
+                    <div class="breadcrumb col-sm-12" style="background: none">
+                        <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href="{{route('admin.products.pageNew')}}"> Товары</a></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div id="content">
-        <div class="container-fluid">
+        <div class="container-fluid" style="padding-left: 0;
+        padding-right: 0;">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-pencil"></i> @if(isset($id))Редактирование@elseСоздание@endif</h3>

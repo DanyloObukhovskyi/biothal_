@@ -141,7 +141,7 @@ class SalesController extends Controller
             if ($product) {
                 $product->update([
                     'sale_id' => null,
-                    'price_with_sale' => $product->price,
+                    'price_with_sale' => null,
                 ]);
             }
         }

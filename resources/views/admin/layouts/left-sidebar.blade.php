@@ -20,32 +20,29 @@
           <span class="user-name">
               {{Auth::user()->name}}
           </span>
-                <span class="user-role">Administrator <p class="fa fa-eye"></p></span>
+                <span class="user-role">Администратор <p class="fa fa-eye"></p></span>
                 <span class="user-status">
             <i class="fa fa-circle"></i>
-            <span>Online</span>
+            <span>Онлайн</span>
           </span>
             </div>
         </div>
         <!-- sidebar-header  -->
-        <div class="sidebar-search">
-            <div>
-                <div class="input-group">
-                    <input type="text" class="form-control search-menu" placeholder="Поиск...">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                      </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <div class="sidebar-search">--}}
+{{--            <div>--}}
+{{--                <div class="input-group">--}}
+{{--                    <input type="text" class="form-control search-menu" placeholder="Поиск...">--}}
+{{--                    <div class="input-group-append">--}}
+{{--                      <span class="input-group-text">--}}
+{{--                        <i class="fa fa-search" aria-hidden="true"></i>--}}
+{{--                      </span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <!-- sidebar-search  -->
         <div class="sidebar-menu">
             <ul>
-                <li class="header-menu">
-                    <span>General</span>
-                </li>
                 <li class="{{@checkIsActive('admin.statePanel.page')}}">
                     <a href="{{route('admin.statePanel.page')}}">
                         <i class="fa fa-tachometer-alt"></i>
@@ -68,20 +65,20 @@
                     <a href="#">
                         <i class="fas fa-tags"></i>
                         <span>Каталог</span>
-                        <span class="badge badge-pill badge-danger">3</span>
+                        <span class="badge badge-pill badge-danger">2</span>
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            <li class="{{@checkIsActive('admin.products.page')}}">
-                                <a href="{{route('admin.products.page')}}">
-                                    <i class="fas fa-angle-double-right"></i>
-                                    <span>Товары Old</span>
-                                </a>
-                            </li>
+{{--                            <li class="{{@checkIsActive('admin.products.page')}}">--}}
+{{--                                <a href="{{route('admin.products.page')}}">--}}
+{{--                                    <i class="fas fa-angle-double-right"></i>--}}
+{{--                                    <span>Товары Old</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                             <li class="{{@checkIsActive('admin.products.pageNew')}}">
                                 <a href="{{route('admin.products.pageNew')}}">
                                     <i class="fas fa-angle-double-right"></i>
-                                    <span>Товары-New</span>
+                                    <span>Товары</span>
                                 </a>
                             </li>
                             <li class="{{@checkIsActive('admin.products.information')}}">

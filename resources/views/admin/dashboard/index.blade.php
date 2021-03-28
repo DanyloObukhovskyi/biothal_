@@ -3,7 +3,7 @@
 @section('content')
     <div class="p-3">
         <div class="page-header">
-            <h2>Добро пожаловать!</h2>
+            <h2>Добро Пожаловать, {{ auth()->user()->name }}!</h2>
         </div>
     </div>
 @endsection

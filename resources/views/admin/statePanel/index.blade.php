@@ -1,5 +1,10 @@
 @extends('admin.layouts.app')
 
+@section('style')
+    <link rel="stylesheet" href="{{asset('css/products.css')}}">
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+@endsection
+
 @section('content')
     {{--  MODAL  --}}
     <div class="modal hide bd-example-modal-lg" id="state_panel_modal">
@@ -71,50 +76,66 @@
             </div>
         </div>
     </div>
+{{--    <div class="prod-header border container-fluid">--}}
+{{--        <div class="row page-header">--}}
+{{--            <div class="container-fluid col-sm-12" >--}}
+{{--                <div class="h1-prod col-sm-12">Добро Пожаловать, {{ auth()->user()->name }}</div>--}}
+{{--                <div class="pull-right col-sm-3">--}}
+{{--                    --}}{{--                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>--}}
+{{--                    --}}{{--                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>--}}
+{{--                    --}}{{--                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+{{--                    --}}{{--                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>--}}
+{{--                </div>--}}
+{{--                <div class="col-sm-8">--}}
+{{--                </div>--}}
 
+
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+    <div class="prod-header border container-fluid">
+        <div class="row page-header">
+            <div class="container-fluid col-sm-12" >
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Панель Состояния</div>
+                    <div class="pull-right col-sm-6">
+{{--                        <a href="javascript" data-toggle="modal" data-target="#add_access" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+{{--                        <button id="delete_acc" data-toggle="tooltip" data-placement="right" title="Удалить выбранные потребности" class="btn btn-danger">--}}
+{{--                            <i class="fa fa-trash-o"></i>--}}
+{{--                        </button>--}}
+                    </div>
+                    <div class="breadcrumb col-sm-12 pull-left" style="background: none">
+                        <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href=""> Панель Состояния</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{--  PAGE  --}}
-    <div class="container-fluid m-2">
-        <table class="table">
-            <thead class="text-center">
-            <tr>
-                <th scope="col">id</th>
-                <th scope="col">Номер Заказа</th>
-                <th scope="col">Статус заказа</th>
-                <th scope="col">ФИО</th>
-                <th scope="col">Дата заказа</th>
-                <th scope="col">Товары</th>
-                <th scope="col">Full Price</th>
-                <th scope="col">Редактировать</th>
-            </tr>
-            </thead>
-            <tbody class="text-center">
-            <tr>
-                <td scope="row">1</td>
-                <td scope="row">2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>кнопка</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="container">
-            <table class="table" id="state_panel_table">
-                <thead class="text-center">
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Дата заказа</th>
-                    <th scope="col">Полная стоимость</th>
-                    <th scope="col">Редактировать</th>
-                    <th scope="col">Товары</th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                </tbody>
-            </table>
+    <div class="border container-fluid" style="padding-left: 0;
+    padding-right: 0;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="well">
+                    <table class="table" id="state_panel_table">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Дата заказа</th>
+                            <th scope="col">Полная стоимость</th>
+                            <th scope="col">Редактировать</th>
+                            <th scope="col">Товары</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

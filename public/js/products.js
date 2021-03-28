@@ -319,6 +319,7 @@ $(function () {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    location.reload();
                 }
             }
         });
@@ -391,15 +392,14 @@ $(function () {
 
     // Сделать скидки продуктам
     $('#b_confirm_your_sales').on("click", function () {
-        var count = productTable.rows({selected: true}).count();
 
-        var products = productTable.rows({selected: true}).data(), productsId = [];
         var saleId = $('#select_sale_name').val();
 
-        for (var i = 0; i < count; i++) {
-            productsId[i] = products[i]['id'];
-        }
-
+        var productsId = [];
+        $.each($("input[name='selected[]']:checked"), function () {
+            productsId.push($(this).val());
+        })
+        console.log(productsId);
         $.ajax({
             url: '/admin/products/set/sale',
             method: 'PUT',
@@ -412,7 +412,7 @@ $(function () {
             },
             success: function (resp) {
                 successMessage(resp);
-                productTable.ajax.reload();
+                location.reload()
                 $('#choice_your_sale_modal').modal('hide');
             }
         })
@@ -687,7 +687,26 @@ $(function () {
         });
     }
 
+    $("#delete_sale").on("click", function () {
+        let productsId = [];
+        let productId = $(this).attr('data-id');
+        productsId[0] = productId;
 
+        $.ajax({
+            url: '/admin/products/clear/sales',
+            method: 'PUT',
+            data: {
+                'productsId':productsId,
+            },
+            error: function (xhr, status, error) {
+                fatalError(xhr);
+            },
+            success: function (resp) {
+                successMessage(resp);
+                location.reload();
+            }
+        });
+    });
 
 // Delete func
     function deleteItems(buttonId) {

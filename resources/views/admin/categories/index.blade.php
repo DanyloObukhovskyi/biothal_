@@ -1,5 +1,15 @@
 @extends('admin.layouts.app')
 
+@section('style')
+    <link rel="stylesheet" href="{{asset('css/products.css')}}">
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .input-group {
+            display: flex;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="modal hide" id="add_categ" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -143,39 +153,54 @@
         </div>
     </div>
 
-    <div class="container" id="category_page">
-        <div class="page-header w-100 alert bg-light p-0 shadow-sm mt-2">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <div class="btn btn-group pull-right">
-                    <span data-toggle="tooltip" data-placement="left" title="Добавить категорию">
-                        <button type="button" data-toggle="modal" data-target="#add_categ" class="btn btn-dark">Добавить
+    <div class="prod-header border container-fluid">
+        <div class="row page-header">
+            <div class="container-fluid col-sm-12" >
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Категории</div>
+                    <div class="pull-right col-sm-6">
+                        <a href="javascript" data-target="#add_categ" data-toggle="modal" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                        <button id="delete_cat" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i>
                         </button>
-                    </span>
-                    <button type="button" id="delete_cat" class="btn btn-dark"
-                            data-toggle="tooltip" data-placement="right" title="Удалить выбранные категории">Удалить
-                    </button>
+                    </div>
+                    <div class="breadcrumb col-sm-12 pull-left" style="background: none">
+                        <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href=""> Категории</a></div>
+                    </div>
                 </div>
             </div>
-            @if($categories == null)
-                <p>Категории отсутствуют ¯\_(ツ)_/¯</p>
-            @else
-                <div class="container-fluid m-2">
-                    <table class="table" id="category_table" style="width:100%">
-                        <thead class="text-center">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Родительская категория</th>
-                            <th scope="col">Тип категории</th>
-                            <th scope="col">Название</th>
-                            <th scope="col">Порядок сортировки</th>
-                            <th scope="col">Редактировать</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-center">
-                        </tbody>
-                    </table>
+        </div>
+    </div>
+
+    <div class="border container-fluid" style="padding-left: 0;
+    padding-right: 0;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="well">
+                    @if($categories == null)
+                        <p>Категории отсутствуют ¯\_(ツ)_/¯</p>
+                    @else
+                        <div class="container-fluid m-2">
+                            <table class="table" id="category_table" style="width:100%">
+                                <thead class="text-center">
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Родительская категория</th>
+                                    <th scope="col">Тип категории</th>
+                                    <th scope="col">Название</th>
+                                    <th scope="col">Порядок сортировки</th>
+                                    <th scope="col">Редактировать</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 @endsection

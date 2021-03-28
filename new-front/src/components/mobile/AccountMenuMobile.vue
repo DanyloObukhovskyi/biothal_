@@ -51,13 +51,6 @@
                         }
                     },
                     {
-                        name: 'Банковские карты',
-                        meta: {
-                            icon: 'credit_card',
-                            rout: {name: 'bank-cards'}
-                        }
-                    },
-                    {
                         name: 'Участники групповой скидки',
                         meta: {
                             icon: 'people_alt',
