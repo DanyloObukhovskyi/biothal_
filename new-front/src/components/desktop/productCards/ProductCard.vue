@@ -13,7 +13,7 @@
             </v-btn>
         </div>
         <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-             width="100%" :src="this.api+'/storage/img/products/' + dataCard['image']['name']" :alt="dataCard['image']['name']"/>
+             width="100%" :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
 
         <div class="product__description" >
             <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{ dataCard['product_description']['name'] }}</div>
@@ -41,7 +41,13 @@ export default {
     name: "ProductCard",
     props: {
         dataCard: {
-            type: Object
+            type: Object,
+            image: {
+                name: ''
+            },
+            product_description: {
+                name: ''
+            }
         },
         isShowStock: {
             type: Boolean,
@@ -117,6 +123,8 @@ export default {
     }
 
     &__image {
+        height: 400px;
+        max-width: 100%;
         &:hover {
             cursor: pointer;
         }
@@ -128,9 +136,10 @@ export default {
         row-gap: 10px;
 
         &__text {
-            height: 50px;
+            height: 20px;
             justify-content: center;
             display: flex;
+            overflow: hidden;
             &:hover {
                 cursor: pointer;
             }

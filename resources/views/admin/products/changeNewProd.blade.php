@@ -134,7 +134,7 @@
                     let htmls = '';
                     images.forEach((item, key) => {
                         let html = '<div class="card-body justify-content-start col-3" style="display:inline-flex; column-count: 4; padding: 0.25rem;">'+
-                                        '<input type="radio" id="pictures_'+item.id+'" onclick="setImage('+item.id+',\''+item.name+'\')"'+
+                                        '<input type="radio" id="pictures_'+item.id+'" name="image_gallary_input" onclick="setImage('+item.id+',\''+item.name+'\')"'+
                                         'value="'+item.id+'">'+
                                         '<label class="text-center" style="color:black;" for="pictures_'+item.id+'" id="pictures_label_'+item.id+'">'+
                                             '<a href="'+storage + item.name+'" class="thumbnail">'+

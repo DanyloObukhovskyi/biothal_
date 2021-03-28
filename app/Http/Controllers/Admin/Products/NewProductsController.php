@@ -36,7 +36,10 @@ class NewProductsController extends Controller
 {
     public function indexNew(Request $request)
     {
-        $products = Product::with('productDescription');
+        $products = Product::with([
+            'productDescription',
+            'image'
+            ]);
         if (!empty($request->all())) {
             if ($request->input('status') !== null) {
                 $products = $products->where('status', $request->input('status'));
@@ -71,6 +74,7 @@ class NewProductsController extends Controller
 
     public function createProdProcess(ProductCreate $request)
     {
+        unset($request['image_gallary_input']);
         /* START: updating data for product*/
         $product = Product::create(array_filter($request->all(), function ($element, $key) {
             return !is_array($element) && $key != '_token';
@@ -166,6 +170,8 @@ class NewProductsController extends Controller
 
     public function updateProduct(ProductUpdate $request, $id)
     {
+        unset($request['image_gallary_input']);
+
         $product = Product::find($id);
         if (empty($product)) {
             abort(404);

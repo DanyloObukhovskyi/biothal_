@@ -95,14 +95,14 @@
                                     @foreach($products as $product_key => $product)
                                         <tr>
                                             <td class="text-center">
-                                                <input type="checkbox" name="selected[]" value="{{$product['id']}}"/>
+                                                <input type="checkbox" name="selected[]" value=" {{ $product['id'] }}"/>
                                             </td>
                                             <td class="text-center">
                                                 <img
-                                                    src="https://biothal.com.ua/image/cache/catalog/maska-dlja-lica-konoplja-vodorosli-40x40.jpg"
-                                                    alt=" Очищающая маска для лица Конопля Водоросли" class="img-thumbnail"/>
+                                                    src=" {{ !empty($product['image']['name']) ? Storage::disk('public')->url('storage/img/products/'. $product['image']['name']) : 'https://biothal.com.ua/image/cache/no_image-100x100.png'}}"
+                                                    alt="" class="img-thumbnail" style="height: 150px;"/>
                                             </td>
-                                            <td class="text-left"> {{$product['product_description']['name']}}</td>
+                                            <td class="text-left"> {{ $product['product_description']['name'] }}</td>
                                             <td class="text-right">
                                                 @if(!empty($product['price_with_sale']))
                                                     {{$product['price_with_sale']}}

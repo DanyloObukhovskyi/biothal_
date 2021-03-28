@@ -159,13 +159,6 @@ export default {
                         icon: 'app_registration',
                         rout: {name: 'registration'}
                     }
-                },
-                {
-                    name: 'Зарегистрироваться',
-                    meta: {
-                        icon: 'app_registration',
-                        rout: {name: 'registration'}
-                    }
                 }
             ]
 

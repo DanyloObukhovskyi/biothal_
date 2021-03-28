@@ -73,7 +73,7 @@ export default {
     }
 
     &__image {
-        width: 100%;
+        max-width: 100%;
     }
 
     &__left {
@@ -126,5 +126,8 @@ input[type=number] {
     &:hover {
         cursor: pointer;
     }
+}
+.product-basket__image {
+    max-width: 100%;
 }
 </style>
