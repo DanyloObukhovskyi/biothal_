@@ -68,3 +68,4 @@ Route::post('updateProfile', 'ProfileController@updateProfile');
 Route::post('changePassword', 'ProfileController@changePassword');
 Route::post('addImage', 'ProfileController@addImage');
 Route::post('deleteImage', 'ProfileController@deleteImage');
+Route::post('addEmailForReceive', 'HomeController@addEmailForReceive');

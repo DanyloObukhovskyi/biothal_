@@ -1,5 +1,6 @@
 <template>
     <div class="product-basket__wrapper">
+        <div class="product-basket__sale" v-if="isShowStock">-{{ dataCard.get_sale.percent }}%</div>
         <div class="product-basket__left">
             <img class="product-basket__image" height="150" width="150"
                  :src="this.api+'/storage/img/products/' + dataCard.image.name" :alt="dataCard.image.name"/>
@@ -17,7 +18,7 @@
                     <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="dataCard.minimum"/>
                     <v-icon class="main-icon-btn" size="12" @click="incrementQuantity(dataCard.id)">mdi-plus</v-icon>
                 </div>
-                <div class="product-basket__right__text__price">Цена: {{ dataCard.price }} грн.</div>
+                <div class="product-basket__right__text__price">Цена: {{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн.</div>
                 <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
                 </div>
             </div>
@@ -34,6 +35,10 @@ export default {
     props: {
         dataCard: {
             type: Object,
+        },
+        isShowStock: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
@@ -79,6 +84,19 @@ export default {
     &__left {
         background-color: #fff;
         width: 50%;
+    }
+
+    &__sale {
+        vertical-align: middle;
+        color: #fff;
+        background-color: #000;
+        border-radius: 50%;
+        width: 50px;
+        height: 41px;
+        line-height: 43px;
+        font-weight: 300;
+        font-size: 21px;
+        position: absolute;
     }
 
     &__right {

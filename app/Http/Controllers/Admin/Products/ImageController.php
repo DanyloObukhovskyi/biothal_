@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Products\Product;
+use App\Models\Admin\Products\ProductImages;
 use App\Models\ImageGlobal;
 use App\Http\Requests\
 {
@@ -136,12 +138,23 @@ class ImageController extends Controller
     {
         foreach ($request->checked as $imgId) {
             $image = Image::where('id', (int)$imgId)->first();
+            $subImage = ProductImages::where('image', (int)$imgId)->delete();
+            $products = Product::where('image_id', (int)$imgId)->get();
             $pathToYourFile = public_path("storage/img/products/".$image->name);
             if(file_exists($pathToYourFile))
             {
                 unlink($pathToYourFile);
             }
             $image->delete();
+            if(!empty($subImage)){
+                $subImage->delete();
+            }
+            if(!empty($products)){
+                foreach($products as $product){
+                    $product->image_id = null;
+                    $product->save();
+                }
+            }
         }
         return true;
     }

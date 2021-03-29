@@ -260,6 +260,7 @@
                 //console.log(this.$parent.profile)
             },
             async changePassword(){
+                await this.$parent.checkUserIsValid();
                 try {
                     this.$loading(true)
                     this.clearValidation()
@@ -307,6 +308,7 @@
                 this.dialog = false
             },
             async changeProfile(){
+                await this.$parent.checkUserIsValid();
                 try {
                     this.$loading(true)
                     this.clearValidation()
@@ -342,6 +344,7 @@
                 document.getElementById('input_file').click();
             },
             async handleFileUpload(){
+                await this.$parent.checkUserIsValid();
                 this.$loading(true)
                 this.file = this.$refs.file.files[0];
                 try{
@@ -377,6 +380,7 @@
             },
             async deleteImage()
             {
+                await this.$parent.checkUserIsValid();
                 this.$loading(true)
                 const token = this.$store.getters.getToken;
                 try{

@@ -19,7 +19,7 @@ class Categories extends Model
 
     public function Category()
     {
-        return $this->hasOne(Categories::class,'id','parent_id');
+        return $this->hasOne(Categories::class,'id','parent_id')->OrderBy('ordering', 'ASC');
     }
 
     public function products()

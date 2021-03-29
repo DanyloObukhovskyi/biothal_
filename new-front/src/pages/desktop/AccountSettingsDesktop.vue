@@ -88,11 +88,13 @@
             }
         },
         created(){
+            this.checkUserIsValid()
             this.isValid()
             this.getProfile()
         },
         methods: {
             async getProfile(){
+                await this.checkUserIsValid()
                 try {
                     const token = this.$store.getters.getToken;
                     if(token){
@@ -112,9 +114,42 @@
                 }
             },
             async isValid(){
+                await this.checkUserIsValid()
                 const token = this.$store.getters.getToken;
                 if(!token){
                     this.toPage({name: 'AuthorizationMobile'})
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                this.toPage({name: 'AuthorizationMobile'})
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                            this.toPage({name: 'AuthorizationMobile'})
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.toPage({name: 'AuthorizationMobile'})
+                    this.errorMessagesValidation(e);
                 }
             }
         }

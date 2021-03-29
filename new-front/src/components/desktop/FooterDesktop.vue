@@ -8,8 +8,8 @@
                 Узнавайте первыми о распродажах и новинках!
             </div>
             <div style="margin-right: 45px">
-                <v-text-field dark color="#fff" label="Электронный адрес" style="width: 270px">
-                    <v-btn icon slot="append">
+                <v-text-field v-model="email_for_receive_list" dark color="#fff" label="Электронный адрес" style="width: 270px">
+                    <v-btn icon slot="append" @click="addEmailToReceiveList">
                         <v-icon class="footer__top__email-icon">
                             mdi-arrow-right
                         </v-icon>
@@ -101,7 +101,8 @@
         data() {
             return {
                 menuItemsCategory: [],
-                menuItemsInfoPage: []
+                menuItemsInfoPage: [],
+                email_for_receive_list: '',
             }
         },
         created() {
@@ -113,6 +114,42 @@
 
                 this.menuItemsCategory = data.data.categories;
                 this.menuItemsInfoPage = data.data.article;
+            },
+            async addEmailToReceiveList(){
+                let email = this.email_for_receive_list;
+                let valide = /.+@.+/.test(email);
+                this.$loading(true)
+                if(valide){
+                    try{
+                        let data = await this.axios.post('addEmailForReceive', {
+                            email:email
+                        });
+                        if(data){
+                            let message = data.data.message
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            this.email_for_receive_list = ''
+                        }
+                        this.$loading(false)
+                    } catch (e) {
+                        this.$notify({
+                            type: 'error',
+                            title: 'Извините',
+                            text: 'Вы ввели не коректный адресс електронной почты!'
+                        });
+                        this.$loading(false)
+                    }
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Извините',
+                        text: 'Вы ввели не коректный адресс електронной почты!'
+                    });
+                    this.$loading(false)
+                }
             }
         }
     }

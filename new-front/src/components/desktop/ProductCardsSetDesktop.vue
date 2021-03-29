@@ -7,12 +7,13 @@
                              v-for="item in productData"
                              :key="item.id"
                              :data-card="item"
-                             :is-show-stock="item.isShowStock"/>
+                             :is-show-stock="item.sale_id !== null"/>
             </div>
             <div class="product-card__content" v-if="typeSet === 'basket'">
                 <ProductCardBasket v-for="item in productData"
                                    @delete="$emit('delete', item.id)"
                                    :key="item.id"
+                                   :is-show-stock="item.sale_id !== null"
                                    :data-card="item"/>
             </div>
             <div class="product-card__content" v-if="typeSet === 'basket-menu'">
@@ -20,7 +21,7 @@
                                        v-for="item in productData"
                                        :key="item.id"
                                        :data-card="item"
-                                       :is-show-stock="item.isShowStock"/>
+                                       :is-show-stock="item.sale_id !== null"/>
             </div>
         </div>
     </div>
@@ -53,6 +54,10 @@
             },
             productData: {
                 type: Array
+            },
+            isShowStock:{
+                type: Boolean,
+                default: false
             }
         },
         data() {

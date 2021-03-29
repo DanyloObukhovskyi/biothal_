@@ -1,6 +1,6 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
-        <div class="product__sale" v-if="isShowStock">-50%</div>
+        <div class="product__sale" v-if="isShowStock">-{{ dataCard.get_sale.percent }}%</div>
         <div class="product__heart"  v-if="isShowFavorite">
             <v-btn
                 v-show="isFavoritesShow || isFavorites"
@@ -15,9 +15,9 @@
         <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
              :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
 
-        <div class="product__description" >
+        <div class="product__description">
             <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{ dataCard['product_description']['name'] }}</div>
-            <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
+            <div class="product__description__price default-cursor">{{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн</div>
         </div>
         <div>
             <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>

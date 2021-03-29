@@ -21,11 +21,25 @@ class ProductController extends Controller
             $main_product_category = Categories::where('id', $product_category['parent_id'])->first();
         }
 
-        $recommendedProduct = Product::with('image', 'productDescription')
-            ->where('is_recommended', '=', 1)
+        $recommendedProduct = Product::with([
+            'image',
+            'productDescription',
+            'getSale'
+        ])
+            ->where([
+                'is_recommended' => 1,
+                'status' => 1
+            ])
             ->get();
 
-        $productDetails = Product::with('image', 'categories', 'productDescription', 'productApts', 'productImages')
+        $productDetails = Product::with([
+                'image',
+                'categories',
+                'productDescription',
+                'productApts',
+                'productImages',
+                'getSale'
+            ])
             ->where( 'id', $id)
             ->first();
 
@@ -40,7 +54,11 @@ class ProductController extends Controller
 
     public function getRecommendedProduct()
     {
-        $recommendedProduct = Product::with('image', 'productDescription')
+        $recommendedProduct = Product::with([
+            'image',
+            'productDescription',
+            'getSale'
+        ])
             ->where('is_recommended', '=', 1)
             ->get();
 

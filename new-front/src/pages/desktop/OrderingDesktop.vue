@@ -115,10 +115,10 @@
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
-                                    :items="paymentMethods"
+                                    :items="['Наложенный платеж']"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
-                                    :item-text="p => p.name"
+                                    :item-text="name"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -130,12 +130,12 @@
                         </v-form>
                     </div>
                     <div class="ordering__middle__left__checkout">
-                        <div class="checkout-button__wrapper">
-                            <v-btn dark class="checkout-button" elevation="0" @click="checkout">Оформить заказ</v-btn>
+                        <div class="checkout-button__wrapper" @click="checkout">
+                            <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
-                            Оформить в 1 клик
-                        </div>
+<!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
+<!--                            Оформить в 1 клик-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="ordering__middle__right">
@@ -211,8 +211,9 @@ export default {
             surname: '',
             region: '',
             city: '',
+            user_id: '',
             postalOffice: '',
-            paymentMethod: '',
+            paymentMethod: { id: '', name: '' },
             recommendedProducts: [],
             regions: [],
             regionsLoading: false,
@@ -220,7 +221,16 @@ export default {
             citiesLoading: false,
             postalOffices: [],
             postalOfficesLoading: false,
-            paymentMethods: [],
+            paymentMethods: [
+                {
+                    id: 1,
+                    name: 'Наложенный платеж'
+                },
+                {
+                    id: 2,
+                    name: 'Оплата картой'
+                }
+            ],
             validProfile: false,
             errorValid: {
                 name: '',
@@ -231,6 +241,12 @@ export default {
                 city: '',
                 postalOffice: ''
             },
+            profile:{
+                number: '',
+                name: '',
+                surname: '',
+                user_id: ''
+            }
         }
     },
     computed: {
@@ -293,6 +309,11 @@ export default {
         city() {
             if (this.region !== null && this.region !== '') {
                 this.getPostalOffices()
+            }
+        },
+        products: function (newProducts, old) {
+            if(newProducts.length === 0){
+                this.toPage({name: 'home'})
             }
         }
     },
@@ -362,7 +383,7 @@ export default {
                 this.$loading(true)
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
-
+                console.log(validate)
                 if (validate) {
                     const form = {
                         number: this.number,
@@ -394,11 +415,65 @@ export default {
                 this.errorMessagesValidation(e);
             }
         },
+        async getProfile(){
+            await this.checkUserIsValid()
+            try {
+                const token = this.$store.getters.getToken;
+                if(token){
+                    let data = await this.axios.post('profile', {
+
+                    },  {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if(data){
+                        let user = data.data.user
+                        this.number = user.phone_number,
+                        this.name = user.name,
+                        this.surname = user.sur_name,
+                        this.user_id = user.id
+                    }
+                }
+            } catch (e) {
+                this.errorMessagesValidation(e);
+            }
+        },
+        async checkUserIsValid(){
+            try {
+                const token = this.$store.getters.getToken;
+                if(token){
+                    let data = await this.axios.post('checkUser', {
+
+                    },  {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if(data){
+                        let exist = data.data.exist
+                        if(!exist){
+                            await this.$store.dispatch('LOGIN', null);
+                            return false;
+                        }
+                    } else {
+                        await this.$store.dispatch('LOGIN', null);
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (e) {
+                await this.$store.dispatch('LOGIN', null);
+                this.errorMessagesValidation(e);
+            }
+        }
     },
     mounted() {
         this.getRecommendedProduct();
         this.getRegionsAndCities();
         this.getPaymentMethods();
+        this.getProfile()
     }
 }
 </script>

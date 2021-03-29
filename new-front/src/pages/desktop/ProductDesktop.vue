@@ -13,11 +13,11 @@
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
-                    <img :src="image" :alt="productData['image']['name']"
+                    <img :src="image" :alt="productData['image'] ? productData['image']['name'] : ''"
                          class="image__product" :class="subImages" @click="getSubImages()"/>
 <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
 <!--                         class="image__product"/>-->
-                    <div class="image__discount" v-if="is_discount">-50%</div>
+                    <div class="image__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>
                 </div>
 
                 <div class="block-product-base-info__info">
@@ -27,8 +27,8 @@
                     </div>
 
                     <div class="info-price" >
-                        <span class="info-price__price">{{ productData['price'] }} грн</span>
-<!--                        <span class="info-price__discount">{{ productData['price_with_sale'] }} грн</span>-->
+                        <span class="info-price__price">{{ is_discount ?  productData['price_with_sale']  : productData['price'] }} грн</span>
+                        <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
@@ -153,10 +153,12 @@
                 count_good: 1,
                 minimum_quantity: '',
                 items: [],
-                is_discount: true,
+                is_discount: false,
                 phone: '',
                 productData: {
-                    image: {},
+                    image: {
+                        name: ''
+                    },
                     product_description:{}
                     },
                 attr: [],
@@ -190,6 +192,7 @@
                 }
             },
             async fetchProductDetails() {
+                this.is_discount = false
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
@@ -197,7 +200,7 @@
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
-                this.image = this.api + '/storage/img/products/' + this.productData['image']['name']
+                this.image = this.productData['image'] ? this.api + '/storage/img/products/' + this.productData['image']['name'] : ''
                 this.subCategory = data.data.product_category;
                 this.mainCategory = data.data.main_product_category;
                 this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
@@ -214,6 +217,10 @@
 
                 if(this.images[0]){
                     this.subImages = 'images'
+                }
+
+                if(this.productData.sale_id !== null){
+                    this.is_discount = true;
                 }
             },
             async getSubImages() {

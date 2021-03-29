@@ -6,7 +6,7 @@
             </div>
         </agile>
         <div>
-            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData"/>
+            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData" :isShowStock="true"/>
             <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
                                    :product-data="productData.slice(0, 4)"/>
         </div>

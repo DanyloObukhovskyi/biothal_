@@ -14,8 +14,19 @@ class CategoryController extends Controller
 {
     public function getSubCategory($id, $children_id){
         $category = Categories::where('slug', $children_id)->first();
-        $products_ids = CategoryProducts::select('product_id')->where('category_id', $category['id'])->get();
-        $products = Product::with('image', 'productDescription')->whereIn('id', $products_ids)->paginate('100');
+        $products_ids = CategoryProducts::select('product_id')->where([
+            'category_id' => $category['id']
+        ])->get();
+        $products = Product::with([
+                'image',
+                'productDescription',
+                'getSale'
+            ])
+            ->where([
+                'status' => 1
+            ])
+            ->whereIn('id', $products_ids)
+            ->paginate('100');
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
         $carousel = ImageGlobal::all();
@@ -33,7 +44,16 @@ class CategoryController extends Controller
         $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoryParentProducts, 'id'))
             ->orderBy('product_id', 'desc')
             ->get()->pluck('product_id')->toArray();
-        $products = Product::with('image', 'productDescription')->whereIn('id', $products_ids)->paginate('100');
+        $products = Product::with([
+            'image',
+            'productDescription',
+            'getSale'
+        ])
+            ->where([
+                'status' => 1
+            ])
+            ->whereIn('id', $products_ids)
+            ->paginate('100');
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
         $carousel = ImageGlobal::all();
