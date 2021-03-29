@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('api')->get('home', 'HomeController@index');
 
+Route::namespace('api')->post('home/best-sellers', 'HomeController@bestSellers');
+
+Route::namespace('api')->post('home/sales-products', 'HomeController@products');
+
 Route::namespace('api')->get('menu', 'HomeController@menu');
 
 Route::namespace('api')->get('footer', 'HomeController@footer');

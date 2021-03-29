@@ -5,24 +5,14 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <div>
-            <ProductCardsSet v-if="!isMobile" title="Подарки и скидки" :product-data="productData" :isShowStock="true"/>
-            <ProductCardsSetMobile v-if="isMobile" title="Подарки и скидки"
-                                   :product-data="productData.slice(0, 4)"/>
-        </div>
-
+        <products-paginate url="home/sales-products" title="Подарки и скидки" :isShowStock="true"/>
         <div class="category-card__wrapper">
             <div class="category-card__inner">
                 <CategoryCard class="category-card__block"/>
                 <CategoryCard class="category-card__block"/>
             </div>
         </div>
-
-        <div class="gifts-and-discounts-content">
-            <ProductCardsSet v-if="!isMobile" title="Бестселлеры" :product-data="best_seller"/>
-            <ProductCardsSetMobile v-if="isMobile" title="Бестселлеры"
-                                   :product-data="best_seller.slice(0, 4)"/>
-        </div>
+        <products-paginate url="home/best-sellers" title="Бестселлеры"/>
         <div class="description-biothal">
             <p class="main-title">Интернет-магазин Biothal</p>
             <div class="description-biothal__inner">
@@ -118,10 +108,12 @@
     import CategoryCard from "../components/CategoryCard";
     import ProductCardsSet from "../components/desktop/ProductCardsSetDesktop";
     import ProductCardsSetMobile from "../components/mobile/ProductCardsSetMobile";
+    import ProductsPaginate from "@/components/ProductsPaginate";
 
     export default {
         name: "Home",
         components: {
+            ProductsPaginate,
             agile: VueAgile,
             ProductCard,
             CategoryCard,
@@ -130,14 +122,52 @@
         },
         data() {
             return {
-                best_seller: [],
-                productData: [],
                 carousel: [],
-                isShowDescription: false
+                isShowDescription: false,
+                bestSellerPage: 1,
+                bestSellersData: null,
+                productsData: [],
+                productsPage: 1
             }
         },
         mounted() {
             this.getProductData();
+            this.getBestSellers();
+            this.getSalesProducts();
+        },
+        watch: {
+            bestSellerPage() {
+                this.getBestSellers(this.bestSellerPage);
+            },
+            productsPage() {
+                this.getSalesProducts(this.productsPage);
+            }
+        },
+        computed: {
+            bestsellersPagesCount() {
+                let count = 0;
+
+                if (this.bestSellersData !== null) {
+                    if (this.bestSellersData.total <= this.bestSellersData.per_page) {
+                        count = 1
+                    } else {
+                        count = Math.ceil(this.bestSellersData.total / this.bestSellersData.per_page);
+                    }
+                }
+                return count;
+            },
+            productsPagesCount() {
+                let count = 0;
+
+                if (this.productsData !== null) {
+                    if (this.productsData.total <= this.productsData.per_page) {
+                        count = 1
+                    } else {
+                        count = Math.ceil(this.productsData.total / this.productsData.per_page);
+                    }
+                }
+                return count;
+            }
         },
         methods: {
             async getProductData() {
@@ -145,7 +175,16 @@
 
                 this.carousel = data.data.carousel;
                 this.productData = data.data.products.data;
-                this.best_seller = data.data.best_seller.data;
+            },
+            async getBestSellers(page = 1) {
+                let data = await this.axios.post('home/best-sellers?page=' + page);
+
+                this.bestSellersData = data.data;
+            },
+            async getSalesProducts(page = 1) {
+                let data = await this.axios.post('home/sales-products?page=' + page);
+
+                this.productsData = data.data;
             }
         }
     }

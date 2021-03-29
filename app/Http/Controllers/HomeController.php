@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AddEmailForUserTable as AddEmail;
 use App\Models\EmailForEmailNewsletter;
 
-    class HomeController extends Controller
+class HomeController extends Controller
 {
     /**
      * Show the application dashboard.
@@ -35,6 +35,32 @@ use App\Models\EmailForEmailNewsletter;
             ->whereNotNull('sale_id')
             ->orderBy('sort_order', 'ASC')
             ->paginate(9);
+
+        return response()->json([
+            'carousel' => $carousel,
+            'products' => $products,
+        ]);
+    }
+
+    public function products()
+    {
+        $products = Product::with([
+                'image',
+                'productDescription',
+                'getSale'
+            ])
+            ->where([
+                'status' => 1
+            ])
+            ->whereNotNull('sale_id')
+            ->orderBy('sort_order', 'ASC')
+            ->paginate(9);
+
+        return response()->json($products);
+    }
+
+    public function bestSellers()
+    {
         $bestSeller = Product::with('image', 'productDescription')
             ->where([
                 'sale_id' => null,
@@ -43,22 +69,18 @@ use App\Models\EmailForEmailNewsletter;
             ->orderBy('sort_order', 'ASC')
             ->paginate(9);
 
-        return response()->json([
-            'carousel' => $carousel,
-            'products' => $products,
-            'best_seller' => $bestSeller
-        ]);
+        return response()->json($bestSeller);
     }
 
     public function menu()
     {
         $info_categories = Categories::where([
-            'parent_id' => null,
-            'type_category' => 1
-        ])
-        ->with('childrenArticle')
-        ->OrderBy('ordering', 'ASC')
-        ->get();
+                'parent_id' => null,
+                'type_category' => 1
+            ])
+            ->with('childrenArticle')
+            ->OrderBy('ordering', 'ASC')
+            ->get();
 
         $categories = Categories::with('children')
             ->where([
@@ -87,11 +109,11 @@ use App\Models\EmailForEmailNewsletter;
             ->get();
 
         $categories = Categories::where([
-            ['parent_id', null],
-            ['type_category', 0]
-        ])
-        ->OrderBy('ordering', 'ASC')
-        ->get();
+                ['parent_id', null],
+                ['type_category', 0]
+            ])
+            ->OrderBy('ordering', 'ASC')
+            ->get();
         $article = InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
 
         return response()->json([
@@ -99,6 +121,7 @@ use App\Models\EmailForEmailNewsletter;
             'categories' => $categories
         ]);
     }
+
     public function about()
     {
         return view('company.about');
