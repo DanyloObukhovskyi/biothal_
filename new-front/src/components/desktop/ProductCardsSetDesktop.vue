@@ -6,7 +6,7 @@
             <span v-if="withSlider">
                 <agile :infinite="true" :key="productData.length" :slidesToShow="3" autoplay :autoplaySpeed="5000" :speed="1500" :navButtons="true" :pauseOnHover="true" :pauseOnDotsHover="true" >
                     <div class="slide" v-for="item in productData" :key="item.id">
-                        <div  v-if="typeSet === 'product'">
+                        <div class="product-card__content" v-if="typeSet === 'product'">
                             <ProductCard
                                 :data-card="item"
                                 :is-show-stock="item.sale_id !== null"/>
