@@ -183,7 +183,7 @@
             </div>
         </div>
         <div>
-            <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 4)"/>
+            <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 6)"/>
         </div>
 
         <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
