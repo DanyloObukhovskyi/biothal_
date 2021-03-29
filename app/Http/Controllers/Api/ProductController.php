@@ -13,12 +13,20 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     public function getProduct($id){
-        $category_products = CategoryProducts::where('product_id', $id)->first();
+        $category = CategoryProducts::where('product_id', $id)->first();
 
-        $product_category = Categories::where('id', $category_products['category_id'])->first();
 
-        if (!empty($product_category['parent_id'])) {
-            $main_product_category = Categories::where('id', $product_category['parent_id'])->first();
+        $product_category['sub_category'] = Categories::where('id', $category['category_id'])->first();
+        $product_category['main_category'] = Categories::where([
+            'id' => $product_category['sub_category']['parent_id'],
+            ])->first();
+
+        if (empty($product_category['sub_category']['parent_id'])) {
+            $product_category['main_category'] = [];
+        } else {
+            $product_category['main_category'] = Categories::where([
+                'id' => $product_category['sub_category']['parent_id'],
+            ])->first();
         }
 
         $recommendedProduct = Product::with([
@@ -47,8 +55,7 @@ class ProductController extends Controller
             'id' => $id,
             'productDetails' => $productDetails,
             'recommendedProduct' => $recommendedProduct,
-            'product_category' => $product_category,
-            'main_product_category' => $main_product_category
+            'product_category' => $product_category
         ]);
     }
 

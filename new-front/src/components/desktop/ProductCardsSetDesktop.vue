@@ -2,13 +2,28 @@
     <div class="product-card__wrapper">
         <div class="product-card__wrapper-content">
             <div class="product-card__title" v-if="isShowTitle">{{title}}</div>
-            <div class="product-card__content" v-if="typeSet === 'product'">
+            <p v-if="isShowMessage">{{message}}</p>
+            <span v-if="withSlider">
+                <agile :infinite="true" :key="productData.length" :slidesToShow="3" autoplay :autoplaySpeed="5000" :speed="1500" :navButtons="true" :pauseOnHover="true" :pauseOnDotsHover="true" >
+                    <div class="slide" v-for="item in productData" :key="item.id">
+                        <div  v-if="typeSet === 'product'">
+                            <ProductCard
+                                :data-card="item"
+                                :is-show-stock="item.sale_id !== null"/>
+                        </div>
+                    </div>
+                </agile>
+            </span>
+            <span v-else>
+                <div class="product-card__content" v-if="typeSet === 'product'">
                 <ProductCard class="product-card__item-three"
                              v-for="item in productData"
                              :key="item.id"
                              :data-card="item"
                              :is-show-stock="item.sale_id !== null"/>
-            </div>
+                </div>
+            </span>
+
             <div class="product-card__content" v-if="typeSet === 'basket'">
                 <ProductCardBasket v-for="item in productData"
                                    @delete="$emit('delete', item.id)"
@@ -23,6 +38,7 @@
                                        :data-card="item"
                                        :is-show-stock="item.sale_id !== null"/>
             </div>
+
         </div>
     </div>
 </template>
@@ -31,10 +47,12 @@
     import ProductCard from "./productCards/ProductCard";
     import ProductCardBasket from "./productCards/ProductCardBasket";
     import ProductCardBasketMenu from "./productCards/ProductCardBasketMenu";
+    import {VueAgile} from "vue-agile";
 
     export default {
         name: "ProductCardsSetDesktop",
         components: {
+            agile: VueAgile,
             ProductCard,
             ProductCardBasket,
             ProductCardBasketMenu
@@ -48,9 +66,21 @@
                 type: String,
                 default: ''
             },
+            isShowMessage: {
+                type: Boolean,
+                default: true
+            },
+            message: {
+                type: String,
+                default: ''
+            },
             typeSet: {
                 type: String,
                 default: 'product'
+            },
+            withSlider: {
+                type: Boolean,
+                default: false
             },
             productData: {
                 type: Array

@@ -175,7 +175,7 @@
                                 Итого к оплате:
                             </div>
                             <div class="total__right" style="font-weight: 700">
-                                {{ productsSumWithSales + deliveryPrice }} грн.
+                                {{ (productsSumWithSales + deliveryPrice).toFixed(2) }} грн.
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
             </div>
         </div>
         <div>
-            <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts"/>
+            <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 4)"/>
         </div>
 
         <PlaceOrderOneClick ref="PlaceOrderOneClick"/>

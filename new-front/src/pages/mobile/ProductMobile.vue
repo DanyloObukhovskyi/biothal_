@@ -1,12 +1,11 @@
 <template>
     <div class="product-mobile__wrapper">
-<!--        <path-breadcrumb  labelCurrentRoute="Увлажняющая маска для лица Апельсин Бергамот"/>-->
-        <div style="margin:10px; text-align: left; justify-content: left">
+        <div style="margin:10px; text-align: center; justify-content: center">
             <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
             <span class="arrow"> &#x1F852; </span>
-            <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
-            <span class="arrow"> &#x1F852; </span>
-            <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
+            <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
+            <span  v-if="category['main_category'].length !== 0" class="arrow"> &#x1F852; </span>
+            <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
             <span class="arrow"> &#x1F852; </span>
             <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
         </div>
@@ -67,7 +66,7 @@
             </div>
         </div>
         <div>
-            <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары" :product-data="recommendedProduct"/>
+            <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары" :product-data="recommendedProduct.slice(0, 4)"/>
         </div>
         <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
             <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
@@ -150,8 +149,10 @@
                 image: '',
                 index: null,
                 subImages: null,
-                subCategory: [],
-                mainCategory: []
+                category: {
+                    main_category: {},
+                    sub_category: {}
+                }
             }
         },
         methods: {
@@ -172,8 +173,7 @@
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
                 this.image = this.api + '/storage/img/products/' + this.productData['image']['name'];
-                this.subCategory = data.data.product_category;
-                this.mainCategory = data.data.main_product_category;
+                this.category = data.data.product_category;
 
                 if (this.productImages) {
                     let url = [];

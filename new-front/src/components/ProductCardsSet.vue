@@ -16,7 +16,7 @@
             </div>
             <div class="product-card__content" v-if="typeSet === 'basket-menu'">
                 <ProductCardBasketMenu class="product-card__item-two"
-                                       v-for="item in productData"
+                                       v-for="item in productData.slice(0, 4)"
                                        :key="item.id"
                                        :data-card="item"
                                        :is-show-stock="item.isShowStock"/>

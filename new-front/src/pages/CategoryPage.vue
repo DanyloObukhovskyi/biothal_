@@ -5,8 +5,8 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :product-data="productData"/>
-        <ProductCardsSetMobile v-if="isMobile" :title="categoryTitle"
+        <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :message="categoryMessage" :product-data="productData"/>
+        <ProductCardsSetMobile v-if="isMobile" :title="categoryTitle" :message="categoryMessage"
                                :product-data="productData.slice(0, 4).concat(productData.slice(8, 12))"/>
         <div class="main-title seo-text-title">{{seoText}}</div>
         <div class="seo-text-description">
@@ -107,6 +107,7 @@
                 carousel: [],
                 productData: [],
                 categoryTitle: '',
+                categoryMessage: '',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ'
             }
         },
@@ -134,6 +135,7 @@
 
                 this.carousel = data.data.carousel;
                 this.productData = data.data.products.data;
+                this.categoryMessage = this.productData.length ? '' :  'В данной категории нет товаров.';
                 this.categoryTitle =  data.data.this_category.title;
             }
         }

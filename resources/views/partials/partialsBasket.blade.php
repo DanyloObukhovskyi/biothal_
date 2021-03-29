@@ -121,7 +121,7 @@
                                 class="val_nova_poshta_price">{{env('NOVA_POSHTA_PRICE_DELIVERY')}}</span> грн.
                         </div>
                         <div hidden>Итого к оплате:
-                            <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY'))}}</span></b>
+                            <b><span class="sumAll sumAll-delivery-container">{{($sumAll + env('NOVA_POSHTA_PRICE_DELIVERY')).toFixed(2)}}</span></b>
                             грн.
                         </div>
                     </div>

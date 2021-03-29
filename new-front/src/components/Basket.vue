@@ -63,7 +63,7 @@
                                     Итого к оплате:
                                 </div>
                                 <div class="total__right" style="font-weight: 700">
-                                    {{ productsSumWithSales + deliveryPrice }} грн.
+                                    {{ (productsSumWithSales + deliveryPrice).toFixed(2) }} грн.
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                 <div style="text-align: center">
                     <div v-if="!isMobile" style="margin: 20px; font-size: 16px">Рекомендуемые товары</div>
                     <ProductCardsSet v-if="!isMobile"
-                                     :product-data="recommendedProducts"
+                                     :product-data="recommendedProducts.slice(0, 4)"
                                      type-set="basket-menu"
                                      :is-show-title="false"/>
                     <ProductCardsSetMobile v-if="isMobile"

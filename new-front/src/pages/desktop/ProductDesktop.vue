@@ -3,9 +3,9 @@
     <div>
         <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
         <span> / </span>
-        <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: mainCategory['slug'] }} )">{{ mainCategory['title'] }}</span>
-        <span> / </span>
-        <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: mainCategory['slug'], subCategory: subCategory['slug'] }} )">{{ subCategory['title'] }}</span>
+        <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
+        <span  v-if="category['main_category'].length !== 0"> / </span>
+        <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
         <span> / </span>
         <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
     </div>
@@ -100,7 +100,7 @@
         </div>
 
         <div>
-            <ProductCardsSet type-set="product" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ" :product-data="recommendedProduct"/>
+            <ProductCardsSet type-set="product" :with-slider="true" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ" :product-data="recommendedProduct" />
         </div>
 
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
@@ -169,8 +169,10 @@
                 image: '',
                 index: null,
                 subImages: null,
-                subCategory: [],
-                mainCategory: []
+                category: {
+                    main_category: {},
+                    sub_category: {}
+                }
             }
         },
         methods: {
@@ -196,13 +198,12 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-                this.description = this.productData['product_description']
+                this.description = this.productData['product_description'];
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
-                this.image = this.productData['image'] ? this.api + '/storage/img/products/' + this.productData['image']['name'] : ''
-                this.subCategory = data.data.product_category;
-                this.mainCategory = data.data.main_product_category;
+                this.image = this.productData['image'] ? this.api + '/storage/img/products/' + this.productData['image']['name'] : '';
+                this.category = data.data.product_category;
                 this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
                 this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
 

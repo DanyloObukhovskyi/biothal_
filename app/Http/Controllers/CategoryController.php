@@ -17,6 +17,7 @@ class CategoryController extends Controller
         $products_ids = CategoryProducts::select('product_id')->where([
             'category_id' => $category['id']
         ])->get();
+
         $products = Product::with([
                 'image',
                 'productDescription',
@@ -27,6 +28,7 @@ class CategoryController extends Controller
             ])
             ->whereIn('id', $products_ids)
             ->paginate('100');
+
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
         $carousel = ImageGlobal::all();
@@ -40,10 +42,19 @@ class CategoryController extends Controller
 
     public function getCategory($id){
         $category = Categories::where('slug', $id)->first();
+
         $categoryParentProducts = Categories::select('id')->where('parent_id', '=', $category['id'])->get()->toArray();
-        $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoryParentProducts, 'id'))
-            ->orderBy('product_id', 'desc')
-            ->get()->pluck('product_id')->toArray();
+
+        if (!empty(Categories::where('parent_id', $category['id'])->first())) { // Проверка есть ли у родительской категории дети
+            $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoryParentProducts, 'id'))
+                ->orderBy('product_id', 'desc')
+                ->get()->pluck('product_id')->toArray();
+        } else {
+            $products_ids = CategoryProducts::where('category_id', $category['id'])
+                ->orderBy('product_id', 'desc')
+                ->get()->pluck('product_id')->toArray();
+        }
+
         $products = Product::with([
             'image',
             'productDescription',
@@ -54,10 +65,10 @@ class CategoryController extends Controller
             ])
             ->whereIn('id', $products_ids)
             ->paginate('100');
+
         $this_category = Categories::with('products')->where('id', '=', $category['id'])->first();
 
         $carousel = ImageGlobal::all();
-
         return response()->json([
             'carousel' => $carousel,
             'products' => $products,

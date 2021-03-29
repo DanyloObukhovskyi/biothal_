@@ -84,8 +84,8 @@ class HomeController extends Controller
 
         $categories = Categories::with('children')
             ->where([
-                ['parent_id', null],
-                ['type_category', 0]
+                'parent_id' => null,
+                'type_category' => 0
             ])
             ->OrderBy('ordering', 'ASC')
             ->get();
