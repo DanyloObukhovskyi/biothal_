@@ -130,4 +130,13 @@ use App\Models\EmailForEmailNewsletter;
             'message' => 'Мы сообщим вам о новинках',
         ], 200);
     }
+
+    public function getMainCategories()
+    {
+        $categories = Categories::where('parent_id', null)->get();
+
+        return response()->json([
+            'categories' => $categories,
+        ], 200);
+    }
 }

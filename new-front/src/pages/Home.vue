@@ -13,8 +13,8 @@
 
         <div class="category-card__wrapper">
             <div class="category-card__inner">
-                <CategoryCard class="category-card__block"/>
-                <CategoryCard class="category-card__block"/>
+                <CategoryCard class="category-card__block" :face="true"/>
+                <CategoryCard class="category-card__block" :face="false"/>
             </div>
         </div>
 

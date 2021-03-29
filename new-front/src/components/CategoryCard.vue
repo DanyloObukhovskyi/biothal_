@@ -1,14 +1,58 @@
 <template>
-    <div class="category-card">
+    <div class="category-card" :class="face ? 'category-card__face' : 'category-card__body'" @click="goToPages()">
         <div class="category-card__title">
-            Косметика по уходу за лицом
+            {{ face ? 'Косметика по уходу за лицом' : 'Косметика по уходу за телом' }}
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "CategoryCard"
+        name: "CategoryCard",
+        data() {
+            return {
+                slug: ''
+            }
+        },
+        props:{
+            face:{
+                type: Boolean
+            }
+        },
+        created() {
+            this.fetchMainCategories()
+        },
+        methods:{
+            goToPages()
+            {
+                if(this.face){
+                    this.toPage({name: 'category-page', params: {category: this.slug }})
+                } else {
+                    this.toPage({name: 'category-page', params: {category: this.slug }})
+                }
+            },
+            async fetchMainCategories()
+            {
+                try{
+                    let data = await this.axios.get('getMainCategories');
+                    if(data){
+                        for (const [key, value] of Object.entries(data.data.categories)) {
+                            if(this.face){
+                                if(value.id === 37){
+                                    this.slug = value.slug
+                                }
+                            } else {
+                                if(value.id === 49){
+                                    this.slug = value.slug
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        }
     }
 </script>
 
@@ -21,14 +65,20 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        background: url("../../public/face.svg");
-        background-size: cover;
 
         @media screen and (max-width: 600px) {
             height: 160px !important;
         }
 
+        &__face{
+            background: url('../../public/face.svg');
+            background-size: cover;
+        }
 
+        &__body{
+            background: url('../../public/telo.png');
+            background-size: cover;
+        }
         &:hover {
             cursor: pointer;
 
