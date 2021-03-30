@@ -58,7 +58,7 @@ class NewProductsController extends Controller
     public function createProd()
     {
         $stock_statuses = StockStatus::all()->toArray();
-        $categories = Categories::orderBy('parent_id')->get()->toArray();
+        $categories = Categories::orderBy('parent_id')->where('type_category', 0)->get()->toArray();
 
         foreach ($categories as $category_key => $category) {
             $main_cat_name = Categories::where('id', $category['parent_id'])->value('title');
@@ -151,7 +151,7 @@ class NewProductsController extends Controller
         }
 
         $stock_statuses = StockStatus::all()->toArray();
-        $categories = Categories::orderBy('parent_id')->get()->toArray();
+        $categories = Categories::orderBy('parent_id')->where('type_category', 0)->get()->toArray();
         foreach ($categories as $category_key => $category) {
             $main_cat_name = Categories::where('id', $category['parent_id'])->value('title');
             $full_cat_path = empty($main_cat_name) ? $category['title'] : $main_cat_name . " > " . $category['title'];

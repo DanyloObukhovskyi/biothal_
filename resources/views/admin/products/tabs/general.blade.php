@@ -12,7 +12,7 @@
         <div class="tab-pane active" id="language_1">
             <input type="hidden" name="product_description[1][language_id]" value ="1">
             <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-name1">Название
+                    <label class="col-sm-2 control-label required" for="input-name1">Название
                     товара</label>
                 <div class="col-sm-10">
                     <input type="text" name="product_description[1][name]"
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label"
+                <label class="col-sm-2 control-label required"
                        for="input-description1">Описание</label>
                 <div class="col-sm-10">
                     <textarea id="summernote" name="product_description[1][description]"
@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-meta-title1">Мета-тег
+                <label class="col-sm-2 control-label required" for="input-meta-title1">Мета-тег
                     Title</label>
                 <div class="col-sm-10">
                     <input type="text" name="product_description[1][meta_title]"

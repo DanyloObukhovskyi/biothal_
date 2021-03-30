@@ -56,6 +56,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             Route::post('change', 'CategoriesController@changeCategory')
                 ->name('admin.categories.change');
+
+            Route::get('getText', 'CategoriesController@getText')
+                ->name('admin.categories.getText');
         });
 
         //  Потребности

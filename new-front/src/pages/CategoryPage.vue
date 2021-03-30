@@ -77,6 +77,11 @@
                 компонент. Экстракт оказывает на кожу омолаживающее воздействие, придаёт эластичность и выводит
                 токсины.</p>
         </div>
+        <ProductCardsSetDesktop v-if="!isMobile" :title="categoryDetails.title" :message="categoryMessage" :product-data="productData"/>
+        <ProductCardsSetMobile v-if="isMobile" :title="categoryDetails.title" :message="categoryMessage"
+                               :product-data="productData.slice(0, 4).concat(productData.slice(8, 12))"/>
+        <div class="main-title seo-text-title">{{categoryDetails.seo_title}}</div>
+        <div class="seo-text-description" v-html="categoryDetails.seo_description"></div>
     </div>
 </template>
 
@@ -92,6 +97,15 @@
             ProductCardsSetDesktop,
             ProductCardsSetMobile
         },
+        metaInfo() {
+            return {
+                title: this.categoryDetails.seo_title,
+                meta: [
+                    { vmid: 'description', name: 'description', content: this.categoryDetails.seo_description },
+                    { vmid: 'slug', name: 'slug', content: this.categoryDetails.slug }
+                ]
+            }
+        },
         prop: {
             category: {
                 type: [Number, String],
@@ -106,6 +120,8 @@
             return {
                 carousel: [],
                 productData: [],
+                categoryDetails: [],
+                // categoryMessage: ''
                 categoryTitle: '',
                 categoryMessage: 'В данной категории нет товаров.',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ',
@@ -115,7 +131,7 @@
         computed: {
             route() {
                 return this.$route.params;
-            },
+            }
         },
         created() {
             this.productsUrl = (!this.$route.params.subCategory) ? 'category/products/' + this.$route.params.category : 'category/products/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
@@ -145,6 +161,9 @@
 
                 this.carousel = data.data.carousel;
                 this.categoryTitle =  data.data.this_category.title;
+                this.productData = data.data.products.data;
+                this.categoryMessage = this.productData.length ? '' :  'В данной категории нет товаров.';
+                this.categoryDetails =  data.data.this_category;
             }
         }
     }

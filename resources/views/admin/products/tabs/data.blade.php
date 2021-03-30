@@ -34,21 +34,21 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-price">Цена</label>
+        <label class="col-sm-2 control-label required" for="input-price">Цена</label>
         <div class="col-sm-10">
             <input type="text" name="price" value="{{$product['price'] ?? ''}}" placeholder="Цена" id="input-price"
                    class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-quantity">Количество</label>
+        <label class="col-sm-2 control-label required" for="input-quantity">Количество</label>
         <div class="col-sm-10">
             <input type="text" name="quantity" value="{{$product['quantity'] ?? ''}}" placeholder="Количество"
                    id="input-quantity" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-minimum"><span
+        <label class="col-sm-2 control-label required" for="input-minimum"><span
                     data-toggle="tooltip"
                     title="Минимальное количество товара в заказе (меньше данного кол-ва товара, добавление в корзину будет запрещено )">Минимальное количество</span></label>
         <div class="col-sm-10">
@@ -110,7 +110,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-sort-order">Порядок
+        <label class="col-sm-2 control-label required" for="input-sort-order">Порядок
             сортировки</label>
         <div class="col-sm-10">
             <input type="text"
