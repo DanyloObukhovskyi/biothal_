@@ -79,6 +79,7 @@
 
         &__content {
             &__wrapper {
+                max-width: 100%;
                 padding: 0 45px 45px 45px;
 
                 @media screen and (max-width: 600px) {
