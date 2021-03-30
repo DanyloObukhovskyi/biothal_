@@ -212,7 +212,6 @@
                             <span rel="/globalsale" id="global_sale" type="submit"
                                   style="margin-top: 10px; width: 225px; padding: 10px" class="btn btn-success btn-myBuy">Добавить глобальную скидку</span>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>

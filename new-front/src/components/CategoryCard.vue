@@ -76,7 +76,7 @@
         }
 
         &__body{
-            /*background: url('../../public/telo.png');*/
+            background: url('../../public/telo.png');
             background-size: cover;
         }
         &:hover {
