@@ -24,6 +24,7 @@ class CategoriesController extends Controller
             foreach ($categories as $key => $val){
                 $categories[$key]['number'] = $key+1;
             }
+
             return Datatables::of($categories)
                 ->editColumn('parent_id', function ($row) {
                     return $row->parent_id != null ? $row->Category->title : "Без родительской категории";
@@ -36,7 +37,7 @@ class CategoriesController extends Controller
                 })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) .'" data-type-category-change="' . $row->type_category . '"class="btn btn-outline-dark fa fa-wrench"></button>';
+                    $btn = '<button type="button" onClick="getDescriptionText(' . $row->id . ')" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) .'" data-type-category-change="' . $row->type_category . '" data-seo-title="' . $row->seo_title . '" class="btn btn-outline-dark fa fa-wrench"></button>';
 
                     return $btn;
                 })
@@ -59,6 +60,8 @@ class CategoriesController extends Controller
             'parent_id' => $select,
             'title' => $request->title,
             'ordering' => $request->ordering,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
             'is_demand' => 0,
             'type_category' => $type_category
         ]);
@@ -177,6 +180,8 @@ class CategoriesController extends Controller
             'parent_id' => $parentId,
             'title' => $request->title,
             'ordering' => $request->ordering,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
             'is_demand' => $request->is_demand,
             'type_category' => $type_category,
         ]);
@@ -189,5 +194,19 @@ class CategoriesController extends Controller
     {
         $category = Categories::All();
         return view('app', compact('category'));
+    }
+
+    public function getText(Request $request)
+    {
+        $category = Categories::where('id', $request->id)->first();
+        if(empty($category)){
+            return response()->json([
+                'message' => "Категория не найдена"
+            ], 404);
+        } else {
+            return response()->json([
+                'text' => $category->seo_description
+            ], 200);
+        }
     }
 }

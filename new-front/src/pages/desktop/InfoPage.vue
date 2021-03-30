@@ -25,6 +25,16 @@
                 carousel: []
             }
         },
+        metaInfo() {
+            return {
+                title: this.article.meta_title,
+                meta: [
+                    { vmid: 'description', name: 'description', content: this.article.meta_description },
+                    { vmid: 'keywords', name: 'keywords', content: this.article.meta_keywords },
+                    { vmid: 'slug', name: 'slug', content: this.article.slug }
+                ]
+            }
+        },
         computed: {
             route() {
                 return this.$route.params;

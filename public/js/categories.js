@@ -123,13 +123,14 @@ $(function () {
         var typeCategory = $(this).data('typeCategoryChange');
         var title = $(this).data('title');
         var order = $(this).data('order');
+        var seo_title = $(this).data('seoTitle');
         var demand = $(this).data('demand');
-
 
         $("#type_category_change").val(typeCategory); // typeCategory
         $("#title_category_change").val(title); // Title
         $("#category_hidden_id").val(id);     // Id
         $("#ordering_category_change").val(order);  // Ordering
+        $("#seo_title_change").val(seo_title);  // SEO title
 
         if (typeCategory) {
             $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
@@ -163,6 +164,9 @@ $(function () {
         var type_category = $('#type_category_change').val();
         var title = $('#title_category_change').val();
         var ordering = $('#ordering_category_change').val();
+        var seo_title = $('#seo_title_change').val();
+        var seo_description = $('#summernote_change').val();
+
         var is_demand = $('#demand_change').prop("checked") ? 1 : 0;
         var id = $('#category_hidden_id').val();
 
@@ -174,6 +178,8 @@ $(function () {
                 "type_category": type_category,
                 "title": title,
                 "ordering": ordering,
+                "seo_title": seo_title,
+                "seo_description": seo_description,
                 "is_demand": is_demand,
                 "id": id
             },
@@ -216,6 +222,9 @@ $(function () {
         var type_category = $('#type_category').val();
         var title = $('#category_title').val();
         var ordering = $('#ordering_category').val();
+        var seo_title = $('#seo_title').val();
+        var seo_description = $('#summernote').val();
+
         // var is_demand = $('#demand').prop("checked") ? 1 : 0;
         $.ajax({
             url: '/admin/categories/add',
@@ -225,6 +234,8 @@ $(function () {
                 "type_category": type_category,
                 "title": title,
                 "ordering": ordering,
+                "seo_title": seo_title,
+                "seo_description": seo_description
                 // "is_demand": is_demand, //to do удалить demand из базы, контролерра и вообще кругом
             },
             error: function (xhr, status, error) {
@@ -261,6 +272,8 @@ $(function () {
                     $("#type_category option[value=forProduct]").prop('selected', true);
                     $('#category_title').val("");
                     $('#ordering_category').val(null);
+                    $('#seo_title').val(null);
+                    $('#summernote').val(null);
                     $("#demand").prop("checked", false);
                 } else {
                     window.location.replace("/admin/categories");
@@ -309,6 +322,5 @@ $(function () {
             $('#padre_category_select').attr('disabled', false);
         }
     })
-
 });
 

@@ -3,6 +3,7 @@
 @section('style')
     <link rel="stylesheet" href="{{asset('css/products.css')}}">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <style>
         .input-group {
             display: flex;
@@ -72,6 +73,26 @@
                         <input type="number" class="form-control" placeholder="Введите номер для сортировки" min="1"
                                max="9999" id="ordering_category" name="ordering_category">
                     </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">SEO заголовок</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="SEO заголовок"
+                               id="seo_title" aria-label="SEO title"
+                               name="SEO_title" autocomplete="off">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">SEO описание</span>
+                        </div>
+                        <textarea id="summernote" name="seo_description_name"
+                                  id="input-seo-description" aria-label="SEO description"
+                                  class="form-control summernote">
+                            {{$product['productDescription']['description'] ?? ''}}
+                        </textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="add_category" class="btn btn-primary">Добавить</button>
@@ -139,10 +160,29 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="ordering_category">Параметр сортировки</label>
+                            <label class="input-group-text" for="ordering_category">Порядок сортировки</label>
                         </div>
                         <input type="number" class="form-control" placeholder="Введите номер для сортировки" min="1"
                                max="9999" name="ordering_category_change" id="ordering_category_change" value="">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">SEO заголовок</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="SEO заголовок"
+                               id="seo_title_change" aria-label="SEO title"
+                               name="SEO_title" autocomplete="off">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">SEO описание</span>
+                        </div>
+                        <textarea id="summernote_change" name="seo_description_name"
+                                  id="input-seo-description" aria-label="SEO description"
+                                  class="form-control summernote">
+                        </textarea>
                     </div>
                 </div>
                 <input type="hidden" name="category_hidden_id" id="category_hidden_id" value="">
@@ -206,5 +246,37 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script type="text/javascript">
+        $('.summernote').summernote();
+    </script>
     <script src="{{asset('js/categories.js')}}"></script>
+    <script>
+        function getDescriptionText(id)
+        {
+            $.ajax({
+                url: '/admin/categories/getText',
+                method: 'GET',
+                data: {
+                    "id": id
+                },
+                error: function (xhr, status, error) {
+                    var errors = xhr.responseJSON.errors, errorMessage = "";
+                    $.each(errors, function (index, value) {
+                        $.each(value, function (key, message) {
+                            errorMessage += message + " ";
+                        })
+                    })
+                    Swal.fire({
+                        icon: 'error',
+                        title: errorMessage,
+                        showConfirmButton: true,
+                    })
+                },
+                success: function (resp) {
+                    $("#summernote_change").summernote('code', resp.text);  // SEO description
+                }
+            });
+        }
+    </script>
 @endsection

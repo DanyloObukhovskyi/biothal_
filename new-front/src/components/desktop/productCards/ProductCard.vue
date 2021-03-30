@@ -39,15 +39,24 @@ import {mapActions} from "vuex";
 
 export default {
     name: "ProductCard",
+    metaInfo() {
+        return {
+            title: this.dataCard.product_description.meta_title,
+            meta: [
+                { vmid: 'description', name: 'description', content: this.dataCard.product_description.meta_description },
+                { vmid: 'keyword', name: 'keyword', content: this.dataCard.product_description.meta_keyword },
+                { vmid: 'h1', name: 'h1', content: this.dataCard.product_description.meta_h1 },
+                { vmid: 'tag', name: 'tag', content: this.dataCard.product_description.tag },
+            ]
+        }
+    },
     props: {
         dataCard: {
             type: Object,
             image: {
                 name: ''
             },
-            product_description: {
-                name: ''
-            }
+            product_description: {}
         },
         isShowStock: {
             type: Boolean,
@@ -68,7 +77,7 @@ export default {
             }
         }
     },
-    methods:{
+    methods: {
         ...mapActions('basket', {
             addProduct: 'ADD_PRODUCT'
         }),
@@ -79,12 +88,9 @@ export default {
             product.quantity = (product.minimum !== 0) ? product.minimum : 1;
 
             this.addProduct(product)
-        },
-            test() {
-                console.log(this.$route.params.id)
-            }
         }
     }
+}
 </script>
 
 <style scoped lang="scss">

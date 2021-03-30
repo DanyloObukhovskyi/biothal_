@@ -10,10 +10,10 @@
     </div>
     <!-- NeoSeo Exchange 1c - end -->
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="input-category">Main category:</label>
+        <label class="col-sm-2 control-label required" for="input-category">Категория товара:</label>
         <div class="col-sm-10">
             <select id="main_category_id" name="categoryProducts[category_id]" class="form-control">
-                <option value="0"
+                <option value="null"
                 @if (empty($product['productCategory']['category_id']))
                     selected="selected"
                 @endif> --- Не выбрано ---</option>

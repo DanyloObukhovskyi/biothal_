@@ -11,7 +11,8 @@ import VueAgile from 'vue-agile';
 import Notification from 'vue-notification';
 import VueLodash from 'vue-lodash';
 import lodash from 'lodash';
-import VueLoading from 'vuejs-loading-plugin'
+import VueLoading from 'vuejs-loading-plugin';
+import VueMeta from 'vue-meta';
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
 
@@ -67,6 +68,7 @@ axios.interceptors.response.use(
     }
 );
 
+Vue.use(VueMeta)
 Vue.use(VueAgile)
 Vue.use(vue_axios, axios);
 Vue.use(Notification);
@@ -105,3 +107,4 @@ new Vue({
     },
     render: h => h(App),
 }).$mount('#app')
+

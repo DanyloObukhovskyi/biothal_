@@ -9,13 +9,10 @@
                 <img width="127" height="38" src="../../../public/logo.svg"/>
             </v-toolbar-title>
             <div class="app-bar-menu-wrapper">
-
-                <!-- Слайдер для категорий продуктов-->
-
                 <v-slide-group
                     multiple
                     show-arrows>
-                    <v-slide-item v-for="(item, index) in menuItemsCategory" :key="index">
+                    <v-slide-item v-for="(item, index) in menuItemsCategory" :key="item.id">
                         <v-menu v-if="item.children.length" open-on-hover offset-y>
                             <template v-slot:activator="{ on, attrs, value }">
                                 <v-btn
@@ -45,14 +42,8 @@
                             <span>{{ item.title}}</span>
                         </v-btn>
                     </v-slide-item>
-                </v-slide-group>
 
-                <!-- Слайдер для информационных категорий-->
-
-                <v-slide-group
-                    multiple
-                    show-arrows>
-                    <v-slide-item v-for="(itemInfoPage, indexInfoPage) in menuItemsInfoPage" :key="indexInfoPage" >
+                    <v-slide-item v-for="(itemInfoPage, indexInfoPage) in menuItemsInfoPage" :key="itemInfoPage.id" >
                         <v-menu v-if="itemInfoPage.children_article.length !== 0" open-on-hover offset-y>
                             <template v-slot:activator="{ on, attrs, value }">
                                 <v-btn
