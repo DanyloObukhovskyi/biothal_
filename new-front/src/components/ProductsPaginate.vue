@@ -1,8 +1,17 @@
 <template>
     <div v-if="products !== null">
         <div>
-            <ProductCardsSetDesktop v-if="!isMobile" :title="title" :product-data="products.data" :isShowStock="isShowStock"/>
-            <ProductCardsSetMobile v-if="isMobile" :title="title" :product-data="products.data"/>
+            <ProductCardsSetDesktop
+                v-if="!isMobile"
+                :title="title"
+                :product-data="products.data"
+                :message="products.data.length > 0 ? '' : isEmptyMessage"
+                :isShowStock="isShowStock"/>
+            <ProductCardsSetMobile
+                v-if="isMobile"
+                :title="title"
+                :message="products.data.length > 0 ? '' : isEmptyMessage"
+                :product-data="products.data"/>
         </div>
         <div class="text-center mb-5" v-if="productsPagesCount > 1">
             <v-pagination
@@ -28,6 +37,10 @@ export default {
         isShowStock: {
             type: Boolean,
             default: false
+        },
+        isEmptyMessage: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -58,11 +71,15 @@ export default {
     methods: {
         async getProducts(page = 1) {
             this.$loading(true)
+
             let data = await this.axios.post(`${this.url}?page=${page}`);
 
             this.products = data.data;
             this.$loading(false)
         },
+        setUrl(url) {
+            this.url = url;
+        }
     },
     mounted() {
         this.getProducts();

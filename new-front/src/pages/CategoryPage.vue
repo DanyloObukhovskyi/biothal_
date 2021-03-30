@@ -5,9 +5,7 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <ProductCardsSetDesktop v-if="!isMobile" :title="categoryTitle" :message="categoryMessage" :product-data="productData"/>
-        <ProductCardsSetMobile v-if="isMobile" :title="categoryTitle" :message="categoryMessage"
-                               :product-data="productData.slice(0, 4).concat(productData.slice(8, 12))"/>
+        <ProductsPaginate ref="productsPaginate" :title="categoryTitle" :is-empty-message="categoryMessage" :url="productsUrl"/>
         <div class="main-title seo-text-title">{{seoText}}</div>
         <div class="seo-text-description">
             <p>
@@ -85,10 +83,12 @@
 <script>
     import ProductCardsSetDesktop from "../components/desktop/ProductCardsSetDesktop";
     import ProductCardsSetMobile from "../components/mobile/ProductCardsSetMobile";
+    import ProductsPaginate from "@/components/ProductsPaginate";
 
     export default {
         name: "CategoryPage",
         components: {
+            ProductsPaginate,
             ProductCardsSetDesktop,
             ProductCardsSetMobile
         },
@@ -107,16 +107,19 @@
                 carousel: [],
                 productData: [],
                 categoryTitle: '',
-                categoryMessage: '',
-                seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ'
+                categoryMessage: 'В данной категории нет товаров.',
+                seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ',
+                productsUrl: null,
             }
         },
         computed: {
             route() {
                 return this.$route.params;
-            }
+            },
         },
         created() {
+            this.productsUrl = (!this.$route.params.subCategory) ? 'category/products/' + this.$route.params.category : 'category/products/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
+
             this.fetchCategory();
         },
         watch: {
@@ -124,7 +127,14 @@
                 deep: true,
                 handler (newRoute, oldRoute) {
                     this.fetchCategory();
+
+                    this.productsUrl = (!newRoute.subCategory) ? 'category/products/' + newRoute.category : 'category/products/' + newRoute.category + '/' +  newRoute.subCategory;
                 },
+            },
+            productsUrl(val) {
+                setTimeout(() => {
+                    this.$refs.productsPaginate.getProducts();
+                }, 1)
             }
         },
         methods: {
@@ -134,8 +144,6 @@
                 let data = await this.axios.get(url);
 
                 this.carousel = data.data.carousel;
-                this.productData = data.data.products.data;
-                this.categoryMessage = this.productData.length ? '' :  'В данной категории нет товаров.';
                 this.categoryTitle =  data.data.this_category.title;
             }
         }

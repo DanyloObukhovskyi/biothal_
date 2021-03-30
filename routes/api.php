@@ -16,6 +16,8 @@ Route::namespace('api')->get('category/{id}/{children_id}', 'CategoryController@
 
 Route::namespace('api')->get('category/{id}', 'CategoryController@getCategory');
 
+Route::namespace('api')->post('category/products/{id}', 'CategoryController@getCategoryProducts');
+
 Route::namespace('api')->get('info-page/{id}', 'ArticleController@getArticle');
 
 Route::group(['namespace' => 'Api'], function () {
