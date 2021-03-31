@@ -5,10 +5,10 @@ use Illuminate\Database\Seeder;
 class OrderTypesSeeder extends Seeder
 {
     protected $names = [
-        'pending',
-        'canceled',
-        'success',
-        'shipping',
+        'active',
+        'payment_process',
+        'shipping_process',
+        'finish',
     ];
 
     /**

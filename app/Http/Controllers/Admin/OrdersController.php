@@ -93,7 +93,8 @@ class OrdersController extends Controller
             'productHistory',
             'orderStatus',
             'shoppingCart',
-            'products'
+            'products',
+            'user'
         ])->first()->toArray();
 
         $order_history = OrderHistory::where('order_id', $id)->paginate(5);
@@ -112,6 +113,11 @@ class OrdersController extends Controller
             }
         }
         $registered_user = UserOrderAddress::where('id', $order['user_order_id'])->first();
+
+        if(!empty($order['user'])){
+            $registered_user['type'] = 'Зарегестрированый';
+            $registered_user['email'] = $order['user']['email'];
+        }
         if(!empty($order['products'])){
             $products = $order['products'];
         }
@@ -168,7 +174,7 @@ class OrdersController extends Controller
         OrderHistory::create([
             'order_id' => $request->input('order_id'),
             'notify' => ($request->input('notify') === 'true') ? 1 : 0,
-            'comment' => $request->input('comment'),
+            'comment' => $request->input('comment') ?? '',
             'status_id' => $request->input('status'),
         ]);
 

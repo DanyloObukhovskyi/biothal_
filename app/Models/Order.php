@@ -7,6 +7,7 @@ use App\Models\ShoppingCart;
 use App\Models\OrderStatuses;
 use App\Models\OrderProduct;
 use App\Models\UserOrderAddress;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -44,4 +45,7 @@ class Order extends Model
         return $this->hasMany(OrderProduct::class, 'order_id', 'id')->with('attr');
     }
 
+    public function user () {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

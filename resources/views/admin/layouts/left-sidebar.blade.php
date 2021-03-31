@@ -43,12 +43,12 @@
         <!-- sidebar-search  -->
         <div class="sidebar-menu">
             <ul>
-                <li class="{{@checkIsActive('admin.statePanel.page')}}">
-                    <a href="{{route('admin.statePanel.page')}}">
-                        <i class="fa fa-tachometer-alt"></i>
-                        <span>Панель состояния</span>
-                    </a>
-                </li>
+{{--                <li class="{{@checkIsActive('admin.statePanel.page')}}">--}}
+{{--                    <a href="{{route('admin.statePanel.page')}}">--}}
+{{--                        <i class="fa fa-tachometer-alt"></i>--}}
+{{--                        <span>Панель состояния</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="{{@checkIsActive('admin.categories.page')}}">
                     <a href="{{route('admin.categories.page')}}">
                         <i class="fas fa-sitemap"></i>
@@ -92,7 +92,7 @@
                 </li>
                 <li class="{{@checkIsActive('admin.orders.orders')}}">
                     <a href="{{route('admin.orders.orders')}}">
-                        <i class="far fa-images"></i>
+                        <i class="far fa-user"></i>
                         <span>Заказы</span>
                     </a>
                 </li>

@@ -31,9 +31,9 @@
     <div class="container-fluid" style="padding-left: 0;
         padding-right: 0;">
         <div class="row">
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: 10px;">
+                    <div class="panel-heading" style="margin-top: 0px;">
                         <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> Заказ</h3>
                     </div>
                     <table class="table">
@@ -56,9 +56,9 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: 10px;">
+                    <div class="panel-heading" style="margin-top: 0px;">
                         <h3 class="panel-title"><i class="fa fa-user"></i> Клиент</h3>
                     </div>
                     <table class="table">
@@ -67,12 +67,12 @@
                             <td>@if(!empty($registered_user['name'])) {{$registered_user['name']}} @else N/A @endif </td>
                         </tr>
                         <tr>
-                            <td><button data-toggle="tooltip" title="Группа клиентов" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
+                            <td><button data-toggle="tooltip" title="Тип клиента" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
                             <td>
                                 @if(!empty($registered_user['type']))
                                     {{ucfirst($registered_user['type'])}}
                                 @else
-                                    N/A
+                                    Не зарегистрирован
                                 @endif
                             </td>
                         </tr>
@@ -101,41 +101,41 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-cog"></i> Опции</h3>
-                    </div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>Счет</td>
-                            <td id="invoice" class="text-right"></td>
-                            <td style="width: 1%;" class="text-center">                  <button id="button-invoice" data-loading-text="Загрузка..." data-toggle="tooltip" title="Генерировать" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Бонусные баллы</td>
-                            <td class="text-right">0</td>
-                            <td class="text-center">                  <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
-                            </td>
-                            <!-- NeoSeo Exchange 1c - begin -->
-                        <tr>
-                            <td>Выгрузить заказ в 1С:</td>
-                            <td class="text-right"  colspan="2">
-                                <input type="checkbox" id="order_export_exchange1c_status" name="order_export_exchange1c_status"  value="1" id="input-override" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Партнер                  </td>
-                            <td class="text-right">0 грн</td>
-                            <td class="text-center">                  <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+{{--            <div class="col-md-4">--}}
+{{--                <div class="panel panel-default">--}}
+{{--                    <div class="panel-heading">--}}
+{{--                        <h3 class="panel-title"><i class="fa fa-cog"></i> Опции</h3>--}}
+{{--                    </div>--}}
+{{--                    <table class="table">--}}
+{{--                        <tbody>--}}
+{{--                        <tr>--}}
+{{--                            <td>Счет</td>--}}
+{{--                            <td id="invoice" class="text-right"></td>--}}
+{{--                            <td style="width: 1%;" class="text-center">                  <button id="button-invoice" data-loading-text="Загрузка..." data-toggle="tooltip" title="Генерировать" class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button>--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        <tr>--}}
+{{--                            <td>Бонусные баллы</td>--}}
+{{--                            <td class="text-right">0</td>--}}
+{{--                            <td class="text-center">                  <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>--}}
+{{--                            </td>--}}
+{{--                            <!-- NeoSeo Exchange 1c - begin -->--}}
+{{--                        <tr>--}}
+{{--                            <td>Выгрузить заказ в 1С:</td>--}}
+{{--                            <td class="text-right"  colspan="2">--}}
+{{--                                <input type="checkbox" id="order_export_exchange1c_status" name="order_export_exchange1c_status"  value="1" id="input-override" />--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        <tr>--}}
+{{--                            <td>Партнер                  </td>--}}
+{{--                            <td class="text-right">0 грн</td>--}}
+{{--                            <td class="text-center">                  <button disabled="disabled" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        </tbody>--}}
+{{--                    </table>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -151,8 +151,8 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region_name']}}</td>
-                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region_name']}}</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -220,8 +220,8 @@
             </div>
             <div class="panel-body">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab-history" data-toggle="tab">История</a></li>
-                    <li><a href="#tab-additional" data-toggle="tab">Дополнительно</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#tab-history" data-toggle="tab">История</a></li>
+{{--                    <li class="nav-item"><a class="nav-link" href="#tab-additional" data-toggle="tab">Дополнительно</a></li>--}}
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab-history">
@@ -267,31 +267,31 @@
                             <button id="button-history" data-loading-text="Загрузка..." class="btn btn-primary"><i class="fa fa-plus-circle"></i> Добавить</button>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab-additional">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <td colspan="2">Browser</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>IP адрес</td>
-                                    <td>128.124.116.30</td>
-                                </tr>
-                                <tr>
-                                    <td>User Agent</td>
-                                    <td>Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1</td>
-                                </tr>
-                                <tr>
-                                    <td>Язык</td>
-                                    <td>ru</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+{{--                    <div class="tab-pane" id="tab-additional">--}}
+{{--                        <div class="table-responsive">--}}
+{{--                            <table class="table table-bordered">--}}
+{{--                                <thead>--}}
+{{--                                <tr>--}}
+{{--                                    <td colspan="2">Browser</td>--}}
+{{--                                </tr>--}}
+{{--                                </thead>--}}
+{{--                                <tbody>--}}
+{{--                                <tr>--}}
+{{--                                    <td>IP адрес</td>--}}
+{{--                                    <td>128.124.116.30</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>User Agent</td>--}}
+{{--                                    <td>Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td>Язык</td>--}}
+{{--                                    <td>ru</td>--}}
+{{--                                </tr>--}}
+{{--                                </tbody>--}}
+{{--                            </table>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -349,6 +349,7 @@
                             text: 'Вы успешно добавили историю к заказу'
                         });
                     }
+                    location.reload();
                 }
             });
         });

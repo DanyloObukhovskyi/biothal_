@@ -115,7 +115,10 @@
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
-                                    :items="['Наложенный платеж']"
+                                    :items="[
+                                        'Оплата при получении',
+                                        'Оплата картой'
+                                    ]"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
                                     :item-text="name"
@@ -383,19 +386,19 @@ export default {
                 this.$loading(true)
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
-                console.log(validate)
+                console.log(this.profile.user_id)
                 if (validate) {
                     const form = {
                         number: this.number,
                         name: this.name,
                         surname: this.surname,
-                        city: this.city.name,
+                        city: this.city,
                         region: this.region,
                         postalOffice: this.postalOffice,
                         paymentMethods: this.paymentMethods,
-                        products: this.products
+                        products: this.products,
+                        user_id: this.user_id
                     };
-
                     let data = await this.axios.post('checkout/create/order', form)
 
                     if (data) {
