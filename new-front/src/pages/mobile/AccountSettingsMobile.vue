@@ -106,34 +106,6 @@
                 Не хочу получать писем с акциями
             </div>
         </div>
-        <div class="page-form__top">
-            <div class="page-form__top__title">Я хочу поменять пароль</div>
-        </div>
-        <div class="page-form__middle">
-            <v-form style="width: 100%;">
-                <div>
-                    <p class="main-input-label">Введите старый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-                <div>
-                    <p class="main-input-label">Введите новый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-                <div>
-                    <p class="main-input-label">Введите еще раз новый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-            </v-form>
-        </div>
         <div class="page-form__bottom">
             <v-btn dark class="checkout-button" elevation="0" @click="changeProfile()">
                 Сохранить данные

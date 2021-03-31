@@ -33,6 +33,12 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'password-edit',
+                name: 'password-edit',
+                component: () => import('../pages/mobile/PasswordEditMobile'),
+                meta: {}
+            },
+            {
                 path: 'order-list',
                 name: 'order-list',
                 component: () => {

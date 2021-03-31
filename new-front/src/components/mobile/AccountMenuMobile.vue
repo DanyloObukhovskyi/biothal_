@@ -39,8 +39,15 @@
                     {
                         name: 'Личные данные',
                         meta: {
-                            icon: 'mode_edit_outline',
+                            icon: 'account_circle',
                             rout: {name: 'account-settings'}
+                        }
+                    },
+                    {
+                        name: 'Изменить пароль',
+                        meta: {
+                            icon: 'mode_edit_outline',
+                            rout: {name: 'password-edit'}
                         }
                     },
                     {

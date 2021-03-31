@@ -91,9 +91,9 @@
                         <v-list-item
                             class="point-cursor"
                             v-for="(item, index) in accountMenuItems"
-                            :key="index">
-                            <v-list-item-title
-                                @click="item.click ? item.click() : toPage(item.meta.rout)">
+                            :key="index"
+                            @click="item.click ? item.click() : toPage(item.meta.rout)">
+                            <v-list-item-title>
                                 {{ item.name }}
                             </v-list-item-title>
                         </v-list-item>
