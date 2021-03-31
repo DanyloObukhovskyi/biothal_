@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\OrderHistory;
 use App\Models\ShoppingCart;
 use App\Models\OrderStatuses;
+use App\Models\OrderProduct;
 use App\Models\UserOrderAddress;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +38,10 @@ class Order extends Model
             'user_order_id', // Local key on the mechanics table...
             'shopping_id' // Local key on the cars table...
         );
+    }
+
+    public function products () {
+        return $this->hasMany(OrderProduct::class, 'order_id', 'id')->with('attr');
     }
 
 }

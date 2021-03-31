@@ -66,7 +66,7 @@ class CheckoutController extends Controller
     public function createOrder(Request $request)
     {
         $userOrderAddress = new UserOrderAddress();
-        $userOrderAddress->phone = $request->get('phone');
+        $userOrderAddress->phone = $request->get('number');
         $userOrderAddress->name = $request->get('name');
         $userOrderAddress->LastName = $request->get('surname');
         $userOrderAddress->region = $request->get('region');
@@ -75,7 +75,7 @@ class CheckoutController extends Controller
         $userOrderAddress->full_name = $request->get('name') . ' ' . $request->get('surname');
         $userOrderAddress->save();
 
-        $orderStatus = OrderStatuses::where('name', OrderStatuses::PENDING)
+        $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)
             ->first();
 
         $order = new Order();
@@ -90,6 +90,11 @@ class CheckoutController extends Controller
             $orderProduct->product_id = $product['id'];
             $orderProduct->order_id = $order->id;
             $orderProduct->quantity = $product['quantity'];
+            $orderProduct->price = $product['price'];
+            $orderProduct->price_with_sales = $product['price_with_sale'];
+            $orderProduct->sale_id = $product['sale_id'];
+            $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
+            $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
             $orderProduct->save();
         }
 

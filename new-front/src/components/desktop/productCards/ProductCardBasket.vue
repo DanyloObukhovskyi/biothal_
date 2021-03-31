@@ -93,10 +93,10 @@ export default {
         border-radius: 50%;
         width: 50px;
         height: 41px;
-        line-height: 43px;
+        line-height: 40px;
         font-weight: 300;
-        font-size: 21px;
-        position: absolute;
+        font-size: 16px;
+        position: relative;
     }
 
     &__right {
@@ -148,4 +148,5 @@ input[type=number] {
 .product-basket__image {
     max-width: 100%;
 }
+
 </style>

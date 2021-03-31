@@ -6,26 +6,30 @@
 @endsection
 
 @section('content')
+
     <div class="prod-header border container-fluid">
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
-                <div class="h1-prod col-sm-1">Заказы</div>
-                <div class="pull-right col-sm-3">
+                <div class="row">
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Заказы</div>
+                    <div class="pull-right col-sm-6">
+                        {{--                    <button type="submit" id="button-shipping" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Распечатать список доставки" class="btn btn-info"><i class="fa fa-truck"></i></button>--}}
+                        {{--                    <button type="submit" id="button-invoice" form="form-order" formaction="" formtarget="_blank" data-toggle="tooltip" title="Показать счет" class="btn btn-info"><i class="fa fa-print"></i></button>--}}
+                        {{--                    <a href="" data-toggle="tooltip" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+                        {{--                    <button id="but-del" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger" onclick="confirm('Данное действие необратимо. Вы уверены?') ? $('#form-product').submit() : false;"><i class="fa fa-trash-o"></i></button>--}}
+                    </div>
+                    <div class="breadcrumb col-sm-12" style="background: none">
+                        <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
+                        <div style="margin-right: 5px">/ </div>
+                        <div><a href="{{route('admin.products.pageNew')}}"> Заказы</a></div>
+                    </div>
                 </div>
-                <div class="col-sm-8">
-                </div>
-                <div class="breadcrumb col-sm-3" style="background: none">
-                    <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
-                    <div><a href="">/ Заказы</a></div>
-                </div>
-
             </div>
         </div>
     </div>
-    <div class="panel-heading">
-        <h5 class="panel-title"><i class="fa fa-list"></i> Заказы</h5>
-    </div>
-    <div class="container-fluid">
+
+    <div class="container-fluid" style="padding-left: 0;
+        padding-right: 0;">
         <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">
@@ -35,11 +39,11 @@
                     <table class="table">
                         <tr>
                             <td style=""><button data-toggle="tooltip" title="Магазин" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
-                            <td><a href="http://3.140.132.208/" target="_blank">Biothal</a></td>
+                            <td><a href="/" target="_blank">Biothal</a></td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Дата добавления" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
-                            <td>28.01.2021</td>
+                            <td>{{ date( 'd.m.y H:i', strtotime($order['created_at'])) }}</td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Способ оплаты" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
@@ -87,8 +91,8 @@
                         <tr>
                             <td><button data-toggle="tooltip" title="Телефон" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
                             <td>
-                                @if(!empty($registered_user['phone_number']))
-                                    {{$registered_user['phone_number']}}
+                                @if(!empty($registered_user['phone']))
+                                    {{$registered_user['phone']}}
                                 @else
                                     N/A
                                 @endif
@@ -159,6 +163,7 @@
                         <td class="text-left">Модель</td>
                         <td class="text-right">Количество</td>
                         <td class="text-right">Цена за единицу</td>
+                        <td class="text-right">Скидка на единицу</td>
                         <td class="text-right">Итого</td>
                     </tr>
                     </thead>
@@ -166,37 +171,44 @@
                     @foreach($products as $product_key => $product)
                         <tr>
                             <td class="text-left">
-                                <a href="">{{$product['model']}}</a>
+                                <a href="">{{$product['attr']['model']}}</a>
                             </td>
-                            <td class="text-left">{{$product['model']}}</td>
-                            <td class="text-right">{{$product['count']}}</td>
+                            <td class="text-left">{{$product['attr']['model']}}</td>
+                            <td class="text-right">{{$product['quantity']}}</td>
                             <td class="text-right">
-                                @if (!empty($product['price_with_sale']))
-                                    {{$product['price_with_sale']}} грн
+                                {{$product['price']}} грн
+                            </td>
+                            <td class="text-right">
+                                @if (!empty($product['is_sales']))
+                                    - {{$product['price'] - $product['price_with_sales']}} грн
                                 @else
-                                    {{$product['price']}} грн
+                                    0 грн
                                 @endif
                             </td>
                             <td class="text-right">
-                                @if (!empty($product['price_with_sale']))
-                                    {{$product['price_with_sale'] * $product['count']}} грн
+                                @if (!empty($product['is_sales']))
+                                    {{$product['price_with_sales'] * $product['quantity']}} грн
                                 @else
-                                    {{$product['price'] * $product['count']}} грн
+                                    {{$product['price'] * $product['quantity']}} грн
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="4" class="text-right">Стоимость товаров</td>
-                        <td class="text-right">{{$total_price}} грн</td>
+                        <td class="text-right">{{$totalProductPrice}} грн</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="text-right">Самовывоз из магазина</td>
                         <td class="text-right">0 грн</td>
                     </tr>
                     <tr>
+                        <td colspan="4" class="text-right">Всего скидки</td>
+                        <td class="text-right">- {{$totalSalesPrice}} грн</td>
+                    </tr>
+                    <tr>
                         <td colspan="4" class="text-right">Всего к оплате</td>
-                        <td class="text-right">{{$total_price}} грн</td>
+                        <td class="text-right">{{$totalPrice}} грн</td>
                     </tr>
                     </tbody>
                 </table>

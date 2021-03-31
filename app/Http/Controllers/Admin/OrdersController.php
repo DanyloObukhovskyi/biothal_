@@ -15,6 +15,7 @@ use App\Models\{
 };
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Orders\OrderPageRequest;
+use App\Models\UserOrderAddress;
 
 class OrdersController extends Controller
 {
@@ -26,7 +27,8 @@ class OrdersController extends Controller
             'userAddress',
             'productHistory',
             'orderStatus',
-            'shoppingCart'
+            'shoppingCart',
+            'products'
         ]);
         if (!empty($request->input('filter_order_id'))) {
             $orders = $orders->where('id', $request->input('filter_order_id'));
@@ -61,22 +63,17 @@ class OrdersController extends Controller
 
         $orders = $orders->get()->toArray();
         foreach ($orders as $order_key => $order) {
-            if (!empty($order['shopping_cart'])) {
-                $products = Cart_Product::where('cart_products.cart_id', $order['shopping_cart']['id'])
-                    ->join('products', 'cart_products.product_id', '=', 'products.id')->get()->toArray();
-                $total_price = 0;
-                foreach ($products as $product) {
-                    $price = (!empty($product['price_with_sale'])) ? $product['price_with_sale'] : $product['price'];
-                    $total_price += $price * $product['count'];
-                }
-
-                $orders[$order_key]['total_price'] = $total_price;
-                if (empty($order['shopping_cart']['total'])) {
-                    ShoppingCart::where('id', $order['shopping_cart']['id'])->update(['total' => $total_price]);
+            $orders[$order_key]['total_price'] = 0;
+            if(!empty($order['products'])){
+                foreach($order['products'] as $product){
+                    if($product['is_sales']){
+                        $orders[$order_key]['total_price'] += ($product['price_with_sales'] * $product['quantity']);
+                    } else {
+                        $orders[$order_key]['total_price'] += ($product['price'] * $product['quantity']);
+                    }
                 }
             }
         }
-
         return view('admin.orders.orders', [
             'statuses' => $statuses,
             'orders' => $orders,
@@ -95,7 +92,8 @@ class OrdersController extends Controller
             'userAddress',
             'productHistory',
             'orderStatus',
-            'shoppingCart'
+            'shoppingCart',
+            'products'
         ])->first()->toArray();
 
         $order_history = OrderHistory::where('order_id', $id)->paginate(5);
@@ -113,24 +111,42 @@ class OrdersController extends Controller
                 $registered_user = User::where('id', $order['shopping_cart']['user_id'])->first();
             }
         }
+        $registered_user = UserOrderAddress::where('id', $order['user_order_id'])->first();
+        if(!empty($order['products'])){
+            $products = $order['products'];
+        }
 
         if (!empty($order['user_address'])) {
             $order['user_address']['region_name'] = Region::where('id', )->value('region');
+            $order['total_price'] = 0;
         }
 
-        $total_price = 0;
-        foreach ($products as $product) {
-            $price = (!empty($product['price_with_sale'])) ? $product['price_with_sale'] : $product['price'];
-            $total_price += $price * $product['count'];
+        $totalPrice = 0;
+        $totalSalesPrice = 0;
+        $totalProductPrice = 0;
+        if(!empty($order['products'])){
+            foreach($order['products'] as $product){
+                $totalProductPrice += ($product['price'] * $product['quantity']);
+                if($product['is_sales']){
+                    $totalPrice += ($product['price_with_sales'] * $product['quantity']);
+                    $totalSalesPrice += ($product['price'] - $product['price_with_sales']);
+                } else {
+                    $totalPrice += ($product['price'] * $product['quantity']);
+                }
+            }
         }
+
 
         return view('admin.orders.viewOrders', compact('products',
-            'total_price',
+            'totalPrice',
             'id',
             'order',
             'order_history',
             'order_statuses',
-            'registered_user'));
+            'registered_user',
+            'totalProductPrice',
+            'totalSalesPrice'
+        ));
     }
 
     public function getOrderHistoryByPage (Request $request) {
