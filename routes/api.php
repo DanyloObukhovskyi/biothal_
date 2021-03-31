@@ -54,11 +54,6 @@ Route::group(['namespace' => 'Api'], function () {
             ->name('create.order.get');
     });
 });
-//Route::namespace('api')->get('test', function(){
-//    return response()->json([
-//        'data' => 'My first test string'
-//    ]);
-//});
 
 //Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
 //Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');

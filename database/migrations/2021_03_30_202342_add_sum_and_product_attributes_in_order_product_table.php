@@ -15,7 +15,7 @@ class AddSumAndProductAttributesInOrderProductTable extends Migration
     {
         Schema::table('order_products', function (Blueprint $table) {
             $table->float('price',10,2)->unsigned()->default(0);
-            $table->float('price_with_sales',10,2)->unsigned()->default(0);
+            $table->float('price_with_sales',10,2)->unsigned()->nullable();
         });
     }
 

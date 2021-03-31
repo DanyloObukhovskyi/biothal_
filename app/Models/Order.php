@@ -29,6 +29,10 @@ class Order extends Model
         return $this->belongsTo(OrderStatuses::class, 'order_status_id');
     }
 
+    public function orderType () {
+        return $this->hasOne(OrderType::class, 'id', 'order_type_id');
+    }
+
     public function shoppingCart()
     {
         return $this->hasOneThrough(

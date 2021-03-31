@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\Create as createUser;
 use App\Models\EmailForEmailNewsletter;
@@ -55,6 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'date' => ['date'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -67,10 +69,10 @@ class RegisterController extends Controller
      */
     protected function create(createUser $request)
     {
-        //dd($request->all());
         $user = User::create([
             'name' => $request->name,
             'sur_name' => $request->surname,
+            'date_of_birth' => $request->date,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),

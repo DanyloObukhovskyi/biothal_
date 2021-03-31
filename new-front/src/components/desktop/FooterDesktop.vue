@@ -20,7 +20,7 @@
         <div class="footer__middle">
 
             <div class="footer__middle__block footer__middle__block__1">
-                <div>
+                <div @click="toPage({name: 'home'})" style="cursor: pointer;">
                     <img width="127" height="38" src="../../../public/logo.svg"/>
                 </div>
                 <div>

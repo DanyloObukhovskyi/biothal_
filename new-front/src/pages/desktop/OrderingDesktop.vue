@@ -115,13 +115,11 @@
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
-                                    :items="[
-                                        'Оплата при получении',
-                                        'Оплата картой'
-                                    ]"
+                                    :items="paymentMethods"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
-                                    :item-text="name"
+                                    :item-text="(c) => c.title"
+                                    :item-value="(c) => c.id"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -216,7 +214,7 @@ export default {
             city: '',
             user_id: '',
             postalOffice: '',
-            paymentMethod: { id: '', name: '' },
+            paymentMethod: '',
             recommendedProducts: [],
             regions: [],
             regionsLoading: false,
@@ -224,16 +222,7 @@ export default {
             citiesLoading: false,
             postalOffices: [],
             postalOfficesLoading: false,
-            paymentMethods: [
-                {
-                    id: 1,
-                    name: 'Наложенный платеж'
-                },
-                {
-                    id: 2,
-                    name: 'Оплата картой'
-                }
-            ],
+            paymentMethods: [],
             validProfile: false,
             errorValid: {
                 name: '',
@@ -242,7 +231,8 @@ export default {
                 number: '',
                 region: '',
                 city: '',
-                postalOffice: ''
+                postalOffice: '',
+                paymentMethod: ''
             },
             profile:{
                 number: '',
@@ -297,7 +287,7 @@ export default {
         },
         paymentMethodRules() {
             return [
-                v => !!v || 'Вы не выбрали метод доставки',
+                v => !!v || 'Вы не выбрали способ оплаты',
             ]
         }
     },
@@ -376,7 +366,8 @@ export default {
                 number: '',
                 region: '',
                 city: '',
-                postalOffice: ''
+                postalOffice: '',
+                paymentMethod: ''
             }
         },
         async checkout() {
@@ -386,7 +377,7 @@ export default {
                 this.$loading(true)
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
-                console.log(this.profile.user_id)
+
                 if (validate) {
                     const form = {
                         number: this.number,
@@ -395,7 +386,7 @@ export default {
                         city: this.city,
                         region: this.region,
                         postalOffice: this.postalOffice,
-                        paymentMethods: this.paymentMethods,
+                        paymentMethod: this.paymentMethod,
                         products: this.products,
                         user_id: this.user_id
                     };
@@ -526,6 +517,7 @@ export default {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                margin-top: 20px;
 
                 @media screen and (max-width: 991px) {
                     flex-direction: column;

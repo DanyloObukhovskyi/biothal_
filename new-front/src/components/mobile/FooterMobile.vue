@@ -2,23 +2,23 @@
     <v-footer
         class="footer__wrapper"
         :padless="false">
-        <div v-if="isMobile" class="special-offer__wrapper">
-            <p style="margin: auto 0">
-                Будь в курсе специальных предложений
-            </p>
-            <v-icon color="#000" size="25">mdi-gift-outline</v-icon>
-        </div>
+<!--        <div v-if="isMobile" class="special-offer__wrapper">-->
+<!--            <p style="margin: auto 0">-->
+<!--                Будь в курсе специальных предложений-->
+<!--            </p>-->
+<!--            <v-icon color="#000" size="25">mdi-gift-outline</v-icon>-->
+<!--        </div>-->
         <div v-if="isMobile" class="links__wrapper">
             <div style="text-align: left; color: #808080">
-                Электронная почта
+                <input v-model="email_for_receive_list" type="text" placeholder="Электронная почта">
             </div>
-            <div style="border-right: 1px solid #808080; width: 0; height: 15px"/>
-            <div style="text-align: right; color: #0BB7B5">
+            <div style="border-right: 1px solid #808080; width: 0; height: 20px"/>
+            <div style="text-align: right; color: #0BB7B5" @click="addEmailToReceiveList">
                 Подписаться
             </div>
         </div>
         <div class="footer__block-1">
-            <div>
+            <div @click="toPage({name: 'home'})">
                 <img width="127" height="38" src="../../../public/logo2.svg"/>
             </div>
             <div style="display: flex; column-gap: 10px">
@@ -38,23 +38,23 @@
                 <div>
                     +38 (068) 888-12-08
                 </div>
-                <div style="color: #2F7484">
-                    Обратный звонок
-                </div>
+<!--                <div style="color: #2F7484">-->
+<!--                    Обратный звонок-->
+<!--                </div>-->
             </div>
         </div>
         <div class="footer__block-3">
-            <div>
-                <v-btn
-                    elevation="0"
-                    class="main-button"
-                    @click="toPage({name: 'info-page', params: {category: 'become-distributor'}})">
-                    Стать дистрибьютером
-                </v-btn>
-            </div>
-            <div>
-                <img width="37" height="9" src="../../../public/visaMasterCard.svg"/>
-            </div>
+<!--            <div>-->
+<!--                <v-btn-->
+<!--                    elevation="0"-->
+<!--                    class="main-button"-->
+<!--                    @click="toPage({name: 'info-page', params: {category: 'become-distributor'}})">-->
+<!--                    Стать дистрибьютером-->
+<!--                </v-btn>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img width="37" height="9" src="../../../public/visaMasterCard.svg"/>-->
+<!--            </div>-->
         </div>
         <div class="footer__block-4">
             <div style="font-size: 11px; font-weight: 400; line-height: 15px;">
@@ -75,7 +75,8 @@
                 catalog: null,
                 aboutUs: null,
                 socialNetwork: null,
-                menuItems: []
+                menuItems: [],
+                email_for_receive_list: '',
             }
         },
         created() {
@@ -86,6 +87,42 @@
                 let data = await this.axios.get('footer');
 
                 this.menuItems = data.data.categories;
+            },
+            async addEmailToReceiveList(){
+                let email = this.email_for_receive_list;
+                let valide = /.+@.+/.test(email);
+                this.$loading(true)
+                if(valide){
+                    try{
+                        let data = await this.axios.post('addEmailForReceive', {
+                            email:email
+                        });
+                        if(data){
+                            let message = data.data.message
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            this.email_for_receive_list = ''
+                        }
+                        this.$loading(false)
+                    } catch (e) {
+                        this.$notify({
+                            type: 'error',
+                            title: 'Извините',
+                            text: 'Вы ввели не коректный адресс електронной почты!'
+                        });
+                        this.$loading(false)
+                    }
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Извините',
+                        text: 'Вы ввели не коректный адресс електронной почты!'
+                    });
+                    this.$loading(false)
+                }
             }
         }
     }
