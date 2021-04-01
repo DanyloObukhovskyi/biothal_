@@ -54,7 +54,8 @@
         "spatie/laravel-sluggable": "^2.6",
         "stripe/stripe-php": "^7.61",
         "tymon/jwt-auth": "^1.0",
-        "yajra/laravel-datatables-oracle": "^9.11"
+        "yajra/laravel-datatables-oracle": "^9.11",
+      "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
