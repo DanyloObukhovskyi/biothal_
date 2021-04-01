@@ -117,6 +117,13 @@ const routes = [
                 name: 'registration',
                 component: () => import('../pages/mobile/RegistrationMobile'),
                 meta: {}
+            },
+            {
+                path: 'order-status/:id',
+                name: 'order-status',
+                component: () => import('../pages/desktop/OrderingStatusDesktop'),
+                meta: {},
+                props: true
             }
         ]
     },

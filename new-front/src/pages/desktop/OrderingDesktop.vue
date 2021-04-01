@@ -401,6 +401,7 @@ export default {
                         });
 
                         this.clearValidation()
+                        this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                     }
                 }
                 this.$loading(false)

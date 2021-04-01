@@ -37,6 +37,9 @@ Route::group(['namespace' => 'Api'], function () {
     Route::namespace('api')
         ->get('product/{id}', 'ProductController@getProduct');
 
+    Route::get('order-status/{id}', 'CheckoutController@getOrder')
+        ->name('order-status.get');
+
     Route::group(['prefix' => 'checkout'], function () {
         Route::post('/regions', 'CheckoutController@getRegions')
             ->name('checkout.regions.get');

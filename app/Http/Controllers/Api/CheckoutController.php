@@ -101,7 +101,17 @@ class CheckoutController extends Controller
         }
 
         return response()->json([
+            'order_id' => $order->user_order_id,
             'message' => 'Заказ оформлен!'
+        ]);
+    }
+
+    public function getOrder($id)
+    {
+        $order = Order::with('userAddress')->where('user_order_id', $id)->first();
+
+        return response()->json([
+            'message' => 'Заказ в обработке!'
         ]);
     }
 }
