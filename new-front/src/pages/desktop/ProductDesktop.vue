@@ -32,7 +32,7 @@
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
-                    <div class="info-description"  v-html="description">
+                    <div class="info-description"  v-html="productDescription">
                     </div>
 
                     <div class="info-count">
@@ -176,7 +176,8 @@
                     sub_category: {
                         title: ''
                     }
-                }
+                },
+                productDescription: ''
             }
         },
         methods: {
@@ -202,7 +203,8 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-                this.description = data.data.description;
+                this.description = this.productData['product_description'];
+                this.productDescription = data.data.description;
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;

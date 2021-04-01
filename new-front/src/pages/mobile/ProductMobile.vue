@@ -152,7 +152,8 @@
                 category: {
                     main_category: {},
                     sub_category: {}
-                }
+                },
+                productDescription: ''
             }
         },
         methods: {
@@ -168,7 +169,8 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-                this.description = data.data.description;
+                this.description = this.productData['product_description'];
+                this.productDescription = data.data.description;
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
