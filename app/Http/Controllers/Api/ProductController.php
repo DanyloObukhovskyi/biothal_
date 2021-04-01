@@ -17,9 +17,13 @@ class ProductController extends Controller
         $category = CategoryProducts::where('product_id', $id)->first();
 
         $product_category['sub_category'] = Categories::where('id', $category['category_id'])->first();
-        $product_category['main_category'] = Categories::where([
-            'id' => $product_category['sub_category']['parent_id'],
-        ])->first();
+        $parentId = $product_category['sub_category']['parent_id'] ?? null;
+        $product_category['main_category'] = [];
+        if(!empty($parentId)){
+            $product_category['main_category'] = Categories::where([
+                'id' => $product_category['sub_category']['parent_id'],
+            ])->first();
+        }
 
         if (empty($product_category['sub_category']['parent_id'])) {
             $product_category['main_category'] = [];
@@ -51,11 +55,14 @@ class ProductController extends Controller
             ->where('id', $id)
             ->first();
 
+        $productDescription = html_entity_decode($productDetails['productDescription']['description']);
+
         return response()->json([
             'id' => $id,
             'productDetails' => $productDetails,
             'recommendedProduct' => $recommendedProduct,
-            'product_category' => $product_category
+            'product_category' => $product_category,
+            'description' => $productDescription
         ]);
     }
 

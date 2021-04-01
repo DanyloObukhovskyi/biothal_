@@ -5,12 +5,12 @@
             <span class="arrow"> &#x1F852; </span>
             <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
             <span  v-if="category['main_category'].length !== 0" class="arrow"> &#x1F852; </span>
-            <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
-            <span class="arrow"> &#x1F852; </span>
+            <span v-if="category['sub_category'] !== null" class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
+            <span v-if="category['sub_category'] !== null" class="arrow"> &#x1F852; </span>
             <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
         </div>
         <div class="product-info__wrapper">
-            <div class="product-info__discount" v-if="is_discount">-50%</div>
+            <div class="product-info__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>
             <div class="product-info__image">
                 <img style="width: 100%" :src="image" :alt="productData['image']['name']" :class="subImages" @click="getSubImages()"/>
             </div>
@@ -28,8 +28,8 @@
             </div>
 
             <div class="product-info__price">
-                <span class="product-info__price__price">{{ productData['price'] }} грн</span>
-<!--                <span class="product-info__price__discount">Старая цена: 545 грн.</span>-->
+                <span class="product-info__price__price">{{ is_discount ?  productData['price_with_sale']  : productData['price'] }} грн</span>
+                <span class="product-info__price__discount" v-if="is_discount">Старая цена: {{ productData['price'] }} грн.</span>
             </div>
 
             <div class="product-info__pay">
@@ -135,7 +135,7 @@
                 items: [],
                 variables,
                 count_good: 1,
-                is_discount: true,
+                is_discount: false,
                 phone: '',
                 productData: {
                     image: {},
@@ -168,7 +168,7 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-                this.description = this.productData['product_description']
+                this.description = data.data.description;
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;
@@ -186,6 +186,10 @@
 
                 if(this.images[0]){
                     this.subImages = 'images'
+                }
+
+                if(this.productData.sale_id !== null){
+                    this.is_discount = true;
                 }
             },
             async getSubImages() {

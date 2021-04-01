@@ -5,8 +5,8 @@
         <span> / </span>
         <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
         <span  v-if="category['main_category'].length !== 0"> / </span>
-        <span class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
-        <span> / </span>
+        <span v-if="category['sub_category'] !== null" class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
+        <span v-if="category['sub_category'] !== null"> / </span>
         <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
     </div>
         <div class="block-product">
@@ -32,7 +32,7 @@
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
 
-                    <div class="info-description"  v-html="description['description']">
+                    <div class="info-description"  v-html="description">
                     </div>
 
                     <div class="info-count">
@@ -170,8 +170,12 @@
                 index: null,
                 subImages: null,
                 category: {
-                    main_category: {},
-                    sub_category: {}
+                    main_category: {
+                        title: ''
+                    },
+                    sub_category: {
+                        title: ''
+                    }
                 }
             }
         },
@@ -198,7 +202,7 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-                this.description = this.productData['product_description'];
+                this.description = data.data.description;
                 this.items = this.productData['product_apts'];
                 this.productImages = this.productData.product_images;
                 this.recommendedProduct = data.data.recommendedProduct;

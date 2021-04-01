@@ -42,14 +42,6 @@
                                     {{ productsSum }} грн.
                                 </div>
                             </div>
-                            <div class="total">
-                                <div class="total__left">
-                                    Стоимость доставки:
-                                </div>
-                                <div class="total__right">
-                                    {{ deliveryPrice }} грн.
-                                </div>
-                            </div>
                             <div class="total" v-if="currentGlobalSales !== null">
                                 <div class="total__left">
                                     Скидка:
@@ -63,7 +55,7 @@
                                     Итого к оплате:
                                 </div>
                                 <div class="total__right" style="font-weight: 700">
-                                    {{ (productsSumWithSales + deliveryPrice).toFixed(2) }} грн.
+                                    {{ (productsSumWithSales).toFixed(2) }} грн.
                                 </div>
                             </div>
                         </div>
