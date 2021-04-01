@@ -119,7 +119,8 @@
                                     :items="paymentMethods"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
-                                    :item-text="c => c.name"
+                                    :item-text="(c) => c.title"
+                                    :item-value="(c) => c.id"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -214,8 +215,7 @@ export default {
             city: '',
             user_id: '',
             postalOffice: '',
-            paymentMethod: null,
-            paymentMethods: [],
+            paymentMethod: '',
             recommendedProducts: [],
             regions: [],
             regionsLoading: false,
@@ -223,6 +223,7 @@ export default {
             citiesLoading: false,
             postalOffices: [],
             postalOfficesLoading: false,
+            paymentMethods: [],
             validProfile: false,
             errorValid: {
                 name: '',
@@ -231,7 +232,8 @@ export default {
                 number: '',
                 region: '',
                 city: '',
-                postalOffice: ''
+                postalOffice: '',
+                paymentMethod: ''
             },
             profile:{
                 number: '',
@@ -286,7 +288,7 @@ export default {
         },
         paymentMethodRules() {
             return [
-                v => !!v || 'Вы не выбрали метод доставки',
+                v => !!v || 'Вы не выбрали способ оплаты',
             ]
         }
     },
@@ -378,8 +380,6 @@ export default {
                 let validate = await this.$refs['orderForm'].validate();
 
                 if (validate) {
-                    const paymentMethod = this.paymentMethods.find(pm => pm.name === this.paymentMethod)
-
                     const form = {
                         number: this.number,
                         name: this.name,
@@ -387,7 +387,7 @@ export default {
                         city: this.city,
                         region: this.region,
                         postalOffice: this.postalOffice,
-                        paymentMethod: paymentMethod,
+                        paymentMethod: this.paymentMethod,
                         products: this.products,
                         user_id: this.user_id
                     };
@@ -406,6 +406,8 @@ export default {
                         if(data.data.redirect) {
                             window.open(data.data.redirect);
                         }
+
+                        //this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                     }
                 }
                 this.$loading(false)
@@ -524,6 +526,7 @@ export default {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                margin-top: 20px;
 
                 @media screen and (max-width: 991px) {
                     flex-direction: column;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Models\{
     User,
@@ -92,6 +93,7 @@ class OrdersController extends Controller
             'userAddress',
             'productHistory',
             'orderStatus',
+            'orderType',
             'shoppingCart',
             'products',
             'user'

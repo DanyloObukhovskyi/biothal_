@@ -26,8 +26,12 @@
                         <p class="main-input-label">Введите дату</p>
                         <v-text-field
                             class="main-input-field"
-                            v-model="change_profile.date"
-                            :error-messages="errorValid.date"
+                            placeholder="****-**-**"
+                            v-mask="'####-##-##'"
+                            prop="date"
+                            autocomplete="off"
+                            v-model="change_profile.date_of_birth"
+                            :error-messages="errorValid.date_of_birth"
                             flat
                             rounded/>
                     </div>
@@ -194,7 +198,7 @@
                     password_confirmation: '',
                     name: '',
                     surname: '',
-                    date: '',
+                    date_of_birth: '',
                     email: '',
                     phone_number: ''
                 },
@@ -298,7 +302,7 @@
                 this.errorValid.password_confirmation = '',
                 this.errorValid.name = '',
                 this.errorValid.surname =  '',
-                this.errorValid.date =  '',
+                this.errorValid.date_of_birth =  '',
                 this.errorValid.email = '',
                 this.errorValid.phone_number = ''
             },

@@ -399,7 +399,7 @@ $(function () {
         $.each($("input[name='selected[]']:checked"), function () {
             productsId.push($(this).val());
         })
-        console.log(productsId);
+
         $.ajax({
             url: '/admin/products/set/sale',
             method: 'PUT',
@@ -731,7 +731,7 @@ $(function () {
         for (var i = 0; i < count; i++) {
             datasId[i] = data[i]['id'];
         }
-        console.log(datasId);
+
         $.ajax({
             url: url,
             method: 'DELETE',

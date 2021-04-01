@@ -91,7 +91,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 22px;
-      margin: 15px;
+      margin: 30px 15px 0;
     }
 
     &__content {

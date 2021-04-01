@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="block-product__tabs">
+            <div v-if="items.length" class="block-product__tabs">
                 <v-tabs
                     color="#000"
                     centered

@@ -83,6 +83,20 @@
                         rounded>
                     </v-autocomplete>
                 </div>
+                <div class="mt-25px">
+                    <p class="main-input-label">Выберите способ оплаты</p>
+                    <v-select
+                        :items="paymentMethods"
+                        v-model="paymentMethod"
+                        :rules="paymentMethodRules"
+                        :item-text="(c) => c.title"
+                        :item-value="(c) => c.id"
+                        class="main-input-field"
+                        flat
+                        rounded
+                        color="#2F7484"
+                    ></v-select>
+                </div>
             </v-form>
         </div>
         <div class="terms-use">
@@ -195,7 +209,7 @@ import {mapActions, mapGetters} from "vuex";
             },
             paymentMethodRules() {
                 return [
-                    v => !!v || 'Вы не выбрали метод доставки',
+                    v => !!v || 'Вы не выбрали способ оплаты',
                 ]
             }
         },
@@ -225,7 +239,8 @@ import {mapActions, mapGetters} from "vuex";
                     number: '',
                     region: '',
                     city: '',
-                    postalOffice: ''
+                    postalOffice: '',
+                    paymentMethod: ''
                 }
             },
             getRecommendedProduct() {
@@ -288,7 +303,7 @@ import {mapActions, mapGetters} from "vuex";
                             city: this.city.name,
                             region: this.region,
                             postalOffice: this.postalOffice,
-                            paymentMethods: this.paymentMethods,
+                            paymentMethod: this.paymentMethod,
                             products: this.products
                         };
 
@@ -303,6 +318,7 @@ import {mapActions, mapGetters} from "vuex";
                             });
 
                             this.clearValidation()
+                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                         }
                     }
                     this.$loading(false)

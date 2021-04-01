@@ -9,6 +9,7 @@ use App\Http\Requests\User\changePass as changePasswordRequest;
 use App\Http\Requests\User\Update as updateProfileRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\{Categories, CategoryProducts, EmailForEmailNewsletter, Image, StockStatus, Admin\Products\Product};
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\
 {
     ValidImgRequest,
@@ -66,6 +67,7 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->sur_name = $request->sur_name;
+        $user->date_of_birth = $request->date_of_birth;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
         $user->save();

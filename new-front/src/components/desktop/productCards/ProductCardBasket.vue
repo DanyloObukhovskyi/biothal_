@@ -3,6 +3,7 @@
         <div class="product-basket__sale" v-if="isShowStock">-{{ dataCard.get_sale.percent }}%</div>
         <div class="product-basket__left">
             <img class="product-basket__image" height="150" width="150"
+                 @click="toPage({name: 'product', params: {id: dataCard.id}})"
                  :src="this.api+'/storage/img/products/' + dataCard.image.name" :alt="dataCard.image.name"/>
         </div>
         <div class="product-basket__right">
@@ -108,6 +109,7 @@ export default {
         padding: 15px 0 15px 20px;
 
         &__title {
+            cursor: pointer;
             font-weight: 700;
             font-size: 10px;
             line-height: 14px;
@@ -146,6 +148,7 @@ input[type=number] {
     }
 }
 .product-basket__image {
+    cursor: pointer;
     max-width: 100%;
 }
 

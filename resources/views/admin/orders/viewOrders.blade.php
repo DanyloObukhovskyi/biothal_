@@ -47,7 +47,7 @@
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Способ оплаты" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
-                            <td>Оплата при получении</td>
+                            <td>{{ $order['order_type']['title'] ?? 'Не выбрано' }}</td>
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Способ доставки" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>

@@ -5,14 +5,14 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <products-paginate url="home/sales-products" title="Подарки и скидки" :isShowStock="true"/>
+        <products-paginate v-if="productsData.data.length" url="home/sales-products" title="Подарки и скидки" :isShowStock="true"/>
         <div class="category-card__wrapper">
             <div class="category-card__inner">
                 <CategoryCard class="category-card__block" :face="true"/>
                 <CategoryCard class="category-card__block" :face="false"/>
             </div>
         </div>
-        <products-paginate url="home/best-sellers" title="Бестселлеры"/>
+        <products-paginate v-if="bestSellersData.data.length" url="home/best-sellers" title="Бестселлеры"/>
         <div class="description-biothal">
             <p class="main-title">Интернет-магазин Biothal</p>
             <div class="description-biothal__inner">
@@ -125,8 +125,12 @@
                 carousel: [],
                 isShowDescription: false,
                 bestSellerPage: 1,
-                bestSellersData: null,
-                productsData: [],
+                bestSellersData: {
+                    data: {}
+                },
+                productsData: {
+                    data: {}
+                },
                 productsPage: 1
             }
         },

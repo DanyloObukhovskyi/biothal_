@@ -12,13 +12,15 @@ Route::namespace('api')->get('menu', 'HomeController@menu');
 
 Route::namespace('api')->get('footer', 'HomeController@footer');
 
-Route::namespace('api')->get('category/{id}/{children_id}', 'CategoryController@getSubCategory');
-
-Route::namespace('api')->get('category/{id}', 'CategoryController@getCategory');
-
 Route::namespace('api')->post('category/products/{id}', 'CategoryController@getCategoryProducts');
 
+Route::namespace('api')->post('category/products/{id}/{children_id}', 'CategoryController@getSubCategory');
+
 Route::namespace('api')->get('info-page/{id}', 'ArticleController@getArticle');
+
+Route::namespace('api')->get('image', 'CategoryController@getImage');
+
+Route::namespace('api')->get('categoryDetails/{id}', 'CategoryController@getCategoryDetails');
 
 Route::group(['namespace' => 'Api'], function () {
     Route::post('auth/user', 'UserController@getAuthUser')
@@ -37,6 +39,9 @@ Route::group(['namespace' => 'Api'], function () {
     Route::namespace('api')
         ->get('product/{id}', 'ProductController@getProduct');
 
+    Route::get('order-status/{id}', 'CheckoutController@getOrder')
+        ->name('order-status.get');
+
     Route::group(['prefix' => 'checkout'], function () {
         Route::post('/regions', 'CheckoutController@getRegions')
             ->name('checkout.regions.get');
@@ -54,11 +59,6 @@ Route::group(['namespace' => 'Api'], function () {
             ->name('create.order.get');
     });
 });
-//Route::namespace('api')->get('test', function(){
-//    return response()->json([
-//        'data' => 'My first test string'
-//    ]);
-//});
 
 //Route::namespace('api')->post('login', 'Auth\LoginController@loginToProfile');
 //Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');

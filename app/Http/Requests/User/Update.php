@@ -21,6 +21,7 @@ class Update extends FormRequest
         return [
             'name.required' => 'Вы не заполнили имя',
             'surname.max' => 'Вы ввели максимальное количество символов',
+            'date_of_birth.date' => 'Вы некоректно ввели дату ',
             'email.required' => 'Вы не ввели електронную почту',
             'email.max' => 'Вы превысили лимит символов для електронной почты',
             'email.unique' => 'Ваша почта не корректна, введите другую',
@@ -39,6 +40,7 @@ class Update extends FormRequest
         return [
             'name' => 'required|string|between:2,100',
             'sur_name' => 'max:100',
+            'date_of_birth' => 'date',
             'email' => 'required|string|email|max:100',
             'phone_number' => 'required|max:20'
         ];

@@ -3,18 +3,35 @@
         <div class="page-form__top">
             <div class="page-form__top__title">Мой профиль</div>
             <div class="user-image__wrapper">
-                <div
-                    class="user-image__no-image">
+                <div v-if="change_profile.image_id"
+                    class="user-image__no-image" @click="changeImage()">
+                    <img class="user-image__no-image"
+                         width="100%" :src="change_profile.image ? this.api+'/storage/img/users/' + change_profile.image.name : ''"/>
+<!--                    </v-icon>-->
+                </div>
+                <div v-if="!change_profile.image_id"
+                    class="user-image__no-image" @click="changeImage()">
                     <v-icon size="35" class="user-image__no-image__icon">
                         person_add
                     </v-icon>
                 </div>
-                <div
-                    class="user-image__text">
-                    <div>
+<!--                <div v-if="!change_profile.image_id"-->
+<!--                     class="user-image__no-image" @click="changeImage()">-->
+<!--                    <v-icon size="85" class="user-image__no-image__icon">-->
+<!--                        person_add-->
+<!--                    </v-icon>-->
+<!--                </div>-->
+<!--                <div v-if="change_profile.image_id"-->
+<!--                     class="user-image__no-image" @click="changeImage()">-->
+<!--                    <img class="user-image__no-image"-->
+<!--                         width="100%" :src="change_profile.image ? this.api+'/storage/img/users/' + change_profile.image.name : ''"/>-->
+<!--                </div>-->
+                <input style="display: none" type="file" ref="file" id="input_file" class="input_file" v-on:change="handleFileUpload()"/>
+                <div class="user-image__text">
+                    <div v-if="!change_profile.image_id" @click="changeImage()">
                         Загрузить фото
                     </div>
-                    <div class="second-text">
+                    <div v-if="change_profile.image_id" @click="deleteImage()" class="second-text">
                         <v-icon size="10">
                             close
                         </v-icon>
@@ -48,8 +65,11 @@
                     <p class="main-input-label">Введите дату</p>
                     <v-text-field
                         class="main-input-field"
-                        v-model="change_profile.date"
-                        :error-messages="errorValid.date"
+                        placeholder="****-**-**"
+                        v-mask="'####-##-##'"
+                        prop="date"
+                        v-model="change_profile.date_of_birth"
+                        :error-messages="errorValid.date_of_birth"
                         flat
                         rounded/>
                 </div>
@@ -86,36 +106,8 @@
                 Не хочу получать писем с акциями
             </div>
         </div>
-        <div class="page-form__top">
-            <div class="page-form__top__title">Я хочу поменять пароль</div>
-        </div>
-        <div class="page-form__middle">
-            <v-form style="width: 100%;">
-                <div>
-                    <p class="main-input-label">Введите старый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-                <div>
-                    <p class="main-input-label">Введите новый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-                <div>
-                    <p class="main-input-label">Введите еще раз новый пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        flat
-                        rounded/>
-                </div>
-            </v-form>
-        </div>
         <div class="page-form__bottom">
-            <v-btn dark class="checkout-button" elevation="0">
+            <v-btn dark class="checkout-button" elevation="0" @click="changeProfile()">
                 Сохранить данные
             </v-btn>
         </div>
@@ -133,7 +125,7 @@
                     password_confirmation: '',
                     name: '',
                     surname: '',
-                    date: '',
+                    date_of_birth: '',
                     email: '',
                     phone_number: ''
                 },
@@ -247,7 +239,7 @@
                     this.errorValid.password_confirmation = '',
                     this.errorValid.name = '',
                     this.errorValid.surname =  '',
-                    this.errorValid.date =  '',
+                    this.errorValid.date_of_birth =  '',
                     this.errorValid.email = '',
                     this.errorValid.phone_number = ''
             },
@@ -316,7 +308,7 @@
                                 text: message
                             });
                             let profile = data.data.profile
-                            this.$parent.profile = profile
+                            this.change_profile = profile
                         }
                     }
                     this.$loading(false)
@@ -345,7 +337,7 @@
                                 text: message
                             });
                             let profile = data.data.profile
-                            this.$parent.profile = profile
+                            this.change_profile = profile
                         }
                     }
                     this.$loading(false)

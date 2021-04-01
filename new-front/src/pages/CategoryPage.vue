@@ -60,13 +60,15 @@
         created() {
             this.productsUrl = (!this.$route.params.subCategory) ? 'category/products/' + this.$route.params.category : 'category/products/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
 
-            this.fetchCategory();
+            this.fetchCarouselImage();
+            this.getCategoryDetails();
         },
         watch: {
             route: {
                 deep: true,
                 handler (newRoute, oldRoute) {
-                    this.fetchCategory();
+                    this.fetchCarouselImage();
+                    this.getCategoryDetails();
 
                     this.productsUrl = (!newRoute.subCategory) ? 'category/products/' + newRoute.category : 'category/products/' + newRoute.category + '/' +  newRoute.subCategory;
                 },
@@ -78,15 +80,17 @@
             }
         },
         methods: {
-            async fetchCategory() {
-                let url = (!this.$route.params.subCategory) ? 'category/' + this.$route.params.category : 'category/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
+            async fetchCarouselImage() {
+                let data = await this.axios.get('image');
 
-                let data = await this.axios.get(url);
+                this.carousel = data.data;
+            },
+            async getCategoryDetails() {
+                let id = (!this.$route.params.subCategory) ? this.$route.params.category : this.$route.params.subCategory;
+                let data = await this.axios.get('categoryDetails/' + id);
 
-                this.carousel = data.data.carousel;
-                this.productData = data.data.products.data;
-                this.categoryMessage = this.productData.length ? '' :  'В данной категории нет товаров.';
-                this.categoryDetails =  data.data.this_category;
+                this.categoryDetails = data.data;
+
             }
         }
     }

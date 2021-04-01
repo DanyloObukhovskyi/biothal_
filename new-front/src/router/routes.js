@@ -33,6 +33,12 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'password-edit',
+                name: 'password-edit',
+                component: () => import('../pages/mobile/PasswordEditMobile'),
+                meta: {}
+            },
+            {
                 path: 'order-list',
                 name: 'order-list',
                 component: () => {
@@ -111,6 +117,13 @@ const routes = [
                 name: 'registration',
                 component: () => import('../pages/mobile/RegistrationMobile'),
                 meta: {}
+            },
+            {
+                path: 'order-status/:id',
+                name: 'order-status',
+                component: () => import('../pages/desktop/OrderingStatusDesktop'),
+                meta: {},
+                props: true
             }
         ]
     },

@@ -33,8 +33,8 @@
                     <p class="main-input-label">Введите дату</p>
                     <v-text-field
                         class="main-input-field"
-                        placeholder="**.**.****"
-                        v-mask="'##.##.####'"
+                        placeholder="****-**-**"
+                        v-mask="'####-##-##'"
                         prop="date"
                         v-model="user.date"
                         :error-messages="errorValid.date"
