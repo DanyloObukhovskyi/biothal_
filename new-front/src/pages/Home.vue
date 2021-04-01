@@ -12,7 +12,7 @@
                 <CategoryCard class="category-card__block" :face="false"/>
             </div>
         </div>
-        <products-paginate url="home/best-sellers" title="Бестселлеры"/>
+        <products-paginate v-if="bestSellersData.data.length" url="home/best-sellers" title="Бестселлеры"/>
         <div class="description-biothal">
             <p class="main-title">Интернет-магазин Biothal</p>
             <div class="description-biothal__inner">
