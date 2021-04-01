@@ -98,7 +98,11 @@ const getters = {
     productsSum: state => {
         let sum = 0;
         for (let product of state.products) {
-            sum += +product.price * +product.quantity;
+            if (product.sale_id !== null) {
+                sum += +product.price_with_sale * +product.quantity;
+            } else {
+                sum += +product.price * +product.quantity;
+            }
         }
         return sum;
     },

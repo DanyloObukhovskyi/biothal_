@@ -30,6 +30,7 @@ Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post')
 
 Route::get('portmone', 'PortmoneController@index');
 Route::get('success', 'PortmoneController@success')->name('success');
+Route::get('canceled', 'PortmoneController@canceled')->name('canceled');
 
 Route::get('face', 'FaceController@getAllCategory');
 Route::post('buyCartHome', 'CartController@insInCartHome');

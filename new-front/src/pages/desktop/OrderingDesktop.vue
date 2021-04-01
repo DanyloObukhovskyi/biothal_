@@ -103,7 +103,8 @@
                                     :error-messages="errorValid.postalOffice"
                                     :rules="postalOfficeRules"
                                     color="#2F7484"
-                                    :item-text="(c) => c.name"
+                                    :item-text="c => c.name"
+                                    :item-value="c => c"
                                     name="name"
                                     class="main-input-field"
                                     height="44"
@@ -115,13 +116,10 @@
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
-                                    :items="[
-                                        'Оплата при получении',
-                                        'Оплата картой'
-                                    ]"
+                                    :items="paymentMethods"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
-                                    :item-text="name"
+                                    :item-text="c => c.name"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
@@ -216,7 +214,8 @@ export default {
             city: '',
             user_id: '',
             postalOffice: '',
-            paymentMethod: { id: '', name: '' },
+            paymentMethod: null,
+            paymentMethods: [],
             recommendedProducts: [],
             regions: [],
             regionsLoading: false,
@@ -224,16 +223,6 @@ export default {
             citiesLoading: false,
             postalOffices: [],
             postalOfficesLoading: false,
-            paymentMethods: [
-                {
-                    id: 1,
-                    name: 'Наложенный платеж'
-                },
-                {
-                    id: 2,
-                    name: 'Оплата картой'
-                }
-            ],
             validProfile: false,
             errorValid: {
                 name: '',
@@ -376,7 +365,8 @@ export default {
                 number: '',
                 region: '',
                 city: '',
-                postalOffice: ''
+                postalOffice: '',
+                paymentMethod: ''
             }
         },
         async checkout() {
@@ -386,8 +376,10 @@ export default {
                 this.$loading(true)
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
-                console.log(this.profile.user_id)
+
                 if (validate) {
+                    const paymentMethod = this.paymentMethods.find(pm => pm.name === this.paymentMethod)
+
                     const form = {
                         number: this.number,
                         name: this.name,
@@ -395,7 +387,7 @@ export default {
                         city: this.city,
                         region: this.region,
                         postalOffice: this.postalOffice,
-                        paymentMethods: this.paymentMethods,
+                        paymentMethod: paymentMethod,
                         products: this.products,
                         user_id: this.user_id
                     };
@@ -403,13 +395,17 @@ export default {
 
                     if (data) {
                         let message = data.data.message
+
                         this.$notify({
                             type: 'success',
                             title: 'Успех!',
                             text: message
                         });
+                        this.clearValidation();
 
-                        this.clearValidation()
+                        if(data.data.redirect) {
+                            window.open(data.data.redirect);
+                        }
                     }
                 }
                 this.$loading(false)
@@ -477,6 +473,8 @@ export default {
         this.getRegionsAndCities();
         this.getPaymentMethods();
         this.getProfile()
+
+        console.log("Ахмад сила");
     }
 }
 </script>

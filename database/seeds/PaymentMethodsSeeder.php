@@ -9,7 +9,14 @@ class PaymentMethodsSeeder extends Seeder
 
 
     public $methods = [
-        'При получении'
+        [
+            'name' => 'Оплата при получении',
+            'type' => 'upon_receipt'
+        ],
+        [
+            'name' => 'Оплата картой',
+            'type' => 'card'
+        ]
     ];
 
     /**
@@ -23,7 +30,8 @@ class PaymentMethodsSeeder extends Seeder
 
         foreach ($this->methods as $method) {
             $PaymentMethod = new PaymentMethod();
-            $PaymentMethod->name = $method;
+            $PaymentMethod->name = $method['name'];
+            $PaymentMethod->type = $method['type'];
 
             $PaymentMethod->save();
         }

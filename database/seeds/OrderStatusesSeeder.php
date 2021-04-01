@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class OrderTypesSeeder extends Seeder
+class OrderStatusesSeeder extends Seeder
 {
     protected $names = [
         'active',
