@@ -56,7 +56,8 @@ class Product extends Model
 
     public function productCategory()
     {
-        return $this->hasOne(CategoryProducts::class, 'product_id', 'id');    }
+        return $this->hasOne(CategoryProducts::class, 'product_id', 'id');
+    }
 
     public function accessories()
     {

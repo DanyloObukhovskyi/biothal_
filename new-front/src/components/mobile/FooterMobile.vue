@@ -23,7 +23,7 @@
             </div>
             <div style="display: flex; column-gap: 10px">
                 <a href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
-                <a target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-twitter</v-icon></a>
+                <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-youtube</v-icon></a>
                 <a href="https://www.instagram.com/biothal.cosmetics" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
             </div>
         </div>

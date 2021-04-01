@@ -63,12 +63,13 @@
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item class="list-item"
-                                 target="_blank">
+                                 target="_blank"
+                                 href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q">
                         <v-list-item-icon>
-                            <v-icon color="#000">mdi-twitter</v-icon>
+                            <v-icon color="#000">mdi-youtube</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
-                            Twitter
+                            YouTube
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"

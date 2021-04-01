@@ -16,6 +16,11 @@ class CategoryProducts extends Model
         return $this->hasOne(Categories::class,'id','parent_id');
     }
 
+    public function categoryName()
+    {
+        return $this->hasOne(Categories::class,'id','category_id');
+    }
+
 //    public function products()
 //    {
 //        return $this->belongsToMany(Product::class,'category_products','category_id','product_id');

@@ -5,7 +5,7 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <products-paginate url="home/sales-products" title="Подарки и скидки" :isShowStock="true"/>
+        <products-paginate v-if="productsData.data.length" url="home/sales-products" title="Подарки и скидки" :isShowStock="true"/>
         <div class="category-card__wrapper">
             <div class="category-card__inner">
                 <CategoryCard class="category-card__block" :face="true"/>
@@ -125,8 +125,12 @@
                 carousel: [],
                 isShowDescription: false,
                 bestSellerPage: 1,
-                bestSellersData: null,
-                productsData: [],
+                bestSellersData: {
+                    data: {}
+                },
+                productsData: {
+                    data: {}
+                },
                 productsPage: 1
             }
         },
