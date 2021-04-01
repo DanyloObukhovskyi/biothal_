@@ -57,6 +57,12 @@ class ProductController extends Controller
 
         $productDescription = html_entity_decode($productDetails['productDescription']['description']);
 
+        if(!empty($productDetails['productApts'])){
+            foreach($productDetails['productApts'] as $key => $productApt){
+                $productDetails['productApts'][$key]['tab_desc'] = html_entity_decode($productApt['tab_desc']);
+            }
+        }
+
         return response()->json([
             'id' => $id,
             'productDetails' => $productDetails,
