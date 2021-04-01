@@ -38,11 +38,11 @@
                     if(data){
                         for (const [key, value] of Object.entries(data.data.categories)) {
                             if(this.face){
-                                if(value.id === 90){
+                                if(value.id === 33){
                                     this.slug = value.slug
                                 }
                             } else {
-                                if(value.id === 91){
+                                if(value.id === 61){
                                     this.slug = value.slug
                                 }
                             }
