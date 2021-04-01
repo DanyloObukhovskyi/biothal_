@@ -375,7 +375,6 @@ export default {
             this.$loading(true)
 
             try {
-                this.$loading(true)
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
 
@@ -405,14 +404,14 @@ export default {
 
                         if(data.data.redirect) {
                             window.open(data.data.redirect);
+                        } else {
+                           this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                         }
-
-                        //this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                     }
                 }
-                this.$loading(false)
+                this.$loading(false);
             } catch (e) {
-                this.$loading(false)
+                this.$loading(false);
                 this.errorMessagesValidation(e);
             }
         },

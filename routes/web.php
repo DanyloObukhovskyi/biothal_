@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::any('portmone/success/{order_id}', 'PortmoneController@success')->name('portmone.success');
+Route::any('portmone/canceled/{order_id}', 'PortmoneController@cancel')->name('portmone.cancel');
+
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
@@ -29,8 +32,7 @@ Route::get('stripe', 'StripePaymentController@stripe')->middleware('test');
 Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post')->middleware('test');
 
 Route::get('portmone', 'PortmoneController@index');
-Route::get('success', 'PortmoneController@success')->name('success');
-Route::get('canceled', 'PortmoneController@canceled')->name('canceled');
+
 
 Route::get('face', 'FaceController@getAllCategory');
 Route::post('buyCartHome', 'CartController@insInCartHome');

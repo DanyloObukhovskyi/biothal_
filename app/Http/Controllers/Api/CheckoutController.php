@@ -115,7 +115,9 @@ class CheckoutController extends Controller
             $orderProducts[] = $orderProduct;
         }
 
-        if (PaymentMethod::CARD_METHOD === $paymentMethod->type) {
+        $orderType = OrderType::find($request->get('paymentMethod'));
+
+        if (isset($orderType) and OrderType::CARD_METHOD === $orderType->type) {
             $amount = 0;
 
             foreach ($orderProducts as $orderProduct) {

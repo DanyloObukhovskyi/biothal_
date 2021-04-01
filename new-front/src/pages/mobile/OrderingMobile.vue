@@ -318,7 +318,12 @@ import {mapActions, mapGetters} from "vuex";
                             });
 
                             this.clearValidation()
-                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+
+                            if(data.data.redirect) {
+                                window.open(data.data.redirect);
+                            } else {
+                                this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                            }
                         }
                     }
                     this.$loading(false)

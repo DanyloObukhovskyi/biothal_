@@ -10,6 +10,8 @@ class OrderType extends Model
 
     protected $guarded = [];
 
+    public const CARD_METHOD = 'card';
+
     public function shopping_cart()
     {
         return $this->hasMany(ShoppingCart::class,'id');

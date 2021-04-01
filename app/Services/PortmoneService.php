@@ -24,11 +24,11 @@ class PortmoneService
                 'shop_order_number' => $payment->id,
                 'bill_amount' => $payment->amount,
                 'description' => env('PORTMONE_DESCRIPTION'),
-                'success_url' => '',
-                'failure_url' => '',
+                'success_url' => route('portmone.success', ['order_id' => $order->id]),
+                'failure_url' => route('portmone.cancel', ['order_id' => $order->id]),
                 'lang' => 'ru',
                 'encoding' => 'UTF-8',
-                'exp_time' => '400'
+                'exp_time' => env('PORTMONE_WAITING_TIME_FOR_PAYMENT') * 60
             ]);
 
         return $url;
