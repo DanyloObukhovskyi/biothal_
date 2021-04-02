@@ -23,8 +23,10 @@
 <!--            </div>-->
 
             <div class="product-info__title">
-                <span>{{ description['name'] || '' }}</span>
-                <span>{{ productData['product_description']['short_description'] }}</span>
+                {{ description['name'] || '' }}
+            </div>
+            <div class="product-info__title">
+                {{ productData['upc'] || '' }}
             </div>
 
             <div class="product-info__price">
@@ -254,7 +256,7 @@
 
         &__title {
             margin: 10px 0;
-            font-weight: 500;
+            font-weight: 700;
             font-size: 15px;
             line-height: 20px;
             text-align: center;
