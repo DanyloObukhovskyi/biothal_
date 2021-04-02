@@ -15,9 +15,6 @@
         <v-snackbar
             v-model="showMessage"
             v-bind="snackbar">
-            <v-icon color="white" size="25">
-                check_circle_outline
-            </v-icon>
             Товар добавлен в корзину
         </v-snackbar>
     </div>

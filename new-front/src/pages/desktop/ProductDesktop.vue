@@ -31,6 +31,7 @@
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
+
                     <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
                     <div class="info-count">
@@ -110,6 +111,11 @@
         </div>
 
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
+        <v-snackbar
+            v-model="showMessage"
+            v-bind="snackbar">
+            Товар добавлен в корзину
+        </v-snackbar>
     </div>
 </template>
 
@@ -183,7 +189,15 @@
                         title: ''
                     }
                 },
-                productDescription: ''
+                productDescription: '',
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                }
             }
         },
         methods: {
@@ -191,6 +205,8 @@
                addProduct: 'ADD_PRODUCT'
             }),
             addToCart() {
+                this.showMessage = true;
+
                 const product = this.productData;
                 product.quantity = this.count_good;
 

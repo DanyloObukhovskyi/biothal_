@@ -35,7 +35,7 @@
             </div>
 
             <div class="product-info__pay">
-                <v-btn class="product-info__pay__button" height="54" dark color="#2F7484" elevation="0">
+                <v-btn @click="showMessage = true" class="product-info__pay__button" height="54" dark color="#2F7484" elevation="0">
                     Добавить в корзину
                 </v-btn>
             </div>
@@ -87,7 +87,11 @@
         </v-system-bar>
 
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
-
+        <v-snackbar
+            v-model="showMessage"
+            v-bind="snackbar">
+            Товар добавлен в корзину
+        </v-snackbar>
     </div>
 </template>
 
@@ -166,7 +170,15 @@
                     main_category: {},
                     sub_category: {}
                 },
-                productDescription: ''
+                productDescription: '',
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                }
             }
         },
         methods: {
