@@ -26,7 +26,7 @@
                                            class="main-linear"
                                            height="12"/>
                     </div>
-                    <div class="page-form__middle">
+                    <div class="page-form__middle" v-if="products.length > 0">
                         <div class="page-form__middle__product-set">
                             <ProductCardsSet type-set="basket"
                                              :is-show-title="false"

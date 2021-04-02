@@ -20,6 +20,9 @@ const mutations = {
     DELETE_PRODUCT(state, productId) {
         state.products = state.products.filter(p => p.id !== productId)
     },
+    CLEAR_ALL_CART(state){
+        state.products = []
+    },
     INCREMENT_PRODUCT_QUANTITY(state, productId) {
         state.products = state.products.map(p => {
             if (p.id === productId) {
@@ -56,6 +59,9 @@ const actions = {
     },
     SET_GLOBAL_SALES(context, globalSales) {
         context.commit('SET_GLOBAL_SALES', globalSales);
+    },
+    CLEAR_ALL_CART(context){
+        context.commit('CLEAR_ALL_CART');
     }
 }
 

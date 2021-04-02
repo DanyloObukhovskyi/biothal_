@@ -156,14 +156,6 @@
                                 {{ productsSum }} грн.
                             </div>
                         </div>
-                        <div class="total">
-                            <div class="total__left">
-                                Стоимость доставки:
-                            </div>
-                            <div class="total__right">
-                                {{ deliveryPrice }} грн.
-                            </div>
-                        </div>
                         <div class="total" v-if="currentGlobalSales !== null">
                             <div class="total__left">
                                 Скидка:
@@ -177,7 +169,7 @@
                                 Итого к оплате:
                             </div>
                             <div class="total__right" style="font-weight: 700">
-                                {{ (productsSumWithSales + deliveryPrice).toFixed(2) }} грн.
+                                {{ (productsSumWithSales).toFixed(2) }} грн.
                             </div>
                         </div>
                     </div>
@@ -313,8 +305,12 @@ export default {
     },
     methods: {
         ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT'
+            deleteProduct: 'DELETE_PRODUCT',
+            clearCart: 'CLEAR_ALL_CART'
         }),
+        clearCartProducts() {
+            this.clearCart()
+        },
         getRecommendedProduct() {
             this.axios.post('products/recommended')
                 .then(({data}) => {
@@ -407,6 +403,7 @@ export default {
                         } else {
                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                         }
+                        this.clearCartProducts()
                     }
                 }
                 this.$loading(false);
@@ -474,8 +471,6 @@ export default {
         this.getRegionsAndCities();
         this.getPaymentMethods();
         this.getProfile()
-
-        console.log("Ахмад сила");
     }
 }
 </script>

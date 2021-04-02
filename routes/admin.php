@@ -141,7 +141,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::put('clear/sales', 'SalesController@clearSales')
                 ->name('admin.product.clear.sales');
 
+            Route::post('/addSale', 'NewProductsController@addSale')
+                ->name('admin.product.add.sale');
 
+            Route::post('/editSale', 'NewProductsController@editSale')
+                ->name('admin.product.edit.sale');
+
+            Route::post('/deleteSale', 'NewProductsController@deleteSale')
+                ->name('admin.product.delete.sale');
+
+            Route::get('/discountList', 'NewProductsController@discountList')
+                ->name('admin.products.sales');
             // Добавление
             Route::group(['prefix' => 'add'], function () {
                 Route::post('/', 'ProductsController@addProduct')

@@ -29,7 +29,7 @@ use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DataTables;
 
 class NewProductsController extends Controller
 {
@@ -391,5 +391,141 @@ class NewProductsController extends Controller
 
         }
         return response()->json(['success' => 1]);
+    }
+
+    public function discountList(Request $request)
+    {
+        $sales = Sale::all();
+        if (empty($sales)) {
+            return view('admin.products.sales', ['sales']);
+        }
+
+        if ($request->ajax()) {
+            foreach ($sales as $key => $val){
+                $sales[$key]['number'] = $key+1;
+            }
+            return Datatables::of($sales)
+                ->editColumn('title', function ($row) {
+                    return $row->title;
+                })
+                ->editColumn('first_date', function ($row) {
+                    return date('d.m.Y' , strtotime($row->first_date));
+                })
+                ->editColumn('last_date', function ($row) {
+                    return date('d.m.Y' , strtotime($row->last_date));
+                })
+                ->editColumn('percent', function ($row) {
+                    return $row->percent;
+                })
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<button type="button" data-toggle="modal" id="' . ("sales_change" . $row->id) .'" data-target="#change_sales" data-id="' . $row->id . '" data-title="' . $row->title . '"  data-start_date="' . date('Y-m-d', strtotime($row->first_date)) . '" data-end_date="' .  date('Y-m-d', strtotime($row->last_date)) . '" data-percent="' . $row->percent . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $sales = Sale::all();
+
+        return view('admin.products.sales', ['sales' => $sales]);
+    }
+
+    public function addSale(Request $request)
+    {
+        $sale = Sale::create([
+            'title' => $request->title,
+            'first_date' => $request->first_date,
+            'last_date' => $request->last_date,
+            'percent' => $request->percent
+        ]);
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно добавили скидку'
+        ]);
+    }
+
+    public function editSale(Request $request)
+    {
+        $sale = Sale::find($request->id);
+
+        if(empty($sale)){
+            return response()->json([
+                'success' => 1,
+                'message' => 'Скидка не найдена'
+            ], 404);
+        }
+        $sale->title = $request->title;
+        $sale->first_date = $request->first_date;
+        $sale->last_date = $request->last_date;
+        $sale->percent = $request->percent;
+        $sale->save();
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно изменили скидку'
+        ]);
+    }
+
+    public function deleteSale(Request $request)
+    {
+        // Получаем статус 0 - проверка(если все хорошо, тогда удаение), 1 - удаление
+        $status = $request->status;
+
+        // Если статус равен 0
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                // Если родительских категорий нет, то просто удаляем
+                foreach ($request->checked as $catId) {
+                    $sale = Sale::where('id', (int)$catId)->first();
+                    $sale->delete();
+                }
+                return response()->json([
+                    'accepted' => 'Скидки успешно удалены'
+                ]);
+            }
+
+            // Если ничего не выбрано, отправляем уведомление
+            return response()->json([
+                'error' => "Выберите хотя бы 1 скидку"
+            ]);
+        }
+
+        // Если статус равен 1
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
+                foreach ($request->checked as $catId) {
+                    $sale = Sale::where('id', (int)$catId)->first();
+
+                    // Если категория родительская, удаляем все дочерние
+                    if ($sale != null) {
+
+                        $sale->delete();
+                    }
+                }
+
+                // Если категорий не осталось, возвращаем false и перезагружаем страницу
+                if (count(Sale::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                // Если все прошло успешно, возвращаем наобходимые данные
+                return response()->json([
+                    'accepted' => 'Скидки успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                // Если ничего не выбрано, отправляем уведомление
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 скидку"
+                ]);
+            }
+        }
     }
 }
