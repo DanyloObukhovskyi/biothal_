@@ -72,7 +72,7 @@
                             YouTube
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item class="list-item" href="https://www.instagram.com/biothal.cosmetics"
+                    <v-list-item class="list-item" href="https://www.instagram.com/biothal.ua/"
                                  target="_blank">
                         <v-list-item-icon>
                             <v-icon color="#000">mdi-instagram</v-icon>
