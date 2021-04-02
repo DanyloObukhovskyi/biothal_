@@ -31,7 +31,6 @@
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
-                    <div class="info-description"  v-html="productDescription"></div>
                     <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
                     <div class="info-count">
@@ -77,7 +76,10 @@
                     centered
                     v-model="tab">
                     <v-tabs-slider color="#000"></v-tabs-slider>
-
+                    <v-tab
+                        :href="`#tab-description`">
+                        Описание
+                    </v-tab>
                     <v-tab
                         :href="`#tab-${idx}`"
                         v-for="(item, idx) in this.items"
@@ -87,6 +89,11 @@
                 </v-tabs>
 
                 <v-tabs-items style="margin-top: 30px" v-model="tab">
+                    <v-tab-item
+                        :value="'tab-description'">
+                        <v-card class="description-content" flat v-html="productDescription">
+                        </v-card>
+                    </v-tab-item>
                     <v-tab-item
                         v-for="(item, idx) in this.items"
                         :key="idx"
@@ -463,10 +470,10 @@
         }
     }
 
-    .description-content {
-        justify-content: center;
-        display: flex;
-    }
+    /*.description-content {*/
+    /*    justify-content: center;*/
+    /*    display: flex;*/
+    /*}*/
 
     .breadcrumb {
         cursor: pointer;

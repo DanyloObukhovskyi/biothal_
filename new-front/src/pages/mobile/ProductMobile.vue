@@ -50,6 +50,12 @@
                     <v-tab
                         active-class="product-info__tabs__active"
                         class="product-info__tabs__default"
+                        :href="`#tab-description`">
+                        Описание
+                    </v-tab>
+                    <v-tab
+                        active-class="product-info__tabs__active"
+                        class="product-info__tabs__default"
                         :href="`#tab-${idx}`"
                         v-for="(item, idx) in items"
                         :key="idx"
@@ -57,6 +63,11 @@
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
+                    <v-tab-item
+                        :value="'tab-description'">
+                        <v-card flat class="tab-text" v-html="productDescription">
+                        </v-card>
+                    </v-tab-item>
                     <v-tab-item
                         v-for="(item, idx) in items"
                         :key="idx"
