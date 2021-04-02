@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
-
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -33,13 +33,16 @@ class LoginController extends Controller
     {
         $credentials = $request->except(['_token']);
         auth('web')->attempt($credentials, true);
-
-        if (auth('web')->user()->isAdmin()){
-            return redirect()->route('admin.dashboard');
-        } else {
-            auth('web')->logout();
-            return redirect()->back();
+        if(!empty(auth('web')->user())){
+            if (auth('web')->user()->isAdmin()){
+                return redirect()->route('admin.dashboard');
+            } else {
+                auth('web')->logout();
+                return redirect()->back();
+            }
         }
+        auth('web')->logout();
+        return Redirect::back()->withErrors('msg', 'Данные не верные');
     }
 
     public function logout()
