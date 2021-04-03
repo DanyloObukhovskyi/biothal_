@@ -57,6 +57,12 @@ Route::group(['namespace' => 'Api'], function () {
 
         Route::post('/create/order', 'CheckoutController@createOrder')
             ->name('create.order.get');
+
+        Route::post('/create/orderQuick', 'CheckoutController@createQuickOrder')
+            ->name('create.order.quick');
+
+        Route::post('/create/orderQuickFromProduct', 'CheckoutController@createQuickOrderFromProduct')
+            ->name('create.order.quickFromProduct');
     });
 });
 

@@ -135,9 +135,9 @@
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-<!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
-<!--                            Оформить в 1 клик-->
-<!--                        </div>-->
+                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
+                            Оформить в 1 клик
+                        </div>
                     </div>
                 </div>
                 <div class="ordering__middle__right">
@@ -180,7 +180,7 @@
             <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 6)"/>
         </div>
 
-        <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
+        <PlaceOrderOneClick ref="PlaceOrderOneClick" :name="name" :number="number" :user_id="user_id"/>
     </div>
 </template>
 

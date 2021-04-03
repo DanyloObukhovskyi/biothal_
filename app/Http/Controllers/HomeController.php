@@ -162,4 +162,9 @@ class HomeController extends Controller
             'categories' => $categories,
         ], 200);
     }
+
+    public function web()
+    {
+        return false;
+    }
 }

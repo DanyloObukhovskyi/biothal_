@@ -65,7 +65,7 @@
                     <a href="#">
                         <i class="fas fa-tags"></i>
                         <span>Каталог</span>
-                        <span class="badge badge-pill badge-danger">3</span>
+                        <span class="badge badge-pill badge-danger">5</span>
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
@@ -85,6 +85,18 @@
                                 <a href="{{route('admin.products.sales')}}">
                                     <i class="fas fa-angle-double-right"></i>
                                     <span>Скидки %</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.products.salesGlobal')}}">
+                                <a href="{{route('admin.products.salesGlobal')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Глобальные скидки %</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.products.salesGroup')}}">
+                                <a href="{{route('admin.products.salesGroup')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Групповые скидки %</span>
                                 </a>
                             </li>
                             <li class="{{@checkIsActive('admin.products.information')}}">

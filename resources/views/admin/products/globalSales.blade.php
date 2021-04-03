@@ -17,7 +17,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="example_modal_label">Добавить скидку</h5>
+                    <h5 class="modal-title" id="example_modal_label">Добавить глобальную скидку</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -25,37 +25,23 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Название скидки</span>
+                                <span class="input-group-text">Введите
+                                сумму</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Название скидки" id="title_add"
-                               aria-label="Category name" aria-describedby="basic-addon1" name="title_add"
-                               autocomplete="off">
+                        <input type="number" min="1" class="form-control"
+                               style="font-weight: bold; background: #F7F7F7;" id="sum_add">
                     </div>
-
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="start_date_add">Дата начала скидки</label>
+                                <span class="input-group-text">Введите
+                                процент</span>
                         </div>
-                        <input type="date" class="form-control" placeholder="Введите дату начала скидки" id="start_date_add" name="start_date_add">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="end_date_add">Дата окончания скидки</label>
-                        </div>
-                        <input type="date" class="form-control" placeholder="Введите дату начала скидки" id="end_date_add" name="end_date_add">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="procent_add">Процент скидки</label>
-                        </div>
-                        <input type="number" class="form-control" placeholder="Введите процент скидки" min="1"
-                               max="9999" id="procent_add" name="procent_add">
+                        <input type="number" min="1" max="100" class="form-control"
+                               style="font-weight: bold; background: #F7F7F7;" id="procent_add">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="add_sale" class="btn btn-primary">Добавить</button>
+                    <button type="button" id="add_sale" class="btn btn-primary">Добавить глобальную скидку</button>
                 </div>
             </div>
         </div>
@@ -66,7 +52,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="example_modal_label">Изменить скидку</h5>
+                    <h5 class="modal-title" id="example_modal_label">Изменить глобальную скидку</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,36 +60,22 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Название скидки</span>
+                                <span class="input-group-text">Введите
+                                сумму</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Название скидки" id="title_edit"
-                               aria-label="Category name" aria-describedby="basic-addon1" name="title_edit"
-                               autocomplete="off">
+                        <input type="number" min="1" class="form-control"
+                               style="font-weight: bold; background: #F7F7F7;" id="sum_edit">
                     </div>
-
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="start_date_edit">Дата начала скидки</label>
+                                <span class="input-group-text">Введите
+                                процент</span>
                         </div>
-                        <input type="date" class="form-control" placeholder="Введите дату начала скидки" id="start_date_edit" name="start_date_edit">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="end_date_edit">Дата окончания скидки</label>
-                        </div>
-                        <input type="date" class="form-control" placeholder="Введите дату начала скидки" id="end_date_edit" name="end_date_edit">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="procent_edit">Процент скидки</label>
-                        </div>
-                        <input type="number" class="form-control" placeholder="Введите процент скидки" min="1"
-                               max="9999" id="procent_edit" name="procent_edit">
+                        <input type="number" min="1" max="100" class="form-control"
+                               style="font-weight: bold; background: #F7F7F7;" id="procent_edit">
                     </div>
                 </div>
-                <input type="hidden" name="category_hidden_id" id="sale_hidden_id" value="">
+                <input type="hidden" name="sale_hidden_id" id="sale_hidden_id" value="">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="b_change_sale">Изменить</button>
                 </div>
@@ -115,7 +87,7 @@
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
                 <div class="row">
-                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Скидки</div>
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Глобальные Скидки</div>
                     <div class="pull-right col-sm-6">
                         <a href="javascript" data-target="#add_sales" data-toggle="modal" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                         <button id="delete_sale" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
@@ -125,7 +97,7 @@
                     <div class="breadcrumb col-sm-12 pull-left" style="background: none">
                         <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
                         <div style="margin-right: 5px">/ </div>
-                        <div><a href=""> Скидки</a></div>
+                        <div><a href=""> Глобальные Скидки</a></div>
                     </div>
                 </div>
             </div>
@@ -138,16 +110,14 @@
             <div class="panel-body">
                 <div class="well">
                     @if($sales == null)
-                        <p>Скидки отсутствуют ¯\_(ツ)_/¯</p>
+                        <p>Глобальные скидки отсутствуют ¯\_(ツ)_/¯</p>
                     @else
                         <div class="container-fluid m-2">
                             <table class="table table-bordered table-hover" id="sales_table" style="width:100%">
                                 <thead class="text-center">
                                 <tr>
                                     <th scope="col">id</th>
-                                    <th scope="col">Название скидки</th>
-                                    <th scope="col">Дата начала скидки</th>
-                                    <th scope="col">Дата окончания скидки</th>
+                                    <th scope="col">Сумма</th>
                                     <th scope="col">Процент скидки %</th>
                                     <th scope="col">Редактировать</th>
                                 </tr>
@@ -174,14 +144,11 @@
             var table = $('#sales_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "/admin/products/discountList",
+                ajax: "/admin/products/discountGlobalList",
                 columns: [
                     {"data": "number", "name": "id"},
-                    {"data": "title", "name": "title"},
-                    {"data": "first_date", "name": "first_date"},
-                    {"data": "last_date", "name": "last_date"},
-                    {"data": "percent", "name": "percent"},
-                    // {"data": "is_demand", "name": "is_demand"},
+                    {"data": "sum_modal", "name": "sum_modal"},
+                    {"data": "procent_modal", "name": "procent_modal"},
                     {"data": 'action', "orderable": false, "searchable": false},
                 ],
                 select: {
@@ -191,20 +158,16 @@
             });
 
             $(document).on("click", "#b_change_sale", function () {
-                let title = $('#title_edit').val();
-                let start_date = $('#start_date_edit').val();
-                let end_date = $('#end_date_edit').val();
-                let procent = $('#procent_edit').val();
+                let sum = $('#sum_edit').val();
+                let percent = $('#procent_edit').val();
                 let id = $("#sale_hidden_id").val();
 
                 $.ajax({
-                    url: '/admin/products/editSale',
+                    url: '/admin/products/editGlobalSale',
                     method: 'POST',
                     data: {
-                        "title": title,
-                        "first_date": start_date,
-                        "last_date": end_date,
-                        "percent": procent,
+                        "sum": sum,
+                        "percent": percent,
                         "id": id
                     },
                     error: function (xhr, status, error) {
@@ -240,20 +203,15 @@
 
             // Добавление скидок
             $(document).on("click", '#add_sale', function () {
-                let title = $('#title_add').val();
-                let start_date = $('#start_date_add').val();
-                let end_date = $('#end_date_add').val();
-                let procent = $('#procent_add').val();
-
+                let sum = $('#sum_add').val();
+                let percent = $('#procent_add').val();
 
                 $.ajax({
-                    url: '/admin/products/addSale',
+                    url: '/admin/products/addGlobalSale',
                     method: 'POST',
                     data: {
-                        "title": title,
-                        "first_date": start_date,
-                        "last_date": end_date,
-                        "percent": procent
+                        "sum": sum,
+                        "percent": percent
                     },
                     error: function (xhr, status, error) {
                         var errors = xhr.responseJSON.errors, errorMessage = "";
@@ -280,7 +238,7 @@
                                 timer: 1500
                             });
                         } else {
-                            window.location.replace("/admin/products/sales");
+                            window.location.replace("/admin/products/salesGlobal");
                         }
                     }
                 });
@@ -288,15 +246,11 @@
 
             $(document).on("click", "[id^=sales_change]", function () {
                 let id = $(this).data('id');
-                let title = $(this).data('title');
-                let start_date = $(this).data('start_date');
-                let end_date = $(this).data('end_date');
+                let sum = $(this).data('sum');
                 let percent = $(this).data('percent');
 
-                $("#title_edit").val(title); // Title
-                $("#sale_hidden_id").val(id);     // Id
-                $("#start_date_edit").val(start_date);
-                $("#end_date_edit").val(end_date);
+                $("#sum_edit").val(sum); // Title
+                $("#sale_hidden_id").val(id);
                 $("#procent_edit").val(percent);
             })
 
@@ -309,7 +263,7 @@
                     }
                 }
                 $.ajax({
-                    url: '/admin/products/deleteSale',
+                    url: '/admin/products/deleteGlobalSale',
                     method: 'POST',
                     data: {"checked": arr, "status": 0},
                     error: function (xhr, status, error) {
@@ -350,7 +304,7 @@
                                 // Если уверен, удаляем
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url: '/admin/products/deleteSale',
+                                        url: '/admin/products/deleteGlobalSale',
                                         method: 'POST',
                                         data: {"checked": arr, "status": 1},
                                         success: function (ret) {
@@ -373,7 +327,7 @@
                                                     })
                                                 }
                                             } else {
-                                                window.location.replace("/admin/products/sales");
+                                                window.location.replace("/admin/products/salesGlobal");
                                             }
                                         }
                                     })
@@ -381,7 +335,7 @@
                                 } else if (result.isDenied) {
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Скидки не удалены',
+                                        title: 'Глобальные скидки не удалены',
                                         timer: 1300,
                                         showConfirmButton: false,
                                     })
