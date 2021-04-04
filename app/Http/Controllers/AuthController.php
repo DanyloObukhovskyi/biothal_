@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $user = User::where([
-            'phone_number', $request->phone_number,
+            'phone_number' => $request->phone_number,
             'isVerified' => true
         ])->first();
 
