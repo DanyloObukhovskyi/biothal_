@@ -98,6 +98,7 @@ class CheckoutController extends Controller
 
         $order->save();
 
+        $total = 0;
         $orderProducts = [];
         foreach ($request->get('products') as $product) {
 
@@ -113,8 +114,17 @@ class CheckoutController extends Controller
             $orderProduct->save();
 
             $orderProducts[] = $orderProduct;
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $product['quantity'] : $product['price'] * $product['quantity'];
         }
-
+        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+            ->orderBy('procent_modal', 'desc')
+            ->first();
+        if (isset($globalSale)) {
+            $amountPercent = $total / 100 * $globalSale->procent_modal;
+            $total = $total - $amountPercent;
+        }
+        $order->total_sum = $total;
+        $order->save();
         $orderType = OrderType::find($request->get('paymentMethod'));
 
         if (isset($orderType) and OrderType::CARD_METHOD === $orderType->type) {
@@ -178,8 +188,10 @@ class CheckoutController extends Controller
         $order->user_order_id = $userOrderAddress->id;
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = 1;
+        $order->user_id = $request->get('user_id');
         $order->save();
 
+        $total = 0;
         foreach ($request->get('products') as $product) {
 
             $orderProduct = new OrderProduct();
@@ -192,7 +204,18 @@ class CheckoutController extends Controller
             $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
             $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
             $orderProduct->save();
+
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] *  $product['quantity']: $product['price'] * $product['quantity'];
         }
+        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+            ->orderBy('procent_modal', 'desc')
+            ->first();
+        if (isset($globalSale)) {
+            $amountPercent = $total / 100 * $globalSale->procent_modal;
+            $total = $total - $amountPercent;
+        }
+        $order->total_sum = $total;
+        $order->save();
 
         $orderType = OrderType::find(1);
 
@@ -216,9 +239,11 @@ class CheckoutController extends Controller
         $order->user_order_id = $userOrderAddress->id;
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = 1;
+        $order->user_id = $request->get('user_id');
         $order->save();
 
         $product = $request->get('product');
+        $total = 0;
 
         $orderProduct = new OrderProduct();
         $orderProduct->product_id = $product['id'];
@@ -230,6 +255,17 @@ class CheckoutController extends Controller
         $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
         $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
         $orderProduct->save();
+        $total += !empty($product['sale_id']) ? $product['price_with_sale'] : $product['price'];
+        $total = $total * $product['quantity'];
+        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+            ->orderBy('procent_modal', 'desc')
+            ->first();
+        if (isset($globalSale)) {
+            $amountPercent = $total / 100 * $globalSale->procent_modal;
+            $total = $total - $amountPercent;
+        }
+        $order->total_sum = $total;
+        $order->save();
 
         $orderType = OrderType::find(1);
 

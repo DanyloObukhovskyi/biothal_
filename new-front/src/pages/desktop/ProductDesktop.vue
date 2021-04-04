@@ -178,6 +178,7 @@
                 items: [],
                 is_discount: false,
                 phone: '',
+                user_id: '',
                 productData: {
                     image: {
                         name: ''
@@ -284,7 +285,8 @@
 
                         const form = {
                             phone: this.phone,
-                            product: product
+                            product: product,
+                            user_id: this.user_id
                         };
 
                         let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
@@ -331,6 +333,7 @@
                         if(data){
                             let user = data.data.user;
                             this.phone = user.phone_number;
+                            this.user_id = user.id;
                         }
                     }
                 } catch (e) {
