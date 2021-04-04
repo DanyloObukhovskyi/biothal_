@@ -90,13 +90,13 @@
                             <li class="{{@checkIsActive('admin.products.salesGlobal')}}">
                                 <a href="{{route('admin.products.salesGlobal')}}">
                                     <i class="fas fa-angle-double-right"></i>
-                                    <span>Глобальные скидки %</span>
+                                    <span>Глобальные скидки</span>
                                 </a>
                             </li>
                             <li class="{{@checkIsActive('admin.products.salesGroup')}}">
                                 <a href="{{route('admin.products.salesGroup')}}">
                                     <i class="fas fa-angle-double-right"></i>
-                                    <span>Групповые скидки %</span>
+                                    <span>Групповые скидки</span>
                                 </a>
                             </li>
                             <li class="{{@checkIsActive('admin.products.information')}}">

@@ -188,8 +188,9 @@
                             title: message,
                             text: 'Вы можете войти в свою учетную запись'
                         });
+                        let phone = this.user.phone_number
                         this.$refs.form.reset()
-                        this.toPage({name: 'authorization' })
+                        this.toPage({name: 'Verified' , params: { phone: phone}})
                     }
                 } else {
                     this.$loading(false)

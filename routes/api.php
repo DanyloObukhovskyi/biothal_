@@ -82,3 +82,5 @@ Route::post('addImage', 'ProfileController@addImage');
 Route::post('deleteImage', 'ProfileController@deleteImage');
 Route::post('addEmailForReceive', 'HomeController@addEmailForReceive');
 Route::get('getMainCategories', 'HomeController@getMainCategories');
+Route::get('getGroupSales', 'ProfileController@getGroupSales');
+Route::post('verifyUser', 'AuthController@verifyUser');

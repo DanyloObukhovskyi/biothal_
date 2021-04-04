@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\EmailForEmailNewsletter;
 use Laravel\Cashier\Billable;
 use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
+use App\Models\Order;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -77,5 +78,11 @@ class User extends Authenticatable implements JWTSubject
     public function image()
     {
         return $this->hasOne(Image::class,'id','image_id');
+    }
+
+    public function totalOrders()
+    {
+        return $this->hasMany(Order::class,'user_id','id');
+
     }
 }

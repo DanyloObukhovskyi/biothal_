@@ -119,6 +119,13 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'Verified',
+                name: 'Verified',
+                component: () => import('../pages/mobile/Verified'),
+                meta: {},
+                props: true
+            },
+            {
                 path: 'order-status/:id',
                 name: 'order-status',
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
