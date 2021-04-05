@@ -238,7 +238,7 @@
                         @endif
                     </form>
                     <div class="row" style="margin-left:10px">
-                        <div class="col-sm-6 text-left">{{ $images->links() }}</div>
+                        <div class="col-sm-6 text-left">{{ $images->appends(array('title_image' => !empty(request()->input('title_image')) ? request()->input('title_image') : ''))->links() }}</div>
                         <div style="padding-right: 25px;" class="col-sm-6 text-right">Показано с 1 по {{ $images->lastItem() }} из {{ $images->total() }} (страниц: {{ $images->lastPage() }})</div>
                     </div>
                 </div>
