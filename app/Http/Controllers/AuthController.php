@@ -6,17 +6,22 @@ use App\Http\Requests\User\Login as LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\PhoneVerify;
+use App\Http\Requests\User\Verify as VerifyRequest;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'verifyUser']]);
     }
 
     public function login(LoginRequest $request)
     {
-        $user = User::where('phone_number', $request->phone_number)->first();
+        $user = User::where([
+            'phone_number' => $request->phone_number,
+            'isVerified' => true
+        ])->first();
 
         if(!empty($user)){
             if(!$token = auth()->attempt([
@@ -74,5 +79,28 @@ class AuthController extends Controller
         return response()->json([
             'exist' => $exist
         ]);
+    }
+
+    public function verifyUser(VerifyRequest $request)
+    {
+        $verify = PhoneVerify::where([
+            'phone_number' => $request->phone_number,
+            'code' => $request->code,
+        ])->orderBy('created_at', 'DESC')->first();
+
+        if(!empty($verify)){
+            $user = User::where('phone_number' , $request->phone_number)->first();
+            $user->isVerified = true;
+            $user->save();
+
+            $verify->delete();
+            return response()->json([
+                'message' => 'Аккаунт успешно подтвержден',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Проверьте ваши учетные данные',
+            ], 413);
+        }
     }
 }

@@ -72,8 +72,8 @@
                                 </button>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" id="button-global-sales" data-toggle="modal" data-target="#modal_global_sale" class="btn btn-dark pull-right"><i
-                                        class="fa fa-percent"></i> Глобальная скидка
+                                <button type="button" id="button-global-sales" class="btn btn-dark pull-right"> <a style="color:white" href="{{route('admin.products.salesGlobal')}}"><i
+                                            class="fa fa-percent"></i> Глобальная скидка</a>
                                 </button>
                             </div>
                         </div>

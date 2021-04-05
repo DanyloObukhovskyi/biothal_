@@ -31,7 +31,6 @@
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
-
                     <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
                     <div class="info-count">
@@ -59,14 +58,18 @@
 <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
                         <div class="info-pay-control__buy-fast">
-                            <v-text-field
-                                class="info-pay-control__buy-fast__input"
-                                v-model="phone"
-                                flat
-                                rounded
-                                placeholder="+38(___) ___-__-__"
-                                v-mask="'+38(###) ###-##-##'"/>
-                            <span class="info-pay-control__text">Купить в 1 клик</span>
+                            <v-form ref="orderQuickForm">
+                                <v-text-field
+                                    class="info-pay-control__buy-fast__input"
+                                    v-model="phone"
+                                    :error-messages="errorValid.phone"
+                                    :rules="numberRules"
+                                    flat
+                                    rounded
+                                    placeholder="+38(___) ___-__-__"
+                                    v-mask="'+38(###) ###-##-##'"/>
+                            </v-form>
+                            <span class="info-pay-control__text" @click="checkout()">Купить в 1 клик</span>
                         </div>
                     </div>
                 </div>
@@ -145,6 +148,12 @@
             },
             route() {
                 return this.$route.params;
+            },
+            numberRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                ];
             }
         },
         watch: {
@@ -156,6 +165,7 @@
             }
         },
         created() {
+            this.getProfile();
             this.fetchProductDetails();
         },
         data() {
@@ -167,6 +177,7 @@
                 items: [],
                 is_discount: false,
                 phone: '',
+                user_id: '',
                 productData: {
                     image: {
                         name: ''
@@ -197,6 +208,9 @@
                     color: 'green',
                     timeout: 900,
                     multiLine: true
+                },
+                errorValid: {
+                    phone: ''
                 }
             }
         },
@@ -255,6 +269,103 @@
             async getSubImages() {
                 if(this.images[0]){
                     this.index = 0;
+                }
+            },
+            async checkout()
+            {
+                this.$loading(true);
+                try {
+                    this.clearValidation()
+                    let validate = await this.$refs['orderQuickForm'].validate();
+
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
+
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
+
+                        let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
+
+                        if (data) {
+                            let message = data.data.message
+
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            this.clearValidation();
+
+                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+
+                            this.clearCartProducts()
+                        }
+                    }
+                    this.$loading(false);
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
+
+            },
+            clearValidation() {
+                this.errorValid = {
+                    phone: ''
+                }
+            },
+            async getProfile(){
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let user = data.data.user;
+                            this.phone = user.phone_number;
+                            this.user_id = user.id;
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
                 }
             }
         },

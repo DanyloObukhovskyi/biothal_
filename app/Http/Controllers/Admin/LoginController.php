@@ -42,12 +42,12 @@ class LoginController extends Controller
             }
         }
         auth('web')->logout();
-        return Redirect::back()->withErrors('msg', 'Данные не верные');
+        return Redirect::back()->with('error', 'Данные не верные');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 }

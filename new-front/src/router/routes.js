@@ -119,11 +119,27 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'Verified',
+                name: 'Verified',
+                component: () => import('../pages/mobile/Verified'),
+                meta: {},
+                props: true
+            },
+            {
                 path: 'order-status/:id',
                 name: 'order-status',
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
                 meta: {},
                 props: true
+            },
+            {
+                path: 'payment',
+                name: 'payment',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/PaymentMobile') : import('../pages/desktop/PaymentDesktop')
+                },
+                props: true,
+                meta: {}
             }
         ]
     },

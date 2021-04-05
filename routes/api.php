@@ -57,6 +57,12 @@ Route::group(['namespace' => 'Api'], function () {
 
         Route::post('/create/order', 'CheckoutController@createOrder')
             ->name('create.order.get');
+
+        Route::post('/create/orderQuick', 'CheckoutController@createQuickOrder')
+            ->name('create.order.quick');
+
+        Route::post('/create/orderQuickFromProduct', 'CheckoutController@createQuickOrderFromProduct')
+            ->name('create.order.quickFromProduct');
     });
 });
 
@@ -76,3 +82,5 @@ Route::post('addImage', 'ProfileController@addImage');
 Route::post('deleteImage', 'ProfileController@deleteImage');
 Route::post('addEmailForReceive', 'HomeController@addEmailForReceive');
 Route::get('getMainCategories', 'HomeController@getMainCategories');
+Route::get('getGroupSales', 'ProfileController@getGroupSales');
+Route::post('verifyUser', 'AuthController@verifyUser');

@@ -9,7 +9,7 @@ Route::any('portmone/canceled/{order_id}', 'PortmoneController@cancel')->name('p
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@web');
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('company/about', 'HomeController@about');
 Route::get('company/sea', 'HomeController@sea');
@@ -51,7 +51,6 @@ Route::post('session_destroy', 'CartController@sessionDestroy');
 
 Route::get('getxml', 'XmlController@getXml');
 Route::get('xmlto1c', 'XmlController@xmlto1c');
-
 
 
 

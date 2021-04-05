@@ -8,7 +8,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\changePass as changePasswordRequest;
 use App\Http\Requests\User\Update as updateProfileRequest;
 use Illuminate\Support\Facades\Hash;
-use App\Models\{Categories, CategoryProducts, EmailForEmailNewsletter, Image, StockStatus, Admin\Products\Product};
+use App\Models\{Categories,
+    CategoryProducts,
+    EmailForEmailNewsletter,
+    GroupSale,
+    Image,
+    StockStatus,
+    Admin\Products\Product};
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\
 {
@@ -16,6 +22,7 @@ use App\Http\Requests\
     Images\Delete as ImageDeleteRequest
 };
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserGroup;
 
 class ProfileController extends Controller
 {
@@ -153,5 +160,74 @@ class ProfileController extends Controller
             'message' => 'Вы успешно удалили изображение',
             'profile' => $user
         ], 200);
+    }
+
+    public function getGroupSales()
+    {
+        $user = auth()->user();
+        $group = [];
+        $count = 1;
+        $totalSum = 0;
+        $percent = 0;
+        if(!empty($user)){
+            $mainUser = User::with('totalOrders')->find($user->id)->toArray();
+            $sum = 0;
+            if(!empty($mainUser['total_orders'])){
+                foreach($mainUser['total_orders'] as $order){
+                    $sum += $order['total_sum'];
+                    $totalSum += $order['total_sum'];
+                }
+            }
+            $group[] = [
+                'id' => $count,
+                'name' => !empty($mainUser['sur_name']) ? $mainUser['name'] .' '. $mainUser['sur_name'] : $mainUser['name'],
+                'sum' => $sum
+            ];
+            $count++;
+            $subUsers = UserGroup::where('user_id', $user->id)->with('attachedUser')->get()->toArray();
+            if(!empty($subUsers)){
+                foreach($subUsers as $subUser){
+                    $sum = 0;
+                    if(!empty($subUser['attached_user']['total_orders'])){
+                        foreach($subUser['attached_user']['total_orders'] as $order){
+                            $sum += $order['total_sum'];
+                            $totalSum += $order['total_sum'];
+                        }
+                    }
+                    $group[] = [
+                        'id' => $count,
+                        'name' => !empty($subUser['attached_user']['sur_name']) ? $subUser['attached_user']['name'] .' '. $subUser['attached_user']['sur_name'] : $subUser['attached_user']['name'],
+                        'sum' => $sum
+                    ];
+                    $count++;
+                }
+            }
+            $mainUsers  = UserGroup::where('attached_user_id', $user->id)->with('mainUser')->get()->toArray();
+            if(!empty($mainUsers)){
+                foreach($mainUsers as $mainUser){
+                    $sum = 0;
+                    if(!empty($mainUser['main_user']['total_orders'])){
+                        foreach($mainUser['main_user']['total_orders'] as $order){
+                            $sum += $order['total_sum'];
+                            $totalSum += $order['total_sum'];
+                        }
+                    }
+                    $group[] = [
+                        'id' => $count,
+                        'name' => !empty($mainUser['main_user']['sur_name']) ? $mainUser['main_user']['name'] .' '. $mainUser['main_user']['sur_name'] : $mainUser['main_user']['name'],
+                        'sum' => $sum
+                    ];
+                    $count++;
+                }
+            }
+            $groupPercent = GroupSale::where('sum', '<=', $totalSum)->orderBy('sum', 'DESC')->first();
+            $percent = $groupPercent->percent ?? 0;
+
+            return response()->json([
+                'group' => $group,
+                'total_sum' => $totalSum,
+                'percent' => $percent
+            ], 200);
+        }
     }
 }

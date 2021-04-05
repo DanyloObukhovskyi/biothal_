@@ -135,9 +135,9 @@
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-<!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
-<!--                            Оформить в 1 клик-->
-<!--                        </div>-->
+                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
+                            Оформить в 1 клик
+                        </div>
                     </div>
                 </div>
                 <div class="ordering__middle__right">
@@ -180,7 +180,7 @@
             <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 6)"/>
         </div>
 
-        <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
+        <PlaceOrderOneClick ref="PlaceOrderOneClick" :name="name" :number="number" :user_id="user_id"/>
     </div>
 </template>
 
@@ -227,7 +227,7 @@ export default {
                 postalOffice: '',
                 paymentMethod: ''
             },
-            profile:{
+            profile: {
                 number: '',
                 name: '',
                 surname: '',
@@ -298,7 +298,7 @@ export default {
             }
         },
         products: function (newProducts, old) {
-            if(newProducts.length === 0){
+            if (newProducts.length === 0) {
                 this.toPage({name: 'home'})
             }
         }
@@ -397,13 +397,13 @@ export default {
                             text: message
                         });
                         this.clearValidation();
-
-                        if(data.data.redirect) {
-                            window.open(data.data.redirect);
-                        } else {
-                           this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
-                        }
                         this.clearCartProducts()
+
+                        if (data.data.redirect) {
+                            this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
+                        } else {
+                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+                        }
                     }
                 }
                 this.$loading(false);
@@ -412,44 +412,40 @@ export default {
                 this.errorMessagesValidation(e);
             }
         },
-        async getProfile(){
+        async getProfile() {
             await this.checkUserIsValid()
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('profile', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('profile', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let user = data.data.user
                         this.number = user.phone_number,
-                        this.name = user.name,
-                        this.surname = user.sur_name,
-                        this.user_id = user.id
+                            this.name = user.name,
+                            this.surname = user.sur_name,
+                            this.user_id = user.id
                     }
                 }
             } catch (e) {
                 this.errorMessagesValidation(e);
             }
         },
-        async checkUserIsValid(){
+        async checkUserIsValid() {
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('checkUser', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('checkUser', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let exist = data.data.exist
-                        if(!exist){
+                        if (!exist) {
                             await this.$store.dispatch('LOGIN', null);
                             return false;
                         }
