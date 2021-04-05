@@ -141,6 +141,20 @@
                     <div style="margin-right: 5px">/ </div>
                     <div><a href=""> Галерея</a></div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="input-name">Название картинки</label>
+                        <input type="text" name="filter_name" value="@if(!empty(request()->input('title_image'))){{request()->input('title_image')}}@endif" placeholder="Название картинки"
+                               id="input-title-image" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{route('admin.images.page')}}" id="filter-href" style="color: #ffffff !important;">
+                        <button type="button" id="button-filter" class="btn btn-primary pull-right">
+                        <i class="fa fa-search"></i> Найти
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -340,6 +354,18 @@
     }
     $('#example_modal').on('hidden.bs.modal', function (e) {
         deleteCards()
+    })
+
+    $('#input-title-image').on('keyup', function (e) {
+        var text = $('#input-title-image').val();
+        var url = new URL($("#filter-href").attr("href"));
+        var searchParams = new URLSearchParams(url.search);
+        if(text != '') {
+            searchParams.set("title_image", text);
+        } else {
+            searchParams.delete("title_image");
+        }
+        $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
     })
 </script>
 @endsection
