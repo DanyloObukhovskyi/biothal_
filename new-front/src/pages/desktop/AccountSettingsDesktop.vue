@@ -84,7 +84,8 @@
                     image:{
                         name: ''
                     }
-                }
+                },
+                orderList: {}
             }
         },
         created(){
@@ -96,6 +97,7 @@
             async getProfile(){
                 await this.checkUserIsValid()
                 try {
+                    this.$loading(true)
                     const token = this.$store.getters.getToken;
                     if(token){
                         let data = await this.axios.post('profile', {
@@ -107,9 +109,13 @@
                         });
                         if(data){
                             this.profile = data.data.user
+                            this.orderList = data.data.orderList
+
                         }
                     }
+                    this.$loading(false)
                 } catch (e) {
+                    this.$loading(false)
                     this.errorMessagesValidation(e);
                 }
             },

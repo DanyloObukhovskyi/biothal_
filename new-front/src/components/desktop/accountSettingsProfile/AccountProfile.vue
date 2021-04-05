@@ -261,7 +261,6 @@
                 let profile = await this.$parent.profile
                 this.change_profile = profile
                 this.change_profile.is_receive = profile.email_receive.is_receive
-                //console.log(this.$parent.profile)
             },
             async changePassword(){
                 await this.$parent.checkUserIsValid();

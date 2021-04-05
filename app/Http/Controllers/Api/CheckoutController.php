@@ -95,6 +95,7 @@ class CheckoutController extends Controller
         $order->user_order_id = $userOrderAddress->id;
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = $request->get('paymentMethod');
+        $order->user_id = $request->get('user_id');
 
         $order->save();
 

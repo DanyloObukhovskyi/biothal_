@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\{Categories,
     CategoryProducts,
     EmailForEmailNewsletter,
-    GroupSale,
-    Image,
+   GroupSale, Image,
+    Order,
     StockStatus,
     Admin\Products\Product};
 use Illuminate\Support\Facades\Log;
@@ -38,8 +38,10 @@ class ProfileController extends Controller
             'emailReceive',
             'image'
         ])->find($userId);
+        $orderList = Order::with('orderType', 'userAddress', 'orderStatus')->where('user_id', $userId)->get();
 
         return response()->json([
+            'orderList' => $orderList,
             'user' => $user,
         ], 200);
     }
