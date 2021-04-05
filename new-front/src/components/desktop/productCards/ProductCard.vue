@@ -35,118 +35,107 @@
 
 <script>
 
-import {mapActions} from "vuex";
+    import {mapActions} from "vuex";
 
-export default {
-    name: "ProductCard",
-    metaInfo() {
-        return {
-            title: this.dataCard.product_description.meta_title,
-            meta: [
-                { vmid: 'description', name: 'description', content: this.dataCard.product_description.meta_description },
-                { vmid: 'keyword', name: 'keyword', content: this.dataCard.product_description.meta_keyword },
-                { vmid: 'h1', name: 'h1', content: this.dataCard.product_description.meta_h1 },
-                { vmid: 'tag', name: 'tag', content: this.dataCard.product_description.tag },
-            ]
-        }
-    },
-    props: {
-        dataCard: {
-            type: Object,
-            image: {
-                name: ''
-            },
-            product_description: {}
+    export default {
+        name: "ProductCard",
+        metaInfo() {
+            return {
+                title: this.dataCard.product_description.meta_title,
+                meta: [
+                    {
+                        vmid: 'description',
+                        name: 'description',
+                        content: this.dataCard.product_description.meta_description
+                    },
+                    {vmid: 'keyword', name: 'keyword', content: this.dataCard.product_description.meta_keyword},
+                    {vmid: 'h1', name: 'h1', content: this.dataCard.product_description.meta_h1},
+                    {vmid: 'tag', name: 'tag', content: this.dataCard.product_description.tag},
+                ]
+            }
         },
-        isShowStock: {
-            type: Boolean,
-            default: false
-        }
-    },
-    data() {
-        return {
-            isFavorites: false,
-            isFavoritesShow: false,
-            showMessage: false,
-            snackbar: {
-                top: true,
-                right: true,
-                color: 'green',
-                timeout: 900,
-                multiLine: true
+        props: {
+            dataCard: {
+                type: Object,
+                image: {
+                    name: ''
+                },
+                product_description: {}
+            },
+            isShowStock: {
+                type: Boolean,
+                default: false
+            }
+        },
+        data() {
+            return {
+                isFavorites: false,
+                isFavoritesShow: false,
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                }
+            }
+        },
+        methods: {
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT'
+            }),
+            addProductToCart() {
+                this.showMessage = true;
+
+                const product = this.dataCard;
+                product.quantity = (product.minimum !== 0) ? product.minimum : 1;
+
+                this.addProduct(product)
             }
         }
-    },
-    methods: {
-        ...mapActions('basket', {
-            addProduct: 'ADD_PRODUCT'
-        }),
-        addProductToCart() {
-            this.showMessage = true;
-
-            const product = this.dataCard;
-            product.quantity = (product.minimum !== 0) ? product.minimum : 1;
-
-            this.addProduct(product)
-        }
     }
-}
 </script>
 
 <style scoped lang="scss">
 
-.product {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 17px 30px 20px 17px;
-    row-gap: 10px;
-
-    &:hover {
-        box-shadow: 0 0 33px #f2f2f2;
-
-        & .product__button {
-            background-color: #000 !important;
-        }
-    }
-
-    &__sale {
-        vertical-align: middle;
-        color: #fff;
-        background-color: #000;
-        border-radius: 50%;
-        width: 72px;
-        height: 72px;
-        line-height:72px;
-        font-weight: 300;
-        font-size: 21px;
-        position: absolute;
-    }
-
-    &__heart {
-        text-align: right;
-        height: 16.5px;
-    }
-
-    &__image {
-        height: 17vw;
-        max-width: 100%;
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-    &__description {
+    .product {
+        text-align: center;
         display: flex;
         flex-direction: column;
+        padding: 17px 30px 20px 30px;
         row-gap: 10px;
+        width: 350px !important;
 
-        &__text {
-            height: 20px;
-            justify-content: center;
-            display: flex;
-            overflow: hidden;
-            font-weight: 700;
+        &:hover {
+            box-shadow: 0 0 33px #f2f2f2;
+
+            & .product__button {
+                background-color: #000 !important;
+            }
+        }
+
+        &__sale {
+            color: #fff;
+            background-color: #000;
+            border-radius: 50%;
+            width: 72px;
+            height: 72px;
+            line-height: 72px;
+            font-weight: 300;
+            font-size: 21px;
+            margin: 20px 0 0 20px;
+            position: absolute;
+        }
+
+        /*&__heart {*/
+        /*    text-align: right;*/
+        /*    height: 16.5px;*/
+        /*}*/
+
+        &__image {
+            width: 290px;
+
             &:hover {
                 cursor: pointer;
             }
@@ -156,27 +145,43 @@ export default {
             display: flex;
             flex-direction: column;
             row-gap: 10px;
+            text-transform: none;
 
             &__text {
-                height: 50px;
                 justify-content: center;
                 display: flex;
+                overflow: hidden;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 25px;
+                text-align: center;
+
                 &:hover {
                     cursor: pointer;
                 }
             }
 
             &__price {
+                font-style: normal;
                 font-weight: 800;
+                font-size: 18px;
+                line-height: 25px;
             }
         }
-    }
 
-    &__button {
-        border-radius: 50px;
-        width: 180px;
-        height: 48px;
-        background-color: #2F7484 !important;
+        &__button {
+            text-transform: none;
+            border-radius: 50px;
+            width: 180px;
+            height: 48px !important;
+            padding: 0 !important;
+            background-color: #2F7484 !important;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 22px;
+            margin: 10px;
+        }
     }
-}
 </style>

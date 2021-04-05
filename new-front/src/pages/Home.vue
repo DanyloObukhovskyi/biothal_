@@ -237,14 +237,15 @@
 
     .description-biothal {
         text-align: center;
-        padding: 20px 20px 20px 20px;
-        background-color: #F7F7F7;
+        padding: 50px 45px 50px 45px;
 
         &__text {
             width: 50%;
             font-weight: 200;
             font-size: 14px;
             text-align: left;
+            font-style: normal;
+            line-height: 19px;
 
             @media screen and (max-width: 600px) {
                 width: 100%;
@@ -255,6 +256,11 @@
             display: flex;
             flex-direction: row;
             width: 100%;
+            font-style: normal;
+            font-weight: 200;
+            font-size: 14px;
+            line-height: 19px;
+            margin-top: 50px;
 
             @media screen and (max-width: 600px) {
                 flex-direction: column;
