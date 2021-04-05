@@ -32,4 +32,5 @@ class Clear extends FormRequest
             'productsId.array' => 'Попытка изменить внутренние файлы, попробуйте перезагрузить страницу',
             'productsId.*.integer' => 'Id должен быть натуральным числом',
         ];
-    }}
+    }
+}

@@ -12,6 +12,21 @@ use App\Http\Requests\Products\Information\{
     Update as InformationUpdateRequest
 };
 
+use App\Http\Requests\Products\Sales\Discount\{
+    Create as DiscountCreateRequest,
+    Update as DiscountUpdateRequest
+};
+
+use App\Http\Requests\Products\Sales\DiscountGlobal\{
+    Create as DiscountGlobalCreateRequest,
+    Update as DiscountGlobalUpdateRequest
+};
+
+use App\Http\Requests\Products\Sales\DiscountGroup\{
+    Create as DiscountGroupCreateRequest,
+    Update as DiscountGroupUpdateRequest
+};
+
 use Illuminate\Support\Facades\Log;
 use App\Models\Admin\Products\{
     GlobalSales,
@@ -436,7 +451,7 @@ class NewProductsController extends Controller
         return view('admin.products.sales', ['sales' => $sales]);
     }
 
-    public function addSale(Request $request)
+    public function addSale(DiscountCreateRequest $request)
     {
         $sale = Sale::create([
             'title' => $request->title,
@@ -451,7 +466,7 @@ class NewProductsController extends Controller
         ]);
     }
 
-    public function editSale(Request $request)
+    public function editSale(DiscountUpdateRequest $request)
     {
         $sale = Sale::find($request->id);
 
@@ -566,7 +581,7 @@ class NewProductsController extends Controller
         return view('admin.products.globalSales', ['sales' => $sales]);
     }
 
-    public function addGlobalSale(Request $request)
+    public function addGlobalSale(DiscountGlobalCreateRequest $request)
     {
         $sale = GlobalSales::create([
             'sum_modal' => $request->sum,
@@ -579,7 +594,7 @@ class NewProductsController extends Controller
         ]);
     }
 
-    public function editGlobalSale(Request $request)
+    public function editGlobalSale(DiscountGlobalUpdateRequest $request)
     {
         $sale = GlobalSales::find($request->id);
 
@@ -692,7 +707,7 @@ class NewProductsController extends Controller
         return view('admin.products.groupSales', ['sales' => $sales]);
     }
 
-    public function addGroupSale(Request $request)
+    public function addGroupSale(DiscountGroupCreateRequest $request)
     {
         $sale = GroupSale::create([
             'sum' => $request->sum,
@@ -705,7 +720,7 @@ class NewProductsController extends Controller
         ]);
     }
 
-    public function editGroupSale(Request $request)
+    public function editGroupSale(DiscountGroupUpdateRequest $request)
     {
         $sale = GroupSale::find($request->id);
 
