@@ -62,7 +62,7 @@
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Введите область *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="regions"
                                     color="#2F7484"
                                     :loading="regionsLoading"
@@ -75,11 +75,11 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Введите город *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="cities"
                                     :loading="citiesLoading"
                                     v-model="city"
@@ -92,11 +92,11 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите отделение Новой Почты *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="postalOffices"
                                     :loading="postalOfficesLoading"
                                     v-model="postalOffice"
@@ -111,7 +111,7 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
