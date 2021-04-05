@@ -124,6 +124,15 @@ const routes = [
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
                 meta: {},
                 props: true
+            },
+            {
+                path: 'payment',
+                name: 'payment',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/PaymentMobile') : import('../pages/desktop/PaymentDesktop')
+                },
+                props: true,
+                meta: {}
             }
         ]
     },

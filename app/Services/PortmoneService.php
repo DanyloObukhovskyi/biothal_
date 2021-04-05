@@ -28,8 +28,10 @@ class PortmoneService
                 'failure_url' => route('portmone.cancel', ['order_id' => $order->id]),
                 'lang' => 'ru',
                 'encoding' => 'UTF-8',
-                'exp_time' => env('PORTMONE_WAITING_TIME_FOR_PAYMENT') * 60
+                'exp_time' => env('PORTMONE_WAITING_TIME_FOR_PAYMENT') * 60,
+                'type' => 'light'
             ]);
+
 
         return $url;
     }

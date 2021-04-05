@@ -76,7 +76,8 @@
                         :error-messages="errorValid.postalOffice"
                         :rules="postalOfficeRules"
                         color="#2F7484"
-                        :item-text="(c) => c.name"
+                        :item-text="c => c.name"
+                        :item-value="c => c"
                         name="name"
                         class="main-input-field"
                         flat
@@ -319,10 +320,10 @@ import {mapActions, mapGetters} from "vuex";
 
                             this.clearValidation()
 
-                            if(data.data.redirect) {
-                                window.open(data.data.redirect);
+                            if (data.data.redirect) {
+                                this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
                             } else {
-                                this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                                this.toPage({name: 'order-status', params: {id: data.data.order_id}});
                             }
                         }
                     }

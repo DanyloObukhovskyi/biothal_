@@ -135,9 +135,9 @@
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-<!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
-<!--                            Оформить в 1 клик-->
-<!--                        </div>-->
+                        <!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
+                        <!--                            Оформить в 1 клик-->
+                        <!--                        </div>-->
                     </div>
                 </div>
                 <div class="ordering__middle__right">
@@ -156,14 +156,6 @@
                                 {{ productsSum }} грн.
                             </div>
                         </div>
-                        <div class="total">
-                            <div class="total__left">
-                                Стоимость доставки:
-                            </div>
-                            <div class="total__right">
-                                {{ deliveryPrice }} грн.
-                            </div>
-                        </div>
                         <div class="total" v-if="currentGlobalSales !== null">
                             <div class="total__left">
                                 Скидка:
@@ -177,7 +169,7 @@
                                 Итого к оплате:
                             </div>
                             <div class="total__right" style="font-weight: 700">
-                                {{ (productsSumWithSales + deliveryPrice).toFixed(2) }} грн.
+                                {{ (productsSumWithSales).toFixed(2) }} грн.
                             </div>
                         </div>
                     </div>
@@ -189,6 +181,10 @@
         </div>
 
         <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
+
+        <iframe scrolling="no"
+                src="https://www.portmone.com.ua/gateway/?payee_id=1185&shop_order_number=9&bill_amount=12121.125&description=%D0%9F%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B0+%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%BE%D0%B2+%D0%BD%D0%B0+Biothal&success_url=http%3A%2F%2Fbiothal%2Fportmone%2Fsuccess%2F70&failure_url=http%3A%2F%2Fbiothal%2Fportmone%2Fcanceled%2F70&lang=ru&encoding=UTF-8&exp_time=900&type=light"
+                frameborder="0"></iframe>
     </div>
 </template>
 
@@ -235,7 +231,7 @@ export default {
                 postalOffice: '',
                 paymentMethod: ''
             },
-            profile:{
+            profile: {
                 number: '',
                 name: '',
                 surname: '',
@@ -306,15 +302,20 @@ export default {
             }
         },
         products: function (newProducts, old) {
-            if(newProducts.length === 0){
+            if (newProducts.length === 0) {
                 this.toPage({name: 'home'})
             }
         }
     },
     methods: {
         ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT'
+            deleteProduct: 'DELETE_PRODUCT',
+            clearCart: 'CLEAR_ALL_CART'
         }),
+
+        clearCartProducts() {
+            this.clearCart()
+        },
         getRecommendedProduct() {
             this.axios.post('products/recommended')
                 .then(({data}) => {
@@ -402,11 +403,12 @@ export default {
                         });
                         this.clearValidation();
 
-                        if(data.data.redirect) {
-                            window.open(data.data.redirect);
+                        if (data.data.redirect) {
+                            this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
                         } else {
-                           this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
                         }
+                        this.clearCartProducts()
                     }
                 }
                 this.$loading(false);
@@ -415,44 +417,40 @@ export default {
                 this.errorMessagesValidation(e);
             }
         },
-        async getProfile(){
+        async getProfile() {
             await this.checkUserIsValid()
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('profile', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('profile', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let user = data.data.user
                         this.number = user.phone_number,
-                        this.name = user.name,
-                        this.surname = user.sur_name,
-                        this.user_id = user.id
+                            this.name = user.name,
+                            this.surname = user.sur_name,
+                            this.user_id = user.id
                     }
                 }
             } catch (e) {
                 this.errorMessagesValidation(e);
             }
         },
-        async checkUserIsValid(){
+        async checkUserIsValid() {
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('checkUser', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('checkUser', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let exist = data.data.exist
-                        if(!exist){
+                        if (!exist) {
                             await this.$store.dispatch('LOGIN', null);
                             return false;
                         }
@@ -474,8 +472,6 @@ export default {
         this.getRegionsAndCities();
         this.getPaymentMethods();
         this.getProfile()
-
-        console.log("Ахмад сила");
     }
 }
 </script>

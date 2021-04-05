@@ -23,8 +23,8 @@
             <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>
         </div>
         <v-snackbar
-            v-model="showMessage"
-            v-bind="snackbar">
+                v-model="showMessage"
+                v-bind="snackbar">
             <v-icon color="white" size="25">
                 check_circle_outline
             </v-icon>
