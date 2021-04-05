@@ -31,7 +31,6 @@
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
 <!--                        <p class="info-price__in-stock">В наличии</p>-->
                     </div>
-
                     <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
                     <div class="info-count">
