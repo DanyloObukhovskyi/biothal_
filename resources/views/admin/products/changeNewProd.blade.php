@@ -115,13 +115,17 @@
 
     function getImages(page)
     {
+
+        let title_image = $('#input-title-image').val();
+
         let storage = $('#storage').val();
         $('#paginate').hide();
         $.ajax({
             method: 'GET',
             url: "/admin/Images/getImages",
             data: {
-                page: page
+                page: page,
+                title_image: title_image
             },
             success : function(result){
                 let images = result.data.data;
@@ -217,6 +221,7 @@
     {
         $('#image').val(image);
         getImages(1);
+        $('#input-title-image').val('');
     }
 
     function addNewImage()
@@ -272,5 +277,4 @@
     <script type="text/javascript">
         $('.summernote').summernote();
     </script>
-
 @endsection

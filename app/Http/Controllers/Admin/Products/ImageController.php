@@ -179,9 +179,14 @@ class ImageController extends Controller
         return true;
     }
 
-    public function getImages(Request $request) {
-        $images = Image::query();
-
+    public function getImages(Request $request)
+    {
+        if (!empty($request->input('title_image'))) {
+            $title = $request->input('title_image');
+            $images = Image::where('name', 'like', '%' . $title . '%');
+        } else {
+            $images = Image::query();
+        }
         return response()->json([
             'data' => $images->paginate($request->input('count', 12))
         ]);
