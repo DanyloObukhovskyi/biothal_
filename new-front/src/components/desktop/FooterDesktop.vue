@@ -72,7 +72,6 @@
             <div>
                 Copyright © 2020. Все права защищены.
             </div>
-            <v-spacer/>
             <div>
                 Пользовательское соглашение
             </div>
@@ -235,6 +234,11 @@
         &__bottom {
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
+            font-style: normal;
+            font-weight: 200;
+            font-size: 13px;
+            line-height: 18px;
             width: 100%;
             color: #9A9A9A;
             padding: 87px 60px 70px 60px;
