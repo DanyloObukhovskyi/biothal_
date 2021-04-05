@@ -61,10 +61,11 @@
         width: 100%;
         height: 250px !important;
         border-radius: 0px 0px 4px 4px;
+        column-gap: 30px;
         position: relative;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        margin-bottom: 30px;
 
         @media screen and (max-width: 600px) {
             height: 160px !important;
@@ -85,6 +86,7 @@
             .category-card__title {
                 height: 100%;
                 transition: .3s;
+                border-radius: 0px 0px 4px 4px;
             }
         }
 
