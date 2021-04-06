@@ -54,6 +54,7 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
+                            <v-btn dark :color="variables.basecolor" elevation="0" @click="addToCart">Купить</v-btn>
                             <v-btn :disabled="productData.stock_status.stock_status_id === 3" color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
 <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
@@ -70,7 +71,7 @@
                                     placeholder="+38(___) ___-__-__"
                                     v-mask="'+38(###) ###-##-##'"/>
                             </v-form>
-                            <span v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__text" @click="checkout()">Купить в 1 клик</span>
+                            <span v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
                         </div>
                     </div>
                 </div>
@@ -124,7 +125,6 @@
 </template>
 
 <script>
-    import variables from '@/styles/main.scss'
     import {TheMask} from 'vue-the-mask';
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import VueGallerySlideshow from 'vue-gallery-slideshow';
@@ -172,7 +172,6 @@
         data() {
             return {
                 tab: null,
-                variables,
                 count_good: 1,
                 minimum_quantity: '',
                 items: [],
@@ -477,6 +476,10 @@
         }
 
         &-count {
+          display: flex;
+          flex-direction: column;
+          row-gap: 10px;
+
             &__title {
                 font-weight: 400;
                 font-size: 13px;
@@ -525,7 +528,7 @@
                     font-size: 16px;
                     line-height: 22px;
                     font-weight: bold;
-                    padding: 13px 62px;
+                    padding: 13px 62px !important;
                     background-color: $palette-base-color;
                     height: 48px !important;
                     border-radius: 50px;
@@ -575,6 +578,7 @@
                 line-height: 16px;
                 text-align: center;
                 cursor: pointer;
+                font-weight: 200;
             }
         }
     }
@@ -601,7 +605,7 @@
     .images{
         &:hover {
             cursor: pointer;
-            box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+            //box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
         }
     }
 

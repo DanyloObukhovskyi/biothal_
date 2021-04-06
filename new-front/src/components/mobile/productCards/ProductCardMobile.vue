@@ -116,9 +116,10 @@ export default {
         }
 
         &__price {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 18px;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 18px;
+            line-height: 25px;
         }
     }
 

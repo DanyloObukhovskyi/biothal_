@@ -53,6 +53,8 @@ $palette-disable-color: #EFEFEF;
     line-height: 46px;
     text-transform: uppercase;
     text-align: center;
+    font-style: normal;
+    margin: 0 !important;
 
     @media screen and (max-width: 600px) {
         width: 100%;
@@ -133,3 +135,4 @@ $palette-disable-color: #EFEFEF;
 .loader_opacity{
     opacity: 0.5;
 }
+

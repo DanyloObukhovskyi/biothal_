@@ -1,94 +1,77 @@
 <template>
     <v-footer
-        color="#fff"
-        class="pa-0 footer__wrapper"
+        class="footer__wrapper"
         :padless="false">
         <div class="footer__top">
-            <div style="margin: 28px 0 27px 45px;">
+            <div class="footer__top-title">
                 Узнавайте первыми о распродажах и новинках!
             </div>
-            <div style="margin-right: 45px">
-                <v-text-field v-model="email_for_receive_list" dark color="#fff" label="Электронный адрес" style="width: 270px">
+            <div style="max-width: 270px; width: 100%;">
+                <v-text-field v-model="email_for_receive_list" label="Электронный адрес" dark class="email__wrapper">
                     <v-btn icon slot="append" @click="addEmailToReceiveList">
-                        <v-icon class="footer__top__email-icon">
+                        <v-icon size="14" class="footer__top__email-icon">
                             mdi-arrow-right
                         </v-icon>
                     </v-btn>
                 </v-text-field>
             </div>
         </div>
-        <div class="footer__middle">
+        <div class="footer__middle" style="justify-content: space-between">
 
             <div class="footer__middle__block footer__middle__block__1">
-                <div @click="toPage({name: 'home'})" style="cursor: pointer;">
-                    <img width="127" height="38" src="../../../public/logo.svg"/>
-                </div>
-                <div>
+                <img @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo.svg"
+                     style="cursor: pointer; margin-bottom: 26px"/>
+                <div class="footer-middle-block__text">
                     Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
                     силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
                     стандартам.
                 </div>
             </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">Каталог</v-list-item-title>
-                    <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)" :key="index"
-                                 @click="toPage({name: 'category-page', params: {category: item.slug }})">
-                        <v-list-item-content>
-                            - {{ item.title }}
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">О нас</v-list-item-title>
-                    <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)" :key="index"
-                                 @click="toPage({name: 'info-page', params: {id: item.slug}, })">
-                        <v-list-item-content>
-                            - {{ item.title }}
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </div>
-            <div class="footer__middle__block">
-                <v-list dense>
-                    <v-list-item-title style="font-size: 17px; font-weight: 700">Мы в сетях</v-list-item-title>
-                    <v-list-item class="list-item" href="https://www.facebook.com/biothal.ua/" target="_blank">
-                        <v-list-item-icon>
-                            <v-icon color="#000">mdi-facebook</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            Facebook
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item"
-                                 target="_blank"
-                                 href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q">
-                        <v-list-item-icon>
-                            <v-icon color="#000">mdi-youtube</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            YouTube
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item class="list-item" href="https://www.instagram.com/biothal.ua/"
-                                 target="_blank">
-                        <v-list-item-icon>
-                            <v-icon color="#000">mdi-instagram</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            Instagram
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
+            <div class="links-wrapper">
+                <div class="footer__middle__block">
+                    <v-list dense>
+                        <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
+                        <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
+                                     :key="index"
+                                     @click="toPage({name: 'category-page', params: {category: item.slug }})">
+                            <v-list-item-content>
+                                - {{ item.title }}
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </div>
+                <div class="footer__middle__block">
+                    <v-list dense>
+                        <v-list-item-title class="list-item__title">О нас</v-list-item-title>
+                        <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)"
+                                     :key="index"
+                                     @click="toPage({name: 'info-page', params: {id: item.slug}, })">
+                            <v-list-item-content>
+                                - {{ item.title }}
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </div>
+                <div class="footer__middle__block">
+                    <v-list dense>
+                        <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
+                        <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
+                                     style="display: flex; align-items: center" :href="item.href" target="_blank">
+                            <v-list-item-icon>
+                                <v-icon style="margin: 0" size="20" color="#000">{{item.icon}}</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                {{item.title}}
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </div>
             </div>
         </div>
         <div class="footer__bottom">
             <div>
                 Copyright © 2020. Все права защищены.
             </div>
-            <v-spacer/>
             <div>
                 Пользовательское соглашение
             </div>
@@ -103,6 +86,23 @@
             return {
                 menuItemsCategory: [],
                 menuItemsInfoPage: [],
+                menuItemsLinksPage: [
+                    {
+                        href: 'https://www.facebook.com/biothal.ua/',
+                        icon: 'mdi-facebook',
+                        title: 'Facebook'
+                    },
+                    {
+                        href: 'https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q',
+                        icon: 'mdi-youtube',
+                        title: 'YouTube'
+                    },
+                    {
+                        href: 'https://www.instagram.com/biothal.ua/',
+                        icon: 'mdi-instagram',
+                        title: 'Instagram'
+                    }
+                ],
                 email_for_receive_list: '',
             }
         },
@@ -116,16 +116,16 @@
                 this.menuItemsCategory = data.data.categories;
                 this.menuItemsInfoPage = data.data.article;
             },
-            async addEmailToReceiveList(){
+            async addEmailToReceiveList() {
                 let email = this.email_for_receive_list;
                 let valide = /.+@.+/.test(email);
                 this.$loading(true)
-                if(valide){
-                    try{
+                if (valide) {
+                    try {
                         let data = await this.axios.post('addEmailForReceive', {
-                            email:email
+                            email: email
                         });
-                        if(data){
+                        if (data) {
                             let message = data.data.message
                             this.$notify({
                                 type: 'success',
@@ -157,11 +157,32 @@
 </script>
 
 <style scoped lang="scss">
+    .links-wrapper {
+        display: flex;
+        column-gap: 117px;
+        max-width: 570px;
+        justify-content: space-between;
+        width: 100%;
+
+        @media screen and (max-width: 991px) {
+            flex-wrap: wrap;
+        }
+    }
+
     .footer {
 
         &__wrapper {
             display: flex;
             flex-direction: column;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        &__top-title {
+            font-style: normal;
+            font-weight: 200;
+            font-size: 18px;
+            line-height: 25px;
         }
 
         &__top {
@@ -171,10 +192,10 @@
             justify-content: space-between;
             align-items: center;
             color: #fff;
-            font-size: 18px;
+            height: 80px;
+            padding: 0 45px 0 45px;
 
             &__email-icon {
-                width: 10px;
                 margin: 0;
                 padding: 0;
             }
@@ -191,10 +212,9 @@
             }
 
             &__block {
-                width: 25%;
-
                 &__1 {
                     margin-right: 100px;
+                    max-width: 500px;
 
                     @media screen and (max-width: 991px) {
                         width: 100%;
@@ -214,15 +234,50 @@
         &__bottom {
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
+            font-style: normal;
+            font-weight: 200;
+            font-size: 13px;
+            line-height: 18px;
             width: 100%;
             color: #9A9A9A;
-            padding: 60px 60px 70px 60px;
+            padding: 87px 60px 70px 60px;
         }
     }
 
     .list-item {
-        font-weight: 400;
+        font-style: normal;
+        font-weight: normal;
         font-size: 15px;
+        line-height: 20px;
+        letter-spacing: -0.204545px;
+
+        &__title {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 17px;
+            line-height: 23px;
+            letter-spacing: -0.231818px;
+        }
+    }
+
+    .email {
+        &__wrapper {
+            width: 100%;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .footer-middle-block {
+        &__text {
+            font-style: normal;
+            font-weight: 200;
+            font-size: 13px;
+            line-height: 18px;
+            letter-spacing: -0.204545px;
+        }
     }
 </style>
 
@@ -232,6 +287,25 @@
 
         & .v-list-item__icon {
             margin-right: 10px !important;
+        }
+    }
+
+    .email__wrapper {
+
+        & .v-label {
+            font-style: normal;
+            font-weight: 200;
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        & .v-input__slot {
+            margin: 0;
+            padding: 0 10px 0 10px;
+        }
+
+        & input {
+            padding: 0 0 3px 0;
         }
     }
 </style>

@@ -129,8 +129,10 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center;
             row-gap: 40px;
+            column-gap: 30px;
+            align-items: flex-end;
         }
 
         &__item-three {
