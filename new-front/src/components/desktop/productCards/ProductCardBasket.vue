@@ -64,6 +64,8 @@ export default {
 
 <style scoped lang="scss">
 
+@import "src/styles/main";
+
 .product-basket {
 
     &__wrapper {
@@ -72,6 +74,7 @@ export default {
         flex-direction: row;
         padding: 10px;
         column-gap: 10px;
+        position: relative;
 
         &:hover {
             box-shadow: 0 0 33px #f2f2f2;
@@ -92,12 +95,14 @@ export default {
         color: #fff;
         background-color: #000;
         border-radius: 50%;
-        width: 50px;
-        height: 41px;
+        width: 40px;
+        height: 40px;
+        left: 12px;
+        top: 12px;
         line-height: 40px;
         font-weight: 300;
         font-size: 16px;
-        position: relative;
+        position: absolute;
     }
 
     &__right {
@@ -123,7 +128,11 @@ export default {
             }
 
             &__delete-basket {
-                color: #C2C2C2;
+                color: $palette-light-text;
+                font-weight: 400;
+              font-size: 12px;
+              line-height: 16px;
+              margin-top: 5px;
 
                 &:hover {
                     cursor: pointer;
