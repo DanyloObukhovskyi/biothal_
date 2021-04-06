@@ -29,7 +29,7 @@
                     <div class="info-price" >
                         <span class="info-price__price">{{ is_discount ?  productData['price_with_sale']  : productData['price'] }} грн</span>
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
-<!--                        <p class="info-price__in-stock">В наличии</p>-->
+                        <p class="info-price__in-stock">{{ productData.stock_status.name }}</p>
                     </div>
                     <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
@@ -54,7 +54,7 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
-                            <v-btn dark color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
+                            <v-btn :disabled="productData.stock_status.stock_status_id === 3" color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
 <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
                         <div class="info-pay-control__buy-fast">
@@ -65,11 +65,12 @@
                                     :error-messages="errorValid.phone"
                                     :rules="numberRules"
                                     flat
+                                    :disabled="productData.stock_status.stock_status_id === 3"
                                     rounded
                                     placeholder="+38(___) ___-__-__"
                                     v-mask="'+38(###) ###-##-##'"/>
                             </v-form>
-                            <span class="info-pay-control__text" @click="checkout()">Купить в 1 клик</span>
+                            <span v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__text" @click="checkout()">Купить в 1 клик</span>
                         </div>
                     </div>
                 </div>
@@ -182,8 +183,12 @@
                     image: {
                         name: ''
                     },
-                    product_description:{}
-                    },
+                    product_description:{},
+                    stock_status: {
+                        name: '',
+                        stock_status_id: ''
+                    }
+                },
                 attr: [],
                 description: [],
                 productImages: [],
@@ -239,6 +244,9 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
+
+                console.log(this.productData)
+
                 this.description = this.productData['product_description'];
                 this.productDescription = data.data.description;
                 this.items = this.productData['product_apts'];
@@ -550,7 +558,7 @@
                         margin: 0 !important;
                         display: flex;
                         justify-content: center;
-                        background-color: #EFEFEF;
+                        background-color: #efefef;
                         height: 48px;
                         text-align: center;
                         font-size: 16px;
@@ -596,11 +604,6 @@
             box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
         }
     }
-
-    /*.description-content {*/
-    /*    justify-content: center;*/
-    /*    display: flex;*/
-    /*}*/
 
     .breadcrumb {
         cursor: pointer;

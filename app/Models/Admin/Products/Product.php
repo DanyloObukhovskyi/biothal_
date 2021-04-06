@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\CategoryProducts;
 use App\Models\Image;
 use App\Models\Admin\Products\ProductDescription;
+use App\Models\StockStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -47,6 +48,10 @@ class Product extends Model
 
     public function productTo1C () {
         return $this->hasOne(ProductTo1C::class, 'product_id', 'id');
+    }
+
+    public function stockStatus () {
+        return $this->hasOne(StockStatus::class, 'stock_status_id', 'stock_status_id');
     }
 
     public function categories()

@@ -50,7 +50,8 @@ class ProductController extends Controller
                 'productDescription',
                 'productApts',
                 'productImages',
-                'getSale'
+                'getSale',
+                'stockStatus'
             ])
             ->where('id', $id)
             ->first();
