@@ -78,7 +78,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Название картинки</label>
-                        <input type="text" name="filter_name" value="" placeholder="Название картинки"
+                        <input type="text" value="" placeholder="Название картинки"
                                id="input-title-image" class="form-control"/>
                     </div>
                 </div>

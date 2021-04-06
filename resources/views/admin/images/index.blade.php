@@ -144,7 +144,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="input-name">Название картинки</label>
-                        <input type="text" name="filter_name" value="@if(!empty(request()->input('title_image'))){{request()->input('title_image')}}@endif" placeholder="Название картинки"
+                        <input type="text" value="@if(!empty(request()->input('title_image'))){{request()->input('title_image')}}@endif" placeholder="Название картинки"
                                id="input-title-image" class="form-control"/>
                     </div>
                 </div>

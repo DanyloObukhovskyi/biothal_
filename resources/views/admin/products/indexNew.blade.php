@@ -42,7 +42,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label" for="input-name">Название товара</label>
-                                    <input type="text" name="filter_name" value="@if(!empty(request()->input('title_product'))) {{request()->input('title_product')}} @endif" placeholder="Название товара"
+                                    <input type="text" value="@if(!empty(request()->input('title_product'))) {{request()->input('title_product')}} @endif" placeholder="Название товара"
                                            id="input-title-product" class="form-control"/>
                                 </div>
                             </div>
