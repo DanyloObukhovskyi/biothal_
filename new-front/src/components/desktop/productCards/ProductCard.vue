@@ -106,6 +106,7 @@
         padding: 17px 30px 20px 30px;
         row-gap: 10px;
         width: 350px !important;
+        position: relative;
 
         &:hover {
             box-shadow: 0 0 33px #f2f2f2;
@@ -124,8 +125,9 @@
             line-height: 72px;
             font-weight: 300;
             font-size: 21px;
-            margin: 20px 0 0 20px;
             position: absolute;
+          left: 20px;
+          top: 20px;
         }
 
         /*&__heart {*/

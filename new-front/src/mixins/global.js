@@ -1,11 +1,16 @@
+
+import variables from '@/styles/main.scss'
+
+
 export default {
     data() {
         return {
-            isShowFavorite: false,
-            api: process.env.VUE_APP_REQUEST_BASE_URL,
-            errorValid: {
+          isShowFavorite: false,
+          api: process.env.VUE_APP_REQUEST_BASE_URL,
+          errorValid: {
 
-            },
+          },
+          variables
         }
     },
     computed: {
