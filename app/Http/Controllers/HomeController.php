@@ -27,7 +27,8 @@ class HomeController extends Controller
         $products = Product::with([
                 'image',
                 'productDescription',
-                'getSale'
+                'getSale',
+                'stockStatus'
             ])
             ->where([
                 'status' => 1
@@ -47,7 +48,8 @@ class HomeController extends Controller
         $products = Product::with([
                 'image',
                 'productDescription',
-                'getSale'
+                'getSale',
+                'stockStatus'
             ])
             ->where([
                 'status' => 1
@@ -61,7 +63,7 @@ class HomeController extends Controller
 
     public function bestSellers()
     {
-        $bestSeller = Product::with('image', 'productDescription')
+        $bestSeller = Product::with('image', 'productDescription', 'stockStatus')
             ->where([
                 'sale_id' => null,
                 'status' => 1

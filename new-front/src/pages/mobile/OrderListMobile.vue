@@ -120,6 +120,8 @@
                                         value.order_status.name = 'Отправленна получателю';
                                     } else if (value.order_status.name === 'finish'){
                                         value.order_status.name = 'Получена';
+                                    } else if (value.order_status.name === 'pre_order'){
+                                        value.order_status.name = 'Предзаказ';
                                     }
                                 });
                             }

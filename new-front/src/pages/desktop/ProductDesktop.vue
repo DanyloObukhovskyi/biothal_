@@ -54,11 +54,15 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
-                            <v-btn dark :color="variables.basecolor" elevation="0" @click="addToCart">Купить</v-btn>
-                            <v-btn :disabled="productData.stock_status.stock_status_id === 3" color="#2F7484" elevation="0" @click="addToCart">Купить</v-btn>
+                            <v-btn v-if="productData.stock_status.stock_status_id !== 2" class="white--text" :disabled="productData.stock_status.stock_status_id === 3" :color="variables.basecolor" elevation="0" @click="addToCart">
+                                {{ productData.stock_status.stock_status_id === 3 ? 'Нет в наличии' : 'Купить'}}
+                            </v-btn>
+                            <v-btn v-else class="white--text" :disabled="productData.stock_status.stock_status_id === 3" :color="variables.basecolor" elevation="0" @click="preOrder">
+                                Предзаказ
+                            </v-btn>
 <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
-                        <div class="info-pay-control__buy-fast">
+                        <div v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__buy-fast">
                             <v-form ref="orderQuickForm">
                                 <v-text-field
                                     class="info-pay-control__buy-fast__input"
@@ -66,12 +70,11 @@
                                     :error-messages="errorValid.phone"
                                     :rules="numberRules"
                                     flat
-                                    :disabled="productData.stock_status.stock_status_id === 3"
                                     rounded
                                     placeholder="+38(___) ___-__-__"
                                     v-mask="'+38(###) ###-##-##'"/>
                             </v-form>
-                            <span v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
+                            <span v-if="productData.stock_status.stock_status_id !== 2" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
                         </div>
                     </div>
                 </div>
@@ -153,7 +156,7 @@
             numberRules() {
                 return [
                     v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
                 ];
             }
         },
@@ -243,9 +246,6 @@
                 let data = await this.axios.get('product/' + this.id);
 
                 this.productData = data.data.productDetails;
-
-                console.log(this.productData)
-
                 this.description = this.productData['product_description'];
                 this.productDescription = data.data.description;
                 this.items = this.productData['product_apts'];
@@ -311,6 +311,35 @@
 
                             this.clearCartProducts()
                         }
+                    }
+                    this.$loading(false);
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
+
+            },
+            async preOrder() {
+                this.$loading(true);
+                try {
+                    this.clearValidation()
+                    let validate = await this.$refs['orderQuickForm'].validate();
+
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
+
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
+
+                        let data = await this.axios.post('checkout/create/preOrder', form)
+
+                        this.clearValidation();
+
+                        this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
                     }
                     this.$loading(false);
                 } catch (e) {
@@ -534,6 +563,10 @@
                     border-radius: 50px;
                     @media screen and (max-width: 767px) {
                         width: 100%;
+                    }
+
+                    &[disabled].theme--light {
+                        background-color: $palette-disable-color !important;
                     }
                 }
 

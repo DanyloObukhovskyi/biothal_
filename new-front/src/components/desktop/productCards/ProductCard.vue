@@ -20,7 +20,9 @@
             <div class="product__description__price default-cursor">{{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн</div>
         </div>
         <div>
-            <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>
+            <v-btn :disabled="dataCard.stock_status_id === 3" class="product__button white--text" elevation="0" @click="addProductToCart">
+                {{ dataCard.stock_status_id === 3 ? 'Нет в наличии' : 'Купить'}}
+            </v-btn>
         </div>
         <v-snackbar
             v-model="showMessage"
@@ -108,6 +110,10 @@
         &:hover {
             box-shadow: 0 0 33px #f2f2f2;
 
+            & .product__button[disabled] {
+                background-color: #909090 !important;
+            }
+
             & .product__button {
                 background-color: #000 !important;
             }
@@ -181,6 +187,12 @@
             font-size: 16px;
             line-height: 22px;
             margin: 10px;
+
+            /*&:hover {*/
+            /*    &[disabled].product__button {*/
+            /*        background-color: #ded4d4 !important;*/
+            /*    }*/
+            /*}*/
         }
     }
 </style>

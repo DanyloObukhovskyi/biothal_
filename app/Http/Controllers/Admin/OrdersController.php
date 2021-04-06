@@ -30,7 +30,7 @@ class OrdersController extends Controller
             'orderStatus',
             'shoppingCart',
             'products'
-        ]);
+        ])->orderBy('created_at', 'desc');
         if (!empty($request->input('filter_order_id'))) {
             $orders = $orders->where('id', $request->input('filter_order_id'));
         }

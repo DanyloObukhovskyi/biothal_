@@ -10,6 +10,7 @@ use App\Models\OrderProduct;
 use App\Models\OrderStatuses;
 use App\Models\OrderType;
 use App\Models\PaymentMethod;
+use App\Models\User;
 use App\Models\UserOrderAddress;
 use App\Rules\PhoneValidation;
 use App\Services\NovaPoshtaService;
@@ -269,6 +270,48 @@ class CheckoutController extends Controller
         $order->save();
 
         $orderType = OrderType::find(1);
+
+        return response()->json([
+            'order_id' => $order->user_order_id,
+            'message' => 'Заказ оформлен!'
+        ]);
+    }
+
+    public function createPreOrder(Request $request)
+    {
+        if (!empty($request->get('user_id'))) {
+            $user = User::where('id', $request->get('user_id'))->first();
+        }
+
+        $userOrderAddress = new UserOrderAddress();
+        $userOrderAddress->phone = $request->get('phone');
+        $userOrderAddress->name = $user->name ?? '';
+        $userOrderAddress->LastName = $user->sur_name ?? '';
+        $userOrderAddress->full_name = $user->name . ' ' . $user->sur_name ?? '';
+        $userOrderAddress->save();
+
+        $order = new Order();
+        $order->user_order_id = $userOrderAddress->id;
+        $order->order_status_id = 5;
+        $order->order_type_id = 0;
+        $order->user_id = $request->get('user_id');
+        $order->save();
+
+        $product = $request->get('product');
+
+        $orderProduct = new OrderProduct();
+        $orderProduct->product_id = $product['id'];
+        $orderProduct->order_id = $order->id;
+        $orderProduct->quantity = $product['quantity'];
+        $orderProduct->price = $product['price'];
+        $orderProduct->price_with_sales = $product['price_with_sale'];
+        $orderProduct->sale_id = $product['sale_id'];
+        $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
+        $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
+        $orderProduct->save();
+
+        $order->total_sum = 0;
+        $order->save();
 
         return response()->json([
             'order_id' => $order->user_order_id,
