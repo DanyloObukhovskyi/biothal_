@@ -115,7 +115,6 @@
 
     function getImages(page)
     {
-
         let title_image = $('#input-title-image').val();
 
         let storage = $('#storage').val();
@@ -223,6 +222,12 @@
         getImages(1);
         $('#input-title-image').val('');
     }
+
+    $( "#input-title-image" ).keyup(function() {
+        if ($('#input-title-image').val().length > 3) {
+            getImages(1);
+        }
+    });
 
     function addNewImage()
     {

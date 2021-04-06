@@ -360,12 +360,31 @@
         var text = $('#input-title-image').val();
         var url = new URL($("#filter-href").attr("href"));
         var searchParams = new URLSearchParams(url.search);
-        if(text != '') {
+        if(text !== '') {
             searchParams.set("title_image", text);
         } else {
             searchParams.delete("title_image");
         }
         $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
     })
+
+
+    $( "#input-title-image" ).keyup(function() {
+
+        if ($('#input-title-image').val().length > 3) {
+            var text = $('#input-title-image').val();
+            var url = new URL($("#filter-href").attr("href"));
+            var searchParams = new URLSearchParams(url.search);
+
+            if(text !== '') {
+                searchParams.set("title_image", text);
+                window.location.replace(url);
+            } else {
+                searchParams.delete("title_image");
+            }
+
+            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+        }
+    });
 </script>
 @endsection
