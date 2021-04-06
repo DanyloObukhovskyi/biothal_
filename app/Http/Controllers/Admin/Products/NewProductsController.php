@@ -76,7 +76,7 @@ class NewProductsController extends Controller
 
     public function createProd()
     {
-        $stock_statuses = StockStatus::all()->toArray();
+        $stock_statuses = StockStatus::all();
         $categories = Categories::orderBy('parent_id')->where('type_category', 0)->get()->toArray();
 
         foreach ($categories as $category_key => $category) {
