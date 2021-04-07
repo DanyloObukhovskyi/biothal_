@@ -29,8 +29,8 @@
         props: {
             dataCard: {
                 type: Object,
-                default: () => {
-                }
+                default: () => {},
+                stock_status_id: ''
             },
             isShowStock:{
                 type: Boolean,

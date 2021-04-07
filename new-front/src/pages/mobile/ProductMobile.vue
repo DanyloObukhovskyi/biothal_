@@ -35,8 +35,11 @@
             </div>
 
             <div class="product-info__pay">
-                <v-btn @click="showMessage = true" class="product-info__pay__button" height="54" dark color="#2F7484" elevation="0">
-                    Добавить в корзину
+                <v-btn v-if="stock_status !== 2" :disabled="stock_status === 3" @click="addToCart" class="product-info__pay__button white--text" height="54" color="#2F7484" elevation="0">
+                    {{ stock_status === 3 ? 'Нет в наличии' : 'Купить'}}
+                </v-btn>
+                <v-btn v-else @click="preOrder" class="product-info__pay__button white--text" height="54" color="#2F7484" elevation="0" >
+                    Предзаказ
                 </v-btn>
             </div>
 
@@ -92,6 +95,9 @@
             v-bind="snackbar">
             Товар добавлен в корзину
         </v-snackbar>
+
+        <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="productData" :name="name" :phone="phone" :user_id="user_id"/>
+
     </div>
 </template>
 
@@ -103,6 +109,8 @@
     import ThreeDotsSlides from "../../components/ThreeDotsSlides";
     import ProductCardsSetMobile from "../../components/mobile/ProductCardsSetMobile";
     import VueGallerySlideshow from 'vue-gallery-slideshow';
+    import PreOrderOneClickModal from "../../components/PreOrderOneClickModal.vue";
+    import {mapActions} from "vuex";
 
     export default {
         name: "Product",
@@ -112,7 +120,8 @@
             ProductCardsSet,
             ThreeDotsSlides,
             ProductCardsSetMobile,
-            VueGallerySlideshow
+            VueGallerySlideshow,
+            PreOrderOneClickModal
         },
         props: {
             id: {
@@ -153,11 +162,14 @@
                 variables,
                 count_good: 1,
                 is_discount: false,
+                name: '',
                 phone: '',
+                user_id: '',
                 productData: {
                     image: {},
                     product_description:{}
                 },
+                stock_status: '',
                 attr: [],
                 description: [],
                 productImages: [],
@@ -182,6 +194,9 @@
             }
         },
         methods: {
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT'
+            }),
             incrementCountGood() {
                 ++this.count_good;
             },
@@ -189,6 +204,13 @@
                 if (this.count_good > 1) {
                     --this.count_good;
                 }
+            },
+            addToCart() {
+                this.showMessage = true;
+                const product = this.productData;
+                product.quantity = 1;
+
+                this.addProduct(product)
             },
             async fetchProductDetails() {
                 let data = await this.axios.get('product/' + this.id);
@@ -201,6 +223,7 @@
                 this.recommendedProduct = data.data.recommendedProduct;
                 this.image = this.api + '/storage/img/products/' + this.productData['image']['name'];
                 this.category = data.data.product_category;
+                this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
 
                 if (this.productImages) {
                     let url = [];
@@ -222,6 +245,59 @@
             async getSubImages() {
                 if(this.images[0]){
                     this.index = 0;
+                }
+            },
+            preOrder() {
+                this.getProfile();
+                this.$refs['PreOrderOneClickModal'].visible = true;
+            },
+            async getProfile() {
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('profile', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+
+                        if (data) {
+                            let user = data.data.user;
+                            this.name = user.name;
+                            this.phone = user.phone_number;
+                            this.user_id = user.id;
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid() {
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('checkUser', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (data) {
+                            let exist = data.data.exist
+                            if (!exist) {
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
                 }
             }
         },

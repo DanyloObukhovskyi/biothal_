@@ -2,9 +2,19 @@
     <v-dialog
         v-model="visible"
         width="420">
-
         <v-card class="order-dialog__wrapper">
-            <div class="order-dialog__title">Оформить заказ в 1 клик</div>
+
+            <div class="order-dialog__title">
+                Оформить заказ в 1 клик
+                <v-btn
+                    icon
+                    absolute
+                    top
+                    right
+                    @click="closeModal">
+                    <v-icon style="font-size: initial;">mdi-close</v-icon>
+                </v-btn>
+            </div>
 
             <div class="order-dialog__text">Наш менеджер свяжется с вами в течении 30 минут в рабочее время</div>
 
@@ -24,8 +34,8 @@
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
-                        v-model="number"
-                        :error-messages="errorValid.number"
+                        v-model="phone"
+                        :error-messages="errorValid.phone"
                         :rules="numberRules"
                         class="main-input-field"
                         background-color="#F7F7F7"
@@ -36,7 +46,7 @@
                         height="34"/>
                 </div>
             </v-form>
-            <v-btn dark class="checkout-button" elevation="0" @click="checkout">Оформить быстрый заказ</v-btn>
+            <v-btn dark class="checkout-button" elevation="0" @click="preOrder">Оформить быстрый заказ</v-btn>
         </v-card>
     </v-dialog>
 </template>
@@ -45,9 +55,21 @@
     import {mapActions, mapGetters} from "vuex";
 
     export default {
-        name: "PlaceOrderOneClick",
+        name: "PreOrderOneClickModal",
         props: {
-            number: {
+            dataCard: {
+                type: Object,
+                image: {
+                    name: ''
+                },
+                product_description: {},
+                stock_status: {
+                    stock_status_id: '',
+                    name: ''
+                },
+                stock_status_id: ''
+            },
+            phone: {
                 type: [Number, String],
                 default: ''
             },
@@ -65,9 +87,18 @@
                 visible: false,
                 errorValid: {
                     name: '',
-                    number: ''
+                    phone: ''
                 },
             }
+        },
+        watch: {
+            visible: {
+                handler(newValue, oldValue) {
+                    this.clearValidation();
+                    // this.name = '';
+                    // this.phone = '';
+                },
+            },
         },
         computed: {
             ...mapGetters('basket', [
@@ -88,7 +119,7 @@
             numberRules() {
                 return [
                     v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символа',
                 ];
             }
         },
@@ -97,10 +128,8 @@
                 deleteProduct: 'DELETE_PRODUCT',
                 clearCart: 'CLEAR_ALL_CART'
             }),
-            clearCartProducts() {
-                this.clearCart()
-            },
-            async checkout() {
+            async preOrder() {
+
                 this.$loading(true);
                 try {
                     this.clearValidation()
@@ -108,12 +137,12 @@
 
                     if (validate) {
                         const form = {
-                            number: this.number,
                             name: this.name,
-                            products: this.products,
-                            user_id: this.user_id
+                            user_id: this.user_id,
+                            phone: this.phone,
+                            product: this.dataCard
                         };
-                        let data = await this.axios.post('checkout/create/orderQuick', form)
+                        let data = await this.axios.post('checkout/create/preOrder', form)
 
                         if (data) {
                             let message = data.data.message
@@ -125,9 +154,7 @@
                             });
                             this.clearValidation();
 
-                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
-
-                            this.clearCartProducts()
+                            this.visible = false
                         }
                     }
                     this.$loading(false);
@@ -139,9 +166,13 @@
             clearValidation() {
                 this.errorValid = {
                     name: '',
-                    number: '',
+                    phone: '',
                 }
             },
+            closeModal() {
+                this.visible = false;
+                this.clearValidation();
+            }
         }
     }
 </script>
@@ -202,5 +233,13 @@
         & .v-text-field__details {
             display: block;
         }
+    }
+
+    .v-btn--absolute.v-btn--top {
+        top: 5px;
+    }
+
+    .v-btn--absolute.right {
+        top: 5px;
     }
 </style>

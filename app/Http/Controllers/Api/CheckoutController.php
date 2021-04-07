@@ -281,13 +281,15 @@ class CheckoutController extends Controller
     {
         if (!empty($request->get('user_id'))) {
             $user = User::where('id', $request->get('user_id'))->first();
+        } else {
+            $user = null;
         }
 
         $userOrderAddress = new UserOrderAddress();
         $userOrderAddress->phone = $request->get('phone');
-        $userOrderAddress->name = $user->name ?? '';
-        $userOrderAddress->LastName = $user->sur_name ?? '';
-        $userOrderAddress->full_name = $user->name . ' ' . $user->sur_name ?? '';
+        $userOrderAddress->name =  $request->get('name');
+        $userOrderAddress->LastName = $user ? $user->sur_name ?? '': null;
+        $userOrderAddress->full_name = $user ? $user->name . ' ' . $user->sur_name ?? '' : null;
         $userOrderAddress->save();
 
         $order = new Order();
@@ -302,9 +304,9 @@ class CheckoutController extends Controller
         $orderProduct = new OrderProduct();
         $orderProduct->product_id = $product['id'];
         $orderProduct->order_id = $order->id;
-        $orderProduct->quantity = $product['quantity'];
-        $orderProduct->price = $product['price'];
-        $orderProduct->price_with_sales = $product['price_with_sale'];
+        $orderProduct->quantity = 0;
+        $orderProduct->price = 0;
+        $orderProduct->price_with_sales = 0;
         $orderProduct->sale_id = $product['sale_id'];
         $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
         $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
@@ -315,7 +317,7 @@ class CheckoutController extends Controller
 
         return response()->json([
             'order_id' => $order->user_order_id,
-            'message' => 'Заказ оформлен!'
+            'message' => 'Предаказ оформлен!'
         ]);
     }
 }

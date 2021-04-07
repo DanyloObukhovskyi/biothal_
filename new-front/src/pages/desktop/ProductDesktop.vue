@@ -1,22 +1,24 @@
 <template>
     <div class="base-page-wrapper product-wrapper">
-    <div>
-        <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
-        <span> / </span>
-        <span class="breadcrumb" @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
-        <span  v-if="category['main_category'].length !== 0"> / </span>
-        <span v-if="category['sub_category'] !== null" class="breadcrumb" @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
-        <span v-if="category['sub_category'] !== null"> / </span>
-        <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
-    </div>
+        <div>
+            <span class="breadcrumb" @click="toPage( {name:'home'} )">Главная</span>
+            <span> / </span>
+            <span class="breadcrumb"
+                  @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{ category['main_category']['title'] }}</span>
+            <span v-if="category['main_category'].length !== 0"> / </span>
+            <span v-if="category['sub_category'] !== null" class="breadcrumb"
+                  @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{ category['sub_category']['title'] }}</span>
+            <span v-if="category['sub_category'] !== null"> / </span>
+            <span style="color: rgba(29,70,84,0.69)">{{ description['name'] }}</span>
+        </div>
         <div class="block-product">
             <div class="block-product-base-info">
 
                 <div class="block-product-base-info__image">
                     <img :src="image" :alt="productData['image'] ? productData['image']['name'] : ''"
                          class="image__product" :class="subImages" @click="getSubImages()"/>
-<!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
-<!--                         class="image__product"/>-->
+                    <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
+                    <!--                         class="image__product"/>-->
                     <div class="image__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>
                 </div>
 
@@ -26,12 +28,18 @@
                         <span class="info-title__subtitle">{{ productData['upc'] || '' }}</span>
                     </div>
 
-                    <div class="info-price" >
+                    <div class="info-price">
                         <span class="info-price__price">{{ is_discount ?  productData['price_with_sale']  : productData['price'] }} грн</span>
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
-                        <p class="info-price__in-stock">{{ productData.stock_status.name }}</p>
+                        <p class="info-price__in-stock">{{
+                            stock_status === 1 ? 'В наличии' :
+                            stock_status === 2 ? 'Предзаказ' :
+                            stock_status === 3 ? 'Нет в наличии' :
+                            stock_status === 4 ? '2-3 Дня' : ''}}
+                        </p>
                     </div>
-                    <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
+                    <span
+                        class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
                     <div class="info-count">
                         <span class="info-count__title">Количество</span>
@@ -54,15 +62,17 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
-                            <v-btn v-if="productData.stock_status.stock_status_id !== 2" class="white--text" :disabled="productData.stock_status.stock_status_id === 3" :color="variables.basecolor" elevation="0" @click="addToCart">
-                                {{ productData.stock_status.stock_status_id === 3 ? 'Нет в наличии' : 'Купить'}}
+                            <v-btn v-if="stock_status !== 2" class="white--text" :disabled="stock_status === 3"
+                                   :color="variables.basecolor" elevation="0" @click="addToCart">
+                                {{ stock_status === 3 ? 'Нет в наличии' : 'Купить'}}
                             </v-btn>
-                            <v-btn v-else class="white--text" :disabled="productData.stock_status.stock_status_id === 3" :color="variables.basecolor" elevation="0" @click="preOrder">
+                            <v-btn v-else class="white--text" :disabled="stock_status === 3"
+                                   :color="variables.basecolor" elevation="0" @click="preOrder">
                                 Предзаказ
                             </v-btn>
-<!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
+                            <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
-                        <div v-if="productData.stock_status.stock_status_id !== 3" class="info-pay-control__buy-fast">
+                        <div v-if="stock_status !== 3" class="info-pay-control__buy-fast">
                             <v-form ref="orderQuickForm">
                                 <v-text-field
                                     class="info-pay-control__buy-fast__input"
@@ -74,7 +84,7 @@
                                     placeholder="+38(___) ___-__-__"
                                     v-mask="'+38(###) ###-##-##'"/>
                             </v-form>
-                            <span v-if="productData.stock_status.stock_status_id !== 2" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
+                            <span v-if="stock_status !== 2" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
                         </div>
                     </div>
                 </div>
@@ -115,7 +125,8 @@
         </div>
 
         <div>
-            <ProductCardsSet type-set="product" :with-slider="true" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ" :product-data="recommendedProduct" />
+            <ProductCardsSet type-set="product" :with-slider="true" title="C ЭТИМ ТОВАРОМ ПОКУПАЮТ"
+                             :product-data="recommendedProduct"/>
         </div>
 
         <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
@@ -163,7 +174,7 @@
         watch: {
             route: {
                 deep: true,
-                handler (newRoute, oldRoute) {
+                handler(newRoute, oldRoute) {
                     this.fetchProductDetails();
                 },
             }
@@ -185,12 +196,9 @@
                     image: {
                         name: ''
                     },
-                    product_description:{},
-                    stock_status: {
-                        name: '',
-                        stock_status_id: ''
-                    }
+                    product_description: {}
                 },
+                stock_status: '',
                 attr: [],
                 description: [],
                 productImages: [],
@@ -223,7 +231,7 @@
         },
         methods: {
             ...mapActions('basket', {
-               addProduct: 'ADD_PRODUCT'
+                addProduct: 'ADD_PRODUCT'
             }),
             addToCart() {
                 this.showMessage = true;
@@ -255,31 +263,31 @@
                 this.category = data.data.product_category;
                 this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
                 this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
+                this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
 
                 if (this.productImages) {
                     let url = [];
                     let api = this.api + '/storage/img/products/';
-                    this.productImages.map(function(value, key) {
+                    this.productImages.map(function (value, key) {
                         url.push(api + value['images']['name']);
                     });
                     this.images = url;
                 }
 
-                if(this.images[0]){
+                if (this.images[0]) {
                     this.subImages = 'images'
                 }
 
-                if(this.productData.sale_id !== null){
+                if (this.productData.sale_id !== null) {
                     this.is_discount = true;
                 }
             },
             async getSubImages() {
-                if(this.images[0]){
+                if (this.images[0]) {
                     this.index = 0;
                 }
             },
-            async checkout()
-            {
+            async checkout() {
                 this.$loading(true);
                 try {
                     this.clearValidation()
@@ -307,7 +315,7 @@
                             });
                             this.clearValidation();
 
-                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
 
                             this.clearCartProducts()
                         }
@@ -339,33 +347,30 @@
 
                         this.clearValidation();
 
-                        this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                        this.toPage({name: 'order-status', params: {id: data.data.order_id}});
                     }
                     this.$loading(false);
                 } catch (e) {
                     this.$loading(false);
                     this.errorMessagesValidation(e);
                 }
-
             },
             clearValidation() {
                 this.errorValid = {
                     phone: ''
                 }
             },
-            async getProfile(){
+            async getProfile() {
                 await this.checkUserIsValid()
                 try {
                     const token = this.$store.getters.getToken;
-                    if(token){
-                        let data = await this.axios.post('profile', {
-
-                        },  {
+                    if (token) {
+                        let data = await this.axios.post('profile', {}, {
                             headers: {
                                 'Authorization': `Bearer ${token}`
                             }
                         });
-                        if(data){
+                        if (data) {
                             let user = data.data.user;
                             this.phone = user.phone_number;
                             this.user_id = user.id;
@@ -375,20 +380,18 @@
                     this.errorMessagesValidation(e);
                 }
             },
-            async checkUserIsValid(){
+            async checkUserIsValid() {
                 try {
                     const token = this.$store.getters.getToken;
-                    if(token){
-                        let data = await this.axios.post('checkUser', {
-
-                        },  {
+                    if (token) {
+                        let data = await this.axios.post('checkUser', {}, {
                             headers: {
                                 'Authorization': `Bearer ${token}`
                             }
                         });
-                        if(data){
+                        if (data) {
                             let exist = data.data.exist
-                            if(!exist){
+                            if (!exist) {
                                 await this.$store.dispatch('LOGIN', null);
                                 return false;
                             }
@@ -505,9 +508,9 @@
         }
 
         &-count {
-          display: flex;
-          flex-direction: column;
-          row-gap: 10px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
 
             &__title {
                 font-weight: 400;
@@ -635,7 +638,8 @@
 
         text-align: center;
     }
-    .images{
+
+    .images {
         &:hover {
             cursor: pointer;
             //box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
