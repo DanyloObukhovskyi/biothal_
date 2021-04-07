@@ -31,7 +31,7 @@
                   :key="index"
                   @click="toPage({name: 'sub-category-page', params:{ category: item.category.slug, subCategory: item.slug }})">
                   <v-list-item-title class="bar-menu__sub-category-title">
-                    -{{ item.title }}
+                    - {{ item.title }}
                   </v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -259,6 +259,8 @@
     &__sub-category {
       min-height: 24px;
       padding: 0;
+      font-size: 12px;
+      line-height: 24px;
     }
 
     &__sub-category-title {
