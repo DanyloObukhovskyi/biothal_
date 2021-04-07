@@ -317,7 +317,7 @@ class CheckoutController extends Controller
 
         return response()->json([
             'order_id' => $order->user_order_id,
-            'message' => 'Предаказ оформлен!'
+            'message' => 'Предзаказ оформлен!'
         ]);
     }
 }
