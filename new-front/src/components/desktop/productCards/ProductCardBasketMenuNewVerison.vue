@@ -1,7 +1,7 @@
 <template>
   <div class="product-basket__wrapper">
     <img class="product-basket__image" height="150" width="150"
-         :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"
+         :src="dataCard.image ? this.image_uri + dataCard.image.name : ''"
          :alt="dataCard.image ? dataCard.image.name : ''"/>
     <div class="product-basket__text">
       <div class="product-basket__text__title" @click="toPage({name: 'product', params: {id: dataCard.id}})">
