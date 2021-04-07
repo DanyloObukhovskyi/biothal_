@@ -30,7 +30,7 @@
               <ProductCardBasket v-for="item in products"
                                  @delete="deleteProduct(item.id)"
                                  :key="item.id"
-                                 :is-show-stock="item.sale_id !== null"
+                                 :is-show-stock="!!item.sale_id"
                                  :data-card="item"/>
 
 
@@ -72,16 +72,24 @@
             </div>
           </div>
         </div>
-        <div style="text-align: center">
-          <div v-if="!isMobile" style="margin: 20px; font-size: 16px">Рекомендуемые товары</div>
-          <ProductCardsSet v-if="!isMobile"
-                           :product-data="recommendedProducts.slice(0, 4)"
-                           type-set="basket-menu"
-                           :is-show-title="false"/>
-          <ProductCardsSetMobile v-if="isMobile"
-                                 :product-data="recommendedProducts.slice(0, 4)"
-                                 ype-set="product"
-                                 title="Рекомендуемые товары"/>
+
+        <div class="recommended-products">
+          <div class="recommended-products__title" v-if="!isMobile">Рекомендуемые товары</div>
+
+          <div class="recommended-products__goods">
+            <product-card-basket-menu-new-version v-for="item in recommendedProducts.slice(0, 4)" :key="item.id" :data-card="item" :is-show-stock="!!item.sale_id" />
+          </div>
+
+<!--          <ProductCardsSet v-if="!isMobile"-->
+<!--                           class="recommended-products__good"-->
+<!--                           :product-data="recommendedProducts.slice(0, 4)"-->
+<!--                           type-set="basket-menu"-->
+<!--                           :is-show-title="false"/>-->
+<!--          <ProductCardsSetMobile v-if="isMobile"-->
+<!--                                 :product-data="recommendedProducts.slice(0, 4)"-->
+<!--                                 class="recommended-products__good"-->
+<!--                                 ype-set="product"-->
+<!--                                 title="Рекомендуемые товары"/>-->
         </div>
       </div>
     </v-card>
@@ -93,10 +101,12 @@ import ProductCardsSet from "./desktop/ProductCardsSetDesktop";
 import ProductCardsSetMobile from "./mobile/ProductCardsSetMobile";
 import {mapActions, mapGetters} from "vuex";
 import ProductCardBasket from "@/components/desktop/productCards/ProductCardBasket";
+import ProductCardBasketMenuNewVersion from "@/components/desktop/productCards/ProductCardBasketMenuNewVerison";
 
 export default {
   name: "Basket",
   components: {
+    ProductCardBasketMenuNewVersion,
     ProductCardBasket,
     ProductCardsSet,
     ProductCardsSetMobile
@@ -196,20 +206,18 @@ export default {
   display: flex;
   flex-direction: row;
   font-weight: 200;
-  font-size: 11px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 19px;
 
   &__wrapper {
-    padding: 20px 0 0 0;
+    margin-top: 16px;
   }
 
   &__left {
-    width: 50%;
   }
 
   &__right {
-    width: 50%;
-    text-align: right;
+    margin-left: 4px;
   }
 }
 
@@ -223,7 +231,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px 42px;
+    padding: 20px 22px 20px 41px;
 
     @media screen and (max-width: 600px) {
       background-color: #F7F7F7;
@@ -254,6 +262,9 @@ export default {
     &__product-set {
       max-height: 580px;
       overflow: auto;
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
     }
   }
 }
@@ -263,7 +274,26 @@ export default {
 
   &__wrapper {
     display: flex;
-    justify-content: center;
+  }
+}
+
+
+.recommended-products {
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+
+  &__title {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 14px;
+  }
+
+  &__goods {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    column-gap: 18px;
   }
 }
 </style>
