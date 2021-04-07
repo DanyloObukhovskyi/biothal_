@@ -304,13 +304,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT',
-            clearCart: 'CLEAR_ALL_CART'
-        }),
-        clearCartProducts() {
-            this.clearCart()
-        },
         getRecommendedProduct() {
             this.axios.post('products/recommended')
                 .then(({data}) => {
@@ -371,6 +364,7 @@ export default {
             this.$loading(true)
 
             try {
+                //this.toPage({name: 'payment', params: {paymentUrl: 454}})
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
 
@@ -386,10 +380,9 @@ export default {
                         products: this.products,
                         user_id: this.user_id
                     };
-                    let data = await this.axios.post('checkout/create/order', form)
-
-                    if (data) {
-                        let message = data.data.message
+                    this.axios.post('checkout/create/order', form).then(({data}) => {
+                        // console.log(data)
+                        let message = data.message
 
                         this.$notify({
                             type: 'success',
@@ -397,14 +390,13 @@ export default {
                             text: message
                         });
                         this.clearValidation();
-                        this.clearCartProducts()
-
-                        if (data.data.redirect) {
-                            this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
+                        let postData = data.portmone
+                        if (postData) {
+                            this.toPage({name: 'payment', params: {paymentUrl: postData}});
                         } else {
-                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+                            this.toPage({name: 'order-status', params: {id: data.order_id}});
                         }
-                    }
+                    })
                 }
                 this.$loading(false);
             } catch (e) {

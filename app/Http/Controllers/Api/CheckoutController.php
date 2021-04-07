@@ -156,7 +156,7 @@ class CheckoutController extends Controller
 
             return response()->json([
                 'message' => 'Заказ оформлен!',
-                'redirect' => $portmoneUrl
+                'portmone' => $portmoneUrl
             ]);
         }
 

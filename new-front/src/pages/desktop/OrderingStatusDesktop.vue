@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from "vuex";
+
     export default {
         name: "OrderingStatusDesktop",
         props: {
@@ -29,16 +31,37 @@
                 message: ''
             }
         },
+        computed: {
+            ...mapGetters('basket', [
+                'products',
+                'globalSales',
+                'currentGlobalSales',
+                'nextGlobalSales',
+                'linear',
+                'productsSum',
+                'productsSumWithSales'
+            ])
+        },
         created() {
             this.fetchOrderStatus();
         },
         methods: {
+            ...mapActions('basket', {
+                deleteProduct: 'DELETE_PRODUCT',
+                clearCart: 'CLEAR_ALL_CART'
+            }),
+            clearCartProducts() {
+                this.clearCart()
+            },
             async fetchOrderStatus() {
                 let data = await this.axios.get('order-status/' + this.id);
 
                 // this.title =  data.data.title;
                 // this.message = data.data.message;
             }
+        },
+        mounted() {
+            this.clearCartProducts();
         }
     }
 </script>

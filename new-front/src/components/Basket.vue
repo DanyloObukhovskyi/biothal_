@@ -144,11 +144,15 @@ export default {
                 .then(({data}) => {
                     this.recommendedProducts = data
                 })
+        },
+        getGroupSales(){
+            console.log(this.globalSales)
         }
     },
     mounted() {
         this.getGlobalSales();
         this.getRecommendedProduct();
+        this.getGroupSales();
     }
 }
 </script>
