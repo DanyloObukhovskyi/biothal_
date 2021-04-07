@@ -14,7 +14,7 @@
 
       <div class="page-form__wrapper">
         <div>
-          <div class="page-form__top" v-if="globalSales.length > 0 && nextGlobalSales !== null">
+          <div class="page-form__top" v-if="!isMobile && globalSales.length > 0 && nextGlobalSales !== null">
             <div style="margin-bottom: 17px; font-size: 12px; line-height: 17px; font-weight: 200">
               Еще {{ (nextGlobalSales.sum_modal - productsSum).toFixed(0) }} грн и сработает скидка
               {{ nextGlobalSales.procent_modal }}%
@@ -34,11 +34,26 @@
                                  :data-card="item"/>
 
 
-<!--              <ProductCardsSet type-set="basket"-->
-<!--                               :is-show-title="false"-->
-<!--                               @delete="deleteProduct"-->
-<!--                               :product-data="products"/>-->
+              <!--              <ProductCardsSet type-set="basket"-->
+              <!--                               :is-show-title="false"-->
+              <!--                               @delete="deleteProduct"-->
+              <!--                               :product-data="products"/>-->
             </div>
+
+
+            <div class="page-form__top" v-if="isMobile && globalSales.length > 0 && nextGlobalSales !== null">
+              <div style="margin-bottom: 17px; font-size: 12px; line-height: 17px; font-weight: 200">
+                Еще {{ (nextGlobalSales.sum_modal - productsSum).toFixed(0) }} грн и сработает скидка
+                {{ nextGlobalSales.procent_modal }}%
+              </div>
+              <v-progress-linear :value="linear"
+                                 :color="variables.basecolor"
+                                 background-color="#ddd"
+                                 class="main-linear"
+                                 height="12"/>
+            </div>
+
+
             <div class="total__wrapper">
               <div class="total">
                 <div class="total__left">
@@ -77,19 +92,20 @@
           <div class="recommended-products__title" v-if="!isMobile">Рекомендуемые товары</div>
 
           <div class="recommended-products__goods">
-            <product-card-basket-menu-new-version v-for="item in recommendedProducts.slice(0, 4)" :key="item.id" :data-card="item" :is-show-stock="!!item.sale_id" />
+            <product-card-basket-menu-new-version v-for="item in recommendedProducts.slice(0, 4)" :key="item.id"
+                                                  :data-card="item" :is-show-stock="!!item.sale_id"/>
           </div>
 
-<!--          <ProductCardsSet v-if="!isMobile"-->
-<!--                           class="recommended-products__good"-->
-<!--                           :product-data="recommendedProducts.slice(0, 4)"-->
-<!--                           type-set="basket-menu"-->
-<!--                           :is-show-title="false"/>-->
-<!--          <ProductCardsSetMobile v-if="isMobile"-->
-<!--                                 :product-data="recommendedProducts.slice(0, 4)"-->
-<!--                                 class="recommended-products__good"-->
-<!--                                 ype-set="product"-->
-<!--                                 title="Рекомендуемые товары"/>-->
+          <!--          <ProductCardsSet v-if="!isMobile"-->
+          <!--                           class="recommended-products__good"-->
+          <!--                           :product-data="recommendedProducts.slice(0, 4)"-->
+          <!--                           type-set="basket-menu"-->
+          <!--                           :is-show-title="false"/>-->
+          <!--          <ProductCardsSetMobile v-if="isMobile"-->
+          <!--                                 :product-data="recommendedProducts.slice(0, 4)"-->
+          <!--                                 class="recommended-products__good"-->
+          <!--                                 ype-set="product"-->
+          <!--                                 title="Рекомендуемые товары"/>-->
         </div>
       </div>
     </v-card>
@@ -172,6 +188,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/styles/mixins.scss";
 
 .basket {
 
@@ -233,7 +250,7 @@ export default {
     align-items: center;
     padding: 20px 22px 20px 41px;
 
-    @media screen and (max-width: 600px) {
+    @include _600 {
       background-color: #F7F7F7;
       padding: 20px;
     }
@@ -257,7 +274,10 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    margin-top: 30px;
+
+    @include _600 {
+      margin-top: 0;
+    }
 
     &__product-set {
       max-height: 580px;
@@ -294,6 +314,16 @@ export default {
     flex-wrap: wrap;
     align-items: stretch;
     column-gap: 18px;
+
+    //@media screen and (max-width: 400px) {
+    //  justify-content: space-between;
+    //  column-gap: 0;
+    //}
+
+    @include _400 {
+      justify-content: space-between;
+      column-gap: 0;
+    }
   }
 }
 </style>

@@ -66,6 +66,8 @@ export default {
     &:hover {
       box-shadow: 0 0 33px #f2f2f2;
     }
+
+
   }
 
   &__image {
