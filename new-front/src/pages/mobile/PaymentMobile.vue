@@ -13,10 +13,30 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from "vuex";
+
 export default {
     name: "PaymentDesktop",
     props: ['paymentUrl'],
+    computed: {
+        ...mapGetters('basket', [
+            'products',
+            'globalSales',
+            'currentGlobalSales',
+            'nextGlobalSales',
+            'linear',
+            'productsSum',
+            'productsSumWithSales'
+        ])
+    },
     methods: {
+        ...mapActions('basket', {
+            deleteProduct: 'DELETE_PRODUCT',
+            clearCart: 'CLEAR_ALL_CART'
+        }),
+        clearCartProducts() {
+            this.clearCart()
+        },
         iframeURLChange(iframe, callback) {
             var lastDispatched = null;
 
@@ -59,6 +79,7 @@ export default {
                 window.location.href = newURL
             }
         });
+        this.clearCartProducts();
     }
 }
 </script>
