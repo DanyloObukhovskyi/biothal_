@@ -75,6 +75,7 @@ export default {
 <style scoped lang="scss">
 
 @import "src/styles/main";
+@import "@/styles/mixins";
 
 .product-basket {
 
@@ -88,6 +89,10 @@ export default {
     &:hover {
       box-shadow: 0 0 33px #f2f2f2;
     }
+
+    @include _600 {
+      padding: 0;
+    }
   }
 
   &__image {
@@ -97,6 +102,10 @@ export default {
   &__left {
     background-color: #fff;
     width: 50%;
+
+    @include _600 {
+      padding: 15px 4px;
+    }
   }
 
   &__sale {
@@ -121,6 +130,10 @@ export default {
     width: 50%;
     text-align: left;
     padding: 0 0 0 23px;
+
+    @include _600 {
+      padding: 15px 0 15px 23px;
+    }
 
     &__title {
       cursor: pointer;

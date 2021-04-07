@@ -51,31 +51,22 @@ export default {
 <style scoped lang="scss">
 
 .product-basket {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
 
   &__wrapper {
     display: flex;
     text-align: center;
     flex-direction: column;
     align-items: center;
-    width: 159px;
+    width: 160px;
+    background-color: white;
 
     &:hover {
       box-shadow: 0 0 33px #f2f2f2;
     }
-
-
   }
 
   &__image {
     max-width: 100%;
-  }
-
-  &__position-bottom {
-
   }
 
   &__text {

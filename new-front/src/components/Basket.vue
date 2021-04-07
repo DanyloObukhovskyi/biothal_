@@ -14,7 +14,7 @@
 
       <div class="page-form__wrapper">
         <div>
-          <div class="page-form__top" v-if="!isMobile && globalSales.length > 0 && nextGlobalSales !== null">
+          <div class="page-form__top" v-if="globalSales.length > 0 && nextGlobalSales">
             <div style="margin-bottom: 17px; font-size: 12px; line-height: 17px; font-weight: 200">
               Еще {{ (nextGlobalSales.sum_modal - productsSum).toFixed(0) }} грн и сработает скидка
               {{ nextGlobalSales.procent_modal }}%
@@ -39,20 +39,6 @@
               <!--                               @delete="deleteProduct"-->
               <!--                               :product-data="products"/>-->
             </div>
-
-
-            <div class="page-form__top" v-if="isMobile && globalSales.length > 0 && nextGlobalSales !== null">
-              <div style="margin-bottom: 17px; font-size: 12px; line-height: 17px; font-weight: 200">
-                Еще {{ (nextGlobalSales.sum_modal - productsSum).toFixed(0) }} грн и сработает скидка
-                {{ nextGlobalSales.procent_modal }}%
-              </div>
-              <v-progress-linear :value="linear"
-                                 :color="variables.basecolor"
-                                 background-color="#ddd"
-                                 class="main-linear"
-                                 height="12"/>
-            </div>
-
 
             <div class="total__wrapper">
               <div class="total">
@@ -89,7 +75,7 @@
         </div>
 
         <div class="recommended-products">
-          <div class="recommended-products__title" v-if="!isMobile">Рекомендуемые товары</div>
+          <div class="recommended-products__title">Рекомендуемые товары</div>
 
           <div class="recommended-products__goods">
             <product-card-basket-menu-new-version v-for="item in recommendedProducts.slice(0, 4)" :key="item.id"
@@ -274,10 +260,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-
-    @include _600 {
-      margin-top: 0;
-    }
+    margin-top: 30px;
 
     &__product-set {
       max-height: 580px;
@@ -285,6 +268,10 @@ export default {
       display: flex;
       flex-direction: column;
       row-gap: 20px;
+
+      & ::v-deep {
+
+      }
     }
   }
 }
@@ -294,9 +281,9 @@ export default {
 
   &__wrapper {
     display: flex;
+    justify-content: center;
   }
 }
-
 
 .recommended-products {
   text-align: center;
@@ -307,6 +294,10 @@ export default {
     font-size: 16px;
     line-height: 22px;
     margin-bottom: 14px;
+
+    @include _600 {
+      margin-bottom: 18px;
+    }
   }
 
   &__goods {
@@ -314,11 +305,16 @@ export default {
     flex-wrap: wrap;
     align-items: stretch;
     column-gap: 18px;
+    row-gap: 10px;
 
     //@media screen and (max-width: 400px) {
     //  justify-content: space-between;
     //  column-gap: 0;
     //}
+
+    @include _600 {
+      justify-content: center;
+    }
 
     @include _400 {
       justify-content: space-between;
