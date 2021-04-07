@@ -84,7 +84,8 @@ const routes = [
                 component: () => {
                     return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/OrderingDesktop')
                 },
-                meta: {}
+                meta: {},
+                props: true
             },
             {
                 path: 'category-page/:category',
@@ -126,7 +127,7 @@ const routes = [
                 props: true
             },
             {
-                path: 'order-status/:id',
+                path: 'order-status',
                 name: 'order-status',
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
                 meta: {},

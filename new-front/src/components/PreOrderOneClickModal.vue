@@ -5,7 +5,7 @@
         <v-card class="order-dialog__wrapper">
 
             <div class="order-dialog__title">
-                Оформить заказ в 1 клик
+                Оформить предзаказ
                 <v-btn
                     icon
                     absolute
@@ -46,7 +46,7 @@
                         height="34"/>
                 </div>
             </v-form>
-            <v-btn dark class="checkout-button" elevation="0" @click="preOrder">Оформить быстрый заказ</v-btn>
+            <v-btn dark class="checkout-button" elevation="0" @click="preOrder">Оформить предзаказ</v-btn>
         </v-card>
     </v-dialog>
 </template>

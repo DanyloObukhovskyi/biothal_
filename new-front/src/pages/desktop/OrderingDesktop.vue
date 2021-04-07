@@ -381,7 +381,6 @@ export default {
                         user_id: this.user_id
                     };
                     this.axios.post('checkout/create/order', form).then(({data}) => {
-                        // console.log(data)
                         let message = data.message
 
                         this.$notify({
