@@ -414,7 +414,7 @@ class NewProductsController extends Controller
 
     public function discountList(Request $request)
     {
-        $sales = Sale::all();
+        $sales = Sale::where('active', true)->get();
         if (empty($sales)) {
             return view('admin.products.sales', ['sales']);
         }
@@ -499,8 +499,7 @@ class NewProductsController extends Controller
 
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
-                    $sale = Sale::where('id', (int)$catId)->first();
-                    $sale->delete();
+                    $sale = Sale::where('id', (int)$catId)->update(['active' => 0]);
                 }
                 return response()->json([
                     'accepted' => 'Скидки успешно удалены'
@@ -518,12 +517,12 @@ class NewProductsController extends Controller
             if ($request->checked != 0) {
                 $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
                 foreach ($request->checked as $catId) {
-                    $sale = Sale::where('id', (int)$catId)->first();
+                    $sale = Sale::where('id', (int)$catId)->update(['active' => 0]);
 
                     // Если категория родительская, удаляем все дочерние
                     if ($sale != null) {
 
-                        $sale->delete();
+                        $sale->update(['active' => 0]);
                     }
                 }
 
@@ -550,7 +549,7 @@ class NewProductsController extends Controller
 
     public function discountGlobalList(Request $request)
     {
-        $sales = GlobalSales::all();
+        $sales = GlobalSales::where('active', true)->get();
         if (empty($sales)) {
             return view('admin.products.globalSales', ['sales']);
         }
@@ -625,8 +624,7 @@ class NewProductsController extends Controller
 
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
-                    $sale = GlobalSales::where('id', (int)$catId)->first();
-                    $sale->delete();
+                    $sale = GlobalSales::where('id', (int)$catId)->update(['active' => 0]);
                 }
                 return response()->json([
                     'accepted' => 'Глобальные скидки успешно удалены'
@@ -644,12 +642,12 @@ class NewProductsController extends Controller
             if ($request->checked != 0) {
                 $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
                 foreach ($request->checked as $catId) {
-                    $sale = GlobalSales::where('id', (int)$catId)->first();
+                    $sale = GlobalSales::where('id', (int)$catId)->update(['active' => 0]);
 
                     // Если категория родительская, удаляем все дочерние
                     if ($sale != null) {
 
-                        $sale->delete();
+                        $sale->update(['active' => 0]);
                     }
                 }
 
@@ -676,7 +674,7 @@ class NewProductsController extends Controller
 
     public function discountGroupList(Request $request)
     {
-        $sales = GroupSale::all();
+        $sales = GroupSale::where('active', true)->get();
         if (empty($sales)) {
             return view('admin.products.groupSales', ['sales']);
         }
@@ -751,8 +749,7 @@ class NewProductsController extends Controller
 
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
-                    $sale = GroupSale::where('id', (int)$catId)->first();
-                    $sale->delete();
+                    $sale = GroupSale::where('id', (int)$catId)->update(['active' => 0]);
                 }
                 return response()->json([
                     'accepted' => 'Групповые скидки успешно удалены'
@@ -770,12 +767,12 @@ class NewProductsController extends Controller
             if ($request->checked != 0) {
                 $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
                 foreach ($request->checked as $catId) {
-                    $sale = GroupSale::where('id', (int)$catId)->first();
+                    $sale = GroupSale::where('id', (int)$catId)->update(['active' => 0]);
 
                     // Если категория родительская, удаляем все дочерние
                     if ($sale != null) {
 
-                        $sale->delete();
+                        $sale->update(['active' => 0]);
                     }
                 }
 
