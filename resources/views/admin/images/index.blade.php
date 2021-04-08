@@ -141,6 +141,20 @@
                     <div style="margin-right: 5px">/ </div>
                     <div><a href=""> Галерея</a></div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="input-name">Название картинки</label>
+                        <input type="text" value="@if(!empty(request()->input('title_image'))){{request()->input('title_image')}}@endif" placeholder="Название картинки"
+                               id="input-title-image" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{route('admin.images.page')}}" id="filter-href" style="color: #ffffff !important;">
+                        <button type="button" id="button-filter" class="btn btn-primary pull-right">
+                        <i class="fa fa-search"></i> Найти
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -224,7 +238,7 @@
                         @endif
                     </form>
                     <div class="row" style="margin-left:10px">
-                        <div class="col-sm-6 text-left">{{ $images->links() }}</div>
+                        <div class="col-sm-6 text-left">{{ $images->appends(array('title_image' => !empty(request()->input('title_image')) ? request()->input('title_image') : ''))->links() }}</div>
                         <div style="padding-right: 25px;" class="col-sm-6 text-right">Показано с 1 по {{ $images->lastItem() }} из {{ $images->total() }} (страниц: {{ $images->lastPage() }})</div>
                     </div>
                 </div>
@@ -341,5 +355,36 @@
     $('#example_modal').on('hidden.bs.modal', function (e) {
         deleteCards()
     })
+
+    $('#input-title-image').on('keyup', function (e) {
+        var text = $('#input-title-image').val();
+        var url = new URL($("#filter-href").attr("href"));
+        var searchParams = new URLSearchParams(url.search);
+        if(text !== '') {
+            searchParams.set("title_image", text);
+        } else {
+            searchParams.delete("title_image");
+        }
+        $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+    })
+
+
+    $( "#input-title-image" ).keyup(function() {
+
+        if ($('#input-title-image').val().length > 3) {
+            var text = $('#input-title-image').val();
+            var url = new URL($("#filter-href").attr("href"));
+            var searchParams = new URLSearchParams(url.search);
+
+            if(text !== '') {
+                searchParams.set("title_image", text);
+                window.location.replace(url);
+            } else {
+                searchParams.delete("title_image");
+            }
+
+            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+        }
+    });
 </script>
 @endsection

@@ -19,6 +19,12 @@ const routes = [
                 component: () => import('../pages/Home')
             },
             {
+                path: 'home/invite/:token',
+                name: 'invite',
+                component: () => import('../pages/Home'),
+                props: true
+            },
+            {
                 path: 'checkout',
                 name: 'checkout',
                 component: () => import('../pages/Checkout'),
@@ -84,7 +90,8 @@ const routes = [
                 component: () => {
                     return isMobile ? import('../pages/mobile/OrderingMobile') : import('../pages/desktop/OrderingDesktop')
                 },
-                meta: {}
+                meta: {},
+                props: true
             },
             {
                 path: 'category-page/:category',
@@ -119,11 +126,33 @@ const routes = [
                 meta: {}
             },
             {
-                path: 'order-status/:id',
+                path: 'registration/invite/:token',
+                name: 'invite_in_registration',
+                component: () => import('../pages/mobile/RegistrationMobile'),
+                props: true
+            },
+            {
+                path: 'Verified',
+                name: 'Verified',
+                component: () => import('../pages/mobile/Verified'),
+                meta: {},
+                props: true
+            },
+            {
+                path: 'order-status',
                 name: 'order-status',
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
                 meta: {},
                 props: true
+            },
+            {
+                path: 'payment',
+                name: 'payment',
+                component: () => {
+                    return isMobile ? import('../pages/mobile/PaymentMobile') : import('../pages/desktop/PaymentDesktop')
+                },
+                props: true,
+                meta: {}
             }
         ]
     },

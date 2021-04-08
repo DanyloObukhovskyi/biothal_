@@ -112,6 +112,12 @@
 
     export default {
         name: "Home",
+        props:{
+            token:{
+                type: [Number, String],
+                default: null,
+            }
+        },
         components: {
             ProductsPaginate,
             agile: VueAgile,
@@ -138,6 +144,7 @@
             this.getProductData();
             this.getBestSellers();
             this.getSalesProducts();
+            this.addUserToGroup();
         },
         watch: {
             bestSellerPage() {
@@ -189,6 +196,12 @@
                 let data = await this.axios.post('home/sales-products?page=' + page);
 
                 this.productsData = data.data;
+            },
+            async addUserToGroup()
+            {
+                if(this.token){
+                    this.axios.post('addUserToGroup' , { token: this.token });
+                }
             }
         }
     }

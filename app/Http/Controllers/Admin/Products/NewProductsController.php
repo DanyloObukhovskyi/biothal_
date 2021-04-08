@@ -12,8 +12,25 @@ use App\Http\Requests\Products\Information\{
     Update as InformationUpdateRequest
 };
 
+use App\Http\Requests\Products\Sales\Discount\{
+    Create as DiscountCreateRequest,
+    Update as DiscountUpdateRequest
+};
+
+use App\Http\Requests\Products\Sales\DiscountGlobal\{
+    Create as DiscountGlobalCreateRequest,
+    Update as DiscountGlobalUpdateRequest
+};
+
+use App\Http\Requests\Products\Sales\DiscountGroup\{
+    Create as DiscountGroupCreateRequest,
+    Update as DiscountGroupUpdateRequest
+};
+
 use Illuminate\Support\Facades\Log;
-use App\Models\Admin\Products\{ProductApts,
+use App\Models\Admin\Products\{
+    GlobalSales,
+    ProductApts,
     ProductTo1C,
     ProductImages,
     ProductsAttributes,
@@ -21,9 +38,11 @@ use App\Models\Admin\Products\{ProductApts,
     Information,
     InformationAttributes,
     InformationToLayout,
-    Sale};
+    Sale,
+};
 
 use App\Models\Admin\UrlAlias;
+use App\Models\GroupSale;
 
 use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
 
@@ -57,7 +76,7 @@ class NewProductsController extends Controller
 
     public function createProd()
     {
-        $stock_statuses = StockStatus::all()->toArray();
+        $stock_statuses = StockStatus::all();
         $categories = Categories::orderBy('parent_id')->where('type_category', 0)->get()->toArray();
 
         foreach ($categories as $category_key => $category) {
@@ -395,7 +414,7 @@ class NewProductsController extends Controller
 
     public function discountList(Request $request)
     {
-        $sales = Sale::all();
+        $sales = Sale::where('active', true)->get();
         if (empty($sales)) {
             return view('admin.products.sales', ['sales']);
         }
@@ -432,7 +451,7 @@ class NewProductsController extends Controller
         return view('admin.products.sales', ['sales' => $sales]);
     }
 
-    public function addSale(Request $request)
+    public function addSale(DiscountCreateRequest $request)
     {
         $sale = Sale::create([
             'title' => $request->title,
@@ -447,7 +466,7 @@ class NewProductsController extends Controller
         ]);
     }
 
-    public function editSale(Request $request)
+    public function editSale(DiscountUpdateRequest $request)
     {
         $sale = Sale::find($request->id);
 
@@ -480,8 +499,7 @@ class NewProductsController extends Controller
 
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
-                    $sale = Sale::where('id', (int)$catId)->first();
-                    $sale->delete();
+                    $sale = Sale::where('id', (int)$catId)->update(['active' => 0]);
                 }
                 return response()->json([
                     'accepted' => 'Скидки успешно удалены'
@@ -499,12 +517,12 @@ class NewProductsController extends Controller
             if ($request->checked != 0) {
                 $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
                 foreach ($request->checked as $catId) {
-                    $sale = Sale::where('id', (int)$catId)->first();
+                    $sale = Sale::where('id', (int)$catId)->update(['active' => 0]);
 
                     // Если категория родительская, удаляем все дочерние
                     if ($sale != null) {
 
-                        $sale->delete();
+                        $sale->update(['active' => 0]);
                     }
                 }
 
@@ -524,6 +542,256 @@ class NewProductsController extends Controller
                 // Если ничего не выбрано, отправляем уведомление
                 return response()->json([
                     'error' => "Выберите хотя бы 1 скидку"
+                ]);
+            }
+        }
+    }
+
+    public function discountGlobalList(Request $request)
+    {
+        $sales = GlobalSales::where('active', true)->get();
+        if (empty($sales)) {
+            return view('admin.products.globalSales', ['sales']);
+        }
+
+        if ($request->ajax()) {
+            foreach ($sales as $key => $val){
+                $sales[$key]['number'] = $key+1;
+            }
+            return Datatables::of($sales)
+                ->editColumn('sum_modal', function ($row) {
+                    return $row->sum_modal;
+                })
+                ->editColumn('procent_modal', function ($row) {
+                    return $row->procent_modal;
+                })
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<button type="button" data-toggle="modal" id="' . ("sales_change" . $row->id) .'" data-target="#change_sales" data-id="' . $row->id . '" data-sum="' . $row->sum_modal . '"  data-percent="' . $row->procent_modal . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $sales = GlobalSales::all();
+
+        return view('admin.products.globalSales', ['sales' => $sales]);
+    }
+
+    public function addGlobalSale(DiscountGlobalCreateRequest $request)
+    {
+        $sale = GlobalSales::create([
+            'sum_modal' => $request->sum,
+            'procent_modal' => $request->percent
+        ]);
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно добавили  глобальную скидку'
+        ]);
+    }
+
+    public function editGlobalSale(DiscountGlobalUpdateRequest $request)
+    {
+        $sale = GlobalSales::find($request->id);
+
+        if(empty($sale)){
+            return response()->json([
+                'success' => 1,
+                'message' => 'Глобальная скидка не найдена'
+            ], 404);
+        }
+        $sale->sum_modal = $request->sum;
+        $sale->procent_modal = $request->percent;
+        $sale->save();
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно изменили глобальную скидку'
+        ]);
+    }
+
+    public function deleteGlobalSale(Request $request)
+    {
+        // Получаем статус 0 - проверка(если все хорошо, тогда удаение), 1 - удаление
+        $status = $request->status;
+
+        // Если статус равен 0
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                // Если родительских категорий нет, то просто удаляем
+                foreach ($request->checked as $catId) {
+                    $sale = GlobalSales::where('id', (int)$catId)->update(['active' => 0]);
+                }
+                return response()->json([
+                    'accepted' => 'Глобальные скидки успешно удалены'
+                ]);
+            }
+
+            // Если ничего не выбрано, отправляем уведомление
+            return response()->json([
+                'error' => "Выберите хотя бы 1 глобальную скидку"
+            ]);
+        }
+
+        // Если статус равен 1
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
+                foreach ($request->checked as $catId) {
+                    $sale = GlobalSales::where('id', (int)$catId)->update(['active' => 0]);
+
+                    // Если категория родительская, удаляем все дочерние
+                    if ($sale != null) {
+
+                        $sale->update(['active' => 0]);
+                    }
+                }
+
+                // Если категорий не осталось, возвращаем false и перезагружаем страницу
+                if (count(GlobalSales::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                // Если все прошло успешно, возвращаем наобходимые данные
+                return response()->json([
+                    'accepted' => 'Глобальные cкидки успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                // Если ничего не выбрано, отправляем уведомление
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 глобальную скидку"
+                ]);
+            }
+        }
+    }
+
+    public function discountGroupList(Request $request)
+    {
+        $sales = GroupSale::where('active', true)->get();
+        if (empty($sales)) {
+            return view('admin.products.groupSales', ['sales']);
+        }
+
+        if ($request->ajax()) {
+            foreach ($sales as $key => $val){
+                $sales[$key]['number'] = $key+1;
+            }
+            return Datatables::of($sales)
+                ->editColumn('sum', function ($row) {
+                    return $row->sum;
+                })
+                ->editColumn('percent', function ($row) {
+                    return $row->percent;
+                })
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<button type="button" data-toggle="modal" id="' . ("sales_change" . $row->id) .'" data-target="#change_sales" data-id="' . $row->id . '" data-sum="' . $row->sum . '"  data-percent="' . $row->percent . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $sales = GroupSale::all();
+
+        return view('admin.products.groupSales', ['sales' => $sales]);
+    }
+
+    public function addGroupSale(DiscountGroupCreateRequest $request)
+    {
+        $sale = GroupSale::create([
+            'sum' => $request->sum,
+            'percent' => $request->percent
+        ]);
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно добавили  групповую скидку'
+        ]);
+    }
+
+    public function editGroupSale(DiscountGroupUpdateRequest $request)
+    {
+        $sale = GroupSale::find($request->id);
+
+        if(empty($sale)){
+            return response()->json([
+                'success' => 1,
+                'message' => 'Групповая скидка не найдена'
+            ], 404);
+        }
+        $sale->sum = $request->sum;
+        $sale->percent = $request->percent;
+        $sale->save();
+
+        return response()->json([
+            'success' => 1,
+            'message' => 'Вы успешно изменили групповую скидку'
+        ]);
+    }
+
+    public function deleteGroupSale(Request $request)
+    {
+        // Получаем статус 0 - проверка(если все хорошо, тогда удаение), 1 - удаление
+        $status = $request->status;
+
+        // Если статус равен 0
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                // Если родительских категорий нет, то просто удаляем
+                foreach ($request->checked as $catId) {
+                    $sale = GroupSale::where('id', (int)$catId)->update(['active' => 0]);
+                }
+                return response()->json([
+                    'accepted' => 'Групповые скидки успешно удалены'
+                ]);
+            }
+
+            // Если ничего не выбрано, отправляем уведомление
+            return response()->json([
+                'error' => "Выберите хотя бы 1 групповую скидку"
+            ]);
+        }
+
+        // Если статус равен 1
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = []; // Переменная для хранения id родительских категорий (удаление из селекта в модальном окне)
+                foreach ($request->checked as $catId) {
+                    $sale = GroupSale::where('id', (int)$catId)->update(['active' => 0]);
+
+                    // Если категория родительская, удаляем все дочерние
+                    if ($sale != null) {
+
+                        $sale->update(['active' => 0]);
+                    }
+                }
+
+                // Если категорий не осталось, возвращаем false и перезагружаем страницу
+                if (count(GroupSale::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                // Если все прошло успешно, возвращаем наобходимые данные
+                return response()->json([
+                    'accepted' => 'Групповые cкидки успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                // Если ничего не выбрано, отправляем уведомление
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 групповую скидку"
                 ]);
             }
         }

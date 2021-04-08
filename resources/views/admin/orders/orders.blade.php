@@ -124,7 +124,17 @@
                                             @endif
                                         </td>
                                         <td class="text-left">
-                                            {{$order['order_status']['name']}}
+                                            @if($order['order_status']['name'] == 'active')
+                                                Активный
+                                            @elseif($order['order_status']['name'] == 'payment_process')
+                                                В процессе оплаты
+                                            @elseif($order['order_status']['name'] == 'shipping_process')
+                                                Отправленна получателю
+                                            @elseif($order['order_status']['name'] == 'finish')
+                                                Получена
+                                            @elseif($order['order_status']['name'] == 'pre_order')
+                                                Предзаказ
+                                            @endif
                                         </td>
                                         <td class="text-right">{{$order['total_price']}} грн</td>
                                         <td class="text-left">

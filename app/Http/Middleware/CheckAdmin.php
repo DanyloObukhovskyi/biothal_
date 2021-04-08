@@ -15,10 +15,10 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->type == 'admin') {
+        if (auth()->user()->type === 'admin') {
             return $next($request);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 }

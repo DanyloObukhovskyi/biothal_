@@ -28,17 +28,6 @@
                         flat
                         rounded/>
                 </div>
-                <div class="register_input">
-                    <p class="main-input-label">Подтвердите пароль</p>
-                    <v-text-field
-                        class="main-input-field"
-                        v-model="user.password_confirmation"
-                        type="password"
-                        :rules="passConfirmRules"
-                        :error-messages="errorValid.password_confirmation"
-                        flat
-                        rounded/>
-                </div>
             </v-form>
         </div>
         <div class="remember-me">
@@ -64,12 +53,10 @@
                 errorValid: {
                     phone_number: '',
                     password: '',
-                    password_confirmation: ''
                 },
                 user: {
                     phone_number: '',
                     password: '',
-                    password_confirmation: '',
                     rememberMe: false
                 },
                 phoneRules: [
@@ -106,7 +93,7 @@
                         let login = data.data.access_token
                         try {
                             await this.$store.dispatch('LOGIN', login);
-                            this.toPage({name: 'home'})
+                            this.toPage({name: 'account-settings'})
                         } catch (e) {
                             console.log(e)
                         }
@@ -123,8 +110,7 @@
             },
             clearValidation(){
                 this.errorValid.phone_number = '',
-                this.errorValid.password = '',
-                this.errorValid.password_confirmation = ''
+                this.errorValid.password = ''
             }
         }
     }

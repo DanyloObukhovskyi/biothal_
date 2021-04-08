@@ -35,7 +35,12 @@
           <div class="info-price">
             <span class="info-price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>
             <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
-            <!--                        <p class="info-price__in-stock">В наличии</p>-->
+            <p class="info-price__in-stock">{{
+                            stock_status === 1 ? 'В наличии' :
+                            stock_status === 2 ? 'Предзаказ' :
+                            stock_status === 3 ? 'Нет в наличии' :
+                            stock_status === 4 ? '2-3 Дня' : ''}}
+                        </p>
           </div>
           <span class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
 
@@ -60,18 +65,26 @@
 
           <div class="info-pay-control">
             <div class="info-pay-control__buy">
-              <v-btn dark :color="variables.basecolor" elevation="0" @click="addToCart">Купить</v-btn>
+              <v-btn v-if="stock_status !== 2" class="white--text" :disabled="stock_status === 3"
+                                   :color="variables.basecolor" elevation="0" @click="addToCart">
+                                {{ stock_status === 3 ? 'Нет в наличии' : 'Купить'}}
+                            </v-btn>
+                            <v-btn v-else class="white--text" :disabled="stock_status === 3"
+                                   :color="variables.basecolor" elevation="0" @click="preOrder">
+                                Предзаказ</v-btn>
               <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
             </div>
-            <div class="info-pay-control__buy-fast">
-              <v-text-field
+            <div v-if="stock_status !== 3"class="info-pay-control__buy-fast">
+              <v-form ref="orderQuickForm">
+                                <v-text-field
                 class="info-pay-control__buy-fast__input"
-                v-model="phone"
+                v-model="phone":error-messages="errorValid.phone"
+                                    :rules="numberRules"
                 flat
                 rounded
                 placeholder="+38(___) ___-__-__"
-                v-mask="'+38(###) ###-##-##'"/>
-              <span class="info-pay-control__text">Оформить товар в 1 клик</span>
+                v-mask="'+38(###) ###-##-##'"/></v-form>
+              <span v-if="stock_status !== 2" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
             </div>
           </div>
         </div>
@@ -115,7 +128,12 @@
                      :product-data="recommendedProduct"/>
 
     <vue-gallery-slideshow :images="images" :index="index" @close="index = null"/>
-  </div>
+  <v-snackbar
+            v-model="showMessage"
+            v-bind="snackbar">
+            Товар добавлен в корзину
+        </v-snackbar>
+    </div>
 </template>
 
 <script>
@@ -143,8 +161,13 @@ export default {
     },
     route() {
       return this.$route.params;
-    }
-  },
+    },
+  numberRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
+                ];
+            }},
   watch: {
     route: {
       deep: true,
@@ -153,7 +176,7 @@ export default {
       },
     }
   },
-  created() {
+  created() {this.getProfile();
     this.fetchProductDetails();
   },
   data() {
@@ -163,13 +186,13 @@ export default {
       minimum_quantity: '',
       items: [],
       is_discount: false,
-      phone: '',
+      phone: '',user_id: '',
       productData: {
         image: {
           name: ''
         },
         product_description: {}
-      },
+      },stock_status: '',
       attr: [],
       description: [],
       productImages: [],
@@ -186,14 +209,24 @@ export default {
           title: ''
         }
       },
-      productDescription: ''
-    }
+      productDescription: '',
+    showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                },
+                errorValid: {
+                    phone: ''
+                }}
   },
   methods: {
     ...mapActions('basket', {
       addProduct: 'ADD_PRODUCT'
     }),
-    addToCart() {
+    addToCart() {this.showMessage = true;
       const product = this.productData;
       product.quantity = this.count_good;
 
@@ -221,6 +254,7 @@ export default {
       this.category = data.data.product_category;
       this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
       this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
+                this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
 
       if (this.productImages) {
         let url = [];
@@ -243,8 +277,127 @@ export default {
       if (this.images[0]) {
         this.index = 0;
       }
-    }
-  },
+    },
+  async checkout() {
+                this.$loading(true);
+                try {
+                    this.clearValidation()
+                    let validate = await this.$refs['orderQuickForm'].validate();
+
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
+
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
+
+                        let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
+
+                        if (data) {
+                            let message = data.data.message
+
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            this.clearValidation();
+
+                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+
+                            this.clearCartProducts()
+                        }
+                    }
+                    this.$loading(false);
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
+
+            },
+            async preOrder() {
+                this.$loading(true);
+                try {
+                    this.clearValidation()
+                    let validate = await this.$refs['orderQuickForm'].validate();
+
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
+
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
+
+                        let data = await this.axios.post('checkout/create/preOrder', form)
+
+                        this.clearValidation();
+
+                        this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+                    }
+                    this.$loading(false);
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
+            },
+            clearValidation() {
+                this.errorValid = {
+                    phone: ''
+                }
+            },
+            async getProfile() {
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('profile', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (data) {
+                            let user = data.data.user;
+                            this.phone = user.phone_number;
+                            this.user_id = user.id;
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid() {
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('checkUser', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (data) {
+                            let exist = data.data.exist
+                            if (!exist) {
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
+                }
+            }},
 }
 </script>
 
@@ -404,7 +557,10 @@ export default {
         @media screen and (max-width: 767px) {
           width: 100%;
         }
-      }
+&[disabled].theme--light {
+                        background-color: $palette-disable-color !important;
+                    }
+                }
 
       &__input {
         background-color: transparent;
@@ -430,7 +586,7 @@ export default {
           margin: 0 !important;
           display: flex;
           justify-content: center;
-          background-color: #EFEFEF;
+          background-color: #efefef;
           height: 48px;
           text-align: center;
           font-size: 16px;
@@ -480,10 +636,7 @@ input[type=number] {
   }
 }
 
-/*.description-content {*/
-/*    justify-content: center;*/
-/*    display: flex;*/
-/*}*/
+
 
 .breadcrumb {
   cursor: pointer;

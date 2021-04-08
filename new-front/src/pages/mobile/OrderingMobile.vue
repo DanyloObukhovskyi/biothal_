@@ -39,7 +39,7 @@
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Введите область</p>
-                    <v-autocomplete
+                    <v-select
                         :items="regions"
                         color="#2F7484"
                         :loading="regionsLoading"
@@ -50,11 +50,11 @@
                         name="name"
                         flat
                         rounded>
-                    </v-autocomplete>
+                    </v-select>
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Введите город</p>
-                    <v-autocomplete
+                    <v-select
                         :items="cities"
                         :loading="citiesLoading"
                         v-model="city"
@@ -65,23 +65,24 @@
                         class="main-input-field"
                         flat
                         rounded>
-                    </v-autocomplete>
+                    </v-select>
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
-                    <v-autocomplete
+                    <v-select
                         :items="postalOffices"
                         :loading="postalOfficesLoading"
                         v-model="postalOffice"
                         :error-messages="errorValid.postalOffice"
                         :rules="postalOfficeRules"
                         color="#2F7484"
-                        :item-text="(c) => c.name"
+                        :item-text="c => c.name"
+                        :item-value="c => c"
                         name="name"
                         class="main-input-field"
                         flat
                         rounded>
-                    </v-autocomplete>
+                    </v-select>
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Выберите способ оплаты</p>
@@ -142,6 +143,7 @@ import {mapActions, mapGetters} from "vuex";
                 surname: '',
                 region: '',
                 city: '',
+                user_id: '',
                 postalOffice: '',
                 paymentMethod: '',
                 recommendedProducts: [],
@@ -300,11 +302,12 @@ import {mapActions, mapGetters} from "vuex";
                             number: this.number,
                             name: this.name,
                             surname: this.surname,
-                            city: this.city.name,
+                            city: this.city,
                             region: this.region,
                             postalOffice: this.postalOffice,
                             paymentMethod: this.paymentMethod,
-                            products: this.products
+                            products: this.products,
+                            user_id: this.user_id
                         };
 
                         let data = await this.axios.post('checkout/create/order', form)
@@ -319,10 +322,10 @@ import {mapActions, mapGetters} from "vuex";
 
                             this.clearValidation()
 
-                            if(data.data.redirect) {
-                                window.open(data.data.redirect);
+                            if (data.data.redirect) {
+                                this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
                             } else {
-                                this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                                this.toPage({name: 'order-status', params: {id: data.data.order_id}});
                             }
                         }
                     }
@@ -332,8 +335,62 @@ import {mapActions, mapGetters} from "vuex";
                     this.errorMessagesValidation(e);
                 }
             },
+            async getProfile(){
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let user = data.data.user
+                            this.number = user.phone_number,
+                            this.name = user.name,
+                            this.surname = user.sur_name,
+                            this.user_id = user.id
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
+                }
+            }
         },
         mounted() {
+            this.getProfile();
             this.getRecommendedProduct();
             this.getRegionsAndCities();
             this.getPaymentMethods();

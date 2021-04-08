@@ -5,49 +5,117 @@
                 <thead>
                 <tr>
                     <th class="text-left">
-                        ID
+                        Порядковый номер
                     </th>
                     <th class="text-left">
-                        Имя Фамилия
+                        Имя и Фамилия участника
                     </th>
                     <th class="text-left">
-                        Сколько накопил для группы
+                        Сумма накопления для группы
                     </th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="text-left"
+                <tbody v-if="!defaultTable">
+                <tr  class="text-left"
                     v-for="(item, index) in participants" :key="index">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.money }}</td>
+                    <td>{{ item.sum }} грн</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Общая сумма</td>
+                    <td></td>
+                    <td>{{ total_sum }} грн</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Процент групповой скидки</td>
+                    <td></td>
+                    <td>{{ percent }} %</td>
                 </tr>
                 </tbody>
             </template>
         </v-simple-table>
-        <v-btn dark class="checkout-button" elevation="0">
+        <v-btn dark class="checkout-button" @click="$refs['AddUserToGroup'].visible=true" elevation="0">
             Добавить друга
         </v-btn>
+        <AddUserToGroup ref="AddUserToGroup"/>
     </div>
 </template>
 
 <script>
+    import AddUserToGroup from "./addUserToGroup";
     export default {
         name: "GroupDiscountParticipants",
+        components: {AddUserToGroup},
         data() {
             return {
+                total_sum: 0,
+                percent: 0,
+                defaultTable: true,
                 participants: [
-                    {
-                        id: 1,
-                        name: 'Вы',
-                        money: '0 грн'
-                    },
-                    {
-                        id: 2,
-                        name: 'Не ты',
-                        money: '10 грн'
-                    }
+                    id => '',
+                    name => '',
+                    sum => 0
                 ]
+            }
+        },
+        created() {
+            this.getProfile()
+        },
+        methods:{
+            async getProfile(){
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.get('getGroupSales', {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let resp = data.data;
+                            this.participants = resp.group
+                            this.total_sum = resp.total_sum
+                            this.percent = resp.percent
+                            this.defaultTable = false
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                this.toPage({name: 'AuthorizationMobile'})
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                            this.toPage({name: 'AuthorizationMobile'})
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.toPage({name: 'AuthorizationMobile'})
+                    this.errorMessagesValidation(e);
+                }
             }
         }
     }

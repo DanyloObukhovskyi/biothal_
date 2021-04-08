@@ -75,6 +75,20 @@
             <div class="modal-header" style="display: block;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center"><i class="fas fa-images"></i> Галерея</h4>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Название картинки</label>
+                        <input type="text" value="" placeholder="Название картинки"
+                               id="input-title-image" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <a onclick="getImages(1)" id="filter-href" style="color: #ffffff !important;">
+                        <button type="button" id="button-filter" class="btn btn-primary" style="margin-top: 21px">
+                            <i class="fa fa-search"></i> Найти
+                        </button>
+                    </a>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="page-header w-100 alert  p-0  mt-2 text-center" id="imagesModal">

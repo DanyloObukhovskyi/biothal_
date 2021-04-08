@@ -118,6 +118,12 @@
 
     export default {
         name: "RegistrationMobile",
+        props:{
+            token:{
+                type: [Number, String],
+                default: null,
+            }
+        },
         data() {
             return {
                 errorValid: {
@@ -166,6 +172,9 @@
         computed:{
 
         },
+        created() {
+            this.checkUser();
+        },
         methods:{
             async saveUser(){
                 this.$loading(true)
@@ -175,6 +184,7 @@
                 if(validate){
                     let user = this.user
                     let data
+                    user.token = this.token
                     try {
                         data = await this.axios.post('register' , user);
                     } catch (e) {
@@ -188,8 +198,9 @@
                             title: message,
                             text: 'Вы можете войти в свою учетную запись'
                         });
+                        let phone = this.user.phone_number
                         this.$refs.form.reset()
-                        this.toPage({name: 'authorization' })
+                        this.toPage({name: 'Verified' , params: { phone: phone}})
                     }
                 } else {
                     this.$loading(false)
@@ -203,6 +214,13 @@
                 this.errorValid.phone_number = '',
                 this.errorValid.password = '',
                 this.errorValid.password_confirmation = ''
+            },
+            async checkUser()
+            {
+                const tokenForAuth = this.$store.getters.getToken;
+                if(tokenForAuth){
+                    this.toPage({name: 'home'})
+                }
             }
         }
     }

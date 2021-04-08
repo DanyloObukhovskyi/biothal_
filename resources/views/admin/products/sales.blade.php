@@ -66,7 +66,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="example_modal_label">Изменить категорию</h5>
+                    <h5 class="modal-title" id="example_modal_label">Изменить скидку</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -141,7 +141,7 @@
                         <p>Скидки отсутствуют ¯\_(ツ)_/¯</p>
                     @else
                         <div class="container-fluid m-2">
-                            <table class="table" id="sales_table" style="width:100%">
+                            <table class="table table-bordered table-hover" id="sales_table" style="width:100%">
                                 <thead class="text-center">
                                 <tr>
                                     <th scope="col">id</th>

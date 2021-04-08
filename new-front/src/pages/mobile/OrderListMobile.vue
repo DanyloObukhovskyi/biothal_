@@ -1,15 +1,38 @@
 <template>
     <div class="order-list__wrapper">
-        <div v-if="isOrders" class="default-text__wrapper">
-            <div class="default-text__title">
-                Список заказов
-            </div>
-            <div>
-                Скоро здесь будет куча ваших заказов, а вместе с их количеством будет расти и ваша скидка ;)
-            </div>
-        </div>
-        <div v-else>
-
+        <div class="default-text__wrapper">
+            <v-data-table
+                :headers="orderListHeaders"
+                :items="orderList"
+                :single-expand="true"
+                :expanded.sync="expanded"
+                item-key="id"
+                class="elevation-1"
+                mobile-breakpoint="0"
+                :hide-default-footer="!orderList.length"
+                :hide-default-header="!orderList.length"
+                :footer-props="{
+                'items-per-page-text':'Заказов на странице',
+            }">
+                <template v-if="orderList.length" v-slot:top>
+                    <v-toolbar flat>
+                        <v-spacer></v-spacer>
+                        <v-toolbar-title>Список заказов</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
+                </template>
+                <template v-if="orderList.length" slot="body.append">
+                    <tr>
+                        <th class="title">Сумма заказов</th><th></th><th></th>
+                        <th class="title">{{ sumField('total_sum') }}</th>
+                    </tr>
+                </template>
+                <template slot="no-data">
+                    <div class="title">
+                        Список заказов пуст
+                    </div>
+                </template>
+            </v-data-table>
         </div>
     </div>
 </template>
@@ -19,7 +42,132 @@
         name: "OrderListMobile",
         data() {
             return {
-                isOrders: true
+                isOrders: true,
+                expanded: [],
+                singleExpand: false,
+                orderListHeaders: [
+                    {
+                        text: 'Номер заказа',
+                        align: 'start',
+                        sortable: false,
+                        value: 'id',
+                    },
+                    { text: 'Тип оплаты', sortable: false, value: 'order_type.title' },
+                    { text: 'Статус', sortable: false, value: 'order_status.name' },
+                    { text: 'Сумма (грн)', sortable: false, value: 'total_sum' },
+                ],
+                orderList: [
+                    {
+                        id: '',
+                        order_status: {
+                            name: ''
+                        },
+                        order_type: {
+                            title: ''
+                        },
+                        total_sum: '',
+                        // products: {
+                        //     attr: {
+                        //         image: {
+                        //             name: ''
+                        //         }
+                        //     },
+                        //     is_sales: '',
+                        //     price: '',
+                        //     price_with_sales: '',
+                        //     quantity: ''
+                        // }
+                    }
+                ]
+            }
+        },
+        mounted() {
+            this.getProfile();
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler (newRoute, oldRoute) {
+                    this.getProfile();
+                }
+            },
+        },
+        methods: {
+            async getProfile(){
+                await this.checkUserIsValid()
+                try {
+                    this.$loading(true)
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            this.profile = data.data.user
+                            this.orderList = data.data.orderList
+
+                            if (this.orderList !== []) {
+                                this.orderList.map(function(value, key) {
+                                    if (value.order_status.name === 'active') {
+                                        value.order_status.name = 'В обработке';
+                                    } else if (value.order_status.name === 'payment_process'){
+                                        value.order_status.name = 'В процессе оплаты';
+                                    } else if (value.order_status.name === 'shipping_process'){
+                                        value.order_status.name = 'Отправленна получателю';
+                                    } else if (value.order_status.name === 'finish'){
+                                        value.order_status.name = 'Получена';
+                                    } else if (value.order_status.name === 'pre_order'){
+                                        value.order_status.name = 'Предзаказ';
+                                    }
+                                });
+                            }
+
+                        }
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                this.toPage({name: 'AuthorizationMobile'})
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                            this.toPage({name: 'AuthorizationMobile'})
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.toPage({name: 'AuthorizationMobile'})
+                    this.errorMessagesValidation(e);
+                }
+            },
+            sumField(key) {
+                return (this.orderList.reduce((a, b) => +a + (+b[key] || 0), 0)).toFixed(2)
             }
         }
     }

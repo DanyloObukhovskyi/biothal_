@@ -4,12 +4,19 @@
             Ваш заказ №{{ id }}
         </div>
         <div class="order-status__title">
-            Принят, мы вам перезвоним в течении получаса
+            Пожалуйста, ожидайте звонка оператора для
+            уточнения деталей заказа и условий доставки.
+            Call - центр работает по будням: 10:00 — 17:00.
+            Суббота / Воскресенье: Выходной.
+            Остались вопросы? Звони +38 (068) 888-12-08
+            Или пиши нам в instagram @biothal.ua
         </div>
     </div>
 </template>
 
 <script>
+    import {mapActions, mapGetters} from "vuex";
+
     export default {
         name: "OrderingStatusDesktop",
         props: {
@@ -24,16 +31,44 @@
                 message: ''
             }
         },
+        computed: {
+            ...mapGetters('basket', [
+                'products',
+                'globalSales',
+                'currentGlobalSales',
+                'nextGlobalSales',
+                'linear',
+                'productsSum',
+                'productsSumWithSales'
+            ])
+        },
         created() {
             this.fetchOrderStatus();
         },
         methods: {
+            ...mapActions('basket', {
+                deleteProduct: 'DELETE_PRODUCT',
+                clearCart: 'CLEAR_ALL_CART'
+            }),
+            clearCartProducts() {
+                this.clearCart()
+            },
             async fetchOrderStatus() {
                 let data = await this.axios.get('order-status/' + this.id);
 
                 // this.title =  data.data.title;
                 // this.message = data.data.message;
+            },
+            sendEmailToUser(id)
+            {
+                this.axios.post('sendOrderStatus', {
+                    data:this.id
+                });
             }
+        },
+        mounted() {
+            this.clearCartProducts();
+            this.sendEmailToUser(this.id);
         }
     }
 </script>

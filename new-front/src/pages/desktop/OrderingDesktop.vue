@@ -62,7 +62,7 @@
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Введите область *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="regions"
                                     color="#2F7484"
                                     :loading="regionsLoading"
@@ -75,11 +75,11 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Введите город *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="cities"
                                     :loading="citiesLoading"
                                     v-model="city"
@@ -92,11 +92,11 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите отделение Новой Почты *</p>
-                                <v-autocomplete
+                                <v-select
                                     :items="postalOffices"
                                     :loading="postalOfficesLoading"
                                     v-model="postalOffice"
@@ -111,7 +111,7 @@
                                     flat
                                     rounded
                                     background-color="#F7F7F7">
-                                </v-autocomplete>
+                                </v-select>
                             </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
@@ -135,9 +135,9 @@
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-<!--                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">-->
-<!--                            Оформить в 1 клик-->
-<!--                        </div>-->
+                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
+                            Оформить в 1 клик
+                        </div>
                     </div>
                 </div>
                 <div class="ordering__middle__right">
@@ -180,7 +180,7 @@
             <ProductCardsSet title="Рекомендуемые товары" :product-data="recommendedProducts.slice(0, 6)"/>
         </div>
 
-        <PlaceOrderOneClick ref="PlaceOrderOneClick"/>
+        <PlaceOrderOneClick ref="PlaceOrderOneClick" :name="name" :number="number" :user_id="user_id"/>
     </div>
 </template>
 
@@ -227,7 +227,7 @@ export default {
                 postalOffice: '',
                 paymentMethod: ''
             },
-            profile:{
+            profile: {
                 number: '',
                 name: '',
                 surname: '',
@@ -298,19 +298,12 @@ export default {
             }
         },
         products: function (newProducts, old) {
-            if(newProducts.length === 0){
+            if (newProducts.length === 0) {
                 this.toPage({name: 'home'})
             }
         }
     },
     methods: {
-        ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT',
-            clearCart: 'CLEAR_ALL_CART'
-        }),
-        clearCartProducts() {
-            this.clearCart()
-        },
         getRecommendedProduct() {
             this.axios.post('products/recommended')
                 .then(({data}) => {
@@ -371,6 +364,7 @@ export default {
             this.$loading(true)
 
             try {
+                //this.toPage({name: 'payment', params: {paymentUrl: 454}})
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
 
@@ -386,10 +380,8 @@ export default {
                         products: this.products,
                         user_id: this.user_id
                     };
-                    let data = await this.axios.post('checkout/create/order', form)
-
-                    if (data) {
-                        let message = data.data.message
+                    this.axios.post('checkout/create/order', form).then(({data}) => {
+                        let message = data.message
 
                         this.$notify({
                             type: 'success',
@@ -397,14 +389,13 @@ export default {
                             text: message
                         });
                         this.clearValidation();
-
-                        if(data.data.redirect) {
-                            window.open(data.data.redirect);
+                        let postData = data.portmone
+                        if (postData) {
+                            this.toPage({name: 'payment', params: {paymentUrl: postData}});
                         } else {
-                           this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                            this.toPage({name: 'order-status', params: {id: data.order_id}});
                         }
-                        this.clearCartProducts()
-                    }
+                    })
                 }
                 this.$loading(false);
             } catch (e) {
@@ -412,44 +403,40 @@ export default {
                 this.errorMessagesValidation(e);
             }
         },
-        async getProfile(){
+        async getProfile() {
             await this.checkUserIsValid()
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('profile', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('profile', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let user = data.data.user
                         this.number = user.phone_number,
-                        this.name = user.name,
-                        this.surname = user.sur_name,
-                        this.user_id = user.id
+                            this.name = user.name,
+                            this.surname = user.sur_name,
+                            this.user_id = user.id
                     }
                 }
             } catch (e) {
                 this.errorMessagesValidation(e);
             }
         },
-        async checkUserIsValid(){
+        async checkUserIsValid() {
             try {
                 const token = this.$store.getters.getToken;
-                if(token){
-                    let data = await this.axios.post('checkUser', {
-
-                    },  {
+                if (token) {
+                    let data = await this.axios.post('checkUser', {}, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    if(data){
+                    if (data) {
                         let exist = data.data.exist
-                        if(!exist){
+                        if (!exist) {
                             await this.$store.dispatch('LOGIN', null);
                             return false;
                         }

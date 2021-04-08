@@ -152,6 +152,30 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             Route::get('/discountList', 'NewProductsController@discountList')
                 ->name('admin.products.sales');
+
+            Route::post('/addGlobalSale', 'NewProductsController@addGlobalSale')
+                ->name('admin.product.add.global_sale');
+
+            Route::post('/editGlobalSale', 'NewProductsController@editGlobalSale')
+                ->name('admin.product.edit.global_sale');
+
+            Route::post('/deleteGlobalSale', 'NewProductsController@deleteGlobalSale')
+                ->name('admin.product.delete.global_sale');
+
+            Route::get('/discountGlobalList', 'NewProductsController@discountGlobalList')
+                ->name('admin.products.salesGlobal');
+
+            Route::post('/addGroupSale', 'NewProductsController@addGroupSale')
+                ->name('admin.product.add.group_sale');
+
+            Route::post('/editGroupSale', 'NewProductsController@editGroupSale')
+                ->name('admin.product.edit.group_sale');
+
+            Route::post('/deleteGroupSale', 'NewProductsController@deleteGroupSale')
+                ->name('admin.product.delete.group_sale');
+
+            Route::get('/discountGroupList', 'NewProductsController@discountGroupList')
+                ->name('admin.products.salesGroup');
             // Добавление
             Route::group(['prefix' => 'add'], function () {
                 Route::post('/', 'ProductsController@addProduct')

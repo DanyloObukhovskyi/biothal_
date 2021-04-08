@@ -1,7 +1,7 @@
 <template>
     <div class="product-basket__wrapper">
         <div class="product-basket">
-            <img class="product-basket__image" height="150" width="150"
+            <img @click="toPage({name: 'product', params: {id: dataCard.id}})" class="product-basket__image" height="150" width="150"
                  :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
         </div>
         <div class="product-basket">
@@ -11,8 +11,8 @@
             <div class="product-basket__text">
                 <div class="product-basket__text__price">{{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн</div>
                 <div class="product-basket__text__delete-basket">
-                    <v-btn dark class="product__button" elevation="0" @click="addToCart">
-                        Добавить
+                    <v-btn :disabled="dataCard.stock_status_id === 3" class="product__button white--text" elevation="0" @click="addToCart">
+                        {{ dataCard.stock_status_id === 3 ? 'Нет в наличии' : 'Добавить'}}
                     </v-btn>
                 </div>
             </div>
@@ -29,8 +29,8 @@
         props: {
             dataCard: {
                 type: Object,
-                default: () => {
-                }
+                default: () => {},
+                stock_status_id: ''
             },
             isShowStock:{
                 type: Boolean,
@@ -69,6 +69,7 @@
         }
 
         &__image {
+            cursor: pointer;
             max-width: 100%;
         }
 
@@ -79,6 +80,7 @@
         text-align: center;
 
         &__title {
+            cursor: pointer;
             font-weight: 700;
             font-size: 10px;
             line-height: 14px;

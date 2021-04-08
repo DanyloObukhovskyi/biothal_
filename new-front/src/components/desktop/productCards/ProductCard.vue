@@ -1,7 +1,7 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
         <div class="product__sale" v-if="isShowStock">-{{ dataCard.get_sale.percent }}%</div>
-        <div class="product__heart"  v-if="isShowFavorite">
+        <div class="product__heart" v-if="isShowFavorite">
             <v-btn
                 v-show="isFavoritesShow || isFavorites"
                 icon
@@ -13,32 +13,49 @@
             </v-btn>
         </div>
         <img class="product__image" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-             :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
+             :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"
+             :alt="dataCard.image ? dataCard.image.name : ''"/>
 
         <div class="product__description">
-            <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{ dataCard['product_description']['name'] }}</div>
-            <div class="product__description__price default-cursor">{{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн</div>
+            <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text"
+                 style=" display: block; text-overflow: ellipsis; white-space: normal;">{{
+                dataCard['product_description']['name'] }}
+            </div>
+            <div class="product__description__price default-cursor">{{ isShowStock ? dataCard.price_with_sale:
+                dataCard.price }} грн
+            </div>
         </div>
         <div>
-            <v-btn dark class="product__button" elevation="0" @click="addProductToCart">Купить</v-btn>
+            <v-btn v-if="dataCard.stock_status_id !== 2" :disabled="dataCard.stock_status_id === 3"
+                   class="product__button white--text" elevation="0" @click="addProductToCart">
+                {{ dataCard.stock_status_id === 3 ? 'Нет в наличии' : 'Купить'}}
+            </v-btn>
+            <v-btn v-else class="product__button white--text" :disabled="dataCard.stock_status_id === 3"
+                   :color="variables.basecolor" elevation="0"
+                   @click="preOrder">
+                Предзаказ
+            </v-btn>
         </div>
         <v-snackbar
             v-model="showMessage"
             v-bind="snackbar">
-            <v-icon color="white" size="25">
-                check_circle_outline
-            </v-icon>
             Товар добавлен в корзину
         </v-snackbar>
+
+        <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone" :user_id="user_id"/>
     </div>
 </template>
 
 <script>
 
     import {mapActions} from "vuex";
+    import PreOrderOneClickModal from "../../PreOrderOneClickModal.vue";
 
     export default {
         name: "ProductCard",
+        components: {
+            PreOrderOneClickModal
+        },
         metaInfo() {
             return {
                 title: this.dataCard.product_description.meta_title,
@@ -60,7 +77,12 @@
                 image: {
                     name: ''
                 },
-                product_description: {}
+                product_description: {},
+                stock_status: {
+                    stock_status_id: '',
+                    name: ''
+                },
+                stock_status_id: ''
             },
             isShowStock: {
                 type: Boolean,
@@ -78,7 +100,11 @@
                     color: 'green',
                     timeout: 900,
                     multiLine: true
-                }
+                },
+                name: '',
+                phone: '',
+                user_id: ''
+
             }
         },
         methods: {
@@ -92,6 +118,64 @@
                 product.quantity = (product.minimum !== 0) ? product.minimum : 1;
 
                 this.addProduct(product)
+            },
+            preOrder() {
+                this.getProfile();
+
+                this.$refs['PreOrderOneClickModal'].visible=true;
+            },
+            async getProfile() {
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('profile', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+
+                        if(data) {
+                            let user = data.data.user;
+                            this.name = user.name;
+                            this.phone = user.phone_number;
+                            this.user_id = user.id;
+                        }
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid(){
+                try {
+                    const token = this.$store.getters.getToken;
+                    if(token){
+                        let data = await this.axios.post('checkUser', {
+
+                        },  {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if(data){
+                            let exist = data.data.exist
+                            if(!exist){
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
+                            await this.$store.dispatch('LOGIN', null);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
+                }
             }
         }
     }
@@ -111,6 +195,10 @@
         &:hover {
             box-shadow: 0 0 33px #f2f2f2;
 
+            & .product__button[disabled] {
+                background-color: #909090 !important;
+            }
+
             & .product__button {
                 background-color: #000 !important;
             }
@@ -126,8 +214,8 @@
             font-weight: 300;
             font-size: 21px;
             position: absolute;
-          left: 20px;
-          top: 20px;
+            left: 20px;
+            top: 20px;
         }
 
         /*&__heart {*/
@@ -184,6 +272,12 @@
             font-size: 16px;
             line-height: 22px;
             margin: 10px;
+
+            /*&:hover {*/
+            /*    &[disabled].product__button {*/
+            /*        background-color: #ded4d4 !important;*/
+            /*    }*/
+            /*}*/
         }
     }
 </style>

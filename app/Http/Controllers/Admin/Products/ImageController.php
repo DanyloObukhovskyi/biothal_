@@ -18,10 +18,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (!empty($request->input('title_image'))) {
+            $title = $request->input('title_image');
+            $images = Image::where('name', 'like', '%' . $title . '%')->paginate(15);
+        } else {
+            $images = Image::paginate(15);
+        }
+
         $imagesGlobal = [];
-        $images = Image::paginate(15);
         $imagesGlobalAll = ImageGlobal::all();
         // Если нет изображений, выводим подсказку
 //        if (count($imagesAll) == 0) {
@@ -173,9 +179,14 @@ class ImageController extends Controller
         return true;
     }
 
-    public function getImages(Request $request) {
-        $images = Image::query();
-
+    public function getImages(Request $request)
+    {
+        if (!empty($request->input('title_image'))) {
+            $title = $request->input('title_image');
+            $images = Image::where('name', 'like', '%' . $title . '%');
+        } else {
+            $images = Image::query();
+        }
         return response()->json([
             'data' => $images->paginate($request->input('count', 12))
         ]);
