@@ -132,7 +132,7 @@ export default {
     padding: 0 0 0 23px;
 
     @include _600 {
-      padding: 15px 0 15px 23px;
+      padding: 15px 0 10px 23px;
     }
 
     &__title {
@@ -175,6 +175,14 @@ export default {
     }
 
     &__counter {
+      display: flex;
+      column-gap: 1px;
+
+      & > * {
+        background-color: white;
+        padding: 0 1.5px;
+      }
+
       & > input {
         font-size: 10px;
       }

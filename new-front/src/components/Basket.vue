@@ -25,7 +25,7 @@
                                class="main-linear"
                                height="12"/>
           </div>
-          <div class="page-form__middle" v-if="products.length > 0">
+          <div class="page-form__middle" v-if="products.length > 0" :styles="['margin-top: 0']">
             <div class="page-form__middle__product-set">
               <ProductCardBasket v-for="item in products"
                                  @delete="deleteProduct(item.id)"
