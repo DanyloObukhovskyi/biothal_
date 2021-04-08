@@ -4,11 +4,10 @@ namespace App\Models\Admin\Products;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GlobalSales extends Model
+class GroupSales extends Model
 {
-    protected $table = 'global_sales';
+    protected $table = 'group_sales';
 
     protected $guarded = [];
 
-    public $timestamps = FALSE;
 }

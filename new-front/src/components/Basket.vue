@@ -47,7 +47,15 @@
                                     Скидка:
                                 </div>
                                 <div class="total__right">
-                                    {{ currentGlobalSales.procent_modal }}%.
+                                    {{ currentGlobalSales.procent_modal}}%.
+                                </div>
+                            </div>
+                            <div class="total" v-if="currentGroupSales !== null && currentGlobalSales === null">
+                                <div class="total__left">
+                                    Скидка:
+                                </div>
+                                <div class="total__right">
+                                    {{currentGroupSales.percent}}%.
                                 </div>
                             </div>
                             <div class="total">
@@ -106,6 +114,9 @@ export default {
             'globalSales',
             'currentGlobalSales',
             'nextGlobalSales',
+            'groupSales',
+            'currentGroupSales',
+            'nextGroupSales',
             'linear',
             'productsSum',
             'productsSumWithSales'
@@ -127,7 +138,8 @@ export default {
     methods: {
         ...mapActions('basket', {
             deleteProduct: 'DELETE_PRODUCT',
-            setGlobalSales: 'SET_GLOBAL_SALES'
+            setGlobalSales: 'SET_GLOBAL_SALES',
+            setGroupSales: 'SET_GROUP_SALES'
         }),
         visibleModal(visible) {
             window.scrollTo(0, 0)
@@ -146,7 +158,10 @@ export default {
                 })
         },
         getGroupSales(){
-            console.log(this.globalSales)
+            this.axios.post('sales/group')
+                .then(({data}) => {
+                    this.setGroupSales(data)
+                })
         }
     },
     mounted() {

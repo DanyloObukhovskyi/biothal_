@@ -14,6 +14,9 @@ class Order extends Model
 {
     protected $table = "order";
 
+    public const GLOBAL_SALES = 1;
+    public const GROUP_SALES = 2;
+
     protected $guarded = [];
 
     public function userAddress()

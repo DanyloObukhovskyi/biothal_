@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Admin\Products\GlobalSales;
+use App\Models\Admin\Products\GroupSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -120,12 +121,34 @@ class CheckoutController extends Controller
             $orderProducts[] = $orderProduct;
             $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $product['quantity'] : $product['price'] * $product['quantity'];
         }
-        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+        $globalSale = GlobalSales::where([
+            ['sum_modal', '<=', $total],
+            ['active', 1]
+        ])
             ->orderBy('procent_modal', 'desc')
             ->first();
+
+        $groupSale = GroupSales::where([
+            ['sum', '<=', $total],
+            ['active', 1]
+        ])
+            ->orderBy('percent', 'desc')
+            ->first();
+
         if (isset($globalSale)) {
+            $order->sale_id = $globalSale->id;
+            $order->with_sales = 1;
+            $order->sale_type = Order::GLOBAL_SALES;
             $amountPercent = $total / 100 * $globalSale->procent_modal;
             $total = $total - $amountPercent;
+        } else {
+            if (isset($groupSale)) {
+                $order->sale_id = $groupSale->id;
+                $order->with_sales = 1;
+                $order->sale_type = Order::GROUP_SALES;
+                $amountPercent = $total / 100 * $groupSale->percent;
+                $total = $total - $amountPercent;
+            }
         }
         $order->total_sum = $total;
         $order->save();
@@ -142,13 +165,34 @@ class CheckoutController extends Controller
                 }
             }
 
-            $globalSale = GlobalSales::where('sum_modal', '<=', $amount)
+            $globalSale = GlobalSales::where([
+                ['sum_modal', '<=', $total],
+                ['active', 1]
+            ])
                 ->orderBy('procent_modal', 'desc')
                 ->first();
 
+            $groupSale = GroupSales::where([
+                ['sum', '<=', $total],
+                ['active', 1]
+            ])
+                ->orderBy('percent', 'desc')
+                ->first();
+
             if (isset($globalSale)) {
+                $order->sale_id = $globalSale->id;
+                $order->with_sales = 1;
+                $order->sale_type = Order::GLOBAL_SALES;
                 $amountPercent = $amount / 100 * $globalSale->procent_modal;
                 $amount = $amount - $amountPercent;
+            } else {
+                if (isset($groupSale)) {
+                    $order->sale_id = $groupSale->id;
+                    $order->with_sales = 1;
+                    $order->sale_type = Order::GROUP_SALES;
+                    $amountPercent = $amount / 100 * $groupSale->percent;
+                    $amount = $amount - $amountPercent;
+                }
             }
 
             $portmoneUrl = $this->portmoneService->makeRequest(
@@ -211,12 +255,34 @@ class CheckoutController extends Controller
 
             $total += !empty($product['sale_id']) ? $product['price_with_sale'] *  $product['quantity']: $product['price'] * $product['quantity'];
         }
-        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+        $globalSale = GlobalSales::where([
+            ['sum_modal', '<=', $total],
+            ['active', 1]
+        ])
             ->orderBy('procent_modal', 'desc')
             ->first();
+
+        $groupSale = GroupSales::where([
+            ['sum', '<=', $total],
+            ['active', 1]
+        ])
+            ->orderBy('percent', 'desc')
+            ->first();
+
         if (isset($globalSale)) {
+            $order->sale_id = $globalSale->id;
+            $order->with_sales = 1;
+            $order->sale_type = Order::GLOBAL_SALES;
             $amountPercent = $total / 100 * $globalSale->procent_modal;
             $total = $total - $amountPercent;
+        } else {
+            if (isset($groupSale)) {
+                $order->sale_id = $groupSale->id;
+                $order->with_sales = 1;
+                $order->sale_type = Order::GROUP_SALES;
+                $amountPercent = $total / 100 * $groupSale->percent;
+                $total = $total - $amountPercent;
+            }
         }
         $order->total_sum = $total;
         $order->save();
@@ -261,12 +327,34 @@ class CheckoutController extends Controller
         $orderProduct->save();
         $total += !empty($product['sale_id']) ? $product['price_with_sale'] : $product['price'];
         $total = $total * $product['quantity'];
-        $globalSale = GlobalSales::where('sum_modal', '<=', $total)
+        $globalSale = GlobalSales::where([
+            ['sum_modal', '<=', $total],
+            ['active', 1]
+        ])
             ->orderBy('procent_modal', 'desc')
             ->first();
+
+        $groupSale = GroupSales::where([
+            ['sum', '<=', $total],
+            ['active', 1]
+        ])
+            ->orderBy('percent', 'desc')
+            ->first();
+
         if (isset($globalSale)) {
+            $order->sale_id = $globalSale->id;
+            $order->with_sales = 1;
+            $order->sale_type = Order::GLOBAL_SALES;
             $amountPercent = $total / 100 * $globalSale->procent_modal;
             $total = $total - $amountPercent;
+        } else {
+            if (isset($groupSale)) {
+                $order->sale_id = $groupSale->id;
+                $order->with_sales = 1;
+                $order->sale_type = Order::GROUP_SALES;
+                $amountPercent = $total / 100 * $groupSale->percent;
+                $total = $total - $amountPercent;
+            }
         }
         $order->total_sum = $total;
         $order->save();
