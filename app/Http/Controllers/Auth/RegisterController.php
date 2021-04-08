@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invite;
+use App\Models\UserGroup;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use http\Env;
@@ -104,6 +106,11 @@ class RegisterController extends Controller
 
         $this->sendCode($phone, $code);
 
+        $token = $request->token;
+        if(!empty($token)){
+            $this->addUserToGroup($token, $user);
+        }
+
         return response()->json([
             'message' => 'Вы успешно зарегистрировались',
         ], 201);
@@ -132,5 +139,21 @@ class RegisterController extends Controller
             ],
             'token' => Env('TurboSmsToken')
         ]);
+    }
+
+    public function addUserToGroup($token, $user)
+    {
+        if(!empty($token)){
+            if (!$invite = Invite::where('token', $token)->first()) {
+                abort(404);
+            }
+            UserGroup::create([
+                'user_id' => $invite->main_user,
+                'attached_user_id' => $user->id,
+                'active' => true
+            ]);
+
+            $invite->delete();
+        }
     }
 }

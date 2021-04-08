@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\PhoneVerify;
 use App\Http\Requests\User\Verify as VerifyRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class AuthController extends Controller
 {
@@ -94,6 +96,7 @@ class AuthController extends Controller
             $user->save();
 
             $verify->delete();
+            Mail::to($user->email)->send(new UserCreated($user));
             return response()->json([
                 'message' => 'Аккаунт успешно подтвержден',
             ], 200);

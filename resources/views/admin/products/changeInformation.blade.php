@@ -67,31 +67,31 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label required" for="input-title1">Название статьи</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="title" value="{{ $article->attributes->title }}" placeholder="Название статьи" id="input-title1" class="form-control" />
+                                                <input type="text" name="title" value="{{ $article->attributes->title ?? '' }}" placeholder="Название статьи" id="input-title1" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group required">
                                             <label class="col-sm-2 control-label required" for="input-description1">Описание</label>
                                             <div class="col-sm-10">
-                                                <textarea id="summernote" name="description" placeholder="Описание" id="input-description1" class="form-control summernote" >{{ html_entity_decode ($article->attributes->description) }}</textarea>
+                                                <textarea id="summernote" name="description" placeholder="Описание" id="input-description1" class="form-control summernote" >{{ html_entity_decode ($article->attributes->description  ?? '')  }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group required">
                                             <label class="col-sm-2 control-label required" for="input-meta-title1">Мета-тег Title</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="meta_title" value="{{ $article->attributes->meta_title }}" placeholder="Мета-тег Title" id="input-meta-title1" class="form-control" />
+                                                <input type="text" name="meta_title" value="{{ $article->attributes->meta_title  ?? '' }}" placeholder="Мета-тег Title" id="input-meta-title1" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="input-meta-description1">Мета-тег Description</label>
                                             <div class="col-sm-10">
-                                                <textarea name="meta_description" rows="5" placeholder="Мета-тег Description" id="input-meta-description1" class="form-control">{{ $article->attributes->meta_description }}</textarea>
+                                                <textarea name="meta_description" rows="5" placeholder="Мета-тег Description" id="input-meta-description1" class="form-control">{{ $article->attributes->meta_description ?? '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="input-meta-keyword1">Мета-тег Keywords</label>
                                             <div class="col-sm-10">
-                                                <textarea name="meta_keyword" rows="5" placeholder="Мета-тег Keywords" id="input-meta-keyword1" class="form-control">{{ $article->attributes->meta_keywords }}</textarea>
+                                                <textarea name="meta_keyword" rows="5" placeholder="Мета-тег Keywords" id="input-meta-keyword1" class="form-control">{{ $article->attributes->meta_keywords ?? '' }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label required" for="input-keyword"><span data-toggle="tooltip" title="Должно быть уникальным на всю систему и без пробелов">SEO URL</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="keyword" value="{{ $url->keyword }}" placeholder="SEO URL" id="input-keyword" class="form-control" />
+                                        <input type="text" name="keyword" value="{{ $url->keyword  ?? '' }}" placeholder="SEO URL" id="input-keyword" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group">

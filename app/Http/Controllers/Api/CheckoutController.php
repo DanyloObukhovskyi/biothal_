@@ -20,6 +20,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderCreated;
 
 class CheckoutController extends Controller
 {
@@ -319,5 +321,16 @@ class CheckoutController extends Controller
             'order_id' => $order->user_order_id,
             'message' => 'Предзаказ оформлен!'
         ]);
+    }
+
+    public function sendOrderStatus(Request $request)
+    {
+        $orderId = $request->data;
+        if(!empty($orderId)){
+            $order = Order::where('id', $orderId)->with('userAddress')->first();
+            if(!empty($order->userAddress->email)){
+                Mail::to($order->userAddress->email)->send(new OrderCreated($order));
+            }
+        }
     }
 }

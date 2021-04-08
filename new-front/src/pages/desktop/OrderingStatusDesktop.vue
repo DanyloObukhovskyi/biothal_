@@ -58,10 +58,17 @@
 
                 // this.title =  data.data.title;
                 // this.message = data.data.message;
+            },
+            sendEmailToUser(id)
+            {
+                this.axios.post('sendOrderStatus', {
+                    data:this.id
+                });
             }
         },
         mounted() {
             this.clearCartProducts();
+            this.sendEmailToUser(this.id);
         }
     }
 </script>

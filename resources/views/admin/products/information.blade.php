@@ -51,8 +51,8 @@
                                         <td class="text-center">
                                             <input type="checkbox" name="selected[]" value="{{ $article->information_id }}" />
                                         </td>
-                                        <td class="text-left">{{ $article->attributes->title }}</td>
-                                        <td class="text-right">{{ $article->sort_order }}</td>
+                                        <td class="text-left">{{ $article->attributes->title ?? '' }}</td>
+                                        <td class="text-right">{{ $article->sort_order ?? '' }}</td>
                                         <td class="text-right"><a href="changeInformation/{{ $article->information_id }}" data-toggle="tooltip" title="Редактировать" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                                     </tr>
                                 @endforeach

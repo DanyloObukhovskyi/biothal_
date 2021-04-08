@@ -23,12 +23,16 @@ use App\Http\Requests\
 };
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserGroup;
+use App\Models\Invite;
+use App\Mail\AddToGroupMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['addUserToGroup']]);
     }
 
     public function getProfile()
@@ -230,6 +234,69 @@ class ProfileController extends Controller
                 'total_sum' => $totalSum,
                 'percent' => $percent
             ], 200);
+        }
+    }
+
+    public function sendInvite(Request $request)
+    {
+        $user = auth()->user();
+        if($user->email === $request->get('email')){
+            return response()->json([
+                'message' => 'Вы не можете отправлять приглашение сами себе',
+            ], 413);
+        }
+        $token = Str::random(10);
+        $existInvite = Invite::where('token', $token)->first();
+        if(!empty($existInvite)){
+            return response()->json([
+                'message' => 'Приглашение не отправилось, попробуйте еще раз!',
+            ], 413);
+        }
+        $subUser = User::where('email', $request->get('email'))->first();
+        if(!empty($subUser)){
+            $existInMainGroup = UserGroup::where([
+                'user_id' => $user->id,
+                'attached_user_id' => $subUser->id
+            ])->first();
+            $existInSubGroup = UserGroup::where([
+                'user_id' => $subUser->id,
+                'attached_user_id' =>  $user->id
+            ])->first();
+            if(!empty($existInMainGroup) || !empty($existInSubGroup)){
+                return response()->json([
+                    'message' => 'Вы уже состоите в одной группе',
+                ], 413);
+            }
+        }
+        $invite = Invite::create([
+            'email' => $request->get('email'),
+            'token' => $token,
+            'is_user' => !empty($subUser) ? true : false,
+            'main_user' => $user->id,
+            'sub_user' => !empty($subUser) ? $subUser->id : null
+        ]);
+
+        Mail::to($request->get('email'))->send(new AddToGroupMail($invite));
+
+        return response()->json([
+            'message' => 'Вы успешно отправили приглашение',
+        ], 200);
+    }
+
+    public function addUserToGroup(Request $request)
+    {
+        $token = $request->token;
+        if(!empty($token)){
+            if (!$invite = Invite::where('token', $token)->first()) {
+                abort(404);
+            }
+            UserGroup::create([
+                'user_id' => $invite->main_user,
+                'attached_user_id' => $invite->sub_user,
+                'active' => true
+            ]);
+
+            $invite->delete();
         }
     }
 }

@@ -15,8 +15,8 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="text-left"
+                <tbody v-if="!defaultTable">
+                <tr  class="text-left"
                     v-for="(item, index) in participants" :key="index">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
@@ -35,19 +35,23 @@
                 </tbody>
             </template>
         </v-simple-table>
-        <v-btn dark class="checkout-button" elevation="0">
+        <v-btn dark class="checkout-button" @click="$refs['AddUserToGroup'].visible=true" elevation="0">
             Добавить друга
         </v-btn>
+        <AddUserToGroup ref="AddUserToGroup"/>
     </div>
 </template>
 
 <script>
+    import AddUserToGroup from "./addUserToGroup";
     export default {
         name: "GroupDiscountParticipants",
+        components: {AddUserToGroup},
         data() {
             return {
                 total_sum: 0,
                 percent: 0,
+                defaultTable: true,
                 participants: [
                     id => '',
                     name => '',
@@ -74,6 +78,7 @@
                             this.participants = resp.group
                             this.total_sum = resp.total_sum
                             this.percent = resp.percent
+                            this.defaultTable = false
                         }
                     }
                 } catch (e) {

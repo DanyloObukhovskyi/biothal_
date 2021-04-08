@@ -19,6 +19,12 @@ const routes = [
                 component: () => import('../pages/Home')
             },
             {
+                path: 'home/invite/:token',
+                name: 'invite',
+                component: () => import('../pages/Home'),
+                props: true
+            },
+            {
                 path: 'checkout',
                 name: 'checkout',
                 component: () => import('../pages/Checkout'),
@@ -118,6 +124,12 @@ const routes = [
                 name: 'registration',
                 component: () => import('../pages/mobile/RegistrationMobile'),
                 meta: {}
+            },
+            {
+                path: 'registration/invite/:token',
+                name: 'invite_in_registration',
+                component: () => import('../pages/mobile/RegistrationMobile'),
+                props: true
             },
             {
                 path: 'Verified',

@@ -87,3 +87,6 @@ Route::post('addEmailForReceive', 'HomeController@addEmailForReceive');
 Route::get('getMainCategories', 'HomeController@getMainCategories');
 Route::get('getGroupSales', 'ProfileController@getGroupSales');
 Route::post('verifyUser', 'AuthController@verifyUser');
+Route::post('sendOrderStatus', 'CheckoutController@sendOrderStatus');
+Route::post('sendInvite', 'ProfileController@sendInvite');
+Route::post('addUserToGroup', 'ProfileController@addUserToGroup');
