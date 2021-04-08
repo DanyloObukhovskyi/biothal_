@@ -203,12 +203,16 @@
                         <td class="text-right">0 грн</td>
                     </tr>
                     <tr>
+                        <td colspan="4" class="text-right">Процент скидки</td>
+                        <td class="text-right">{{$sale ? $sale['percent'] ? $sale['percent'] : $sale['procent_modal'] : 0}} %</td>
+                    </tr>
+                    <tr>
                         <td colspan="4" class="text-right">Всего скидки</td>
-                        <td class="text-right">- {{$totalSalesPrice}} грн</td>
+                        <td class="text-right">- {{$totalProductPrice - $order['total_sum']}} грн </td>
                     </tr>
                     <tr>
                         <td colspan="4" class="text-right">Всего к оплате</td>
-                        <td class="text-right">{{$totalPrice}} грн</td>
+                        <td class="text-right">{{$order['total_sum']}} грн</td>
                     </tr>
                     </tbody>
                 </table>
