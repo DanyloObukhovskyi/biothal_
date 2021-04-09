@@ -21,8 +21,8 @@
                  style=" display: block; text-overflow: ellipsis; white-space: normal;">{{
                 dataCard['product_description']['name'] }}
             </div>
-            <div class="product__description__price default-cursor">{{ isShowStock ? dataCard.price_with_sale:
-                dataCard.price }} грн
+            <div class="product__description__price default-cursor">
+                {{ isShowStock ? Math.round(dataCard.price_with_sale) : dataCard.price }} грн
             </div>
         </div>
         <div>

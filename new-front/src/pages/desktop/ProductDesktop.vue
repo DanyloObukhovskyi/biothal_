@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="info-price">
-                        <span class="info-price__price">{{ is_discount ?  productData['price_with_sale']  : productData['price'] }} грн</span>
+                        <span class="info-price__price">{{ is_discount ?  Math.round(productData['price_with_sale'])  : productData['price'] }} грн</span>
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
                         <p class="info-price__in-stock">{{
                             stock_status === 1 ? 'В наличии' :

@@ -19,7 +19,7 @@
                     <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="dataCard.minimum"/>
                     <v-icon class="main-icon-btn" size="12" @click="incrementQuantity(dataCard.id)">mdi-plus</v-icon>
                 </div>
-                <div class="product-basket__right__text__price">Цена: {{ isShowStock ? dataCard.price_with_sale: dataCard.price }} грн.</div>
+                <div class="product-basket__right__text__price">Цена: {{ isShowStock ? Math.round(dataCard.price_with_sale) : dataCard.price }} грн.</div>
                 <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
                 </div>
             </div>
