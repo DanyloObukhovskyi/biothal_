@@ -230,11 +230,12 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 45px;
 
     @include _600 {
       flex-direction: column;
-      row-gap: 20px
+      row-gap: 20px;
+      padding: 0 20px;
     }
   }
 
