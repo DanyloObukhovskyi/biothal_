@@ -464,6 +464,8 @@ export default {
 
 <style scoped lang="scss">
 
+@import 'src/styles/mixins';
+
 .ordering {
 
     &__wrapper {
@@ -505,13 +507,11 @@ export default {
 
             &__checkout {
                 display: flex;
-                flex-direction: row;
-                justify-content: space-between;
                 margin-top: 20px;
 
-                @media screen and (max-width: 991px) {
-                    flex-direction: column;
-                    justify-content: center;
+                @include media(991) {
+                  flex-direction: column;
+                  justify-content: center;
                 }
             }
         }
@@ -550,11 +550,12 @@ export default {
     height: 44px !important;
     font-size: 12px;
     line-height: 17px;
+    font-weight: 500;
 
     &__wrapper {
         display: flex;
 
-        @media screen and (max-width: 991px) {
+        @include media(991) {
             justify-content: center;
         }
     }
@@ -566,7 +567,8 @@ export default {
     font-size: 12px;
     line-height: 16px;
     text-decoration-line: underline;
-    margin: auto 0;
+    margin: auto 36px;
+
 
     &:hover {
         cursor: pointer;

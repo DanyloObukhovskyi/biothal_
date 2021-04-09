@@ -114,7 +114,6 @@ export default {
   }
 
   &__wrapper-content {
-    width: 90%;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -130,6 +129,7 @@ export default {
   }
 
   &__content {
+    padding: 0 45px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
