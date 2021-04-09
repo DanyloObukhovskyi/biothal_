@@ -23,6 +23,12 @@ class PortmoneController extends Controller
         $payment->status = Payment::STATUS_SUCCESS;
         $payment->save();
 
+        $status = OrderStatuses::where('name', OrderStatuses::PAYMENT_PROCESS)->first();
+
+        $order = Order::where('id', $order_id)->first();
+        $order->order_status_id = $status->id;
+        $order->save();
+
         return redirect(env('FRONT_APP_URL'). '/order-status/'. $order_id);
     }
 

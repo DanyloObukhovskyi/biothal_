@@ -433,7 +433,7 @@
                         <tr>
                             <td>
                                 <div class="text" style="padding: 0 2.5em; text-align: center;">
-                                    {{ $text }}
+                                    {!! $text !!}
                                 </div>
                             </td>
                         </tr>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
 
 use App\Models\{
-    ShoppingCart
+    Order
 };
 
 
@@ -18,10 +18,10 @@ class ImportTo1CController {
     /**
      * App\Models\ShoppingCart
      * */
-    protected $shoppingCart;
+    protected $order;
 
-    public function __construct(ShoppingCart $shoppingCart) {
-        $this->shoppingCart = $shoppingCart;
+    public function __construct(Order $order) {
+        $this->order = $order;
     }
 
     /**
@@ -31,7 +31,12 @@ class ImportTo1CController {
      * @return xml
      */
     public function getDataToImport (Request $request) {
-        $orders = $this->getNotImportedOrderData(['products', 'userOrderAddress']);
+        $orders = $this->getNotImportedOrderData([
+            'products',
+            'userAddress',
+            'orderType',
+            'payment'
+        ]);
         $data = $this->prepareXmlArray($orders);
         $result = ArrayToXml::convert($data);
 

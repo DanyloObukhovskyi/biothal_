@@ -239,5 +239,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/getImages', 'ImageController@getImages')
                 ->name('admin.images.get');
         });
+        Route::get('/emailList', 'DistributionController@email')
+            ->name('admin.distribution.emailList');
+
+        Route::post('/addEmail', 'DistributionController@addEmail')
+            ->name('admin.distribution.add.email');
+
+        Route::post('/editEmail', 'DistributionController@editEmail')
+            ->name('admin.distribution.edit.email');
+
+        Route::post('/deleteEmail', 'DistributionController@deleteEmail')
+            ->name('admin.distribution.delete.email');
+
+        Route::post('/sendEmail', 'DistributionController@sendEmails')
+            ->name('admin.distribution.send.email');
+
+        Route::get('/phoneList', 'DistributionController@phone')
+            ->name('admin.distribution.phoneList');
     });
+
+
 });

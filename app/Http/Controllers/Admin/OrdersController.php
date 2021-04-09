@@ -86,9 +86,8 @@ class OrdersController extends Controller
         $order_statuses = [];
         $_statuses = OrderStatuses::all()->toArray();
         foreach ($_statuses as $status) {
-            $order_statuses[$status['id']] = $status;
+            $order_statuses[$status['id']] = OrderStatuses::STATUS[$status['name']];
         }
-
         $order = Order::where('id', $id)->with([
             'userAddress',
             'productHistory',

@@ -30,7 +30,7 @@
 
     <div class="container-fluid" style="padding-left: 0;
         padding-right: 0;">
-        <div class="row">
+        <div class="row" style="margin-left: -10px;">
             <div class="col-md-6">
                 <div class="panel panel-default" style="margin-top: 10px;">
                     <div class="panel-heading" style="margin-top: 0px;">
@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td><button data-toggle="tooltip" title="Способ доставки" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
-                            <td>Самовывоз из магазина</td>
+                            <td>Доставка Новой Почтой</td>
                         </tr>
                     </table>
                 </div>
@@ -198,10 +198,10 @@
                         <td colspan="4" class="text-right">Стоимость товаров</td>
                         <td class="text-right">{{$totalProductPrice}} грн</td>
                     </tr>
-                    <tr>
-                        <td colspan="4" class="text-right">Самовывоз из магазина</td>
-                        <td class="text-right">0 грн</td>
-                    </tr>
+{{--                    <tr>--}}
+{{--                        <td colspan="4" class="text-right">Самовывоз из магазина</td>--}}
+{{--                        <td class="text-right">0 грн</td>--}}
+{{--                    </tr>--}}
                     <tr>
                         <td colspan="4" class="text-right">Процент скидки</td>
                         <td class="text-right">{{$sale ? $sale['percent'] ? $sale['percent'] : $sale['procent_modal'] : 0}} %</td>
@@ -241,24 +241,24 @@
                                     <label class="col-sm-2 control-label" for="input-order-status">Статус заказа</label>
                                     <div class="col-sm-10">
                                         <select name="order_status_id" id="input-order-status" class="form-control">
-                                            @foreach($order_statuses as $order_status)
-                                                <option value="{{$order_status['id']}}">{{$order_status['name']}}</option>
+                                            @foreach($order_statuses as $key => $order_status)
+                                                <option value="{{$key}}">{{$order_status}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="Если заказ заблокирован системой Защиты от мошенников, то устанавливая крыж, можно установить свой статус заказа, не зависимо от системы защиты.">Переопределить</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="checkbox" name="override" value="0" id="input-override" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-notify">Уведомить покупателя</label>
-                                    <div class="col-sm-10">
-                                        <input type="checkbox" name="notify" value="0" id="input-notify" />
-                                    </div>
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="Если заказ заблокирован системой Защиты от мошенников, то устанавливая крыж, можно установить свой статус заказа, не зависимо от системы защиты.">Переопределить</span></label>--}}
+{{--                                    <div class="col-sm-10">--}}
+{{--                                        <input type="checkbox" name="override" value="0" id="input-override" />--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="col-sm-2 control-label" for="input-notify">Уведомить покупателя</label>--}}
+{{--                                    <div class="col-sm-10">--}}
+{{--                                        <input type="checkbox" name="notify" value="0" id="input-notify" />--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-comment">Комментарий</label>
                                     <div class="col-sm-10">
