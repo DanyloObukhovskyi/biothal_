@@ -623,7 +623,7 @@
                         })
                         Swal.fire({
                             icon: 'error',
-                            title: errorMessage,
+                            title: xhr.responseJSON.message ? xhr.responseJSON.message : errorMessage,
                             showConfirmButton: true,
                         })
                     },
