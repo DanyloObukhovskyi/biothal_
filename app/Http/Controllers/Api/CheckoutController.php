@@ -150,7 +150,7 @@ class CheckoutController extends Controller
                 $total = $total - $amountPercent;
             }
         }
-        $order->total_sum = $total;
+        $order->total_sum = ceil($total);
         $order->save();
         $orderType = OrderType::find($request->get('paymentMethod'));
 
@@ -284,7 +284,7 @@ class CheckoutController extends Controller
                 $total = $total - $amountPercent;
             }
         }
-        $order->total_sum = $total;
+        $order->total_sum = ceil($total);
         $order->save();
 
         $orderType = OrderType::find(1);
@@ -297,9 +297,18 @@ class CheckoutController extends Controller
 
     public function createQuickOrderFromProduct(Request $request)
     {
-
         $userOrderAddress = new UserOrderAddress();
         $userOrderAddress->phone = $request->get('phone');
+
+        $userId = $request->get('user_id');
+        $user = User::where('id', $userId)->first();
+
+        if (!empty($userId) && !empty($user)) {
+            $userOrderAddress->name = $user->name;
+            $userOrderAddress->LastName = $user->sur_name;
+            $userOrderAddress->full_name = $user->name . ' ' . $user->sur_name;
+        }
+
         $userOrderAddress->save();
 
         $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)
@@ -356,7 +365,7 @@ class CheckoutController extends Controller
                 $total = $total - $amountPercent;
             }
         }
-        $order->total_sum = $total;
+        $order->total_sum = ceil($total);
         $order->save();
 
         $orderType = OrderType::find(1);

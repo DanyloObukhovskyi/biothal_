@@ -37,7 +37,7 @@ class SalesController extends Controller
                 $priceWithSale = round(floatval($product->price - (($sale->percent/100) * $product->price)), 2);
                 $product->update([
                     'sale_id' => $sale->id,
-                    'price_with_sale' => $priceWithSale,
+                    'price_with_sale' => ceil($priceWithSale),
                 ]);
             }
         }

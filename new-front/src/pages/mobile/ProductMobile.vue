@@ -30,7 +30,7 @@
             </div>
 
             <div class="product-info__price">
-                <span class="product-info__price__price">{{ is_discount ?  Math.round(productData['price_with_sale']) : productData['price'] }} грн</span>
+                <span class="product-info__price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>
                 <span class="product-info__price__discount" v-if="is_discount">Старая цена: {{ productData['price'] }} грн.</span>
             </div>
 
@@ -167,7 +167,10 @@
                 user_id: '',
                 productData: {
                     image: {},
-                    product_description:{}
+                    product_description:{},
+                    get_sale: {
+                        percent: ''
+                    }
                 },
                 stock_status: '',
                 attr: [],
@@ -237,7 +240,7 @@
                 if(this.images[0]){
                     this.subImages = 'images'
                 }
-
+console.log(this.productData.sale_id)
                 if(this.productData.sale_id !== null){
                     this.is_discount = true;
                 }

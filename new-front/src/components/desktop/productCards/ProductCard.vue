@@ -26,7 +26,7 @@
 
     <div class="product__info">
       <span class="product__info__price default-cursor">
-                {{ isShowStock ? Math.round(dataCard.price_with_sale ) : dataCard.price }} грн
+                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
             </span>
 
       <v-btn v-if="dataCard.stock_status_id !== 2" :disabled="dataCard.stock_status_id === 3"
@@ -196,7 +196,7 @@ export default {
     box-shadow: 0 0 33px #f2f2f2;
 
     & .product__button[disabled] {
-      background-color: #909090 !important;
+      background-color: #bbbbbb !important;
     }
 
     & .product__button {
@@ -217,11 +217,6 @@ export default {
     left: 20px;
     top: 20px;
   }
-
-  /*&__heart {*/
-  /*    text-align: right;*/
-  /*    height: 16.5px;*/
-  /*}*/
 
   &__image {
     width: 290px;
@@ -280,12 +275,6 @@ export default {
     font-size: 16px;
     line-height: 22px;
     margin-top: 10px;
-
-    /*&:hover {*/
-    /*    &[disabled].product__button {*/
-    /*        background-color: #ded4d4 !important;*/
-    /*    }*/
-    /*}*/
   }
 }
 </style>

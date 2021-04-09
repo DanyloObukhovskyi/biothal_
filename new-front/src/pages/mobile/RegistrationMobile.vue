@@ -4,7 +4,7 @@
             <div class="page-form__top__title">Регистрация</div>
         </div>
         <div class="page-form__middle">
-            <v-form ref="form" style="width: 100%;" v-model="valid" lazy-validation>
+            <v-form ref="form" style="width: 100%;" v-model="valid" @keyup.enter.native="saveUser" lazy-validation>
                 <div class="register_input">
                     <p class="main-input-label">Введите имя</p>
                     <v-text-field
@@ -138,7 +138,7 @@
                 valid: false,
                 nameRules: [
                     v => !!v || 'Вы не ввели свое имя',
-                    v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+                    v => v?.length >= 2 || 'Имя должно содержать больше чем 2 символа',
                 ],
                 emailRules: [
                     v => !!v || 'Вы не ввели електронную почту',
@@ -146,15 +146,15 @@
                 ],
                 phoneRules: [
                     v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                    v => v?.length >= 18 || 'Телефон должен содержать больше чем 12 символа',
                 ],
                 passRules: [
                     v => !!v || 'Вы не ввели пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                 ],
                 passConfirmRules: [
                     v => !!v || 'Вы не подтвердили пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                     v => v === this.user.password || 'Пароли не совпадают'
                 ],
                 user: {

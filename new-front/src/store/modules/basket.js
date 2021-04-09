@@ -143,12 +143,12 @@ const getters = {
         let sum = 0;
         for (let product of state.products) {
             if (product.sale_id !== null) {
-                sum += Math.round(+product.price_with_sale) * +product.quantity;
+                sum += +product.price_with_sale * +product.quantity;
             } else {
-                sum += Math.round(+product.price) * +product.quantity;
+                sum += +product.price * +product.quantity;
             }
         }
-        return Math.round(sum);
+        return Math.ceil(sum);
     },
     productsSumWithSales: (state, getters) => {
         let sum = getters.productsSum;
@@ -160,7 +160,7 @@ const getters = {
                 sum = sum - ((sum / 100) * getters.currentGroupSales.percent);
             }
         }
-        return Math.round(sum);
+        return Math.ceil(sum);
     }
 }
 

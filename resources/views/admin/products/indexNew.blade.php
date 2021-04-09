@@ -110,7 +110,7 @@
                                             <td class="text-left"> {{ $product['product_description']['name'] }}</td>
                                             <td class="text-right">
                                                 @if(!empty($product['price_with_sale']))
-                                                    {{$product['price_with_sale']}}
+                                                    {{ceil($product['price_with_sale'])}}
                                                 @else
                                                     {{$product['price']}}
                                                 @endif

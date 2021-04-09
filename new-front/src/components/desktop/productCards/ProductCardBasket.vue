@@ -27,7 +27,7 @@
         </div>
 
         <div class="product-basket__right__text__price">Цена: {{
-            isShowStock ? Math.round(dataCard.price_with_sale ) : dataCard.price }} грн.</div>
+            isShowStock ? dataCard.price_with_sale : dataCard.price }} грн.</div>
                 <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
                 </div>
             </div>

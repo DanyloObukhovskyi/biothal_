@@ -179,7 +179,7 @@ import {mapActions, mapGetters} from "vuex";
             numberRules() {
                 return [
                     v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символа',
                 ];
             },
             nameRules() {

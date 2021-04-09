@@ -4,7 +4,7 @@
             <div class="page-form__top__title">Авторизация</div>
         </div>
         <div class="page-form__middle">
-            <v-form style="width: 100%;" ref="form">
+            <v-form style="width: 100%;" ref="form" @keyup.enter.native="login">
                 <div class="register_input">
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
@@ -21,9 +21,9 @@
                     <p class="main-input-label">Введите пароль</p>
                     <v-text-field
                         class="main-input-field"
+                        :rules="passRules"
                         v-model="user.password"
                         type="password"
-                        :rules="passRules"
                         :error-messages="errorValid.password"
                         flat
                         rounded/>
@@ -62,16 +62,11 @@
                 },
                 phoneRules: [
                     v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
+                    v => v?.length >= 12 || 'Телефон должен содержать больше чем 12 символа',
                 ],
                 passRules: [
                     v => !!v || 'Вы не ввели пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
-                ],
-                passConfirmRules: [
-                    v => !!v || 'Вы не подтвердили пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
-                    v => v === this.user.password || 'Пароли не совпадают'
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                 ],
             }
         },

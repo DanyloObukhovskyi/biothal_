@@ -11,7 +11,8 @@
             <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">
                 {{ dataCard['product_description']['name'] }}
             </div>
-            <div class="product__description__price default-cursor">{{ dataCard['price'] }} грн</div>
+            <div class="product__description__price default-cursor">
+                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
         </div>
         <div>
             <v-btn v-if="dataCard.stock_status_id !== 2" :disabled="dataCard.stock_status_id === 3"
