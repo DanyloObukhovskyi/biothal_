@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\Distribution\{
+    Create as CreateEmailDistributionRequest,
+    Update as UpdateEmailDistributionRequest
+};
 use App\Http\Controllers\Controller;
 use App\Models\EmailGroup;
 use Illuminate\Http\Request;
@@ -53,7 +57,7 @@ class DistributionController extends Controller
         ]);
     }
 
-    public function addEmail(Request $request)
+    public function addEmail(CreateEmailDistributionRequest $request)
     {
         EmailForEmailNewsletter::create([
             'email' => $request->email,
@@ -66,7 +70,7 @@ class DistributionController extends Controller
         ], 200);
     }
 
-    public function editEmail(Request $request)
+    public function editEmail(UpdateEmailDistributionRequest $request)
     {
         $email = EmailForEmailNewsletter::find($request->id);
         if(empty($email)){
