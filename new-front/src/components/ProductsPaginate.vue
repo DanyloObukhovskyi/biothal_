@@ -13,7 +13,7 @@
                 :message="products.data.length > 0 ? '' : isEmptyMessage"
                 :product-data="products.data"/>
         </div>
-        <div class="text-center mb-5" v-if="productsPagesCount > 1">
+        <div class="mt-5 text-center mb-5" v-if="productsPagesCount > 1">
             <v-pagination
                 v-model="productsPage"
                 :length="productsPagesCount"

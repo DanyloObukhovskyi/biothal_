@@ -1,6 +1,8 @@
 <template>
     <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
-        <div class="product__sale" v-if="isShowStock">-50%</div>
+        <div class="product__sale" v-if="isShowStock">
+          <span>{{ -dataCard.get_sale.percent }}%</span>
+        </div>
         <img class="product__image"
              @click="toPage({name: 'product', params: {id: dataCard['id']}})"
              :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
@@ -145,6 +147,9 @@
         flex-direction: column;
         padding: 0 10px 10px 10px;
         row-gap: 10px;
+        position: relative;
+        border-radius: 2px;
+        overflow: hidden;
 
         &:hover {
             box-shadow: 0 0 33px #f2f2f2;
@@ -165,10 +170,18 @@
             border-radius: 50%;
             width: 33px;
             height: 33px;
-            line-height: 33px;
+            position: absolute;
+            left: 1px;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+          & > span {
             font-weight: 400;
             font-size: 9px;
-            position: absolute;
+            line-height: 12px;
+          }
         }
 
         &__image {

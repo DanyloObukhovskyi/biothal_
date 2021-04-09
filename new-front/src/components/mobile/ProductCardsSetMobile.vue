@@ -8,7 +8,7 @@
                            v-for="item in productData"
                            :key="item.id"
                            :data-card="item"
-                           :is-show-stock="item.isShowStock"/>
+                           :is-show-stock="!!item.sale_id"/>
       </div>
       <!--            <div class="product-card__content" v-if="typeSet === 'basket'">-->
       <!--                <ProductCardBasket v-for="item in productData"-->
@@ -73,14 +73,13 @@
   .product-card {
 
     &__wrapper {
-      margin-bottom: 40px;
       display: flex;
       flex-direction: row;
       justify-content: center;
+      padding: 0 20px;
     }
 
     &__wrapper-content {
-      width: 90%;
       display: flex;
       flex-direction: column;
       text-align: center;
@@ -91,7 +90,6 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 22px;
-      margin: 30px 15px 0;
     }
 
     &__content {
@@ -101,6 +99,7 @@
       justify-content: space-around;
       column-gap: 15px;
       row-gap: 10px;
+      margin-top: 20px;
     }
 
     &__item-three {

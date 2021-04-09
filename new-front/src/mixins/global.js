@@ -10,7 +10,8 @@ export default {
           errorValid: {
 
           },
-          variables
+          variables,
+          image_uri: process.env.VUE_APP_REQUEST_BASE_URL + '/storage/img/products/'
         }
     },
     computed: {
