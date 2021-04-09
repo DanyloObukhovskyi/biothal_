@@ -196,6 +196,7 @@
             font-weight: 400;
             line-height: 14px;
 
+
             &__text {
                 min-height: 30px;
                 font-weight: 700;
