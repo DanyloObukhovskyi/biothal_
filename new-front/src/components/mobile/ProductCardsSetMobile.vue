@@ -71,12 +71,10 @@
 
 <style scoped lang="scss">
   .product-card {
-
     &__wrapper {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: 0 20px;
     }
 
     &__wrapper-content {
