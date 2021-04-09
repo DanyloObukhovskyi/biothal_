@@ -101,6 +101,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+@import '/src/styles/mixins';
+
 .product-card {
 
   &__wrapper {
@@ -133,13 +136,13 @@ export default {
     justify-content: center;
     row-gap: 40px;
     column-gap: 30px;
-    align-items: flex-end;
+    align-items: stretch;
   }
 
   &__item-three {
     width: 30%;
-    display: inline-table;
-    @media screen and (max-width: 991px) {
+
+    @include media(991) {
       width: 50%;
     }
   }

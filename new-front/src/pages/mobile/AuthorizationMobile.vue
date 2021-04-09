@@ -33,6 +33,7 @@
         <div class="remember-me">
             <div>
                 <v-checkbox
+                    :color="variables.basecolor"
                     v-model="user.rememberMe"/>
             </div>
             <div class="remember-me__right">

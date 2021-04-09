@@ -46,7 +46,14 @@ export default {
 
 <style lang="scss">
 
-@import "@/styles/mixins.scss";
+@import "src/styles/mixins";
+@import 'src/styles/main';
+
+#app {
+  //@include _600 {
+  //  background-color: $palette-main-background-color;
+  //}
+}
 
 .base-page-wrapper {
   width: 100%;

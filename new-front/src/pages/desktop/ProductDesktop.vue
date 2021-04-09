@@ -74,11 +74,11 @@
                                 Предзаказ</v-btn>
               <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
             </div>
-            <div v-if="stock_status !== 3"class="info-pay-control__buy-fast">
+            <div v-if="stock_status !== 3" class="info-pay-control__buy-fast">
               <v-form ref="orderQuickForm">
                                 <v-text-field
                 class="info-pay-control__buy-fast__input"
-                v-model="phone":error-messages="errorValid.phone"
+                v-model="phone" :error-messages="errorValid.phone"
                                     :rules="numberRules"
                 flat
                 rounded

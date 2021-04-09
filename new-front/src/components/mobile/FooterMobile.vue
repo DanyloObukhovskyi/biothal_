@@ -9,11 +9,11 @@
 <!--            <v-icon color="#000" size="25">mdi-gift-outline</v-icon>-->
 <!--        </div>-->
         <div v-if="isMobile" class="links__wrapper">
-            <div style="text-align: left; color: #808080">
+            <div class="footer__email">
                 <input v-model="email_for_receive_list" type="text" placeholder="Электронная почта">
             </div>
-            <div style="border-right: 1px solid #808080; width: 0; height: 20px"/>
-            <div style="text-align: right; color: #0BB7B5" @click="addEmailToReceiveList">
+<!--            <div style="border-right: 1px solid #808080; width: 0; height: 20px"/>-->
+            <div class="footer__subscribe" @click="addEmailToReceiveList">
                 Подписаться
             </div>
         </div>
@@ -222,13 +222,42 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 25px 20px;
+            padding: 25px 30px 25px 19px;
             background-color: #fff;
+            position: relative;
+
+          &:before {
+            position: absolute;
+            line-height: 19px;
+            font-size: 14px;
+            font-weight: 500;
+            content: '|';
+            left: 50%;
+            color: #808080;
+          }
         }
     }
 
     .link-to-site {
         text-decoration: none;
+    }
+
+    .footer {
+      &__email {
+        text-align: left;
+        color: #808080;
+        line-height: 19px;
+        font-size: 14px;
+        font-weight: 200;
+      }
+
+      &__subscribe {
+        text-align: right;
+        color: #0BB7B5;
+        line-height: 19px;
+        font-size: 14px;
+        font-weight: 200;
+      }
     }
 </style>
 

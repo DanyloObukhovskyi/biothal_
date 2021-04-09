@@ -65,7 +65,6 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        margin-bottom: 30px;
 
         @media screen and (max-width: 600px) {
             height: 160px !important;
