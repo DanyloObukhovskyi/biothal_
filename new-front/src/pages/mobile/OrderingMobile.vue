@@ -8,8 +8,8 @@
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
-                        placeholder="+38(___) ___-__-__"
-                        v-mask="'+38(###) ###-##-##'"
+                        placeholder="+38 (___) ___-__-__"
+                        v-mask="'+38 (###) ###-##-##'"
                         class="main-input-field"
                         :error-messages="errorValid.number"
                         :rules="numberRules"
@@ -406,7 +406,7 @@ import {mapActions, mapGetters} from "vuex";
             justify-content: center;
             align-items: center;
             overflow: scroll;
-            padding: 20px 20px 15px 20px;
+            padding: 20px 20px 40px 20px;
         }
 
         &__top {

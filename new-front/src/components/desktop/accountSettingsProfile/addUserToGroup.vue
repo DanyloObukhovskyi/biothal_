@@ -129,9 +129,12 @@
     }
 
     .checkout-button {
-        font-size: 11px;
-        line-height: 15px;
-        margin-top: 15px;
+      font-size: 11px;
+      line-height: 15px;
+      margin-top: 15px;
+      height: 34px !important;
+      width: max-content;
+      padding: 0 46px !important;
     }
 </style>
 
