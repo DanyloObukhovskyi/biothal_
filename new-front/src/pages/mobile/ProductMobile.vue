@@ -441,6 +441,7 @@ console.log(this.productData.sale_id)
             justify-content: center;
             color: #fff;
             column-gap: 5px;
+            margin-top: 20px;
         }
     }
 

@@ -168,6 +168,14 @@ export default {
   mounted() {
     this.fetchMenuData();
     this.marginTopNavigation = this.$refs['app-bar']?.styles.height
+
+    const _this = this;
+    const onScroll = function(){
+      return _this.marginTopNavigation = (+document.scrollingElement.scrollTop) + (+_this.$refs['app-bar']?.height) + 'px'
+    };
+    onScroll();
+    document.addEventListener('scroll', onScroll);
+    this.$on('hook:beforeDestroy', () => document.removeEventListener('scroll', onScroll));
   },
   methods: {
     showIconItemMenu(item) {

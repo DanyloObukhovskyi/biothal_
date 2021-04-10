@@ -1,12 +1,12 @@
 <template>
     <v-dialog
         v-model="visible"
-        width="420">
+        width="320">
 
         <v-card class="order-dialog__wrapper">
-            <div class="order-dialog__title">Оформить заказ в 1 клик</div>
+            <p class="order-dialog__title">Оформить заказ в 1 клик</p>
 
-            <div class="order-dialog__text">Наш менеджер свяжется с вами в течении 30 минут в рабочее время</div>
+            <p class="order-dialog__text">Наш менеджер свяжется с вами в течении 30 минут в рабочее время</p>
 
             <v-form class="order-dialog__form" ref="orderQuickForm">
                 <div>
@@ -166,20 +166,23 @@
             text-align: center;
         }
 
-        &__form {
-            text-align: left;
-        }
-
         &__title {
+            margin: 0;
             font-size: 14px;
             font-weight: 500;
-            line-height: 20px;
-            margin-bottom: 5px;
+            line-height: 19px;
         }
 
         &__text {
+            margin: 11px 0 0 0;
+            padding: 0 9px;
             font-size: 13px;
-            margin-bottom: 5px;
+            line-height: 18px;
+        }
+
+        &__form {
+          text-align: left;
+          margin-top: 10px;
         }
     }
 
@@ -187,6 +190,9 @@
         font-size: 11px;
         line-height: 15px;
         margin-top: 15px;
+        height: 34px !important;
+        width: max-content;
+        padding: 0 46px !important;
     }
 </style>
 

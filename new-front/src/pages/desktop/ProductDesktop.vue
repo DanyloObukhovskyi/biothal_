@@ -36,11 +36,12 @@
                         <span class="info-price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
                         <p class="info-price__in-stock">{{
-                            stock_status === 1 ? 'В наличии' :
-                            stock_status === 2 ? 'Предзаказ' :
-                            stock_status === 3 ? 'Нет в наличии' :
-                            stock_status === 4 ? '2-3 Дня' : ''}}
-                        </p>
+                stock_status === 1 ? 'В наличии' :
+                  stock_status === 2 ? 'Предзаказ' :
+                    stock_status === 3 ? 'Нет в наличии' :
+                      stock_status === 4 ? '2-3 Дня' : ''
+              }}
+            </p>
                     </div>
                     <span
                         class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
@@ -147,97 +148,97 @@
     import VueGallerySlideshow from 'vue-gallery-slideshow';
     import {mapActions, mapGetters} from "vuex";
 
-    export default {
-        name: "ProductDesktop",
-        components: {
-            TheMask,
-            ProductCardsSet,
-            VueGallerySlideshow
+export default {
+  name: "ProductDesktop",
+  components: {
+    TheMask,
+    ProductCardsSet,
+    VueGallerySlideshow
+  },
+  props: {
+    id: {
+      type: [Number, String],
+      default: 1
+    },
+  },
+  computed: {
+    validPhoneInput() {
+      return this.phone.length === 10
+    },
+    route() {
+      return this.$route.params;
+    },
+    numberRules() {
+      return [
+        v => !!v || 'Вы не ввели свой телефоный номер',
+        v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
+      ];
+    }
+  },
+  watch: {
+    route: {
+      deep: true,
+      handler(newRoute, oldRoute) {
+        this.fetchProductDetails();
+      },
+    }
+  },
+  created() {
+    this.getProfile();
+    this.fetchProductDetails();
+  },
+  data() {
+    return {
+      tab: null,
+      count_good: 1,
+      minimum_quantity: '',
+      items: [],
+      is_discount: false,
+      phone: '', user_id: '',
+      productData: {
+        image: {
+          name: ''
         },
-        props: {
-            id: {
-                type: [Number, String],
-                default: 1
-            },
+        product_description: {}
+      }, stock_status: '',
+      attr: [],
+      description: [],
+      productImages: [],
+      recommendedProduct: [],
+      images: [],
+      image: '',
+      index: null,
+      subImages: null,
+      category: {
+        main_category: {
+          title: ''
         },
-        computed: {
-            validPhoneInput() {
-                return this.phone.length === 10
-            },
-            route() {
-                return this.$route.params;
-            },
-            numberRules() {
-                return [
-                    v => !!v || 'Вы не ввели свое телефоный номер',
-                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
-                ];
-            }
-        },
-        watch: {
-            route: {
-                deep: true,
-                handler(newRoute, oldRoute) {
-                    this.fetchProductDetails();
-                },
-            }
-        },
-        created() {
-            this.getProfile();
-            this.fetchProductDetails();
-        },
-        data() {
-            return {
-                tab: null,
-                count_good: 1,
-                minimum_quantity: '',
-                items: [],
-                is_discount: false,
-                phone: '', user_id: '',
-                productData: {
-                    image: {
-                        name: ''
-                    },
-                    product_description: {}
-                }, stock_status: '',
-                attr: [],
-                description: [],
-                productImages: [],
-                recommendedProduct: [],
-                images: [],
-                image: '',
-                index: null,
-                subImages: null,
-                category: {
-                    main_category: {
-                        title: ''
-                    },
-                    sub_category: {
-                        title: ''
-                    }
-                },
-                productDescription: '',
-                showMessage: false,
-                snackbar: {
-                    top: true,
-                    right: true,
-                    color: 'green',
-                    timeout: 900,
-                    multiLine: true
-                },
-                errorValid: {
-                    phone: ''
-                }
-            }
-        },
-        methods: {
-            ...mapActions('basket', {
-                addProduct: 'ADD_PRODUCT'
-            }),
-            addToCart() {
-                this.showMessage = true;
-                const product = this.productData;
-                product.quantity = this.count_good;
+        sub_category: {
+          title: ''
+        }
+      },
+      productDescription: '',
+      showMessage: false,
+      snackbar: {
+        top: true,
+        right: true,
+        color: 'green',
+        timeout: 900,
+        multiLine: true
+      },
+      errorValid: {
+        phone: ''
+      }
+    }
+  },
+  methods: {
+    ...mapActions('basket', {
+      addProduct: 'ADD_PRODUCT'
+    }),
+    addToCart() {
+      this.showMessage = true;
+      const product = this.productData;
+      product.quantity = this.count_good;
 
                 this.addProduct(product)
             },
@@ -263,7 +264,7 @@
                 this.category = data.data.product_category;
                 this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
                 this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
-                this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
+      this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
 
                 if (this.productImages) {
                     let url = [];
@@ -293,59 +294,59 @@
                     this.clearValidation()
                     let validate = await this.$refs['orderQuickForm'].validate();
 
-                    if (validate) {
-                        const product = this.productData;
-                        product.quantity = this.count_good;
+        if (validate) {
+          const product = this.productData;
+          product.quantity = this.count_good;
 
-                        const form = {
-                            phone: this.phone,
-                            product: product,
-                            user_id: this.user_id
-                        };
+          const form = {
+            phone: this.phone,
+            product: product,
+            user_id: this.user_id
+          };
 
-                        let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
+          let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
 
-                        if (data) {
-                            let message = data.data.message
+          if (data) {
+            let message = data.data.message
 
-                            this.$notify({
-                                type: 'success',
-                                title: 'Успех!',
-                                text: message
-                            });
-                            this.clearValidation();
+            this.$notify({
+              type: 'success',
+              title: 'Успех!',
+              text: message
+            });
+            this.clearValidation();
 
-                            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
 
-                            this.clearCartProducts()
-                        }
-                    }
-                    this.$loading(false);
-                } catch (e) {
-                    this.$loading(false);
-                    this.errorMessagesValidation(e);
-                }
+            this.clearCartProducts()
+          }
+        }
+        this.$loading(false);
+      } catch (e) {
+        this.$loading(false);
+        this.errorMessagesValidation(e);
+      }
 
-            },
-            async preOrder() {
-                this.$loading(true);
-                try {
-                    this.clearValidation()
-                    let validate = await this.$refs['orderQuickForm'].validate();
+    },
+    async preOrder() {
+      this.$loading(true);
+      try {
+        this.clearValidation()
+        let validate = await this.$refs['orderQuickForm'].validate();
 
-                    if (validate) {
-                        const product = this.productData;
-                        product.quantity = this.count_good;
+        if (validate) {
+          const product = this.productData;
+          product.quantity = this.count_good;
 
-                        const form = {
-                            phone: this.phone,
-                            product: product,
-                            user_id: this.user_id
-                        };
+          const form = {
+            phone: this.phone,
+            product: product,
+            user_id: this.user_id
+          };
 
-                        let data = await this.axios.post('checkout/create/preOrder', form)
+          let data = await this.axios.post('checkout/create/preOrder', form)
 
-                        this.clearValidation();
+          this.clearValidation();
 
                         this.toPage({name: 'order-status', params: {id: data.data.order_id}});
                     }
@@ -597,13 +598,44 @@
                         margin: 0 !important;
                         display: flex;
                         justify-content: center;
-                        background-color: #efefef;
+                        background-color: $palette-disable-color;
                         height: 48px;
                         text-align: center;
-                        font-size: 16px;
-                        line-height: 22px;
-                        font-weight: bold;
-                        color: #C4C4C4;
+                        border-radius: 50px;
+          position: relative;
+          align-items: center;
+          padding: 0 25px !important;
+
+          &.v-text-field {
+            padding: 0;
+          }
+
+          & ::v-deep {
+            & .v-input__slot {
+              padding: 0;
+              margin: 0;
+
+              & input {
+                padding: 0;
+                        line-height: 22px;font-size: 16px;
+                        font-weight: 500;
+                font-family: Manrope, sans-serif !important;
+                        color: black;
+                text-align: center;
+              }
+            }
+
+            & .v-text-field {
+              &__details {
+                position: absolute;
+                bottom: -15px;
+                white-space: nowrap;
+                transform: translateX(0);
+                min-width: fit-content;
+                text-align: center;
+              }
+            }
+          }
                     }
                 }
             }

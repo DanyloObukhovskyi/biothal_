@@ -32,6 +32,14 @@
         }),
         mounted() {
             this.marginTopNavigation = this.$parent.$refs['app-bar']?.styles.height
+
+            const _this = this;
+            const onScroll = function(){
+              return _this.marginTopNavigation = (+document.scrollingElement.scrollTop) + (+_this.$parent.$refs['app-bar']?.height) + 'px'
+            };
+            onScroll();
+            document.addEventListener('scroll', onScroll);
+            this.$on('hook:beforeDestroy', () => document.removeEventListener('scroll', onScroll));
         },
         computed: {
             menuItems() {
@@ -92,7 +100,7 @@
                 ]
 
                 return this.isAuthorize ? isLogin : isLogout
-            }
+            },
         },
         methods: {
             toPageMenu(item) {
