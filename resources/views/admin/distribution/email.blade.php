@@ -127,6 +127,91 @@
         </div>
     </div>
 
+    <div class="modal fade" id="groups" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="example_modal_label">Группы</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-hover" id="groups_table" style="width:100%">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">Идентификатор</th>
+                            <th scope="col">Название группы</th>
+                            <th scope="col">Редактировать</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="delete_group" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                    <button type="button" class="btn btn-success" data-target="#add_groups" data-toggle="modal">Добавить группу</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hide" id="add_groups" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example_modal_label">Добавить группу</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Название</span>
+                        </div>
+                        <input type="text" class="form-control" id="name_add"  placeholder="Введите название группы">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="add_group" class="btn btn-primary">Добавить группу</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="change_groups" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example_modal_label">Изменить группу</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Название</span>
+                        </div>
+                        <input type="text" class="form-control" id="name_edit"  placeholder="Введите название">
+                    </div>
+                </div>
+                <input type="hidden" name="group_hidden_id" id="group_hidden_id" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="b_change_group">Изменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="prod-header border container-fluid">
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
@@ -134,6 +219,7 @@
                     <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> E-mail рассылка</div>
                     <div class="pull-right col-sm-6">
                         <a href="javascript" data-target="#add_emails" data-toggle="modal" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                        <a href="javascript" data-target="#groups" data-toggle="modal" title="Группа" class="btn btn-info">Группы</a>
                         <a href="javascript" data-target="#send_emails" data-toggle="modal" title="Отправить Эмейл" class="btn btn-success">Отправить Рассылку</a>
                         <button id="delete_email" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
                             <i class="fa fa-trash-o"></i>
@@ -399,209 +485,211 @@
                 })
             })
 
-            // var groupTable = $('#group_table').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: "/admin/groupList",
-            //     columns: [
-            //         {"data": "number", "name": "id"},
-            //         {"data": "name", "name": "name"},
-            //         {"data": 'action', "orderable": false, "searchable": false},
-            //     ],
-            //     select: {
-            //         style: 'multi',
-            //         selector: 'td:not(:last-child)'
-            //     },
-            // });
-            //
-            // $(document).on("click", "#b_change_group", function () {
-            //     let name = $('#name_edit').val();
-            //
-            //     $.ajax({
-            //         url: '/admin/editGroup',
-            //         method: 'POST',
-            //         data: {
-            //             "name": name,
-            //             "id": id
-            //         },
-            //         error: function (xhr, status, error) {
-            //             var errors = xhr.responseJSON.errors, errorMessage = "";
-            //             $.each(errors, function (index, value) {
-            //                 $.each(value, function (key, message) {
-            //                     errorMessage += message + " ";
-            //                 })
-            //             })
-            //             Swal.fire({
-            //                 icon: 'error',
-            //                 title: errorMessage,
-            //                 showConfirmButton: true,
-            //             })
-            //         },
-            //         success: function (resp) {
-            //
-            //             // Меняем категорию
-            //             if (resp['message']) {
-            //                 $('#change_groups').modal('hide');
-            //                 $('.modal-backdrop').remove();
-            //                 groupTable.ajax.reload();
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: resp['message'],
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                 })
-            //             }
-            //         }
-            //     })
-            // });
-            //
-            // // Добавление скидок
-            // $(document).on("click", '#add_group', function () {
-            //     let name = $('#name_add').val();
-            //
-            //     $.ajax({
-            //         url: '/admin/addGroup',
-            //         method: 'POST',
-            //         data: {
-            //             "name": name
-            //         },
-            //         error: function (xhr, status, error) {
-            //             var errors = xhr.responseJSON.errors, errorMessage = "";
-            //             $.each(errors, function (index, value) {
-            //                 $.each(value, function (key, message) {
-            //                     errorMessage += message + " ";
-            //                 })
-            //             })
-            //             Swal.fire({
-            //                 icon: 'error',
-            //                 title: errorMessage,
-            //                 showConfirmButton: true,
-            //             })
-            //         },
-            //         success: function (resp) {
-            //             if (resp['message']) {
-            //                 $('#add_groups').modal('hide');
-            //                 $('.modal-backdrop').remove();
-            //                 groupTable.ajax.reload();
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: resp['message'],
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                 });
-            //             } else {
-            //                 window.location.replace("/admin/groupList");
-            //             }
-            //         }
-            //     });
-            // })
-            //
-            // $(document).on("click", "[id^=groups_change]", function () {
-            //     let id = $(this).data('id');
-            //     let name = $(this).data('name');
-            //
-            //     $("#name_edit").val(name);
-            // })
-            //
-            //
-            // $(document).on("click", "#delete_group", function () {
-            //     var data = groupTable.rows({selected: true}).data(), arr = [], count = groupTable.rows({selected: true}).count();
-            //     if (count !== 0) {
-            //         for (var i = 0; i < count; i++) {
-            //             arr[i] = data[i]['id'];
-            //         }
-            //     }
-            //     $.ajax({
-            //         url: '/admin/deleteGroup',
-            //         method: 'POST',
-            //         data: {"checked": arr, "status": 0},
-            //         error: function (xhr, status, error) {
-            //             var errors = xhr.responseJSON.errors, errorMessage = "";
-            //             console.log(errors);
-            //             $.each(errors, function (index, value) {
-            //                 $.each(value, function (key, message) {
-            //                     errorMessage += message + " ";
-            //                 })
-            //             })
-            //             Swal.fire({
-            //                 icon: 'error',
-            //                 title: errorMessage,
-            //                 showConfirmButton: true,
-            //             })
-            //         },
-            //         success: function (resp) {
-            //             // Если родительская категория не выбрана, удаляем выбранные категории
-            //             if (resp['accepted']) {
-            //                 groupTable.ajax.reload();
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: resp['accepted'],
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                 })
-            //             }
-            //             if (resp['warning']) {
-            //                 // Если роительская категория выбрана, уточняем у пользователя уверен ли он в своем выборе
-            //                 Swal.fire({
-            //                     title: resp['warning']['title'],
-            //                     text: resp['warning']['text'],
-            //                     showDenyButton: true,
-            //                     showCancelButton: false,
-            //                     confirmButtonText: 'Удалить',
-            //                     denyButtonText: 'Отмена'
-            //                 }).then((result) => {
-            //                     // Если уверен, удаляем
-            //                     if (result.isConfirmed) {
-            //                         $.ajax({
-            //                             url: '/admin/deleteEmail',
-            //                             method: 'POST',
-            //                             data: {"checked": arr, "status": 1},
-            //                             success: function (ret) {
-            //                                 if (ret['status']) {
-            //                                     if (ret['accepted']) {
-            //                                         groupTable.ajax.reload();
-            //                                         Swal.fire({
-            //                                             icon: 'success',
-            //                                             title: ret['accepted'],
-            //                                             showConfirmButton: false,
-            //                                             timer: 1500
-            //                                         });
-            //                                     }
-            //                                     if (ret['error']) {
-            //                                         Swal.fire({
-            //                                             icon: 'error',
-            //                                             title: resp['error'],
-            //                                             timer: 1700,
-            //                                             showConfirmButton: false,
-            //                                         })
-            //                                     }
-            //                                 } else {
-            //                                     window.location.replace("/admin/emailList");
-            //                                 }
-            //                             }
-            //                         })
-            //                         // Если нет, отменяем
-            //                     } else if (result.isDenied) {
-            //                         Swal.fire({
-            //                             icon: 'success',
-            //                             title: 'Э-мейлы не удалены',
-            //                             timer: 1300,
-            //                             showConfirmButton: false,
-            //                         })
-            //                     }
-            //                 })
-            //             }
-            //             if (resp['error']) {
-            //                 Swal.fire({
-            //                     icon: 'error',
-            //                     title: resp['error'],
-            //                     timer: 1700,
-            //                     showConfirmButton: false,
-            //                 })
-            //             }
-            //         }
-            //     })
-            // })
+            var groupTable = $('#groups_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "/admin/groupList",
+                columns: [
+                    {"data": "id", "name": "id"},
+                    {"data": "name", "name": "name"},
+                    {"data": 'action', "orderable": false, "searchable": false},
+                ],
+                select: {
+                    style: 'multi',
+                    selector: 'td:not(:last-child)'
+                },
+            });
+
+            $(document).on("click", "#b_change_group", function () {
+                let name = $('#name_edit').val();
+                let id = $('#group_hidden_id').val();
+
+                $.ajax({
+                    url: '/admin/editEmailGroup',
+                    method: 'POST',
+                    data: {
+                        "name": name,
+                        "id": id
+                    },
+                    error: function (xhr, status, error) {
+                        var errors = xhr.responseJSON.errors, errorMessage = "";
+                        $.each(errors, function (index, value) {
+                            $.each(value, function (key, message) {
+                                errorMessage += message + " ";
+                            })
+                        })
+                        Swal.fire({
+                            icon: 'error',
+                            title: errorMessage,
+                            showConfirmButton: true,
+                        })
+                    },
+                    success: function (resp) {
+
+                        // Меняем категорию
+                        if (resp['message']) {
+                            $('#change_groups').modal('hide');
+                            $('.modal-backdrop').remove();
+                            groupTable.ajax.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: resp['message'],
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    }
+                })
+            });
+
+            // Добавление скидок
+            $(document).on("click", '#add_group', function () {
+                let name = $('#name_add').val();
+
+                $.ajax({
+                    url: '/admin/addEmailGroup',
+                    method: 'POST',
+                    data: {
+                        "name": name
+                    },
+                    error: function (xhr, status, error) {
+                        var errors = xhr.responseJSON.errors, errorMessage = "";
+                        $.each(errors, function (index, value) {
+                            $.each(value, function (key, message) {
+                                errorMessage += message + " ";
+                            })
+                        })
+                        Swal.fire({
+                            icon: 'error',
+                            title: errorMessage,
+                            showConfirmButton: true,
+                        })
+                    },
+                    success: function (resp) {
+                        if (resp['message']) {
+                            $('#add_groups').modal('hide');
+                            $('.modal-backdrop').remove();
+                            groupTable.ajax.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: resp['message'],
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            window.location.replace("/admin/groupList");
+                        }
+                    }
+                });
+            })
+
+            $(document).on("click", "[id^=groups_change]", function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+
+                $("#group_hidden_id").val(id);
+                $("#name_edit").val(name);
+            })
+
+
+            $(document).on("click", "#delete_group", function () {
+                var data = groupTable.rows({selected: true}).data(), arr = [], count = groupTable.rows({selected: true}).count();
+                if (count !== 0) {
+                    for (var i = 0; i < count; i++) {
+                        arr[i] = data[i]['id'];
+                    }
+                }
+                $.ajax({
+                    url: '/admin/deleteEmailGroup',
+                    method: 'POST',
+                    data: {"checked": arr, "status": 0},
+                    error: function (xhr, status, error) {
+                        var errors = xhr.responseJSON.errors, errorMessage = "";
+                        console.log(errors);
+                        $.each(errors, function (index, value) {
+                            $.each(value, function (key, message) {
+                                errorMessage += message + " ";
+                            })
+                        })
+                        Swal.fire({
+                            icon: 'error',
+                            title: errorMessage,
+                            showConfirmButton: true,
+                        })
+                    },
+                    success: function (resp) {
+                        // Если родительская категория не выбрана, удаляем выбранные категории
+                        if (resp['accepted']) {
+                            groupTable.ajax.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: resp['accepted'],
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                        if (resp['warning']) {
+                            // Если роительская категория выбрана, уточняем у пользователя уверен ли он в своем выборе
+                            Swal.fire({
+                                title: resp['warning']['title'],
+                                text: resp['warning']['text'],
+                                showDenyButton: true,
+                                showCancelButton: false,
+                                confirmButtonText: 'Удалить',
+                                denyButtonText: 'Отмена'
+                            }).then((result) => {
+                                // Если уверен, удаляем
+                                if (result.isConfirmed) {
+                                    $.ajax({
+                                        url: '/admin/deleteEmail',
+                                        method: 'POST',
+                                        data: {"checked": arr, "status": 1},
+                                        success: function (ret) {
+                                            if (ret['status']) {
+                                                if (ret['accepted']) {
+                                                    groupTable.ajax.reload();
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: ret['accepted'],
+                                                        showConfirmButton: false,
+                                                        timer: 1500
+                                                    });
+                                                }
+                                                if (ret['error']) {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: resp['error'],
+                                                        timer: 1700,
+                                                        showConfirmButton: false,
+                                                    })
+                                                }
+                                            } else {
+                                                window.location.replace("/admin/emailList");
+                                            }
+                                        }
+                                    })
+                                    // Если нет, отменяем
+                                } else if (result.isDenied) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Э-мейлы не удалены',
+                                        timer: 1300,
+                                        showConfirmButton: false,
+                                    })
+                                }
+                            })
+                        }
+                        if (resp['error']) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: resp['error'],
+                                timer: 1700,
+                                showConfirmButton: false,
+                            })
+                        }
+                    }
+                })
+            })
 
             $(document).on("click", "#b_send_email", function () {
                 let description = $('#description_send').val();
@@ -643,6 +731,10 @@
                     }
                 })
             });
+
+            $('#groups').on('hide.bs.modal', function (event) {
+                location.reload();
+            })
         });
     </script>
 @endsection

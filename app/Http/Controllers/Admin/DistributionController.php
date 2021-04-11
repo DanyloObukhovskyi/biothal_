@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\PhoneGroup;
 use App\Http\Requests\Admin\Distribution\{
     Create as CreateEmailDistributionRequest,
-    Update as UpdateEmailDistributionRequest
+    Update as UpdateEmailDistributionRequest,
+    CreatePhone as CreatePhoneDistributionRequest,
+    UpdatePhone as UpdatePhoneDistributionRequest,
+    CreateGroup as CreateGroupDistributionRequest,
+    UpdateGroup as UpdateGroupDistributionRequest,
 };
 use App\Http\Controllers\Controller;
 use App\Models\EmailGroup;
@@ -12,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Models\EmailForEmailNewsletter;
 use App\Models\PhoneReceive;
 use DataTables;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DefaultMail;
 
@@ -137,19 +143,81 @@ class DistributionController extends Controller
         }
     }
 
-    public function addEmailGroup(Request $request)
+    public function addEmailGroup(CreateGroupDistributionRequest $request)
     {
+        EmailGroup::create([
+            'name' => $request->name
+        ]);
 
+        return response()->json([
+            'message' => 'Группа успешно создана'
+        ], 200);
     }
 
-    public function editEmailGroup(Request $request)
+    public function editEmailGroup(UpdateGroupDistributionRequest $request)
     {
+        $group = EmailGroup::find($request->id);
+        if(empty($group)){
+            return response()->json([
+                'message' => 'Группа не найден'
+            ], 404);
+        }
+        $group->name = $request->name;
+        $group->save();
 
+        return response()->json([
+            'message' => 'Группа успешно обновлена'
+        ], 200);
     }
 
     public function deleteEmailGroup(Request $request)
     {
+        $status = $request->status;
 
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                foreach ($request->checked as $catId) {
+                    $group = EmailGroup::where('id', (int)$catId)->delete();
+                }
+                return response()->json([
+                    'accepted' => 'Группы успешно удалены'
+                ]);
+            }
+
+            return response()->json([
+                'error' => "Выберите хотя бы 1 группу"
+            ]);
+        }
+
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = [];
+                foreach ($request->checked as $catId) {
+                    $group = EmailGroup::where('id', (int)$catId)->first();
+
+                    if ($group != null) {
+
+                        $group->delete();
+                    }
+                }
+
+                if (count(EmailGroup::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                return response()->json([
+                    'accepted' => 'Группы успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 группу"
+                ]);
+            }
+        }
     }
 
     public function sendEmails(Request $request)
@@ -206,7 +274,7 @@ class DistributionController extends Controller
                 })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" data-toggle="modal" id="' . ("phones_change" . $row->id) .'" data-id="' . $row->id . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+                    $btn = '<button type="button" data-toggle="modal" data-target="#change_phones" id="' . ("phones_change" . $row->id) .'" data-id="' . $row->id . '" data-phone="' . $row->phone . '" data-group_id="' . $row->group_id . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
 
                     return $btn;
                 })
@@ -215,7 +283,7 @@ class DistributionController extends Controller
         }
 
         $phones = PhoneReceive::all();
-        $groups = EmailGroup::all();
+        $groups = PhoneGroup::all();
 
         return view('admin.distribution.phone', [
             'phones' => $phones,
@@ -223,38 +291,243 @@ class DistributionController extends Controller
         ]);
     }
 
-    public function addPhone(Request $request)
+    public function addPhone(CreatePhoneDistributionRequest $request)
     {
+        PhoneReceive::create([
+            'phone' => $request->phone,
+            'group_id' => $request->group_id === '0' ? null : $request->group_id,
+            'is_receive' => true
+        ]);
 
+        return response()->json([
+            'message' => 'Телефон успешно создан'
+        ], 200);
     }
 
-    public function editPhone(Request $request)
+    public function editPhone(UpdatePhoneDistributionRequest $request)
     {
+        $phone = PhoneReceive::find($request->id);
+        if(empty($phone)){
+            return response()->json([
+                'message' => 'Телефон не найден'
+            ], 404);
+        }
+        $phone->phone = $request->phone;
+        $phone->group_id = $request->group_id === '0' ? null : $request->group_id;
+        $phone->save();
 
+        return response()->json([
+            'message' => 'Телефон успешно обновлен'
+        ], 200);
     }
 
     public function deletePhone(Request $request)
     {
+        $status = $request->status;
 
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                foreach ($request->checked as $catId) {
+                    $email = PhoneReceive::where('id', (int)$catId)->delete();
+                }
+                return response()->json([
+                    'accepted' => 'Эмейлы успешно удалены'
+                ]);
+            }
+
+            return response()->json([
+                'error' => "Выберите хотя бы 1 эмейл"
+            ]);
+        }
+
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = [];
+                foreach ($request->checked as $catId) {
+                    $phone = PhoneReceive::where('id', (int)$catId)->first();
+
+                    if ($phone != null) {
+
+                        $phone->delete();
+                    }
+                }
+
+                if (count(PhoneReceive::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                return response()->json([
+                    'accepted' => 'Телефоны успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 телефон"
+                ]);
+            }
+        }
     }
 
-    public function addPhoneGroup(Request $request)
+    public function addPhoneGroup(CreateGroupDistributionRequest $request)
     {
+        PhoneGroup::create([
+            'name' => $request->name
+        ]);
 
+        return response()->json([
+            'message' => 'Группа успешно создана'
+        ], 200);
     }
 
-    public function editPhoneGroup(Request $request)
+    public function editPhoneGroup(UpdateGroupDistributionRequest $request)
     {
+        $group = PhoneGroup::find($request->id);
+        if(empty($group)){
+            return response()->json([
+                'message' => 'Группа не найден'
+            ], 404);
+        }
+        $group->name = $request->name;
+        $group->save();
 
+        return response()->json([
+            'message' => 'Группа успешно обновлена'
+        ], 200);
     }
 
     public function deletePhoneGroup(Request $request)
     {
+        $status = $request->status;
 
+        if ($status == 0) {
+            if ($request->checked != 0) {
+
+                foreach ($request->checked as $catId) {
+                    $group = PhoneGroup::where('id', (int)$catId)->delete();
+                }
+                return response()->json([
+                    'accepted' => 'Группы успешно удалены'
+                ]);
+            }
+
+            return response()->json([
+                'error' => "Выберите хотя бы 1 группу"
+            ]);
+        }
+
+        if ($status == 1) {
+            if ($request->checked != 0) {
+                $values = [];
+                foreach ($request->checked as $catId) {
+                    $group = PhoneGroup::where('id', (int)$catId)->first();
+
+                    if ($group != null) {
+
+                        $group->delete();
+                    }
+                }
+
+                if (count(PhoneGroup::all()) == 0){
+                    return response()->json([
+                        'status' => false,
+                    ]);
+                }
+
+                return response()->json([
+                    'accepted' => 'Группы успешно удалены',
+                    'status' => true,
+                ]);
+            } else {
+                return response()->json([
+                    'error' => "Выберите хотя бы 1 группу"
+                ]);
+            }
+        }
     }
 
-    public function sendSms(Request $request)
+    public function groupList()
+    {
+        $groups = EmailGroup::all();
+
+        return Datatables::of($groups)
+            ->editColumn('name', function ($row) {
+                return $row->name;
+            })
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                $btn = '<button type="button" data-toggle="modal" data-target="#change_groups" id="' . ("groups_change" . $row->id) .'" data-id="' . $row->id . '" data-name="' . $row->name . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function groupPhoneList()
+    {
+        $groups = PhoneGroup::all();
+
+        return Datatables::of($groups)
+            ->editColumn('name', function ($row) {
+                return $row->name;
+            })
+            ->addIndexColumn()
+            ->addColumn('action', function ($row) {
+                $btn = '<button type="button" data-toggle="modal" data-target="#change_groups" id="' . ("groups_change" . $row->id) .'" data-id="' . $row->id . '" data-name="' . $row->name . '" name="change" class="btn btn-outline-dark fa fa-wrench"></button>';
+
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function sendPhones(Request $request)
+    {
+        $groupId = $request->group_id === '0' ? null : $request->group_id;
+        $phones = PhoneReceive::where('group_id', $groupId)->get();
+
+        $count = 0;
+        if(!empty($phones)){
+            foreach($phones as $phone){
+                if(!empty($request->description)){
+                    $count += 1;
+                    $this->sendSMS($phone->phone, $request->description);
+                } else {
+                    return response()->json([
+                        'message' => 'Вы не можете отправить смс с пустым текстом',
+                    ], 404);
+                }
+            }
+        } else {
+            return response()->json([
+                'message' => 'Не найдено ни одного телефона в группе',
+            ], 404);
+        }
+        if($count === 0){
+            return response()->json([
+                'message' =>  'Смс не отправлено',
+            ], 200);
+        }
+        return response()->json([
+            'message' =>  $count > 1 ? "Вы успешно отправили ".$count." смс" : "Вы успешно отправили ".$count." смс" .'',
+        ], 200);
+    }
+
+    public function sendSMS($phone, $text)
     {
 
+        $response = Http::get('https://api.turbosms.ua/message/send.json', [
+            'recipients' => [
+                $phone
+            ],
+            'sms' => [
+                'sender' => 'Biothal',
+                'text' => $text,
+            ],
+            'token' => Env('TurboSmsToken')
+        ]);
     }
 }

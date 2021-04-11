@@ -256,6 +256,42 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::get('/phoneList', 'DistributionController@phone')
             ->name('admin.distribution.phoneList');
+
+        Route::get('/groupList', 'DistributionController@groupList')
+            ->name('admin.distribution.groupList');
+
+        Route::post('/addEmailGroup', 'DistributionController@addEmailGroup')
+            ->name('admin.distribution.add.emailGroup');
+
+        Route::post('/editEmailGroup', 'DistributionController@editEmailGroup')
+            ->name('admin.distribution.edit.emailGroup');
+
+        Route::post('/deleteEmailGroup', 'DistributionController@deleteEmailGroup')
+            ->name('admin.distribution.delete.emailGroup');
+
+        Route::post('/addPhone', 'DistributionController@addPhone')
+            ->name('admin.distribution.add.phone');
+
+        Route::post('/editPhone', 'DistributionController@editPhone')
+            ->name('admin.distribution.edit.phone');
+
+        Route::post('/deletePhone', 'DistributionController@deletePhone')
+            ->name('admin.distribution.delete.phone');
+
+        Route::post('/sendPhone', 'DistributionController@sendPhones')
+            ->name('admin.distribution.send.phone');
+
+        Route::get('/groupPhoneList', 'DistributionController@groupPhoneList')
+            ->name('admin.distribution.groupPhoneList');
+
+        Route::post('/addPhoneGroup', 'DistributionController@addPhoneGroup')
+            ->name('admin.distribution.add.phoneGroup');
+
+        Route::post('/editPhoneGroup', 'DistributionController@editPhoneGroup')
+            ->name('admin.distribution.edit.phoneGroup');
+
+        Route::post('/deletePhoneGroup', 'DistributionController@deletePhoneGroup')
+            ->name('admin.distribution.delete.phoneGroup');
     });
 
 
