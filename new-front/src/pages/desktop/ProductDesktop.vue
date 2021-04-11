@@ -114,15 +114,13 @@
         <v-tabs-items style="margin-top: 30px" v-model="tab">
           <v-tab-item
             :value="'tab-description'">
-            <v-card class="description-content" flat v-html="productDescription">
-            </v-card>
+            <v-card class="description-content" flat v-html="productDescription"/>
           </v-tab-item>
           <v-tab-item
             v-for="(item, idx) in this.items"
             :key="idx"
             :value="'tab-' + idx">
-            <v-card class="description-content" flat v-html="item['tab_desc']">
-            </v-card>
+            <v-card class="description-content" flat v-html="item['tab_desc']"/>
           </v-tab-item>
         </v-tabs-items>
       </div>
@@ -702,7 +700,11 @@ input[type=number] {
     height: 25px;
   }
 
+  .description-content {
+    & > div {
+      float: left;
+    }
+  }
 }
-
 
 </style>
