@@ -467,6 +467,13 @@ console.log(this.productData.sale_id)
   font-size: 12px;
   line-height: 16px;
   padding: 10px;
+  width: 100%;
+
+  & ::v-deep {
+    & > * {
+      max-width: 100%;
+    }
+  }
 }
 
 .product-mobile {
