@@ -20,6 +20,7 @@ use DataTables;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DefaultMail;
+use App\Models\DistributionOffer;
 
 class DistributionController extends Controller
 {
@@ -528,6 +529,44 @@ class DistributionController extends Controller
                 'text' => $text,
             ],
             'token' => Env('TurboSmsToken')
+        ]);
+    }
+
+    public function offer(Request $request)
+    {
+        $offers = DistributionOffer::all();
+        if (empty($offers)) {
+            return view('admin.distribution.offer', [
+                'offers'
+            ]);
+        }
+
+        if ($request->ajax()) {
+            foreach ($offers as $key => $value){
+                $offers[$key]['number'] = $key+1;
+            }
+            return Datatables::of($offers)
+                ->editColumn('name', function ($row) {
+                    return $row->name;
+                })
+                ->editColumn('phone', function ($row) {
+                    return $row->phone;
+                })
+                ->editColumn('email', function ($row) {
+                    return $row->email;
+                })
+                ->editColumn('message', function ($row) {
+                    return $row->message;
+                })
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $offers = DistributionOffer::all();
+
+        return view('admin.distribution.offer', [
+            'offers' => $offers
         ]);
     }
 }

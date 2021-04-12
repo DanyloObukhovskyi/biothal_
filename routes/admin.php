@@ -292,6 +292,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::post('/deletePhoneGroup', 'DistributionController@deletePhoneGroup')
             ->name('admin.distribution.delete.phoneGroup');
+
+        Route::get('/offer', 'DistributionController@offer')
+            ->name('admin.distribution.offer');
     });
 
 

@@ -9,6 +9,20 @@ $(function () {
 
     var shoppingCartId = 0;
     var productTable = productTable = $('#products_state_panel_table').DataTable({
+        "language": {
+            "search":  'Поиск',
+            "processing": 'Загрузка......',
+            "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
+            "infoEmpty": 'Показано с 0 по 0 из 0 записей',
+            "lengthMenu": 'Показать _MENU_ Записей',
+            "paginate": {
+                "first":      "Первая",
+                "last":       "Последняя",
+                "next":       "Следующая",
+                "previous":   "Предыдущая"
+            },
+            "zeroRecords": 'Пусто'
+        },
         processing: true,
         ajax: {
             "url": '/admin/panel/get/products',
@@ -35,6 +49,20 @@ $(function () {
     });
 
     var statePanelTable = $('#state_panel_table').DataTable({
+        "language": {
+            "search":  'Поиск',
+            "processing": 'Загрузка......',
+            "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
+            "infoEmpty": 'Показано с 0 по 0 из 0 записей',
+            "lengthMenu": 'Показать _MENU_ Записей',
+            "paginate": {
+                "first":      "Первая",
+                "last":       "Последняя",
+                "next":       "Следующая",
+                "previous":   "Предыдущая"
+            },
+            "zeroRecords": 'Пусто'
+        },
         processing: true,
         serverSide: true,
         ajax: '/admin/panel',

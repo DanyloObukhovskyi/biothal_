@@ -137,6 +137,12 @@
                         <span>Заказы</span>
                     </a>
                 </li>
+                <li class="{{@checkIsActive('admin.distribution.offer')}}">
+                    <a href="{{route('admin.distribution.offer')}}">
+                        <i class="fas fa-file"></i>
+                        <span>Дистрибьюторы</span>
+                    </a>
+                </li>
                 <li class="{{@checkIsActive('admin.images.banner')}}">
                     <a href="{{route('admin.images.banner')}}">
                         <i class="far fa-images"></i>

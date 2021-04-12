@@ -21,6 +21,20 @@ $(function () {
 
     // Создаю таблицу продуктов
     var productTable = $('#products_table').DataTable({
+        "language": {
+            "search":  'Поиск',
+            "processing": 'Загрузка......',
+            "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
+            "infoEmpty": 'Показано с 0 по 0 из 0 записей',
+            "lengthMenu": 'Показать _MENU_ Записей',
+            "paginate": {
+                "first":      "Первая",
+                "last":       "Последняя",
+                "next":       "Следующая",
+                "previous":   "Предыдущая"
+            },
+            "zeroRecords": 'Пусто'
+        },
         processing: true,
         serverSide: true,
         ajax: "/admin/products",
@@ -87,6 +101,20 @@ $(function () {
 
     // Создаю таблицу Данных
     var attributes = $('#attributes_table').DataTable({
+        "language": {
+            "search":  'Поиск',
+            "processing": 'Загрузка......',
+            "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
+            "infoEmpty": 'Показано с 0 по 0 из 0 записей',
+            "lengthMenu": 'Показать _MENU_ Записей',
+            "paginate": {
+                "first":      "Первая",
+                "last":       "Последняя",
+                "next":       "Следующая",
+                "previous":   "Предыдущая"
+            },
+            "zeroRecords": 'Пусто'
+        },
         processing: true,
         // ajax: '/admin/products/attributes',
         columns: [
@@ -109,6 +137,20 @@ $(function () {
 
     // Создаю таблицу Данных
     var sales = $('#sales_table').DataTable({
+        "language": {
+            "search":  'Поиск',
+            "processing": 'Загрузка......',
+            "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
+            "infoEmpty": 'Показано с 0 по 0 из 0 записей',
+            "lengthMenu": 'Показать _MENU_ Записей',
+            "paginate": {
+                "first":      "Первая",
+                "last":       "Последняя",
+                "next":       "Следующая",
+                "previous":   "Предыдущая"
+            },
+            "zeroRecords": 'Пусто'
+        },
         processing: true,
         ajax: '/admin/products/sales',
         columns: [
