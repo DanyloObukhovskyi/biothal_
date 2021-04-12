@@ -5,26 +5,26 @@
 
       <p v-if="isShowMessage && message">{{ message }}</p>
 
-      <agile v-if="withSlider" :infinite="true" :key="productData.length" :slidesToShow="3" :autoplay="true"
+      <agile class="slider" v-if="withSlider" infinite :key="productData.length" :slidesToShow="3" autoplay
              :autoplaySpeed="5000"
-             :speed="1500" :navButtons="false" :pauseOnHover="true" :pauseOnDotsHover="true">
+             :speed="1500" :navButtons="false" pauseOnHover pauseOnDotsHover>
 
         <div class="slide" v-for="item in productData" :key="item.id">
-            <ProductCard
-              v-if="typeSet === 'product'"
-              class="product-card__content"
-              :data-card="item"
-              :is-show-stock="item.sale_id !== null"/>
+          <ProductCard
+            v-if="typeSet === 'product'"
+            class="product-card__content"
+            :data-card="item"
+            :is-show-stock="item.sale_id !== null"/>
         </div>
       </agile>
 
       <div class="product-card__content" v-else-if="typeSet === 'product'">
-            <ProductCard class="product-card__item-three"
-                       v-for="item in productData"
-                       :key="item.id"
-                       :data-card="item"
-                       :is-show-stock="item.sale_id !== null"/>
-          </div>
+        <ProductCard class="product-card__item-three"
+                     v-for="item in productData"
+                     :key="item.id"
+                     :data-card="item"
+                     :is-show-stock="item.sale_id !== null"/>
+      </div>
 
       <div class="product-card__content" v-if="typeSet === 'basket'">
         <ProductCardBasket v-for="item in productData"
@@ -155,26 +155,31 @@ export default {
 }
 
 .slider {
+  padding: 0 8em;
+
   & ::v-deep .agile {
 
-    &__slides {
-      align-items: stretch;
+    &__list {
 
-      & .product {
-        transform: translateX(25%);
+    }
+
+    &__slides {
+
+      & .slide {
+        display: flex;
+        position: relative;
+        height: 100%;
+        justify-content: center;
       }
 
       & .product-card__content {
-        justify-content: space-between;
+        align-content: space-between;
+        padding: 10px 45px;
       }
     }
 
   }
 }
 
-.slide {
-  display: flex;
-  position: relative;
-}
 
 </style>
