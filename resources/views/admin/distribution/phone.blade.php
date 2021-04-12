@@ -691,12 +691,12 @@
                 })
             })
 
-            $(document).on("click", "#b_send_email", function () {
+            $(document).on("click", "#b_send_phones", function () {
                 let description = $('#description_send').val();
                 let group_id = $('#group_id_send').val();
 
                 $.ajax({
-                    url: '/admin/sendPhones',
+                    url: '/admin/sendPhone',
                     method: 'POST',
                     data: {
                         "group_id": group_id,
