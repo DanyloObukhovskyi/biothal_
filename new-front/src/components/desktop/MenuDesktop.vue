@@ -4,8 +4,9 @@
       <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
       <div><img width="18" height="18" src="../../../public/package.svg"/></div>
     </v-system-bar>
+
     <v-app-bar class="menu-wrapper__menu">
-      <img class="menu-wrapper__logo point-cursor" @click="toPage({name: 'home'})" src="../../../public/logo.svg"/>
+      <img class="menu-wrapper__logo point-cursor" @click="toPage({name: 'home'})" src="../../../public/logo-biothal.svg"/>
       <div class="app-bar-menu-wrapper">
         <v-slide-group
           multiple
@@ -219,7 +220,7 @@
 
     &__logo {
       height: 38px;
-      padding-left: 43px;
+      margin-left: 43px;
     }
   }
 

@@ -14,3 +14,6 @@
 @mixin _900 { @include media(900) { @content } }
 @mixin _1024 { @include media(1024) { @content } }
 @mixin _1280 { @include media(1280) { @content } }
+
+
+@mixin _safari { @supports (overflow:-webkit-marquee) and (justify-content:inherit) { @content } }

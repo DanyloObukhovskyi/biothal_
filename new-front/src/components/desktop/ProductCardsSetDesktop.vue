@@ -117,6 +117,7 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 100%;
   }
 
   &__title {
@@ -137,6 +138,7 @@ export default {
     row-gap: 40px;
     column-gap: 30px;
     align-items: stretch;
+    height: 100%;
   }
 
   &__item-three {
@@ -152,7 +154,27 @@ export default {
   }
 }
 
-.slide {
+.slider {
+  & ::v-deep .agile {
 
+    &__slides {
+      align-items: stretch;
+
+      & .product {
+        transform: translateX(25%);
+      }
+
+      & .product-card__content {
+        justify-content: space-between;
+      }
+    }
+
+  }
 }
+
+.slide {
+  display: flex;
+  position: relative;
+}
+
 </style>

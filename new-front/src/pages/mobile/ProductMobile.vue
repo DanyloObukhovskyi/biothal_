@@ -1,27 +1,27 @@
 <template>
   <div class="product-mobile__wrapper">
-    <div class="breadcrumb" style="margin:10px; text-align: center; justify-content: center">
-      <span class="breadcrumb-item" @click="toPage( {name:'home'} )">Главная</span>
-      <span class="breadcrumb-item arrow"/>
-      <span class="breadcrumb-item"
-            @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{
-          category['main_category']['title']
-        }}</span>
-      <span v-if="category['main_category'].length !== 0" class="breadcrumb-item arrow"/>
-      <span v-if="category['sub_category'] !== null" class="breadcrumb-item"
-            @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{
-          category['sub_category']['title']
-        }}</span>
-      <span v-if="category['sub_category'] !== null" class="breadcrumb-item arrow"/>
-      <span class="breadcrumb-item">{{ description['name'] }}</span>
-    </div>
+<!--    <div class="breadcrumb" style="margin:10px; text-align: center; justify-content: center">-->
+<!--      <span class="breadcrumb-item" @click="toPage( {name:'home'} )">Главная</span>-->
+<!--      <span class="breadcrumb-item arrow"/>-->
+<!--      <span class="breadcrumb-item"-->
+<!--            @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">{{-->
+<!--          category['main_category']['title']-->
+<!--        }}</span>-->
+<!--      <span v-if="category['main_category'].length !== 0" class="breadcrumb-item arrow"/>-->
+<!--      <span v-if="category['sub_category'] !== null" class="breadcrumb-item"-->
+<!--            @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">{{-->
+<!--          category['sub_category']['title']-->
+<!--        }}</span>-->
+<!--      <span v-if="category['sub_category'] !== null" class="breadcrumb-item arrow"/>-->
+<!--      <span class="breadcrumb-item">{{ description['name'] }}</span>-->
+<!--    </div>-->
+
     <div class="product-info__wrapper">
       <div class="product-info__discount" v-if="is_discount">
         <span>{{ -productData.get_sale.percent }}%</span>
       </div>
       <div class="product-info__image">
-        <img style="width: 100%" :src="image" :alt="productData['image']['name']" :class="subImages"
-             @click="getSubImages()"/>
+        <img style="width: 100%" :src="image" :alt="productData['image']['name']" :class="subImages" @click="getSubImages()"/>
       </div>
       <!--            <div class="product-info__other">-->
       <!--                <div class="product-info__other__icons">-->
@@ -159,6 +159,9 @@ export default {
     },
     route() {
       return this.$route.params;
+    },
+    is_discount() {
+      return !!this.productData.get_sale
     }
   },
   watch: {
@@ -178,7 +181,6 @@ export default {
       items: [],
       variables,
       count_good: 1,
-      is_discount: false,
       name: '',
       phone: '',
       user_id: '',
@@ -339,6 +341,7 @@ export default {
   &__wrapper {
     width: 100%;
     position: relative;
+    margin-top: 25px;
   }
 
   &__discount {
@@ -474,6 +477,10 @@ export default {
 
   &__recommended {
     margin-top: 20px;
+
+    & > .product-card__wrapper {
+      padding: 0;
+    }
   }
 }
 

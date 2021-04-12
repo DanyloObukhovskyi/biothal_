@@ -4,7 +4,7 @@
                ref="app-bar">
       <v-app-bar-nav-icon @click.stop="menuVisible = !menuVisible"></v-app-bar-nav-icon>
       <v-toolbar-title class="main-toolbar-title" @click="toPage({name: 'home'})">
-        <img width="108" height="32" src="../../../public/logo.svg"/>
+        <img width="108" height="32" src="../../../public/logo-biothal.svg"/>
       </v-toolbar-title>
       <div class="app-bar-menu-icon">
         <v-icon color="#000" size="18"
@@ -220,4 +220,12 @@ export default {
     padding-left: 55px;
   }
 }
+</style>
+
+<style lang="scss" scoped>
+
+.main-toolbar-title {
+  padding: 0 !important;
+}
+
 </style>
