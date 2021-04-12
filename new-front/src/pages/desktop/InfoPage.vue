@@ -8,7 +8,7 @@
             </agile>
         </div>
         <div class="info-page__title">
-            {{article.title || 'Статья еще не была добавлена'}}
+            {{article.title || 'Статья еще не добавлена'}}
         </div>
         <div class="info-page__content__wrapper" v-html="article.description">
         </div>

@@ -49,20 +49,20 @@
                   v-on="on"
                   plain
                   @click="toPage({name: 'info-page', params:{ id: itemInfoPage.slug }})">
-                  <span>{{ itemInfoPage.title }}</span>
+                  <span class="bar-menu__category">{{ itemInfoPage.title }}</span>
                   <v-icon>
                     {{value ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
                   </v-icon>
                 </v-btn>
               </template>
-              <v-list>
+              <v-list class="bar-menu__wrapper">
                 <v-list-item
-                  class="point-cursor"
+                  class="point-cursor bar-menu__sub-category"
                   v-for="(itemInfoPage, indexInfoPage) in itemInfoPage.children_article"
                   :key="indexInfoPage"
                   @click="toPage({name: 'info-page', params:{ id: itemInfoPage.attribute.slug }})">
-                  <v-list-item-title>
-                    {{ itemInfoPage.attribute.title }}
+                  <v-list-item-title class="bar-menu__sub-category-title">
+                    - {{ itemInfoPage.attribute.title }}
                   </v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -71,6 +71,11 @@
               <span>{{ itemInfoPage.title}}</span>
             </v-btn>
           </v-slide-item>
+            <v-slide-item>
+                <v-btn @click="toPage({name: 'distributor'})" plain>
+                    <span class="bar-menu__category">Стать дистрибьютором</span>
+                </v-btn>
+            </v-slide-item>
         </v-slide-group>
       </div>
       <div class="app-bar-menu-icon">

@@ -48,14 +48,14 @@
       </div>
 
       <div class="product-info__pay">
-        <v-btn v-if="stock_status !== 2" :disabled="stock_status === 3" @click="addToCart"
-               class="product-info__pay__button white--text" height="54" color="#2F7484" elevation="0">
-          {{ stock_status === 3 ? 'Нет в наличии' : 'Купить' }}
-        </v-btn>
-        <v-btn v-else @click="preOrder" class="product-info__pay__button white--text" height="54" color="#2F7484"
+        <v-btn v-if="stock_status === 2"  @click="preOrder" class="product-info__pay__button white--text" height="54" color="#2F7484"
                elevation="0">
           Предзаказ
         </v-btn>
+          <v-btn v-else @click="addToCart"
+                 class="product-info__pay__button white--text" height="54" color="#2F7484" elevation="0">
+              Купить
+          </v-btn>
       </div>
 
       <div class="product-info__tabs">
@@ -259,7 +259,7 @@ export default {
       if (this.images[0]) {
         this.subImages = 'images'
       }
-console.log(this.productData.sale_id)
+
       if (this.productData.sale_id !== null) {
         this.is_discount = true;
       }

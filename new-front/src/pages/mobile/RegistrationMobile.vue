@@ -131,7 +131,7 @@
                     surname: '',
                     date: '',
                     email: '',
-                    phone_number: '',
+                    phone: '',
                     password: '',
                     password_confirmation: ''
                 },

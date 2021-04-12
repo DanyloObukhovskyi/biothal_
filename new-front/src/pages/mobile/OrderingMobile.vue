@@ -40,6 +40,7 @@
                 <div class="mt-25px">
                     <p class="main-input-label">Введите область</p>
                     <v-select
+                        :search-input.sync="(c) => c.name"
                         :items="regions"
                         color="#2F7484"
                         :loading="regionsLoading"
@@ -55,6 +56,7 @@
                 <div class="mt-25px">
                     <p class="main-input-label">Введите город</p>
                     <v-select
+                        :search-input.sync="(c) => c.name"
                         :items="cities"
                         :loading="citiesLoading"
                         v-model="city"
@@ -70,6 +72,7 @@
                 <div class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
                     <v-select
+                        :search-input.sync="(c) => c.name"
                         :items="postalOffices"
                         :loading="postalOfficesLoading"
                         v-model="postalOffice"

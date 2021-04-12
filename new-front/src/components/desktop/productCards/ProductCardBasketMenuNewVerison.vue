@@ -9,20 +9,30 @@
       </div>
       <div class="product-basket__position-bottom">
         <div class="product-basket__text__price">{{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
-        <v-btn dark class="product__button" elevation="0" @click="addToCart">
+        <v-btn v-if="dataCard.stock_status_id === 2" dark class="product__button" elevation="0" @click="preOrder">
+            Предзаказ
+        </v-btn>
+        <v-btn v-else dark class="product__button" elevation="0" @click="addToCart">
           Добавить
         </v-btn>
       </div>
     </div>
+
+      <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
+                             :user_id="user_id"/>
   </div>
 </template>
 
 <script>
 
 import {mapActions} from "vuex";
+import PreOrderOneClickModal from "../../PreOrderOneClickModal.vue";
 
 export default {
   name: "ProductCardBasketMenuNewVersion",
+  components: {
+      PreOrderOneClickModal
+  },
   props: {
     dataCard: {
       type: Object,
@@ -32,6 +42,13 @@ export default {
     isShowStock: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      name: '',
+      phone: '',
+      user_id: ''
     }
   },
   methods: {
@@ -44,6 +61,60 @@ export default {
 
       this.addProduct(product)
     },
+    preOrder() {
+        this.getProfile();
+
+        this.$refs['PreOrderOneClickModal'].visible = true;
+    },
+      async getProfile() {
+          await this.checkUserIsValid()
+          try {
+              const token = this.$store.getters.getToken;
+              if (token) {
+                  let data = await this.axios.post('profile', {}, {
+                      headers: {
+                          'Authorization': `Bearer ${token}`
+                      }
+                  });
+
+                  if (data) {
+                      let user = data.data.user;
+                      this.name = user.name;
+                      this.phone = user.phone_number;
+                      this.user_id = user.id;
+                  }
+              }
+          } catch (e) {
+              this.errorMessagesValidation(e);
+          }
+      },
+      async checkUserIsValid() {
+          try {
+              const token = this.$store.getters.getToken;
+              if (token) {
+                  let data = await this.axios.post('checkUser', {}, {
+                      headers: {
+                          'Authorization': `Bearer ${token}`
+                      }
+                  });
+                  if (data) {
+                      let exist = data.data.exist
+                      if (!exist) {
+                          await this.$store.dispatch('LOGIN', null);
+                          return false;
+                      }
+                  } else {
+                      await this.$store.dispatch('LOGIN', null);
+                  }
+                  return true;
+              } else {
+                  return false;
+              }
+          } catch (e) {
+              await this.$store.dispatch('LOGIN', null);
+              this.errorMessagesValidation(e);
+          }
+      }
   }
 }
 </script>

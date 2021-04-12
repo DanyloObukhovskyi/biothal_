@@ -95,6 +95,17 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
+      <v-expansion-panels accordion>
+        <v-expansion-panel
+            readonly>
+            <v-expansion-panel-header
+                expand-icon="">
+                <span @click="toPage({name: 'distributor'} )">
+                   Стать дистрибьютором
+                </span>
+            </v-expansion-panel-header>
+        </v-expansion-panel>
+    </v-expansion-panels>
     </v-navigation-drawer>
 
     <AccountMenuMobile ref="AccountMenuMobile"/>

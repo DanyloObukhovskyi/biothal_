@@ -120,6 +120,12 @@ const routes = [
                 meta: {}
             },
             {
+                path: 'distributor',
+                name: 'distributor',
+                component: () => import('../pages/DistributorPage'),
+                meta: {}
+            },
+            {
                 path: 'registration',
                 name: 'registration',
                 component: () => import('../pages/mobile/RegistrationMobile'),

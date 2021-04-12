@@ -15,14 +15,13 @@
                 {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
         </div>
         <div>
-            <v-btn v-if="dataCard.stock_status_id !== 2" :disabled="dataCard.stock_status_id === 3"
-                   class="product__button white--text" elevation="0" @click="addToCart">
-                {{ dataCard.stock_status_id === 3 ? 'Нет в наличии' : 'Купить'}}
-            </v-btn>
-            <v-btn v-else class="product__button white--text" :disabled="dataCard.stock_status_id === 3"
+            <v-btn v-if="dataCard.stock_status_id === 2"  class="product__button white--text"
                    :color="variables.basecolor" elevation="0"
                    @click="preOrder">
                 Предзаказ
+            </v-btn>
+            <v-btn v-else class="product__button white--text" elevation="0" @click="addToCart">
+                Купить
             </v-btn>
         </div>
         <v-snackbar

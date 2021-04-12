@@ -37,9 +37,8 @@
                         <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
                         <p class="info-price__in-stock">{{
                 stock_status === 1 ? 'В наличии' :
-                  stock_status === 2 ? 'Предзаказ' :
-                    stock_status === 3 ? 'Нет в наличии' :
-                      stock_status === 4 ? '2-3 Дня' : ''
+                    stock_status === 2 ? 'Нет в наличии' :
+                      stock_status === 3 ? '2-3 Дня' : ''
               }}
             </p>
                     </div>
@@ -51,15 +50,15 @@
                         <div>
                             <v-icon
                                 @click="incrementCountGood"
-                                :disabled="stock_status === 3"
-                                :style="{'background-color': stock_status === 3 ? variables.disablecolor : variables.basecolor, color: stock_status === 3 ? '#000000' : '#ffffff'}"
+                                :disabled="stock_status === 2"
+                                :style="{'background-color': stock_status === 2 ? variables.disablecolor : variables.basecolor, color: stock_status === 3 ? '#000000' : '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-plus
                             </v-icon>
-                            <input v-model="count_good" :disabled="stock_status === 3" type="number" class="input-count-good"/>
+                            <input v-model="count_good" :disabled="stock_status === 2" type="number" class="input-count-good"/>
                             <v-icon
                                 @click="decrementCountGood"
-                                :disabled="stock_status === 3"
+                                :disabled="stock_status === 2"
                                 :style="{'background-color': count_good <= minimum_quantity ? variables.disablecolor : variables.basecolor, color: count_good <= minimum_quantity ? '#000000' : '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-minus
@@ -69,17 +68,13 @@
 
                     <div class="info-pay-control">
                         <div class="info-pay-control__buy">
-                            <v-btn v-if="stock_status !== 2" class="white--text" :disabled="stock_status === 3"
+                            <v-btn class="white--text" :disabled="stock_status === 2"
                                    :color="variables.basecolor" elevation="0" @click="addToCart">
-                                {{ stock_status === 3 ? 'Нет в наличии' : 'Купить'}}
-                            </v-btn>
-                            <v-btn v-else class="white--text" :disabled="stock_status === 3"
-                                   :color="variables.basecolor" elevation="0" @click="preOrder">
-                                Предзаказ
+                                {{ stock_status === 2 ? 'Нет в наличии' : 'Купить'}}
                             </v-btn>
                             <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
-                        <div v-if="stock_status !== 3" class="info-pay-control__buy-fast">
+                        <div v-if="stock_status === 2" class="info-pay-control__buy-fast">
                             <v-form ref="orderQuickForm">
                                 <v-text-field
                                     class="info-pay-control__buy-fast__input"
@@ -90,7 +85,8 @@
                                     placeholder="+38(___) ___-__-__"
                                     v-mask="'+38(###) ###-##-##'"/>
                             </v-form>
-                            <span v-if="stock_status !== 2" class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
+                            <span v-if="stock_status === 2" class="info-pay-control__text" @click="preOrder()">Оформить предзаказ</span>
+                            <span v-else class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
                         </div>
                     </div>
                 </div>

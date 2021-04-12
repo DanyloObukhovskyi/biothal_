@@ -20,18 +20,6 @@
 
             <v-form class="order-dialog__form" ref="orderQuickForm">
                 <div>
-                    <p class="main-input-label">Введите имя</p>
-                    <v-text-field
-                        v-model="name"
-                        :error-messages="errorValid.name"
-                        :rules="nameRules"
-                        class="main-input-field"
-                        background-color="#F7F7F7"
-                        flat
-                        rounded
-                        height="34"/>
-                </div>
-                <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
                         v-model="phone"
@@ -110,12 +98,12 @@
                 'productsSum',
                 'productsSumWithSales'
             ]),
-            nameRules() {
-                return [
-                    v => !!v || 'Вы не ввели свое имя',
-                    v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
-                ]
-            },
+            // nameRules() {
+            //     return [
+            //         v => !!v || 'Вы не ввели свое имя',
+            //         v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+            //     ]
+            // },
             numberRules() {
                 return [
                     v => !!v || 'Вы не ввели свое телефоный номер',

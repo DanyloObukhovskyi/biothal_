@@ -20,7 +20,7 @@
                     <div class="breadcrumb col-sm-12" style="background: none">
                         <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
                         <div style="margin-right: 5px">/ </div>
-                        <div><a href="{{route('admin.products.pageNew')}}"> Статьи</a></div>
+                        <div><a href="{{route('admin.products.information')}}"> Статьи</a></div>
                     </div>
                 </div>
             </div>

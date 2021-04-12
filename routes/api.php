@@ -22,6 +22,8 @@ Route::namespace('api')->get('image', 'CategoryController@getImage');
 
 Route::namespace('api')->get('categoryDetails/{id}', 'CategoryController@getCategoryDetails');
 
+Route::namespace('api')->post('distributionOffer', 'DistributionOfferController@createOffer');
+
 Route::group(['namespace' => 'Api'], function () {
     Route::post('auth/user', 'UserController@getAuthUser')
         ->name('get.auth.user');
