@@ -14,6 +14,9 @@ class Order extends Model
 {
     protected $table = "order";
 
+    public const GLOBAL_SALES = 1;
+    public const GROUP_SALES = 2;
+
     protected $guarded = [];
 
     public function userAddress()
@@ -51,5 +54,9 @@ class Order extends Model
 
     public function user () {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function payment () {
+        return $this->hasOne(Payment::class, 'order_id', 'id');
     }
 }

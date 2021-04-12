@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
-use App\Models\{
+use App\Models\{Admin\Products\GlobalSales,
+    Admin\Products\GroupSales,
     User,
     Order,
     Region,
     Cart_Product,
     OrderHistory,
     ShoppingCart,
-    OrderStatuses,
-};
+    OrderStatuses};
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Orders\OrderPageRequest;
 use App\Models\UserOrderAddress;
@@ -86,9 +86,8 @@ class OrdersController extends Controller
         $order_statuses = [];
         $_statuses = OrderStatuses::all()->toArray();
         foreach ($_statuses as $status) {
-            $order_statuses[$status['id']] = $status;
+            $order_statuses[$status['id']] = OrderStatuses::STATUS[$status['name']];
         }
-
         $order = Order::where('id', $id)->with([
             'userAddress',
             'productHistory',
@@ -98,6 +97,17 @@ class OrdersController extends Controller
             'products',
             'user'
         ])->first()->toArray();
+
+
+        switch ($order['sale_type']) {
+            case Order::GLOBAL_SALES:
+                $sale = GlobalSales::where('id', $order['sale_id'])->first();
+                break;
+            case Order::GROUP_SALES:
+                $sale = GroupSales::where('id', $order['sale_id'])->first();
+                break;
+            default: $sale = [];
+        }
 
         $order_history = OrderHistory::where('order_id', $id)->paginate(5);
 
@@ -144,7 +154,6 @@ class OrdersController extends Controller
             }
         }
 
-
         return view('admin.orders.viewOrders', compact('products',
             'totalPrice',
             'id',
@@ -153,7 +162,8 @@ class OrdersController extends Controller
             'order_statuses',
             'registered_user',
             'totalProductPrice',
-            'totalSalesPrice'
+            'totalSalesPrice',
+            'sale'
         ));
     }
 

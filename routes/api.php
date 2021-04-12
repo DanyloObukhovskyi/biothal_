@@ -31,6 +31,11 @@ Route::group(['namespace' => 'Api'], function () {
             ->name('sales.global.all');
     });
 
+    Route::group(['prefix' => 'sales'], function () {
+        Route::post('/group', 'SalesController@getGroupSales')
+            ->name('sales.group.all');
+    });
+
     Route::group(['prefix' => 'products'], function () {
         Route::post('/recommended', 'ProductController@getRecommendedProduct')
             ->name('sales.global.all');

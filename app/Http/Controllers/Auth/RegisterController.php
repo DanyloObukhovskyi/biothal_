@@ -94,7 +94,7 @@ class RegisterController extends Controller
 
         PhoneReceive::create([
             'phone' => $user->phone_number,
-            'is_receive' => $request->is_receive
+            'is_receive' => true
         ]);
 
 

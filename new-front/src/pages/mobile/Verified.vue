@@ -4,7 +4,7 @@
             <div class="page-form__top__title">Подтверждение учетной записи</div>
         </div>
         <div class="page-form__middle">
-            <v-form ref="form" style="width: 100%;" v-model="valid" lazy-validation>
+            <v-form ref="form" style="width: 100%;" v-model="valid" @keyup.enter.native="saveUser" lazy-validation>
                 <div class="register_input">
                     <p class="main-input-label">Введите код подтвержения полученый в смс</p>
                     <v-text-field

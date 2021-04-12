@@ -27,14 +27,12 @@
         </div>
 
         <div class="product-basket__right__text__price">Цена: {{
-            isShowStock ? dataCard.price_with_sale : dataCard.price
-          }} грн.
+            isShowStock ? dataCard.price_with_sale : dataCard.price }} грн.</div>
+                <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
+                </div>
+            </div>
         </div>
-        <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>

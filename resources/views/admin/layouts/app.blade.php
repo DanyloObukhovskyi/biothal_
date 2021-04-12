@@ -51,5 +51,8 @@
         @yield('script')
         <script src="{{asset('plugins/js/jquery.viewbox.min.js')}}" defer></script>
         <script src="{{asset('plugins/js/thumbnail.js')}}" defer></script>
+    <script>
+
+    </script>
     </body>
 </html>

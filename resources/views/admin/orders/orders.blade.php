@@ -136,7 +136,7 @@
                                                 Предзаказ
                                             @endif
                                         </td>
-                                        <td class="text-right">{{$order['total_price']}} грн</td>
+                                        <td class="text-right">{{ceil($order['total_sum'])}} грн</td>
                                         <td class="text-left">
                                             {{Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}}
                                         </td>

@@ -186,48 +186,51 @@ export default {
       user_id: '',
       productData: {
         image: {},
-        product_description: {}
-      },
-      stock_status: '',
-      attr: [],
-      description: [],
-      productImages: [],
-      recommendedProduct: [],
-      images: [],
-      image: '',
-      index: null,
-      subImages: null,
-      category: {
-        main_category: {},
-        sub_category: {}
-      },
-      productDescription: '',
-      showMessage: false,
-      snackbar: {
-        top: true,
-        right: true,
-        color: 'green',
-        timeout: 900,
-        multiLine: true
-      }
-    }
-  },
-  methods: {
-    ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT'
-    }),
-    incrementCountGood() {
-      ++this.count_good;
-    },
-    decrementCountGood() {
-      if (this.count_good > 1) {
-        --this.count_good;
-      }
-    },
-    addToCart() {
-      this.showMessage = true;
-      const product = this.productData;
-      product.quantity = 1;
+        product_description: {},
+                    get_sale: {
+                        percent: ''
+                    }
+                },
+                stock_status: '',
+                attr: [],
+                description: [],
+                productImages: [],
+                recommendedProduct: [],
+                images: [],
+                image: '',
+                index: null,
+                subImages: null,
+                category: {
+                    main_category: {},
+                    sub_category: {}
+                },
+                productDescription: '',
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'green',
+                    timeout: 900,
+                    multiLine: true
+                }
+            }
+        },
+        methods: {
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT'
+            }),
+            incrementCountGood() {
+                ++this.count_good;
+            },
+            decrementCountGood() {
+                if (this.count_good > 1) {
+                    --this.count_good;
+                }
+            },
+            addToCart() {
+                this.showMessage = true;
+                const product = this.productData;
+                product.quantity = 1;
 
       this.addProduct(product)
     },
@@ -256,7 +259,7 @@ export default {
       if (this.images[0]) {
         this.subImages = 'images'
       }
-
+console.log(this.productData.sale_id)
       if (this.productData.sale_id !== null) {
         this.is_discount = true;
       }

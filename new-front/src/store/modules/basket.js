@@ -1,6 +1,8 @@
 const state = {
     products: [],
-    globalSales: []
+    globalSales: [],
+    groupSales: []
+
 }
 
 const mutations = {
@@ -41,6 +43,9 @@ const mutations = {
     },
     SET_GLOBAL_SALES(state, globalSales) {
         state.globalSales = globalSales;
+    },
+    SET_GROUP_SALES(state, groupSales) {
+        state.groupSales = groupSales;
     }
 }
 
@@ -60,6 +65,9 @@ const actions = {
     SET_GLOBAL_SALES(context, globalSales) {
         context.commit('SET_GLOBAL_SALES', globalSales);
     },
+    SET_GROUP_SALES(context, groupSales) {
+        context.commit('SET_GROUP_SALES', groupSales);
+    },
     CLEAR_ALL_CART(context){
         context.commit('CLEAR_ALL_CART');
     }
@@ -68,11 +76,22 @@ const actions = {
 const getters = {
     products: state => state.products,
     globalSales: state => state.globalSales,
+    groupSales: state => state.groupSales,
     currentGlobalSales: (state, getters) => {
         let current = null;
 
         for (const [key, sales] of Object.entries(state.globalSales)) {
             if (sales.sum_modal <= getters.productsSum) {
+                current = sales;
+            }
+        }
+        return current;
+    },
+    currentGroupSales: (state, getters) => {
+        let current = null;
+
+        for (const [key, sales] of Object.entries(state.groupSales)) {
+            if (sales.sum <= getters.productsSum) {
                 current = sales;
             }
         }
@@ -89,6 +108,17 @@ const getters = {
         }
         return next;
     },
+    nextGroupSales: (state, getters) => {
+        let next = null;
+
+        for (let sales of state.groupSales) {
+            if (sales.sum > getters.productsSum) {
+                next = sales;
+                break;
+            }
+        }
+        return next;
+    },
     linear: (state, getters) => {
         let percentage = 0;
 
@@ -97,6 +127,14 @@ const getters = {
 
             if (getters.productsSum > number) {
                 percentage = getters.productsSum / number;
+            }
+        } else {
+            if (getters.nextGroupSales !== null) {
+                const number = getters.nextGroupSales.sum / 100;
+
+                if (getters.productsSum > number) {
+                    percentage = getters.productsSum / number;
+                }
             }
         }
         return Math.round(percentage);
@@ -110,15 +148,19 @@ const getters = {
                 sum += +product.price * +product.quantity;
             }
         }
-        return sum;
+        return Math.ceil(sum);
     },
     productsSumWithSales: (state, getters) => {
         let sum = getters.productsSum;
 
         if (getters.currentGlobalSales !== null) {
             sum = sum - ((sum / 100) * getters.currentGlobalSales.procent_modal);
+        } else {
+            if (getters.currentGroupSales !== null) {
+                sum = sum - ((sum / 100) * getters.currentGroupSales.percent);
+            }
         }
-        return sum;
+        return Math.ceil(sum);
     }
 }
 

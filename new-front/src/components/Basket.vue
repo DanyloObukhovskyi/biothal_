@@ -54,10 +54,18 @@
                   Скидка:
                 </div>
                 <div class="total__right">
-                  {{ currentGlobalSales.procent_modal }}%.
+                  {{ currentGlobalSales.procent_modal}}%.
                 </div>
               </div>
-              <div class="total">
+              <div class="total" v-if="currentGroupSales !== null && currentGlobalSales === null">
+                                <div class="total__left">
+                                    Скидка:
+                                </div>
+                                <div class="total__right">
+                                    {{currentGroupSales.percent}}%.
+                                </div>
+                            </div>
+                            <div class="total">
                 <div class="total__left" style="font-weight: 700">
                   Итого к оплате:
                 </div>
@@ -126,7 +134,10 @@ export default {
       'globalSales',
       'currentGlobalSales',
       'nextGlobalSales',
-      'linear',
+      'groupSales',
+            'currentGroupSales',
+            'nextGroupSales',
+            'linear',
       'productsSum',
       'productsSumWithSales'
     ]),
@@ -147,26 +158,30 @@ export default {
   methods: {
     ...mapActions('basket', {
       deleteProduct: 'DELETE_PRODUCT',
-      setGlobalSales: 'SET_GLOBAL_SALES'
-    }),
-    visibleModal(visible) {
-      window.scrollTo(0, 0)
-      this.visible = visible
-    },
-    getGlobalSales() {
-      this.axios.post('sales/global')
-        .then(({data}) => {
-          this.setGlobalSales(data)
-        })
-    },
-    getRecommendedProduct() {
-      this.axios.post('products/recommended')
-        .then(({data}) => {
-          this.recommendedProducts = data
-        })
-    },
-  getGroupSales(){
-            console.log(this.globalSales)
+      setGlobalSales: 'SET_GLOBAL_SALES',
+            setGroupSales: 'SET_GROUP_SALES'
+        }),
+        visibleModal(visible) {
+            window.scrollTo(0, 0)
+            this.visible = visible
+        },
+        getGlobalSales() {
+            this.axios.post('sales/global')
+                .then(({data}) => {
+                    this.setGlobalSales(data)
+                })
+        },
+        getRecommendedProduct() {
+            this.axios.post('products/recommended')
+                .then(({data}) => {
+                    this.recommendedProducts = data
+                })
+        },
+        getGroupSales(){
+            this.axios.post('sales/group')
+                .then(({data}) => {
+                    this.setGroupSales(data)
+                })
         }},
   mounted() {
     this.getGlobalSales();

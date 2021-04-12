@@ -108,6 +108,29 @@
                         </ul>
                     </div>
                 </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Рассылка</span>
+                        <span class="badge badge-pill badge-danger">2</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="{{@checkIsActive('admin.distribution.emailList')}}">
+                                <a href="{{route('admin.distribution.emailList')}}">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>E-mail рассылка</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.distribution.phoneList')}}">
+                                <a href="{{route('admin.distribution.phoneList')}}">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Смс рассылка</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="{{@checkIsActive('admin.orders.orders')}}">
                     <a href="{{route('admin.orders.orders')}}">
                         <i class="far fa-user"></i>

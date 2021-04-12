@@ -3,6 +3,7 @@
 
 namespace App\Traits;
 
+use App\Models\OrderStatuses;
 use Carbon\Carbon;
 
 trait OrdersTrait
@@ -14,7 +15,7 @@ trait OrdersTrait
      * @return array
      */
     public function getNotImportedOrderData($relations = []) {
-        $dataQuery = $this->shoppingCart->where('order_import', 0);
+        $dataQuery = $this->order->where('import_status', 0);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
                 $dataQuery = $dataQuery->with($relation);
@@ -33,18 +34,27 @@ trait OrdersTrait
     public function prepareXmlArray ($orders) {
         $xmlData = [];
         foreach ($orders as $order) {
+            if($order['order_type_id'] === 2){
+                if(!empty($order['payment'])){
+                    if($order['payment']['status'] !== 'success'){
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
             $xmlBody = [];
-            $xmlBody["Ид"] = $order['id'];
-            $xmlBody["Номер"] = $order['id'];
-            $xmlBody["Дата"] = Carbon::parse($order['created_at'])->format('Y-m-d H:i:s');
-            $xmlBody["ХозОперация"] = "Заказ товара";
-            $xmlBody["Роль"] = "Продавец";
+            $xmlBody["ИдентификаторЗаказа"] = $order['id'];
+            $xmlBody["НомерЗаказа"] = $order['id'];
+            $xmlBody["ДатаСозданияЗаказа"] = Carbon::parse($order['created_at'])->format('Y-m-d H:i:s');
+            //$xmlBody["ХозОперация"] = "Заказ товара";
+            //$xmlBody["Роль"] = "Продавец";
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
 
             $counterparty = [];
-            if (!empty($order['user_order_address'])) {
-                $counterparty = $this->getCounterpartyData($order['user_order_address']);
+            if (!empty($order['user_address'])) {
+                $counterparty = $this->getCounterpartyData($order['user_address']);
             }
 
             $xmlBody["Контрагенты"] = (!empty($counterparty["counterparty"]))
@@ -64,24 +74,26 @@ trait OrdersTrait
                 ? $products["products"]
                 : "";
 
-            $xmlBody["Сумма"] = (!empty($products["total"]))
-                ? $products["total"]
+            $xmlBody["Сумма"] = (!empty($order["total_sum"]))
+                ? $order["total_sum"]
                 : 0;
 
             //TODO: optimize this part
+            $status = OrderStatuses::where('id', $order['order_status_id'])->first()->name;
+            $orderType = $order['order_type_id'] === 1 ? 'Наложка' : 'Оплачен';
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Статус заказа",
-                "Значение" => "В обработке",
+                "Значение" => $orderType
             ];
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Способ доставки",
-                "Значение" => "Бесплатная доставка",
+                "Значение" => "Получении через Новую Почту",
             ];
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Способ оплаты",
-                "Значение" => "Оплата при получении",
+                "Значение" => $order['order_type']['title']
             ];
 
             $xmlData["Документ"][] = $xmlBody;
@@ -104,8 +116,8 @@ trait OrdersTrait
         return [
             "counterparty" => [
                 "Контрагент" => [
-                    "Ид" => $userData['id'] . "#nomail@biothal.com.ua",
-                    "Наименование" => $userData['LastName'] . " " . $userData['name'],
+                    "ИдентификаторПользователя" => $userData['id'],
+                    "Наименование" => $userData['name'],
                     "ПолноеНаименование" => $userData['LastName'] . " " . $userData['name'],
                     "Роль" => "Покупатель",
                     "Фамилия" => $userData['LastName'],
@@ -117,7 +129,7 @@ trait OrdersTrait
                         ]),
                         "Контакты" => [
                             "Контакт" => [
-                                "Тип" => "ТелефонРабочий",
+                                "Тип" => "Телефон",
                                 "Значение" => $userData['phone']
                             ]
                         ]
@@ -141,15 +153,15 @@ trait OrdersTrait
         $productData = [];
         $price = 0;
         foreach ($products as $product) {
-            $count = (empty($product['pivot']['count'])) ? 1 : $product['pivot']['count'];
-            $productPrice = (empty($product['price_with_sale']))
+            $count = (empty($product['quantity'])) ? 1 : $product['quantity'];
+            $productPrice = $product['is_sales'] === 0
                 ? $product['price']
-                : $product['price_with_sale'];
+                : $product['price_with_sales'];
             $price += $productPrice * $count;
 
             $productData["Товар"][] = [
-                "Ид" =>  $product['id'],
-                "Наименование" => $product['name'],
+                "ИдентификаторТовара" =>  $product['id'],
+                "Наименование" => $product['attr']['product_description']['name'],
                 "ЦенаЗаЕдиницу" => $productPrice,
                 "Количество" => $count,
                 "Сумма" => $productPrice * $count
