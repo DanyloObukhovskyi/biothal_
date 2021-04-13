@@ -8,7 +8,7 @@
             <br>уточнения деталей заказа и условий доставки.
             <br>Call - центр работает по будням: <b>10:00 — 17:00.</b>
             <br>Суббота / Воскресенье: <b>Выходной.</b>
-            <br>Остались вопросы? Звони <b>+38 (068) 888-12-08</b>
+            <br>Остались вопросы? <br>Звони <b>+38 (068) 888-12-08</b>
             <br>Или пиши нам в instagram <b>@biothal.ua</b>
         </div>
         <div class="button">
@@ -50,12 +50,12 @@
         },
         created() {
             this.fetchOrderStatus();
-            // this.redirect = setTimeout(
-            //   function () {
-            //     this.toPage({name: 'home'});
-            //   }.bind(this),
-            //   10000
-            // );
+            this.redirect = setTimeout(
+              function () {
+                this.toPage({name: 'home'});
+              }.bind(this),
+              10000
+            );
         },
         methods: {
             ...mapActions('basket', {
@@ -93,6 +93,7 @@
             margin: 25px;
 
             @media screen and (max-width: 600px) {
+                font-size: 23px;
                 margin: 20px;
             }
         }
@@ -135,9 +136,5 @@
 
     b {
         font-weight: bold;
-    }
-
-    span {
-
     }
 </style>
