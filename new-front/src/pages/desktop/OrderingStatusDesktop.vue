@@ -3,14 +3,20 @@
         <div class="order-status__title">
             Ваш заказ №{{ id }}
         </div>
-        <div class="order-status__title">
+        <div class="order-status__content">
             Пожалуйста, ожидайте звонка оператора для
-            уточнения деталей заказа и условий доставки.
-            Call - центр работает по будням: 10:00 — 17:00.
-            Суббота / Воскресенье: Выходной.
-            Остались вопросы? Звони +38 (068) 888-12-08
-            Или пиши нам в instagram @biothal.ua
+            <br>уточнения деталей заказа и условий доставки.
+            <br>Call - центр работает по будням: <b>10:00 — 17:00.</b>
+            <br>Суббота / Воскресенье: <b>Выходной.</b>
+            <br>Остались вопросы? Звони <b>+38 (068) 888-12-08</b>
+            <br>Или пиши нам в instagram <b>@biothal.ua</b>
         </div>
+        <div class="button">
+            <v-btn dark class="order-status__button" elevation="0" @click="this.toPage({name: 'home'})">
+                На главную
+            </v-btn>
+        </div>
+
     </div>
 </template>
 
@@ -44,6 +50,12 @@
         },
         created() {
             this.fetchOrderStatus();
+            // this.redirect = setTimeout(
+            //   function () {
+            //     this.toPage({name: 'home'});
+            //   }.bind(this),
+            //   10000
+            // );
         },
         methods: {
             ...mapActions('basket', {
@@ -77,73 +89,55 @@
     .order-status {
         &__title {
             text-align: center;
-            text-transform: uppercase;
-            font-size: 34px;
-            margin: 50px;
+            font-size: 27px;
+            margin: 25px;
+
+            @media screen and (max-width: 600px) {
+                margin: 20px;
+            }
+        }
+        &__content {
+            text-align: center;
+            font-size: 21px;
+            margin: 25px;
 
             @media screen and (max-width: 600px) {
                 margin: 20px;
             }
         }
 
-        &__content {
-            &__wrapper {
-                max-width: 100%;
-                padding: 0 45px 45px 45px;
+        &__button {
+            text-transform: none;
+            border-radius: 50px;
+            width: 180px;
+            height: 48px !important;
+            padding: 0 !important;
+            background-color: #2F7484 !important;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 22px;
+            margin-top: 10px;
 
-                @media screen and (max-width: 600px) {
-                    padding: 0 20px 20px 20px;
-                }
+            &:hover {
+                box-shadow: 0 0 33px #f2f2f2;
+                background-color: #000 !important;
             }
         }
     }
 
-    .page-form {
-
-        &__wrapper {
-            background-color: #fff;
-            text-align: left;
-        }
-
-        &__top {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-
-            &__title {
-                font-size: 14px;
-                line-height: 19px;
-                font-weight: 700;
-            }
-        }
-
-        &__middle {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        &__bottom {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-    }
-
-    .main-input-label {
-        font-weight: 200;
-        font-size: 12px;
-        line-height: 16px;
-        color: #000;
-        margin: 15px 0 0 0;
-    }
-
-    .main-input-field {
+    .button {
         width: 100%;
-        height: 54px;
-        background: #F7F7F7;
-        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 2.5em;
     }
 
+    b {
+        font-weight: bold;
+    }
+
+    span {
+
+    }
 </style>

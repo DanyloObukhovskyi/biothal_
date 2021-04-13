@@ -51,7 +51,7 @@
                             <v-icon
                                 @click="incrementCountGood"
                                 :disabled="stock_status === 2"
-                                :style="{'background-color': stock_status === 2 ? variables.disablecolor : variables.basecolor, color: stock_status === 3 ? '#000000' : '#ffffff'}"
+                                :style="{'background-color': stock_status === 2 ? variables.disablecolor : variables.basecolor, color: stock_status === 2 ? '#000000' : '#ffffff'}"
                                 class="info-count__input-control">
                                 mdi-plus
                             </v-icon>
@@ -74,7 +74,7 @@
                             </v-btn>
                             <!--                            <span class="info-pay-control__text">Добавить в избранное</span>-->
                         </div>
-                        <div v-if="stock_status === 2" class="info-pay-control__buy-fast">
+                        <div class="info-pay-control__buy-fast">
                             <v-form ref="orderQuickForm">
                                 <v-text-field
                                     class="info-pay-control__buy-fast__input"

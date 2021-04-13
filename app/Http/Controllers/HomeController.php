@@ -35,7 +35,7 @@ class HomeController extends Controller
             ])
             ->whereNotNull('sale_id')
             ->orderBy('sort_order', 'ASC')
-            ->paginate(9);
+            ->paginate(12);
 
         return response()->json([
             'carousel' => $carousel,
@@ -56,7 +56,7 @@ class HomeController extends Controller
             ])
             ->whereNotNull('sale_id')
             ->orderBy('sort_order', 'ASC')
-            ->paginate(9);
+            ->paginate(12);
 
         return response()->json($products);
     }
@@ -66,10 +66,11 @@ class HomeController extends Controller
         $bestSeller = Product::with('image', 'productDescription', 'stockStatus')
             ->where([
                 'sale_id' => null,
+                'is_best_seller' => 1,
                 'status' => 1
             ])
             ->orderBy('sort_order', 'ASC')
-            ->paginate(9);
+            ->paginate(12);
 
         return response()->json($bestSeller);
     }

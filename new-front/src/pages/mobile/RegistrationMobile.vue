@@ -30,7 +30,7 @@
                         rounded/>
                 </div>
                 <div class="register_input">
-                    <p class="main-input-label">Введите дату</p>
+                    <p class="main-input-label">Введите дату рождения</p>
                     <v-text-field
                         class="main-input-field"
                         placeholder="****-**-**"
