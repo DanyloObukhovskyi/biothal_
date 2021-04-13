@@ -96,7 +96,7 @@
                                     background-color="#F7F7F7">
                                 </v-select>
                             </div>
-                            <div class="mt-18px">
+                            <div v-if="deliveryMethod === 1" class="mt-18px">
                                 <p class="main-input-label">Выберите отделение Новой Почты *</p>
                                 <v-select
                                     :search-input.sync="(c) => c.name"
@@ -116,13 +116,43 @@
                                     background-color="#F7F7F7">
                                 </v-select>
                             </div>
+                            <div v-else class="mt-18px">
+                                <p class="main-input-label">Введите адрес доставки*</p>
+                                <v-text-field
+                                    v-model="postalOffice"
+                                    :error-messages="errorValid.postalOffice"
+                                    :rules="postalOfficeRulesInput"
+                                    color="#2F7484"
+                                    name="name"
+                                    class="main-input-field"
+                                    height="44"
+                                    flat
+                                    rounded
+                                    background-color="#F7F7F7">
+                                </v-text-field>
+                            </div>
                             <div class="mt-18px">
                                 <p class="main-input-label">Выберите способ оплаты *</p>
                                 <v-select
-                                    :search-input.sync="(c) => c.title"
                                     :items="paymentMethods"
                                     v-model="paymentMethod"
                                     :rules="paymentMethodRules"
+                                    :item-text="(c) => c.title"
+                                    :item-value="(c) => c.id"
+                                    class="main-input-field"
+                                    background-color="#F7F7F7"
+                                    flat
+                                    rounded
+                                    color="#2F7484"
+                                    height="44"
+                                ></v-select>
+                            </div>
+                            <div class="mt-18px">
+                                <p class="main-input-label">Выберите способ доставки *</p>
+                                <v-select
+                                    :items="deliveryMethods"
+                                    v-model="deliveryMethod"
+                                    :rules="deliveryMethodRules"
                                     :item-text="(c) => c.title"
                                     :item-value="(c) => c.id"
                                     class="main-input-field"
@@ -220,6 +250,7 @@ export default {
             user_id: '',
             postalOffice: '',
             paymentMethod: '',
+            deliveryMethod: 1,
             recommendedProducts: [],
             regions: [],
             regionsLoading: false,
@@ -228,6 +259,7 @@ export default {
             postalOffices: [],
             postalOfficesLoading: false,
             paymentMethods: [],
+            deliveryMethods: [],
             validProfile: false,
             errorValid: {
                 name: '',
@@ -237,7 +269,8 @@ export default {
                 region: '',
                 city: '',
                 postalOffice: '',
-                paymentMethod: ''
+                paymentMethod: '',
+                deliveryMethod: ''
             },
             profile: {
                 number: '',
@@ -293,9 +326,19 @@ export default {
                 v => !!v || 'Вы не выбрали город',
             ]
         },
+        postalOfficeRulesInput() {
+            return [
+                v => !!v || 'Вы не ввели адрес',
+            ]
+        },
         paymentMethodRules() {
             return [
                 v => !!v || 'Вы не выбрали способ оплаты',
+            ]
+        },
+        deliveryMethodRules() {
+            return [
+                v => !!v || 'Вы не выбрали способ доставки',
             ]
         }
     },
@@ -315,6 +358,11 @@ export default {
         products: function (newProducts, old) {
             if (newProducts.length === 0) {
                 this.toPage({name: 'home'})
+            }
+        },
+        deliveryMethod: function (newValue, oldValue) {
+            if (newValue !== 1) {
+                this.postalOffice = '';
             }
         }
     },
@@ -368,6 +416,12 @@ export default {
                     this.paymentMethods = data;
                 })
         },
+        getDeliveryMethods() {
+            this.axios.post('checkout/delivery/methods')
+                .then(({data}) => {
+                    this.deliveryMethods = data;
+                })
+        },
         clearValidation() {
             this.errorValid = {
                 name: '',
@@ -377,7 +431,8 @@ export default {
                 region: '',
                 city: '',
                 postalOffice: '',
-                paymentMethod: ''
+                paymentMethod: '',
+                deliveryMethod: ''
             }
         },
         async checkout() {
@@ -397,6 +452,7 @@ export default {
                         region: this.region,
                         postalOffice: this.postalOffice,
                         paymentMethod: this.paymentMethod,
+                        deliveryMethod: this.deliveryMethod,
                         products: this.products,
                         user_id: this.user_id
                     };
@@ -477,6 +533,7 @@ export default {
         this.getRecommendedProduct();
         this.getRegionsAndCities();
         this.getPaymentMethods();
+        this.getDeliveryMethods();
         this.getProfile()
     }
 }

@@ -69,7 +69,7 @@
                         rounded>
                     </v-select>
                 </div>
-                <div class="mt-25px">
+                <div v-if="deliveryMethod === 1"  class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
                     <v-select
                         :search-input.sync="(c) => c.name"
@@ -87,12 +87,39 @@
                         rounded>
                     </v-select>
                 </div>
+                <div v-else class="mt-18px">
+                    <p class="main-input-label">Введите адрес доставки</p>
+                    <v-text-field
+                        v-model="postalOffice"
+                        :error-messages="errorValid.postalOffice"
+                        :rules="postalOfficeRulesInput"
+                        color="#2F7484"
+                        name="name"
+                        class="main-input-field"
+                        flat
+                        rounded>
+                    </v-text-field>
+                </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Выберите способ оплаты</p>
                     <v-select
                         :items="paymentMethods"
                         v-model="paymentMethod"
                         :rules="paymentMethodRules"
+                        :item-text="(c) => c.title"
+                        :item-value="(c) => c.id"
+                        class="main-input-field"
+                        flat
+                        rounded
+                        color="#2F7484"
+                    ></v-select>
+                </div>
+                <div class="mt-18px">
+                    <p class="main-input-label">Выберите способ доставки *</p>
+                    <v-select
+                        :items="deliveryMethods"
+                        v-model="deliveryMethod"
+                        :rules="deliveryMethodRules"
                         :item-text="(c) => c.title"
                         :item-value="(c) => c.id"
                         class="main-input-field"
@@ -149,6 +176,7 @@ import {mapActions, mapGetters} from "vuex";
                 user_id: '',
                 postalOffice: '',
                 paymentMethod: '',
+                deliveryMethod: 1,
                 recommendedProducts: [],
                 regions: [],
                 regionsLoading: false,
@@ -157,6 +185,7 @@ import {mapActions, mapGetters} from "vuex";
                 postalOffices: [],
                 postalOfficesLoading: false,
                 paymentMethods: [],
+                deliveryMethods: [],
                 validProfile: false,
                 errorValid: {
                     name: '',
@@ -165,7 +194,8 @@ import {mapActions, mapGetters} from "vuex";
                     number: '',
                     region: '',
                     city: '',
-                    postalOffice: ''
+                    postalOffice: '',
+                    deliveryMethod: ''
                 },
             }
         },
@@ -212,9 +242,19 @@ import {mapActions, mapGetters} from "vuex";
                     v => !!v || 'Вы не выбрали город',
                 ]
             },
+            postalOfficeRulesInput() {
+                return [
+                    v => !!v || 'Вы не ввели адрес',
+                ]
+            },
             paymentMethodRules() {
                 return [
                     v => !!v || 'Вы не выбрали способ оплаты',
+                ]
+            },
+            deliveryMethodRules() {
+                return [
+                    v => !!v || 'Вы не выбрали способ доставки',
                 ]
             }
         },
@@ -229,6 +269,11 @@ import {mapActions, mapGetters} from "vuex";
             city() {
                 if (this.region !== null && this.region !== '') {
                     this.getPostalOffices()
+                }
+            },
+            deliveryMethod: function (newValue, oldValue) {
+                if (newValue !== 1) {
+                    this.postalOffice = '';
                 }
             }
         },
@@ -245,7 +290,8 @@ import {mapActions, mapGetters} from "vuex";
                     region: '',
                     city: '',
                     postalOffice: '',
-                    paymentMethod: ''
+                    paymentMethod: '',
+                    deliveryMethod: ''
                 }
             },
             getRecommendedProduct() {
@@ -292,6 +338,12 @@ import {mapActions, mapGetters} from "vuex";
                         this.paymentMethods = data;
                     })
             },
+            getDeliveryMethods() {
+                this.axios.post('checkout/delivery/methods')
+                    .then(({data}) => {
+                        this.deliveryMethods = data;
+                    })
+            },
             async checkout() {
                 this.$loading(true)
 
@@ -309,6 +361,7 @@ import {mapActions, mapGetters} from "vuex";
                             region: this.region,
                             postalOffice: this.postalOffice,
                             paymentMethod: this.paymentMethod,
+                            deliveryMethod: this.deliveryMethod,
                             products: this.products,
                             user_id: this.user_id
                         };
@@ -394,6 +447,7 @@ import {mapActions, mapGetters} from "vuex";
             this.getProfile();
             this.getRecommendedProduct();
             this.getRegionsAndCities();
+            this.getDeliveryMethods();
             this.getPaymentMethods();
         }
     }
