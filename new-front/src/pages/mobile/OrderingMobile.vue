@@ -313,24 +313,22 @@ import {mapActions, mapGetters} from "vuex";
                             user_id: this.user_id
                         };
 
-                        let data = await this.axios.post('checkout/create/order', form)
+                        await this.axios.post('checkout/create/order', form).then(({data}) => {
+                            let message = data.message
 
-                        if (data) {
-                            let message = data.data.message
                             this.$notify({
                                 type: 'success',
                                 title: 'Успех!',
                                 text: message
                             });
-
-                            this.clearValidation()
-
-                            if (data.data.redirect) {
-                                this.toPage({name: 'payment', params: {paymentUrl: data.data.redirect}});
+                            this.clearValidation();
+                            let postData = data.portmone
+                            if (postData) {
+                                this.toPage({name: 'payment', params: {paymentUrl: postData}});
                             } else {
-                                this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+                                this.toPage({name: 'order-status', params: {id: data.order_id}});
                             }
-                        }
+                        })
                     }
                     this.$loading(false)
                 } catch (e) {
