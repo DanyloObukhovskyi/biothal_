@@ -12,7 +12,7 @@
             <br>Или пиши нам в instagram <b>@biothal.ua</b>
         </div>
         <div class="button">
-            <v-btn dark class="order-status__button" elevation="0" @click="this.toPage({name: 'home'})">
+            <v-btn dark class="order-status__button" elevation="0" @click="toPage({name: 'home'})">
                 На главную
             </v-btn>
         </div>
