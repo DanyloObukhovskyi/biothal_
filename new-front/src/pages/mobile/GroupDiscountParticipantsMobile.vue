@@ -41,9 +41,9 @@
             <v-btn dark class="checkout-button" @click="$refs['AddUserToGroup'].visible=true" elevation="0">
                 Добавить друга
             </v-btn>
+            <AddUserToGroup ref="AddUserToGroup"/>
         </div>
     </div>
-    <AddUserToGroup ref="AddUserToGroup"/>
 </template>
 
 <script>
