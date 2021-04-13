@@ -70,12 +70,16 @@
 </script>
 
 <style scoped lang="scss">
+
+@import 'src/styles/mixins';
+
+
   .product-card {
     &__wrapper {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: 0 20px;
+      padding: 20px;
     }
 
     &__wrapper-content {
@@ -97,16 +101,21 @@
       flex-wrap: wrap;
       justify-content: space-around;
       column-gap: 15px;
-      row-gap: 10px;
       margin-top: 20px;
     }
 
     &__item-three {
-      width: 30%;
     }
 
     &__item-two {
-      width: 47%;
+      flex: 1 1 auto;
+      max-width: 47%;
+      margin: 0 0 10px;
+      width: calc(1/2*100% - (1 - 1/2)*10px);
+
+      &:last-of-type {
+        margin: 0;
+      }
     }
   }
 </style>
