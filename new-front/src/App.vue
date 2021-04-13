@@ -49,10 +49,18 @@ export default {
 @import "src/styles/mixins";
 @import 'src/styles/main';
 
+body {
+  background: url("https://biothal.com.ua/image/catalog/2baner/algo.jpg") center no-repeat fixed;
+  background-size: 100vw 100vh;
+}
+
 #app {
   //@include _600 {
   //  background-color: $palette-main-background-color;
   //}
+
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .base-page-wrapper {

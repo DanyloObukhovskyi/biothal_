@@ -222,7 +222,6 @@ export default {
     flex-direction: row;
     width: 100%;
     justify-content: center;
-    margin-top: 20px;
   }
 
   &__inner {
@@ -234,17 +233,21 @@ export default {
 
     @include _600 {
       flex-direction: column;
-      row-gap: 20px;
       padding: 0 20px;
+
+      & > div:nth-last-child(1) {
+        margin-top: 20px;
+      }
     }
   }
 
   &__block {
-    width: 49%;
-    height: 160px;
+
+    width: 540px;
 
     @include _600 {
       width: 100%;
+      height: 160px !important;
     }
   }
 }

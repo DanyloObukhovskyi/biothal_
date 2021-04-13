@@ -1,9 +1,10 @@
 <template>
   <v-navigation-drawer
-    :width="isMobile ? '100%' : '420'"
+    :width="isMobile ? '100%' : 'calc(100vw / 4.571428571428571)'"
     :right="!isMobile"
     v-model="visible"
     height="100vh"
+    class="basket"
     absolute
     temporary>
     <v-card flat>
@@ -192,10 +193,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/mixins.scss";
+@import "src/styles/mixins";
+@import "src/styles/main";
 
 .basket {
-
   &-header {
     width: 100%;
     display: flex;
@@ -253,6 +254,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 20px 22px 20px 41px;
+    background-color: white;
 
     @include _600 {
       background-color: #F7F7F7;

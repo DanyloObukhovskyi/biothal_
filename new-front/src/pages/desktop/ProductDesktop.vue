@@ -701,6 +701,10 @@ export default {
     & > div {
       float: left;
     }
+
+    & * {
+      font-family: inherit;
+    }
   }
 }
 
