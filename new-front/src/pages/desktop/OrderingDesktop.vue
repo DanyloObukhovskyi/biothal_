@@ -400,7 +400,7 @@ export default {
                         products: this.products,
                         user_id: this.user_id
                     };
-                    this.axios.post('checkout/create/order', form).then(({data}) => {
+                    await this.axios.post('checkout/create/order', form).then(({data}) => {
                         let message = data.message
 
                         this.$notify({
