@@ -193,10 +193,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/styles/mixins.scss";
+@import "src/styles/mixins";
+@import "src/styles/main";
 
 .basket {
-
   &-header {
     width: 100%;
     display: flex;
@@ -254,6 +254,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 20px 22px 20px 41px;
+    background-color: white;
 
     @include _600 {
       background-color: #F7F7F7;

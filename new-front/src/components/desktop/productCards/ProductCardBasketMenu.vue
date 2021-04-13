@@ -2,7 +2,7 @@
     <div class="product-basket__wrapper">
         <div class="product-basket">
             <img @click="toPage({name: 'product', params: {id: dataCard.id}})" class="product-basket__image" height="150" width="150"
-                 :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
+                 :src="dataCard.image ? this.api + '/storage/img/products/' + dataCard.image.name : ''" :alt="dataCard.image ? dataCard.image.name : ''"/>
         </div>
         <div class="product-basket">
             <div class="product-basket__title" @click="toPage({name: 'product', params: {id: dataCard.id}})">

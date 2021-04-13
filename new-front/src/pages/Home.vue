@@ -242,11 +242,12 @@ export default {
   }
 
   &__block {
-    width: calc(100vw/2 - 45px - (30px));
-    height: calc((100vw/2 - 45px - (30px)) / 2.16) !important;
+
+    width: 540px;
 
     @include _600 {
       width: 100%;
+      height: 160px !important;
     }
   }
 }
