@@ -73,6 +73,7 @@
                                     text: message
                                 });
                                 this.clearValidation();
+                                this.visible = false;
                             }
                         }
                     }
