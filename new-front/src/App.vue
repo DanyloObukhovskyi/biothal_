@@ -1,8 +1,17 @@
 <template>
-  <div id="app">
-    <router-view/>
-    <notifications/>
-  </div>
+  <body>
+
+  <!--    <video autoplay muted loop id="myVideo" v-if="maxWidth > 1200">-->
+  <!--      <source src="https://media.istockphoto.com/videos/nature-undersea-very-green-posidonia-field-of-the-mediterranean-sea-video-id1164785970" type="video/mp4">-->
+  <!--    </video>-->
+
+    <div id="app">
+      <router-view/>
+      <notifications/>
+    </div>
+
+  </body>
+
 </template>
 
 <script>
@@ -11,6 +20,11 @@ export default {
   name: 'App',
   created() {
     this.checkUser()
+  },
+  computed: {
+    maxWidth() {
+      return window.innerWidth;
+    }
   },
   methods: {
     async checkUser() {
@@ -49,8 +63,9 @@ export default {
 @import "src/styles/mixins";
 @import 'src/styles/main';
 
+
 body {
-  background: url("https://biothal.com.ua/image/catalog/2baner/algo.jpg") center no-repeat fixed;
+  background: url("../public/background.jpg") center no-repeat fixed;
   background-size: 100vw 100vh;
 }
 
@@ -61,6 +76,11 @@ body {
 
   max-width: 1200px;
   margin: 0 auto;
+  z-index: 1000;
+
+  & main {
+    background-color: white;
+  }
 }
 
 .base-page-wrapper {
