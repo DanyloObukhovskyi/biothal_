@@ -65,8 +65,8 @@ export default {
 
 
 body {
-  background: url("../public/background.jpg") center no-repeat fixed;
-  background-size: 100vw 100vh;
+  //background: url("../public/background.jpg") center no-repeat fixed;
+  //background-size: 100vw 100vh;
 }
 
 #app {
