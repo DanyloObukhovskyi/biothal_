@@ -12,7 +12,7 @@
             <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>
         </div>
         <div class="button">
-            <v-btn dark class="order-status__button" elevation="0" @click="toPage({name: 'home'})">
+            <v-btn dark class="order-status__button" elevation="0" @click="toHome">
                 На главную
             </v-btn>
         </div>
@@ -34,7 +34,8 @@
         data() {
             return {
                 title: '',
-                message: ''
+                message: '',
+                redirect: ''
             }
         },
         computed: {
@@ -50,11 +51,12 @@
         },
         created() {
             this.fetchOrderStatus();
+
             this.redirect = setTimeout(
               function () {
                 this.toPage({name: 'home'});
               }.bind(this),
-              10000
+                10000
             );
         },
         methods: {
@@ -76,6 +78,10 @@
                 this.axios.post('sendOrderStatus', {
                     data:this.id
                 });
+            },
+            toHome (){
+                this.toPage({name: 'home'});
+                clearTimeout(this.redirect);
             }
         },
         mounted() {
