@@ -19,7 +19,7 @@
         </div>
         <div class="footer__block-1">
             <div @click="toPage({name: 'home'})">
-                <img width="127" height="38" src="../../../public/logo2.svg"/>
+                <img width="127" height="38" src="../../../public/logo-biothal.svg"/>
             </div>
             <div style="display: flex; column-gap: 10px">
                 <a href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
