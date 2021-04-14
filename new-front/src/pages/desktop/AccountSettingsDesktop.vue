@@ -39,9 +39,10 @@
       </v-navigation-drawer>
 
       <div class="account-settings__profile">
-        <OrderList v-if="changeItem === 1"/>
-        <GroupDiscountParticipants v-if="changeItem === 2"/>
-        <AccountProfile v-if="changeItem === 0"/>
+          <AccountProfile v-if="changeItem === 0"/>
+          <PasswordEditDesktop v-if="changeItem === 1"/>
+          <OrderList v-if="changeItem === 2"/>
+          <GroupDiscountParticipants v-if="changeItem === 3"/>
       </div>
     </div>
   </div>
@@ -52,13 +53,15 @@ import AccountProfile from "../../components/desktop/accountSettingsProfile/Acco
 import BankCards from "../../components/desktop/accountSettingsProfile/BankCards";
 import OrderList from "../../components/desktop/accountSettingsProfile/OrderList";
 import GroupDiscountParticipants from "../../components/desktop/accountSettingsProfile/GroupDiscountParticipants";
+import PasswordEditDesktop from "../../components/desktop/accountSettingsProfile/PasswordEditDesktop";
 
 export default {
   name: "AccountSettingsDesktop",
   components: {
     AccountProfile,
     OrderList,
-    GroupDiscountParticipants
+    GroupDiscountParticipants,
+    PasswordEditDesktop
   },
   data() {
     return {
@@ -67,6 +70,9 @@ export default {
       items: [
         {
           text: 'Личные данные',
+        },
+        {
+          text: 'Изменить пароль',
         },
         {
           text: 'Список заказов',

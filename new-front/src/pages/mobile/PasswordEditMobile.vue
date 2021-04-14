@@ -5,7 +5,7 @@
         </div>
         <div class="page-form__middle">
 
-            <v-form ref="change" style="width: 100%;" v-model="valid">
+            <v-form ref="changePassword" style="width: 100%;" v-model="valid">
                 <div style="margin-top: 25px;">
                     <p class="main-input-label">Введите старый пароль</p>
                     <v-text-field
@@ -67,16 +67,16 @@
                 },
                 oldPassRules: [
                     v => !!v || 'Вы не ввели старый пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                 ],
                 passRules: [
                     v => !!v || 'Вы не ввели пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                     v => v !== this.change_password.old_password || 'Новый пароль не должен содержать старый'
                 ],
                 passConfirmRules: [
                     v => !!v || 'Вы не подтвердили пароль',
-                    v => v.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
+                    v => v?.length >= 6 || 'Пароль должен содержать больше чем 6 символов',
                     v => v === this.change_password.password || 'Пароли не совпадают'
                 ],
             }
@@ -92,7 +92,7 @@
                 try {
                     this.$loading(true)
                     this.clearValidation()
-                    let validate = await this.$refs['change'].validate();
+                    let validate = await this.$refs['changePassword'].validate();
 
                     if(validate){
                         const token = this.$store.getters.getToken;
@@ -110,6 +110,7 @@
                                     title: 'Успех!',
                                     text: message
                                 });
+                                this.$refs.changePassword.reset()
                             }
                         }
                     }

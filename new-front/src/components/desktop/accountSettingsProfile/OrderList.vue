@@ -122,8 +122,7 @@
     .order-list {
         &__wrapper {
             background-color: #fff;
-            padding: 0 20px 20px 20px;
-            width: 90%;
+            width: 100%;
         }
     }
 </style>
