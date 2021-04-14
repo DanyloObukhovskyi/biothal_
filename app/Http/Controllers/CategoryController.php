@@ -37,7 +37,7 @@ class CategoryController extends Controller
                 'status' => 1
             ])
             ->whereIn('id', $products_ids)
-            ->paginate(9);
+            ->paginate(12);
 
         return response()->json($products);
     }
@@ -58,7 +58,7 @@ class CategoryController extends Controller
                 'status' => 1
             ])
             ->whereIn('id', $products_ids)
-            ->paginate(9);
+            ->paginate(12);
 
         return response()->json($products);
     }

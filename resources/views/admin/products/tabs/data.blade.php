@@ -136,4 +136,20 @@
             </select>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="input-is-best_seller">Бестселлер</label>
+        <div class="col-sm-10">
+            <select name="is_best_seller" id="input-is-best_seller" class="form-control">
+                @foreach(config('products.product_is_best_seller') as $product_is_best_seller_key => $product_is_best_seller)
+                    <option value="{{$product_is_best_seller_key}}"
+                            @if(!empty($product) && $product_is_best_seller_key == $product['is_best_seller'] || empty($product) && $product_is_best_seller_key == 0)
+                            selected="selected"
+                        @endif
+                    >
+                        {{$product_is_best_seller}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 </div>

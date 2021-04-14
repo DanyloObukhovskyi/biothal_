@@ -7,6 +7,7 @@ use App\Models\Admin\Products\GlobalSales;
 use App\Models\Admin\Products\GroupSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Order;
+use App\Models\OrderDeliveryType;
 use App\Models\OrderProduct;
 use App\Models\OrderStatuses;
 use App\Models\OrderType;
@@ -77,9 +78,18 @@ class CheckoutController extends Controller
         return response()->json($paymentMethods);
     }
 
+    public function getDeliveryMethods()
+    {
+        $deliveryMethods = OrderDeliveryType::all();
+
+        return response()->json($deliveryMethods);
+    }
+
     public function createOrder(Request $request)
     {
-        $postalOffice = (object)$request->get('postalOffice');
+        if ($request->get('deliveryMethod') == 1){
+            $postalOffice = (object)$request->get('postalOffice');
+        }
 
         $userOrderAddress = new UserOrderAddress();
         $userOrderAddress->phone = $request->get('number');
@@ -87,9 +97,10 @@ class CheckoutController extends Controller
         $userOrderAddress->LastName = $request->get('surname');
         $userOrderAddress->region = $request->get('region');
         $userOrderAddress->cities = $request->get('city');
-        $userOrderAddress->department = $postalOffice->name;
-        $userOrderAddress->department_number = $postalOffice->number;
+        $userOrderAddress->department = $request->get('deliveryMethod') == 1 ? $postalOffice->name : $request->get('postalOffice');
+        $userOrderAddress->department_number = $request->get('deliveryMethod') == 1 ? $postalOffice->number : null;
         $userOrderAddress->full_name = $request->get('name') . ' ' . $request->get('surname');
+        $userOrderAddress->is_address_delivery = $request->get('deliveryMethod') == 1 ? false : true;
         $userOrderAddress->save();
 
         $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)

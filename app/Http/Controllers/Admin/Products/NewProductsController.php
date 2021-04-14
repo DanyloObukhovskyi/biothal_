@@ -189,6 +189,7 @@ class NewProductsController extends Controller
 
     public function updateProduct(ProductUpdate $request, $id)
     {
+        Log::info($request->all());
         unset($request['image_gallary_input']);
 
         $product = Product::find($id);

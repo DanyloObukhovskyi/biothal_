@@ -62,6 +62,9 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/payment/methods', 'CheckoutController@getPaymentMethods')
             ->name('payment.methods.get');
 
+        Route::post('/delivery/methods', 'CheckoutController@getDeliveryMethods')
+            ->name('delivery.methods.get');
+
         Route::post('/create/order', 'CheckoutController@createOrder')
             ->name('create.order.get');
 

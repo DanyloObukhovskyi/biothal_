@@ -15,7 +15,7 @@ class AccessoryController extends Controller
         $products_ids = AccessoryProducts::whereIn('accessory_id', Arr::pluck($accessoriesProducts, 'id'))
             ->orderBy('product_id', 'desc')
             ->get()->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $products_ids)->paginate('10');
+        $products = Product::whereIn('id', $products_ids)->paginate('12');
         $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
         return view('accessory', compact('products', 'this_accessory'));
     }
@@ -25,7 +25,7 @@ class AccessoryController extends Controller
             ->get()->pluck('id')->toArray();
         $products_ids = AccessoryProducts::whereIn('accessory_id', $accessoryParentProducts)
             ->orderBy('product_id', 'desc')->get()->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $products_ids)->paginate('10');
+        $products = Product::whereIn('id', $products_ids)->paginate('12');
         $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
         return view('allaccessory', compact('products', 'this_accessory'));
     }

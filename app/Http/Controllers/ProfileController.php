@@ -279,6 +279,7 @@ class ProfileController extends Controller
         Mail::to($request->get('email'))->send(new AddToGroupMail($invite));
 
         return response()->json([
+            'send'    => true,
             'message' => 'Вы успешно отправили приглашение',
         ], 200);
     }

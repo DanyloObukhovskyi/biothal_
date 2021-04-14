@@ -38,16 +38,19 @@
             </v-simple-table>
         </div>
         <div>
-            <v-btn dark class="checkout-button" elevation="0">
+            <v-btn dark class="checkout-button" @click="$refs['AddUserToGroup'].visible=true" elevation="0">
                 Добавить друга
             </v-btn>
+            <AddUserToGroup ref="AddUserToGroup"/>
         </div>
     </div>
 </template>
 
 <script>
+    import AddUserToGroup from "./addUserToGroup";
     export default {
         name: "GroupDiscountParticipantsMobile",
+        components: {AddUserToGroup},
         data() {
             return {
                 total_sum: 0,
