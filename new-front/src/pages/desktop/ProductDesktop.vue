@@ -113,7 +113,7 @@
                     <v-tab-item
                         :value="'tab-description'">
                         <v-card class="description-content" flat v-html="productDescription"/>
-          </v-tab-item>
+                    </v-tab-item>
                     <v-tab-item
                         v-for="(item, idx) in this.items"
                         :key="idx"
@@ -698,6 +698,8 @@ export default {
         }
 
   .description-content {
+    padding: 0 20px;
+
     & > div {
       float: left;
     }
