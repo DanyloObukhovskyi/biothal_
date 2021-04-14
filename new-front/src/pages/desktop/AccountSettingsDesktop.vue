@@ -8,18 +8,8 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title style="display: flex; justify-content: space-between">
-              <div class="default-cursor">
-                {{ profile.name + ' ' + profile.sur_name }}
-              </div>
-              <div class="point-cursor account-settings__logout" @click="logout">
-                Выйти
-
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10.877 5.375L13.502 8L10.877 10.625" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M6.5 8H13.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M7.5 13.5H3C2.86739 13.5 2.74021 13.4473 2.64645 13.3536C2.55268 13.2598 2.5 13.1326 2.5 13V3C2.5 2.86739 2.55268 2.74021 2.64645 2.64645C2.74021 2.55268 2.86739 2.5 3 2.5H7.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
+              <div class="default-cursor" style="text-overflow: ellipsis; white-space: normal">
+                {{profile.name + ' ' + profile.sur_name}}
               </div>
             </v-list-item-title>
           </v-list-item-content>
@@ -33,6 +23,17 @@
               <v-list-item-content>
                 <v-list-item-title style="text-align: left" v-text="item.text"/>
               </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="logout">
+                <div class="point-cursor account-settings__logout">
+                    <v-list-item-title style="text-align: left">Выйти</v-list-item-title>
+
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.877 5.375L13.502 8L10.877 10.625" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.5 8H13.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5 13.5H3C2.86739 13.5 2.74021 13.4473 2.64645 13.3536C2.55268 13.2598 2.5 13.1326 2.5 13V3C2.5 2.86739 2.55268 2.74021 2.64645 2.64645C2.74021 2.55268 2.86739 2.5 3 2.5H7.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </v-list-item>
           </v-list-item-group>
         </v-list>
