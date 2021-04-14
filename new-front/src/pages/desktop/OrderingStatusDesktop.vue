@@ -52,12 +52,12 @@
         },
         created() {
             this.fetchOrderStatus();
-            // this.redirect = setTimeout(
-            //   function () {
-            //     this.toPage({name: 'home'});
-            //   }.bind(this),
-            //     10000
-            // );
+            this.redirect = setTimeout(
+              function () {
+                this.toPage({name: 'home'});
+              }.bind(this),
+                10000
+            );
         },
         methods: {
             ...mapActions('basket', {
@@ -70,10 +70,7 @@
             async fetchOrderStatus() {
                 let data = await this.axios.get('order-status/' + this.token);
 
-                console.log(data)
                 this.id = data.data.order.id;
-                // this.title =  data.data.title;
-                // this.message = data.data.message;
             },
             sendEmailToUser(id)
             {
