@@ -34,10 +34,8 @@
             <div>
                 <v-checkbox
                     :color="variables.basecolor"
-                    v-model="user.rememberMe"/>
-            </div>
-            <div class="remember-me__right">
-                Запомнить меня
+                    v-model="user.rememberMe"
+                    label="Запомнить меня"/>
             </div>
         </div>
         <div class="page-form__bottom">
@@ -165,16 +163,14 @@
 
     .remember-me {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
+        height: 2em;
         font-size: 14px;
-        margin-top: 15px;
 
-        &__right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 1em;
         }
     }
     .register_input{

@@ -100,10 +100,8 @@
         <div class="remember-me">
             <div>
                 <v-checkbox
-                    v-model="user.is_receive"/>
-            </div>
-            <div class="remember-me__right">
-                Не хочу получать писем с акциями
+                    v-model="user.is_receive"
+                    label="Не хочу получать писем с акциями"/>
             </div>
         </div>
         <div class="page-form__bottom">
@@ -281,16 +279,14 @@
 
     .remember-me {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
         font-size: 14px;
-        margin-top: 15px;
+        height: 2em;
 
-        &__right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 1em;
         }
     }
     .page-form__wrapper {

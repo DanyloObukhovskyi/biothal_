@@ -65,10 +65,7 @@
           <v-checkbox
             :color="variables.basecolor"
             v-model="change_profile.is_receive"
-          />
-        </div>
-        <div class="remember-me__right">
-          Не хочу получать писем с акциями
+            label="Не хочу получать писем с акциями"/>
         </div>
       </div>
       <div class="page-form__bottom">
@@ -491,17 +488,11 @@ export default {
 
 .remember-me {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   font-size: 14px;
   margin-top: 13px;
-
-  &__right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
 
   // обнуление идиотских отступов у чекбокса
   & ::v-deep {
@@ -518,6 +509,10 @@ export default {
 
       &--selection-controls__input {
         margin: 0 !important;
+      }
+
+      & .v-label {
+         margin-left: 10px;
       }
     }
 
