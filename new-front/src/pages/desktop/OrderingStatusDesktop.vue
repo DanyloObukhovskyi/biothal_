@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="order-status__title">
-            Ваш заказ №{{ id }}
+            Ваш заказ № {{ id }}
         </div>
         <div class="order-status__content">
             Пожалуйста, ожидайте звонка оператора для
@@ -26,7 +26,7 @@
     export default {
         name: "OrderingStatusDesktop",
         props: {
-            id: {
+            token: {
                 type: [Number, String],
                 default: 1
             },
@@ -35,7 +35,8 @@
             return {
                 title: '',
                 message: '',
-                redirect: ''
+                redirect: '',
+                id: ''
             }
         },
         computed: {
@@ -51,13 +52,12 @@
         },
         created() {
             this.fetchOrderStatus();
-
-            this.redirect = setTimeout(
-              function () {
-                this.toPage({name: 'home'});
-              }.bind(this),
-                10000
-            );
+            // this.redirect = setTimeout(
+            //   function () {
+            //     this.toPage({name: 'home'});
+            //   }.bind(this),
+            //     10000
+            // );
         },
         methods: {
             ...mapActions('basket', {
@@ -68,8 +68,10 @@
                 this.clearCart()
             },
             async fetchOrderStatus() {
-                let data = await this.axios.get('order-status/' + this.id);
+                let data = await this.axios.get('order-status/' + this.token);
 
+                console.log(data)
+                this.id = data.data.order.id;
                 // this.title =  data.data.title;
                 // this.message = data.data.message;
             },

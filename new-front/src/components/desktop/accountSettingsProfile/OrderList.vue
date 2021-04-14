@@ -6,6 +6,7 @@
             :single-expand="true"
             :expanded.sync="expanded"
             item-key="id"
+            show-expand
             class="elevation-1"
             :hide-default-footer="!orderList.length"
             :hide-default-header="!orderList.length"
@@ -29,6 +30,11 @@
                 <div class="title">
                     Список заказов пуст
                 </div>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+                <td :colspan="headers.length">
+                    More info about {{ item.name }}
+                </td>
             </template>
         </v-data-table>
     </div>

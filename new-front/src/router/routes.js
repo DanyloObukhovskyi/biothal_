@@ -145,7 +145,7 @@ const routes = [
                 props: true
             },
             {
-                path: 'order-status',
+                path: 'order-status/:token',
                 name: 'order-status',
                 component: () => import('../pages/desktop/OrderingStatusDesktop'),
                 meta: {},

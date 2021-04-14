@@ -46,7 +46,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::namespace('api')
         ->get('product/{id}', 'ProductController@getProduct');
 
-    Route::get('order-status/{id}', 'CheckoutController@getOrder')
+    Route::get('order-status/{token}', 'CheckoutController@getOrder')
         ->name('order-status.get');
 
     Route::group(['prefix' => 'checkout'], function () {
