@@ -208,11 +208,11 @@
       color: #fff;
       font-weight: normal;
       font-style: normal;
-      font-size: 20px;
-      line-height: 28px;
+      font-size: 16px;
+      line-height: 26px;
       column-gap: 5.5px;
       background-color: #000;
-      height: 54px !important;
+      height: 48px !important;
     }
 
     &__menu {

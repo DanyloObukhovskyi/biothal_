@@ -76,7 +76,6 @@ body {
   z-index: 1000;
 
   & main > * > * > * {
-    background-color: white;
     padding: 0 calc((100vw - #{$basic-styles-screen-width}) / 2 - 20px);
 
     @include _1200 {
