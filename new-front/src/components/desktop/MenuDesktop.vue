@@ -259,9 +259,10 @@
     &__category {
       text-transform: none;
       font-style: normal;
-      font-weight: 200;
       font-size: 14px;
       line-height: 24px;
+
+      font-weight: bold;
     }
 
     &__sub-category {

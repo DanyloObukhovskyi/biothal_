@@ -207,10 +207,14 @@ export default {
 
 <style scoped lang="scss">
 
+@import "src/styles/mixins";
 
 .app-bar-menu-icon {
   display: flex;
-  column-gap: 6px;
+
+  & > :nth-last-child(1) {
+    margin-left: em(10);
+  }
 }
 
 
