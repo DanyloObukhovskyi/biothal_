@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    :width="isMobile ? '100%' : 'calc(100vw / 4.571428571428571)'"
+    :width="isMobile ? '100%' : 'auto'"
     :right="!isMobile"
     v-model="visible"
     height="100vh"
@@ -197,6 +197,8 @@ export default {
 @import "src/styles/main";
 
 .basket {
+  width: em(410) !important;
+
   &-header {
     width: 100%;
     display: flex;

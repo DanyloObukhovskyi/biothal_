@@ -554,7 +554,6 @@ export default {
     }
 
     &__content {
-        width: 70%;
         display: flex;
         flex-direction: column;
         justify-content: center;
