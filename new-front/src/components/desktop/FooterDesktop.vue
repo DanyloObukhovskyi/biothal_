@@ -1,82 +1,82 @@
 <template>
-  <v-footer
-    class="footer__wrapper"
-    :padless="false">
-    <div class="footer__top">
-      <div class="footer__top-title">
-        Узнавайте первыми о распродажах и новинках!
+    <v-footer
+      class="footer__wrapper"
+      :padless="false">
+      <div class="footer__top">
+        <div class="footer__top-title">
+          Узнавайте первыми о распродажах и новинках!
+        </div>
+        <div style="max-width: 270px; width: 100%;">
+          <v-text-field v-model="email_for_receive_list" label="Электронный адрес" dark class="email__wrapper">
+            <v-btn icon slot="append" @click="addEmailToReceiveList">
+              <v-icon size="14" class="footer__top__email-icon">
+                mdi-arrow-right
+              </v-icon>
+            </v-btn>
+          </v-text-field>
+        </div>
       </div>
-      <div style="max-width: 270px; width: 100%;">
-        <v-text-field v-model="email_for_receive_list" label="Электронный адрес" dark class="email__wrapper">
-          <v-btn icon slot="append" @click="addEmailToReceiveList">
-            <v-icon size="14" class="footer__top__email-icon">
-              mdi-arrow-right
-            </v-icon>
-          </v-btn>
-        </v-text-field>
-      </div>
-    </div>
-    <div class="footer__middle" style="justify-content: space-between">
+      <div class="footer__middle" style="justify-content: space-between">
 
-      <div class="footer__middle__block">
-        <img @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo-biothal.svg"
-             style="cursor: pointer; margin-bottom: 26px"/>
-        <div class="footer-middle-block__text">
-          Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
-          силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
-          стандартам.
+        <div class="footer__middle__block footer-middle-block-description">
+          <img class="footer-middle-block__image" @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo-biothal.svg"
+               style="cursor: pointer; margin-bottom: 26px"/>
+          <div class="footer-middle-block__text">
+            Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
+            силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
+            стандартам.
+          </div>
+        </div>
+        <div class="links-wrapper">
+          <div class="footer__middle__block">
+            <v-list dense>
+              <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
+              <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
+                           :key="index"
+                           @click="toPage({name: 'category-page', params: {category: item.slug }})">
+                <v-list-item-content>
+                  - {{ item.title }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
+          <div class="footer__middle__block">
+            <v-list dense>
+              <v-list-item-title class="list-item__title">О нас</v-list-item-title>
+              <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)"
+                           :key="index"
+                           @click="toPage({name: 'info-page', params: {id: item.slug}, })">
+                <v-list-item-content>
+                  - {{ item.title }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
+          <div class="footer__middle__block">
+            <v-list dense>
+              <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
+              <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
+                           style="display: flex; align-items: center" :href="item.href" target="_blank">
+                <v-list-item-icon>
+                  <v-icon style="margin: 0" size="20" color="#000">{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  {{ item.title }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
         </div>
       </div>
-      <div class="links-wrapper">
-        <div class="footer__middle__block">
-          <v-list dense>
-            <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
-            <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
-                         :key="index"
-                         @click="toPage({name: 'category-page', params: {category: item.slug }})">
-              <v-list-item-content>
-                - {{ item.title }}
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+      <div class="footer__bottom">
+        <div>
+          Copyright © 2020. Все права защищены.
         </div>
-        <div class="footer__middle__block">
-          <v-list dense>
-            <v-list-item-title class="list-item__title">О нас</v-list-item-title>
-            <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)"
-                         :key="index"
-                         @click="toPage({name: 'info-page', params: {id: item.slug}, })">
-              <v-list-item-content>
-                - {{ item.title }}
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </div>
-        <div class="footer__middle__block">
-          <v-list dense>
-            <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
-            <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
-                         style="display: flex; align-items: center" :href="item.href" target="_blank">
-              <v-list-item-icon>
-                <v-icon style="margin: 0" size="20" color="#000">{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                {{ item.title }}
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+        <div>
+          Пользовательское соглашение
         </div>
       </div>
-    </div>
-    <div class="footer__bottom">
-      <div>
-        Copyright © 2020. Все права защищены.
-      </div>
-      <div>
-        Пользовательское соглашение
-      </div>
-    </div>
-  </v-footer>
+</v-footer>
 </template>
 
 <script>
@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'src/styles/mixins';
+@import 'src/styles/main';
+
 .links-wrapper {
   display: flex;
   justify-content: space-between;
@@ -166,15 +169,22 @@ export default {
   @media screen and (max-width: 991px) {
     flex-wrap: wrap;
   }
+
+  @include _1200 {
+    padding: 0 em(45);
+
+    &:last-child {
+      margin: 0;
+    }
+  }
 }
 
 .footer {
-
   &__wrapper {
     display: flex;
     flex-direction: column;
-    padding: 0;
     background-color: #fff;
+    padding: 0;
   }
 
   &__top-title {
@@ -186,13 +196,13 @@ export default {
 
   &__top {
     width: 100%;
-    background-color: #2F7484;
+    background-color: $palette-base-color;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     color: #fff;
     height: 80px;
-    padding: 0 45px 0 45px;
+    padding: 0 calc((100vw - #{$basic-styles-screen-width}) / 2 - 9px);
 
     &__email-icon {
       margin: 0;
@@ -204,13 +214,18 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 60px 60px 0 60px;
+    padding: 60px calc((100vw - #{$basic-styles-screen-width}) / 2 - 9px) 0;
+
+    @include _1200 {
+      padding: 60px 0;
+    }
 
     @media screen and (max-width: 991px) {
       flex-wrap: wrap;
     }
 
     &__block {
+
       &__1 {
         margin-right: 100px;
         max-width: 500px;
@@ -233,14 +248,15 @@ export default {
   &__bottom {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     font-style: normal;
     font-weight: 200;
     font-size: 13px;
     line-height: 18px;
     width: 100%;
     color: #9A9A9A;
-    padding: 87px 60px 70px 60px;
+    background-color: $palette-disable-color;
+    padding: 25px calc((100vw - #{$basic-styles-screen-width}) / 2 - 9px) 20px;
   }
 }
 
@@ -272,12 +288,31 @@ export default {
 
 .footer-middle-block {
 
+  &-description {
+    @include _1200 {
+      width: 100%;
+    }
+  }
+
+  &__image {
+    @include _1200 {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
   &__text {
     max-width: 300px;
     font-style: normal;
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.204545px;
+
+    @include _1200 {
+      max-width: 450px;
+      padding: 0 60px 45px;
+      margin: 0 auto;
+    }
   }
 }
 </style>

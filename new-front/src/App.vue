@@ -1,5 +1,4 @@
 <template>
-  <body>
 
   <!--    <video autoplay muted loop id="myVideo" v-if="maxWidth > 1200">-->
   <!--      <source src="https://media.istockphoto.com/videos/nature-undersea-very-green-posidonia-field-of-the-mediterranean-sea-video-id1164785970" type="video/mp4">-->
@@ -9,8 +8,6 @@
       <router-view/>
       <notifications/>
     </div>
-
-  </body>
 
 </template>
 
@@ -67,6 +64,8 @@ export default {
 body {
   //background: url("../public/background.jpg") center no-repeat fixed;
   //background-size: 100vw 100vh;
+
+
 }
 
 #app {
@@ -74,12 +73,15 @@ body {
   //  background-color: $palette-main-background-color;
   //}
 
-  max-width: 1200px;
-  margin: 0 auto;
   z-index: 1000;
 
-  & main {
+  & main > * > * > * {
     background-color: white;
+    padding: 0 calc((100vw - #{$basic-styles-screen-width}) / 2 - 20px);
+
+    @include _1200 {
+      padding: initial;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
+    <agile class="agile-slider" autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
       <div class="slide" v-for="(item, index) in carousel" :key="index">
         <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
       </div>
@@ -261,11 +261,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding: 0;
 }
 
 .description-biothal {
   text-align: center;
-  padding: 50px 45px 50px 45px;
 
   @include _600 {
     padding: 20px 20px 0;
@@ -298,6 +299,10 @@ export default {
     @include _600 {
       flex-direction: column;
     }
+
+    @include _1200 {
+      padding: 0 45px;
+    }
   }
 }
 
@@ -309,5 +314,9 @@ export default {
 
 .product__best-sellers {
   margin-top: 20px;
+}
+
+.agile-slider {
+  padding: 0 !important;
 }
 </style>

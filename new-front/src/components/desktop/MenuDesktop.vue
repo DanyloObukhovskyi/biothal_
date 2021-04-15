@@ -208,15 +208,17 @@
       color: #fff;
       font-weight: normal;
       font-style: normal;
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 20px;
+      line-height: 28px;
       column-gap: 5.5px;
       background-color: #000;
-      height: 34px !important;
+      height: 54px !important;
     }
 
     &__menu {
-      height: 60px !important;
+      display: flex;
+      align-items: center;
+      height: 80px !important;
       width: 100%;
       padding: 0;
       background-color: #fff !important;
@@ -258,14 +260,14 @@
       text-transform: none;
       font-style: normal;
       font-weight: 200;
-      font-size: 13px;
-      line-height: 18px;
+      font-size: 14px;
+      line-height: 24px;
     }
 
     &__sub-category {
       min-height: 24px;
       padding: 0;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 24px;
     }
 
