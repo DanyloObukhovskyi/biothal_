@@ -155,7 +155,6 @@ export default {
 }
 
 .slider {
-  padding: 0 8em;
 
   & ::v-deep .agile {
 
