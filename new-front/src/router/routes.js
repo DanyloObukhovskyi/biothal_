@@ -153,7 +153,7 @@ const routes = [
             },
             {
                 path: 'order-cancel/:token',
-                name: 'order-status',
+                name: 'order-cancel',
                 component: () => import('../pages/desktop/OrderingCancelDesktop'),
                 meta: {},
                 props: true
