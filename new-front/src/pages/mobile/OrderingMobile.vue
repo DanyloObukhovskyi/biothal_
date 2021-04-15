@@ -377,7 +377,7 @@ import {mapActions, mapGetters} from "vuex";
                             if (postData) {
                                 this.toPage({name: 'payment', params: {paymentUrl: postData}});
                             } else {
-                                this.toPage({name: 'order-status', params: {id: data.order_id}});
+                                this.toPage({name: 'order-status', params: {token: data.token}});
                             }
                         })
                     }
