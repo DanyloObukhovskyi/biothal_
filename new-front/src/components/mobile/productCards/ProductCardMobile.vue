@@ -30,8 +30,33 @@
     <v-snackbar
       v-model="showMessage"
       v-bind="snackbar">
-      Товар добавлен в корзину
-    </v-snackbar>
+      <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
+                Товар добавлен в корзину
+            </span>
+            <v-divider style="color: #c7c7c7;"/>
+            <img class="product__image"
+                 @click="toPage({name: 'product', params: {id: dataCard['id']}})"
+                 :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
+                 :alt="dataCard['image']['name']"/>
+            <div class="product__description">
+                <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">
+                    {{ dataCard['product_description']['name'] }}
+                </div>
+                <div class="product__description__price default-cursor">
+                    {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
+            </div>
+            <div>
+
+                <v-btn class="product__button white--text" elevation="0" @click="openBasket()">
+                    Перейти в корзину
+                </v-btn>
+                <v-btn class="product__button white--text" elevation="0" @click="showMessage = false">
+                    Продолжить покупки
+                </v-btn>
+            </div>
+
+
+        </v-snackbar>
 
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
                            :user_id="user_id"/>
@@ -65,8 +90,8 @@ export default {
       showMessage: false,
       snackbar: {
         right: true,
-        color: 'green',
-        timeout: 900,
+        color: 'white',
+        timeout: 10000,
         multiLine: true
       },
       name: '',
@@ -76,7 +101,8 @@ export default {
   },
   methods: {
     ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+                visibleBasket: 'VISIBLE_BASKET'
     }),
     addToCart() {
       this.showMessage = true;
@@ -137,9 +163,13 @@ export default {
         await this.$store.dispatch('LOGIN', null);
         this.errorMessagesValidation(e);
       }
+    },
+            openBasket (){
+                this.showMessage = false;
+                this.visibleBasket(true);
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped lang="scss">

@@ -38,10 +38,38 @@
             Купить
       </v-btn>
     </div>
+
+
     <v-snackbar
       v-model="showMessage"
       v-bind="snackbar">
-      Товар добавлен в корзину
+        <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
+            Товар добавлен в корзину
+        </span>
+        <v-divider style="color: #c7c7c7;"/>
+
+            <img class="product__snackbar" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
+                 :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"
+                 :alt="dataCard.image ? dataCard.image.name : ''"/>
+
+            <span class="product__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{
+                  dataCard['product_description']['name']
+                }}
+            </span>
+
+        <div class="product__info">
+            <span class="product__info__price default-cursor">
+                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
+            </span>
+
+            <v-btn class="product__button__snackbar white--text" elevation="0" @click="openBasket()">
+                Перейти в корзину
+            </v-btn>
+            <v-btn class="product__button__snackbar white--text" elevation="0" @click="showMessage = false">
+                Продолжить покупки
+            </v-btn>
+        </div>
+
     </v-snackbar>
 
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
@@ -57,7 +85,7 @@ import PreOrderOneClickModal from "../../PreOrderOneClickModal.vue";
 export default {
   name: "ProductCard",
   components: {
-    PreOrderOneClickModal
+      PreOrderOneClickModal
   },
   metaInfo() {
     return {
@@ -100,8 +128,8 @@ export default {
       snackbar: {
         top: true,
         right: true,
-        color: 'green',
-        timeout: 900,
+        color: 'white',
+        timeout: 10000,
         multiLine: true
       },
       name: '',
@@ -112,7 +140,8 @@ export default {
   },
   methods: {
     ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+      visibleBasket: 'VISIBLE_BASKET'
     }),
     addProductToCart() {
       this.showMessage = true;
@@ -175,7 +204,11 @@ export default {
         await this.$store.dispatch('LOGIN', null);
         this.errorMessagesValidation(e);
       }
-    }
+    },
+      openBasket (){
+          this.showMessage = false;
+          this.visibleBasket(true);
+      }
   }
 }
 </script>
@@ -219,6 +252,13 @@ export default {
 
   &__image {
     width: 290px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__snackbar {
+    width: 170px;
 
     &:hover {
       cursor: pointer;
@@ -274,6 +314,20 @@ export default {
     font-size: 16px;
     line-height: 22px;
     margin-top: 10px;
+
+      &__snackbar {
+          text-transform: none;
+          border-radius: 50px;
+          width: 70%;
+          height: 34px !important;
+          padding: 0 !important;
+          background-color: #2F7484 !important;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 11px;
+          margin-top: 5px;
+      }
   }
 }
 </style>

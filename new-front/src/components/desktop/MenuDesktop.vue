@@ -106,7 +106,7 @@
           mdi-heart-outline
         </v-icon>
 
-        <v-icon color="#000" size="18" @click="$refs['Basket'].visibleModal(true)">
+        <v-icon color="#000" size="18" @click="$store.commit('basket/VISIBLE_BASKET', true)">
           mdi-briefcase-outline
         </v-icon>
         <v-badge

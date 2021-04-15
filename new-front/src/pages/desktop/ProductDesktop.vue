@@ -131,7 +131,27 @@
         <v-snackbar
             v-model="showMessage"
             v-bind="snackbar">
-            Товар добавлен в корзину
+            <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
+                Товар добавлен в корзину
+            </span>
+            <v-divider style="color: #c7c7c7;"/>
+
+            <img :src="image" :alt="productData['image'] ? productData['image']['name'] : ''"
+                 style="width: 50%" :class="subImages" @click="getSubImages()"/>
+            <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
+            <!--                         class="image__product"/>-->
+            <div class="image__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>
+            <span class="info-price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>
+            <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
+
+            <div class="product__info">
+                <v-btn class="product__button__snackbar white--text" elevation="0" @click="openBasket()">
+                    Перейти в корзину
+                </v-btn>
+                <v-btn class="product__button__snackbar white--text" elevation="0" @click="showMessage = false">
+                    Продолжить покупки
+                </v-btn>
+            </div>
         </v-snackbar>
     </div>
 </template>
@@ -216,8 +236,8 @@ export default {
       snackbar: {
         top: true,
         right: true,
-        color: 'green',
-        timeout: 900,
+        color: 'white',
+        timeout: 10000,
         multiLine: true
       },
       errorValid: {
@@ -227,7 +247,8 @@ export default {
   },
   methods: {
     ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT'
+      addProduct: 'ADD_PRODUCT',
+      visibleBasket: 'VISIBLE_BASKET'
     }),
     addToCart() {
       this.showMessage = true;
@@ -401,7 +422,11 @@ export default {
                     await this.$store.dispatch('LOGIN', null);
                     this.errorMessagesValidation(e);
                 }
-            }
+            },
+              openBasket (){
+                  this.showMessage = false;
+                  this.visibleBasket(true);
+              }
         }
     }
 </script>

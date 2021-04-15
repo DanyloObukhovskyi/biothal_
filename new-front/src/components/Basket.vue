@@ -2,7 +2,8 @@
   <v-navigation-drawer
     :width="isMobile ? '100%' : 'auto'"
     :right="!isMobile"
-    v-model="visible"
+    :value="visible"
+    @input="visibleModal($event)"
     height="100vh"
     class="basket"
     absolute
@@ -124,7 +125,6 @@ export default {
   },
   data() {
     return {
-      visible: false,
       deliveryPrice: 40,
       recommendedProducts: [],
     }
@@ -136,11 +136,12 @@ export default {
       'currentGlobalSales',
       'nextGlobalSales',
       'groupSales',
-            'currentGroupSales',
-            'nextGroupSales',
-            'linear',
+      'currentGroupSales',
+      'nextGroupSales',
+      'linear',
       'productsSum',
-      'productsSumWithSales'
+      'productsSumWithSales',
+      'visible'
     ]),
   },
   watch: {
@@ -160,11 +161,12 @@ export default {
     ...mapActions('basket', {
       deleteProduct: 'DELETE_PRODUCT',
       setGlobalSales: 'SET_GLOBAL_SALES',
-            setGroupSales: 'SET_GROUP_SALES'
+      setGroupSales: 'SET_GROUP_SALES',
+      visibleBasket: 'VISIBLE_BASKET'
         }),
         visibleModal(visible) {
             window.scrollTo(0, 0)
-            this.visible = visible
+            this.$store.commit('basket/VISIBLE_BASKET', visible)
         },
         getGlobalSales() {
             this.axios.post('sales/global')

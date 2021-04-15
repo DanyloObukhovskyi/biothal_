@@ -1,8 +1,8 @@
 const state = {
     products: [],
     globalSales: [],
-    groupSales: []
-
+    groupSales: [],
+    visible: false
 }
 
 const mutations = {
@@ -46,6 +46,9 @@ const mutations = {
     },
     SET_GROUP_SALES(state, groupSales) {
         state.groupSales = groupSales;
+    },
+    VISIBLE_BASKET(state, visible) {
+        state.visible = visible;
     }
 }
 
@@ -68,6 +71,9 @@ const actions = {
     SET_GROUP_SALES(context, groupSales) {
         context.commit('SET_GROUP_SALES', groupSales);
     },
+    VISIBLE_BASKET(context, visible) {
+        context.commit('VISIBLE_BASKET', visible);
+    },
     CLEAR_ALL_CART(context){
         context.commit('CLEAR_ALL_CART');
     }
@@ -77,6 +83,7 @@ const getters = {
     products: state => state.products,
     globalSales: state => state.globalSales,
     groupSales: state => state.groupSales,
+    visible: state => state.visible,
     currentGlobalSales: (state, getters) => {
         let current = null;
 
@@ -161,6 +168,9 @@ const getters = {
             }
         }
         return Math.ceil(sum);
+    },
+    visibleBasket: (state, getters) => {
+        return state.visible;
     }
 }
 
