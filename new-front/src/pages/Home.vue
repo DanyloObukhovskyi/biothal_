@@ -269,7 +269,7 @@ export default {
   text-align: center;
 
   @include _600 {
-    padding: 20px 20px 0;
+    padding-top: rem(20) !important;
     background-color: $palette-main-background-color;
   }
 

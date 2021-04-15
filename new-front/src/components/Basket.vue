@@ -197,7 +197,7 @@ export default {
 @import "src/styles/main";
 
 .basket {
-  width: em(410) !important;
+  width: rem(410) !important;
 
   &-header {
     width: 100%;

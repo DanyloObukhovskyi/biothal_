@@ -213,7 +213,7 @@ export default {
   display: flex;
 
   & > :nth-last-child(1) {
-    margin-left: em(10);
+    margin-left: rem(10);
   }
 }
 

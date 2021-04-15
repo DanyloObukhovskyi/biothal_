@@ -15,6 +15,10 @@
 <!--      <span v-if="category['sub_category'] !== null" class="breadcrumb-item arrow"/>-->
 <!--      <span class="breadcrumb-item">{{ description['name'] }}</span>-->
 <!--    </div>-->
+    <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
+      <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
+      <div><img width="18" height="18" src="../../../public/package.svg"/></div>
+    </v-system-bar>
 
     <div class="product-info__wrapper">
       <div class="product-info__discount" v-if="is_discount">
@@ -100,10 +104,6 @@
       <ProductCardsSetMobile type-set="product" title="Рекомендуемые товары"
                              :product-data="recommendedProduct.slice(0, 4)"/>
     </div>
-    <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
-      <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
-      <div><img width="18" height="18" src="../../../public/package.svg"/></div>
-    </v-system-bar>
 
     <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
     <v-snackbar
@@ -482,7 +482,6 @@ export default {
     justify-content: center;
     color: #fff;
     column-gap: 5px;
-    margin-top: 20px;
   }
 
   &__recommended {

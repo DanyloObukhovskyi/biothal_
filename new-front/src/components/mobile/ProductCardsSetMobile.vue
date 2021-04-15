@@ -113,9 +113,6 @@
       margin: 0 0 10px;
       width: calc(1/2*100% - (1 - 1/2)*10px);
 
-      &:last-of-type {
-        margin: 0;
-      }
     }
   }
 </style>

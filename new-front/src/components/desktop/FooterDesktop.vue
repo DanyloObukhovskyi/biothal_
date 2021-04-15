@@ -171,7 +171,7 @@ export default {
   }
 
   @include _1200 {
-    padding: 0 em(45);
+    padding: 0 rem(45);
 
     &:last-child {
       margin: 0;
