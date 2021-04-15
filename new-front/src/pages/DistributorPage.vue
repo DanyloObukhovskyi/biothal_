@@ -230,7 +230,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-bottom: 28px;
         }
     }
 

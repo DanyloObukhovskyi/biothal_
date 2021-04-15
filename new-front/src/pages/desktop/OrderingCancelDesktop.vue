@@ -42,6 +42,10 @@
                 10000
             );
         },
+        beforeRouteLeave (to, from, next) {
+            clearTimeout(this.redirect);
+            next()
+        },
         methods: {
             async fetchOrderStatus() {
                 let data = await this.axios.get('order-status/' + this.token);
@@ -89,7 +93,7 @@
             font-weight: bold;
             font-size: 16px;
             line-height: 22px;
-            margin-top: 10px;
+            margin-bottom: 20px;
 
             &:hover {
                 box-shadow: 0 0 33px #f2f2f2;

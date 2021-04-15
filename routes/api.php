@@ -89,6 +89,7 @@ Route::post('refresh', 'AuthController@refresh');
 Route::post('me', 'AuthController@me');
 Route::post('checkUser', 'AuthController@checkUser');
 Route::post('profile', 'ProfileController@getProfile');
+Route::post('profileOrderProducts/{id}', 'ProfileController@getOrderProducts');
 Route::post('updateProfile', 'ProfileController@updateProfile');
 Route::post('changePassword', 'ProfileController@changePassword');
 Route::post('addImage', 'ProfileController@addImage');

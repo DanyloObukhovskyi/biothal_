@@ -465,7 +465,7 @@ export default {
                         });
                         this.clearValidation();
                         let postData = data.portmone
-                        console.log(postData)
+
                         if (postData) {
                             this.toPage({name: 'payment', params: {paymentUrl: postData}});
                         } else {

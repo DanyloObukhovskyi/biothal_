@@ -16,4 +16,8 @@ class OrderProduct extends Model
             'getSale'
         ]);
     }
+
+    public function productData () {
+        return $this->hasOne(Product::class, 'id', 'product_id')->with('image', 'productDescription');
+    }
 }

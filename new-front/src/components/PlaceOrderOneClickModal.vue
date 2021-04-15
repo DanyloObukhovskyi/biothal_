@@ -113,22 +113,23 @@
                             products: this.products,
                             user_id: this.user_id
                         };
-                        let data = await this.axios.post('checkout/create/orderQuick', form)
+                        await this.axios.post('checkout/create/orderQuick', form).then(({data}) => {
 
-                        if (data) {
-                            let message = data.data.message
+                            if (data) {
+                                let message = data.message
 
-                            this.$notify({
-                                type: 'success',
-                                title: 'Успех!',
-                                text: message
-                            });
-                            this.clearValidation();
+                                this.$notify({
+                                    type: 'success',
+                                    title: 'Успех!',
+                                    text: message
+                                });
+                                this.clearValidation();
 
-                            this.toPage({name: 'order-status', params:{ id: data.data.order_id }});
+                                this.toPage({name: 'order-status', params: {token: data.token}});
 
-                            this.clearCartProducts()
-                        }
+                                this.clearCartProducts()
+                            }
+                        })
                     }
                     this.$loading(false);
                 } catch (e) {
