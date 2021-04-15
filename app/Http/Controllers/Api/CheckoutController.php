@@ -111,6 +111,7 @@ class CheckoutController extends Controller
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = $request->get('paymentMethod');
         $order->user_id = $request->get('user_id');
+        $order->token = $this->generateRandomString(12);
 
         $order->save();
 
@@ -213,21 +214,24 @@ class CheckoutController extends Controller
 
             return response()->json([
                 'message' => 'Заказ оформлен!',
-                'portmone' => $portmoneUrl
+                'portmone' => $portmoneUrl,
+                'token' => $order->token
             ]);
         }
 
         return response()->json([
+            'token' => $order->token,
             'order_id' => $order->user_order_id,
             'message' => 'Заказ оформлен!'
         ]);
     }
 
-    public function getOrder($id)
+    public function getOrder($token)
     {
-        $order = Order::with('userAddress')->where('user_order_id', $id)->first();
+        $order = Order::with('userAddress')->where('token', $token)->first();
 
         return response()->json([
+            'order' => $order,
             'message' => 'Заказ в обработке!'
         ]);
     }
@@ -248,6 +252,7 @@ class CheckoutController extends Controller
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = 1;
         $order->user_id = $request->get('user_id');
+        $order->token = $this->generateRandomString(12);
         $order->save();
 
         $total = 0;
@@ -330,6 +335,7 @@ class CheckoutController extends Controller
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = 1;
         $order->user_id = $request->get('user_id');
+        $order->token = $this->generateRandomString(12);
         $order->save();
 
         $product = $request->get('product');
@@ -407,6 +413,7 @@ class CheckoutController extends Controller
         $order->order_status_id = 5;
         $order->order_type_id = 0;
         $order->user_id = $request->get('user_id');
+        $order->token = $this->generateRandomString(12);
         $order->save();
 
         $product = $request->get('product');
@@ -440,5 +447,15 @@ class CheckoutController extends Controller
                 Mail::to($order->userAddress->email)->send(new OrderCreated($order));
             }
         }
+    }
+
+    public  function generateRandomString($length = 20) {
+        $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

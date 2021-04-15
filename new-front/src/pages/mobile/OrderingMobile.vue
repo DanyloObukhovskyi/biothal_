@@ -4,7 +4,7 @@
             <div class="page-form__top__title">Оформление заказа</div>
         </div>
         <div class="page-form__middle">
-            <v-form ref="orderForm" style="width: 100%;" v-model="validProfile">
+            <v-form autocomplete="off" ref="orderForm" style="width: 100%;" v-model="validProfile">
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
@@ -39,8 +39,8 @@
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Введите область</p>
-                    <v-select
-                        :search-input.sync="(c) => c.name"
+                    <v-autocomplete
+                        type="search" autocomplete="off"
                         :items="regions"
                         color="#2F7484"
                         :loading="regionsLoading"
@@ -48,15 +48,14 @@
                         :error-messages="errorValid.region"
                         :rules="regionRules"
                         class="main-input-field"
-                        name="name"
                         flat
                         rounded>
-                    </v-select>
+                    </v-autocomplete>
                 </div>
                 <div class="mt-25px">
                     <p class="main-input-label">Введите город</p>
-                    <v-select
-                        :search-input.sync="(c) => c.name"
+                    <v-autocomplete
+                        type="search" autocomplete="off"
                         :items="cities"
                         :loading="citiesLoading"
                         v-model="city"
@@ -67,12 +66,12 @@
                         class="main-input-field"
                         flat
                         rounded>
-                    </v-select>
+                    </v-autocomplete>
                 </div>
                 <div v-if="deliveryMethod === 1"  class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
-                    <v-select
-                        :search-input.sync="(c) => c.name"
+                    <v-autocomplete
+                        type="search" autocomplete="off"
                         :items="postalOffices"
                         :loading="postalOfficesLoading"
                         v-model="postalOffice"
@@ -81,20 +80,19 @@
                         color="#2F7484"
                         :item-text="c => c.name"
                         :item-value="c => c"
-                        name="name"
                         class="main-input-field"
                         flat
                         rounded>
-                    </v-select>
+                    </v-autocomplete>
                 </div>
                 <div v-else class="mt-18px">
                     <p class="main-input-label">Введите адрес доставки</p>
                     <v-text-field
+                        type="search" autocomplete="off"
                         v-model="postalOffice"
                         :error-messages="errorValid.postalOffice"
                         :rules="postalOfficeRulesInput"
                         color="#2F7484"
-                        name="name"
                         class="main-input-field"
                         flat
                         rounded>

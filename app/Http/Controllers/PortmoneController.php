@@ -29,7 +29,7 @@ class PortmoneController extends Controller
         $order->order_status_id = $status->id;
         $order->save();
 
-        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order_id);
+        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token);
     }
 
     public function cancel($order_id)
@@ -40,6 +40,8 @@ class PortmoneController extends Controller
         $payment->status = Payment::STATUS_CANCELED;
         $payment->save();
 
-        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order_id);
+        $order = Order::where('id', $order_id)->first();
+
+        return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
     }
 }

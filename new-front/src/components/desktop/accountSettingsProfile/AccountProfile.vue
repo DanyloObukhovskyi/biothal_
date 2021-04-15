@@ -65,10 +65,7 @@
           <v-checkbox
             :color="variables.basecolor"
             v-model="change_profile.is_receive"
-          />
-        </div>
-        <div class="remember-me__right">
-          Не хочу получать писем с акциями
+            label="Не хочу получать писем с акциями"/>
         </div>
       </div>
       <div class="page-form__bottom">
@@ -117,87 +114,6 @@
           Удалить фото
         </div>
       </div>
-      <v-row justify="center">
-        <v-dialog
-          v-model="dialog"
-          persistent
-          max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              class="change_password_button"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              Изменить пароль
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">Изменить Пароль</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <div class="page-form__middle">
-                  <v-form ref="change" style="width: 100%;" v-model="valid">
-                    <div class="register_input">
-                      <span class="input_label main-input-label">Введите старый пароль</span>
-                      <v-text-field
-                        class="main-input-field"
-                        v-model="change_password.old_password"
-                        :error-messages="errorValid.old_password"
-                        :rules="oldPassRules"
-                        type="password"
-                        flat
-                        rounded/>
-                    </div>
-                    <div class="register_input">
-                      <span class="input_label main-input-label">Введите новый пароль</span>
-                      <v-text-field
-                        class="main-input-field"
-                        v-model="change_password.password"
-                        :error-messages="errorValid.password"
-                        :rules="passRules"
-                        type="password"
-                        flat
-                        rounded/>
-                    </div>
-                    <div class="register_input">
-                      <span class="input_label main-input-label">Введите еще раз новый пароль</span>
-                      <v-text-field
-                        class="main-input-field"
-                        v-model="change_password.password_confirmation"
-                        :error-messages="errorValid.password_confirmation"
-                        :rules="passConfirmRules"
-                        type="password"
-                        flat
-                        rounded/>
-                    </div>
-                  </v-form>
-                </div>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="closeModal()"
-              >
-                Закрыть
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="changePassword()"
-              >
-                Сохранить
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-row>
     </div>
   </div>
 
@@ -491,17 +407,11 @@ export default {
 
 .remember-me {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   font-size: 14px;
   margin-top: 13px;
-
-  &__right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
 
   // обнуление идиотских отступов у чекбокса
   & ::v-deep {
@@ -518,6 +428,10 @@ export default {
 
       &--selection-controls__input {
         margin: 0 !important;
+      }
+
+      & .v-label {
+         margin-left: 10px;
       }
     }
 

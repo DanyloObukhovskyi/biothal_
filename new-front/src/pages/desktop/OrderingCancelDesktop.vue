@@ -1,18 +1,16 @@
 <template>
     <div>
         <div class="order-status__title">
-            Ваш заказ № {{ id }}
+            Ваш заказ № {{id}} отменен
         </div>
         <div class="order-status__content">
-            Пожалуйста, ожидайте звонка оператора для
-            <br>уточнения деталей заказа и условий доставки.
             <br>Call - центр работает по будням: <b>10:00 — 17:00.</b>
             <br>Суббота / Воскресенье: <b>Выходной.</b>
             <br>Остались вопросы? <br>Звони <b>+38 (068) 888-12-08</b>
             <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>
         </div>
         <div class="button">
-            <v-btn dark class="order-status__button" elevation="0" @click="toHome">
+            <v-btn dark class="order-status__button" elevation="0" @click="toHome()">
                 На главную
             </v-btn>
         </div>
@@ -21,10 +19,8 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from "vuex";
-
     export default {
-        name: "OrderingStatusDesktop",
+        name: "OrderingCancelDesktop",
         props: {
             token: {
                 type: [Number, String],
@@ -32,60 +28,30 @@
             },
         },
         data() {
-            return {
-                title: '',
-                message: '',
-                redirect: '',
-                id: ''
-            }
-        },
-        computed: {
-            ...mapGetters('basket', [
-                'products',
-                'globalSales',
-                'currentGlobalSales',
-                'nextGlobalSales',
-                'linear',
-                'productsSum',
-                'productsSumWithSales'
-            ])
+          return {
+              id: '',
+              redirect: ''
+          }
         },
         created() {
             this.fetchOrderStatus();
             this.redirect = setTimeout(
-              function () {
-                this.toPage({name: 'home'});
-              }.bind(this),
+                function () {
+                    this.toPage({name: 'home'});
+                }.bind(this),
                 10000
             );
         },
         methods: {
-            ...mapActions('basket', {
-                deleteProduct: 'DELETE_PRODUCT',
-                clearCart: 'CLEAR_ALL_CART'
-            }),
-            clearCartProducts() {
-                this.clearCart()
-            },
             async fetchOrderStatus() {
                 let data = await this.axios.get('order-status/' + this.token);
 
                 this.id = data.data.order.id;
             },
-            sendEmailToUser(id)
-            {
-                this.axios.post('sendOrderStatus', {
-                    data:this.id
-                });
-            },
-            toHome (){
+            toHome () {
                 this.toPage({name: 'home'});
                 clearTimeout(this.redirect);
             }
-        },
-        mounted() {
-            this.clearCartProducts();
-            this.sendEmailToUser(this.id);
         }
     }
 </script>

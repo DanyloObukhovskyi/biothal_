@@ -120,10 +120,8 @@
       <div>
         <v-checkbox
           :color="variables.basecolor"
-          v-model="rememberMe"/>
-      </div>
-      <div class="remember-me__right">
-        Не хочу получать писем с акциями
+          v-model="rememberMe"
+          label="Не хочу получать писем с акциями"/>
       </div>
     </div>
     <div class="page-form__bottom">
@@ -428,18 +426,18 @@ export default {
 
 .remember-me {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   font-size: 14px;
-  margin-top: 15px;
+  height: 5em;
 
-  &__right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  @media screen and (max-width: 1000px) {
+      margin-top: 1em;
+      height: 2em;
   }
 }
+
 
 .user-image {
   &__wrapper {

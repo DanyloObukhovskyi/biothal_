@@ -19,7 +19,7 @@
       <div class="footer__middle" style="justify-content: space-between">
 
         <div class="footer__middle__block footer-middle-block-description">
-          <img class="footer-middle-block__image" @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo.svg"
+          <img class="footer-middle-block__image" @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo-biothal.svg"
                style="cursor: pointer; margin-bottom: 26px"/>
           <div class="footer-middle-block__text">
             Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
