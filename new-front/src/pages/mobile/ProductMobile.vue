@@ -399,7 +399,7 @@ export default {
   &__price {
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin: 0 40px;
 
