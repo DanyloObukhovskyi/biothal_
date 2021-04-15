@@ -136,24 +136,24 @@
             <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
                 Товар добавлен в корзину
             </span>
-            <v-divider style="color: #c7c7c7;"/>
+<!--            <v-divider style="color: #c7c7c7;"/>-->
 
-            <img :src="image" :alt="productData['image'] ? productData['image']['name'] : ''"
-                 style="width: 50%" :class="subImages" @click="getSubImages()"/>
-            <!--                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"-->
-            <!--                         class="image__product"/>-->
-            <div class="image__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>
-            <span class="info-price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>
-            <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>
+<!--            <img :src="image" :alt="productData['image'] ? productData['image']['name'] : ''"-->
+<!--                 style="width: 50%" :class="subImages" @click="getSubImages()"/>-->
+<!--            &lt;!&ndash;                    <img :src="require('../../../public/product-images/' + productData['image']['name'] || '')" :alt="productData['image']['name'] || ''"&ndash;&gt;-->
+<!--            &lt;!&ndash;                         class="image__product"/>&ndash;&gt;-->
+<!--            <div class="image__discount" v-if="is_discount">- {{ productData.get_sale.percent }}%</div>-->
+<!--            <span class="info-price__price">{{ is_discount ? productData['price_with_sale'] : productData['price'] }} грн</span>-->
+<!--            <span class="info-price__discount" v-if="is_discount">{{ productData['price'] }} грн</span>-->
 
-            <div class="product__info">
-                <v-btn class="product__button__snackbar white--text" elevation="0" @click="openBasket()">
-                    Перейти в корзину
-                </v-btn>
-                <v-btn class="product__button__snackbar white--text" elevation="0" @click="showMessage = false">
-                    Продолжить покупки
-                </v-btn>
-            </div>
+<!--            <div class="product__info">-->
+<!--                <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="openBasket()">-->
+<!--                    Перейти в корзину-->
+<!--                </v-btn>-->
+<!--                <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="showMessage = false">-->
+<!--                    Продолжить покупки-->
+<!--                </v-btn>-->
+<!--            </div>-->
         </v-snackbar>
     </div>
 </template>
@@ -239,7 +239,7 @@
                     top: true,
                     right: true,
                     color: 'white',
-                    timeout: 10000,
+                    timeout: 900,
                     multiLine: true
                 },
                 errorValid: {

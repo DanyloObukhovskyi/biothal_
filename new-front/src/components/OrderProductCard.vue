@@ -49,7 +49,6 @@
             }
         },
         created() {
-            console.log(this.dataCard)
             this.product = this.dataCard;
         },
         methods: {

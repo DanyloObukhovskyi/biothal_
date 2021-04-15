@@ -441,7 +441,6 @@ export default {
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
 
-                console.log(this.paymentMethod)
                 if (validate) {
                     const form = {
                         number: this.number,

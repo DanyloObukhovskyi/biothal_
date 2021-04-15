@@ -34,26 +34,26 @@
                 Товар добавлен в корзину
             </span>
             <v-divider style="color: #c7c7c7;"/>
-            <img class="product__image"
-                 @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-                 :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
-                 :alt="dataCard['image']['name']"/>
-            <div class="product__description">
-                <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">
-                    {{ dataCard['product_description']['name'] }}
-                </div>
-                <div class="product__description__price default-cursor">
-                    {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
-            </div>
-            <div>
+<!--            <img class="product__image"-->
+<!--                 @click="toPage({name: 'product', params: {id: dataCard['id']}})"-->
+<!--                 :src="this.api+'/storage/img/products/' + dataCard['image']['name']"-->
+<!--                 :alt="dataCard['image']['name']"/>-->
+<!--            <div class="product__description">-->
+<!--                <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">-->
+<!--                    {{ dataCard['product_description']['name'] }}-->
+<!--                </div>-->
+<!--                <div class="product__description__price default-cursor">-->
+<!--                    {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>-->
+<!--            </div>-->
+<!--            <div>-->
 
-                <v-btn class="product__button white--text" elevation="0" @click="openBasket()">
-                    Перейти в корзину
-                </v-btn>
-                <v-btn class="product__button white--text" elevation="0" @click="showMessage = false">
-                    Продолжить покупки
-                </v-btn>
-            </div>
+<!--                <v-btn class="product__button white&#45;&#45;text" elevation="0" @click="openBasket()">-->
+<!--                    Перейти в корзину-->
+<!--                </v-btn>-->
+<!--                <v-btn class="product__button white&#45;&#45;text" elevation="0" @click="showMessage = false">-->
+<!--                    Продолжить покупки-->
+<!--                </v-btn>-->
+<!--            </div>-->
 
 
         </v-snackbar>
@@ -91,7 +91,7 @@ export default {
       snackbar: {
         right: true,
         color: 'white',
-        timeout: 10000,
+        timeout: 900,
         multiLine: true
       },
       name: '',
