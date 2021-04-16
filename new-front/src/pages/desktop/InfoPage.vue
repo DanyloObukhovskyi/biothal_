@@ -1,12 +1,10 @@
 <template>
     <div>
-        <div class="slider-wrapper" v-if="!isMobile">
-            <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
-                <div class="slide" v-for="(item, index) in carousel" :key="index">
-                    <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
-                </div>
-            </agile>
-        </div>
+        <agile class="agile-slider" autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
+            <div class="slide" v-for="(item, index) in carousel" :key="index">
+                <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
+            </div>
+        </agile>
         <div class="info-page__title">
             {{article.title || 'Статья еще не добавлена'}}
         </div>
@@ -70,7 +68,7 @@
             text-align: center;
             text-transform: uppercase;
             font-size: 34px;
-            margin: 50px;
+            margin: 50px 50px 0 50px;
 
             @media screen and (max-width: 600px) {
                 margin: 20px;
@@ -80,16 +78,16 @@
         &__content {
             &__wrapper {
                 max-width: 100%;
-                padding: 0 45px 45px 45px;
+                padding: 0 45px 45px 45px !important;
 
                 @media screen and (max-width: 600px) {
-                    padding: 0 20px 20px 20px;
+                    padding: 0 20px 20px 20px !important;
                 }
             }
         }
+    }
 
-        .slider-wrapper {
-            width: 100%;
-        }
+    .agile-slider {
+        padding: 0 !important;
     }
 </style>
