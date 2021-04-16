@@ -27,36 +27,6 @@
         Купить
       </v-btn>
     </div>
-    <v-snackbar
-      v-model="showMessage"
-      v-bind="snackbar">
-      <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
-                Товар добавлен в корзину
-            </span>
-            <v-divider style="color: #c7c7c7;"/>
-            <img class="product__image"
-                 @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-                 :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
-                 :alt="dataCard['image']['name']"/>
-            <div class="product__description">
-                <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">
-                    {{ dataCard['product_description']['name'] }}
-                </div>
-                <div class="product__description__price default-cursor">
-                    {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
-            </div>
-            <div>
-
-                <v-btn class="product__button white--text" elevation="0" @click="openBasket()">
-                    Перейти в корзину
-                </v-btn>
-                <v-btn class="product__button white--text" elevation="0" @click="showMessage = false">
-                    Продолжить покупки
-                </v-btn>
-            </div>
-
-
-        </v-snackbar>
 
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
                            :user_id="user_id"/>
@@ -101,15 +71,16 @@ export default {
   },
   methods: {
     ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT',
-                visibleBasket: 'VISIBLE_BASKET'
+      addProduct: 'ADD_PRODUCT'
     }),
     addToCart() {
-      this.showMessage = true;
       const product = this.dataCard;
       product.quantity = 1;
 
-      this.addProduct(product)
+      this.addProduct(product);
+
+      this.action_data_basket_info(product);
+      this.action_visible_basket_info(true);
     },
     preOrder() {
       this.getProfile();

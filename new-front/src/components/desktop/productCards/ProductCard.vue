@@ -40,37 +40,37 @@
     </div>
 
 
-    <v-snackbar
-      v-model="showMessage"
-      v-bind="snackbar">
-        <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">
-            Товар добавлен в корзину
-        </span>
-        <v-divider style="color: #c7c7c7;"/>
+<!--    <v-snackbar-->
+<!--      v-model="showMessage"-->
+<!--      v-bind="snackbar">-->
+<!--        <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">-->
+<!--            Товар добавлен в корзину-->
+<!--        </span>-->
+<!--        <v-divider style="color: #c7c7c7;"/>-->
 
-            <img class="product__snackbar" @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-                 :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"
-                 :alt="dataCard.image ? dataCard.image.name : ''"/>
+<!--            <img class="product__snackbar" @click="toPage({name: 'product', params: {id: dataCard['id']}})"-->
+<!--                 :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"-->
+<!--                 :alt="dataCard.image ? dataCard.image.name : ''"/>-->
 
-            <span class="product__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{
-                  dataCard['product_description']['name']
-                }}
-            </span>
+<!--            <span class="product__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{-->
+<!--                  dataCard['product_description']['name']-->
+<!--                }}-->
+<!--            </span>-->
 
-        <div class="product__info">
-            <span class="product__info__price default-cursor">
-                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
-            </span>
+<!--        <div class="product__info">-->
+<!--            <span class="product__info__price default-cursor">-->
+<!--                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн-->
+<!--            </span>-->
 
-            <v-btn class="product__button__snackbar white--text" elevation="0" @click="openBasket()">
-                Перейти в корзину
-            </v-btn>
-            <v-btn class="product__button__snackbar white--text" elevation="0" @click="showMessage = false">
-                Продолжить покупки
-            </v-btn>
-        </div>
+<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="action_visible_basket(true)">-->
+<!--                Перейти в корзину-->
+<!--            </v-btn>-->
+<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="showMessage = false">-->
+<!--                Продолжить покупки-->
+<!--            </v-btn>-->
+<!--        </div>-->
 
-    </v-snackbar>
+<!--    </v-snackbar>-->
 
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
                            :user_id="user_id"/>
@@ -125,13 +125,6 @@ export default {
       isFavorites: false,
       isFavoritesShow: false,
       showMessage: false,
-      snackbar: {
-        top: true,
-        right: true,
-        color: 'white',
-        timeout: 10000,
-        multiLine: true
-      },
       name: '',
       phone: '',
       user_id: ''
@@ -140,16 +133,16 @@ export default {
   },
   methods: {
     ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT',
-      visibleBasket: 'VISIBLE_BASKET'
+      addProduct: 'ADD_PRODUCT'
     }),
     addProductToCart() {
-      this.showMessage = true;
-
       const product = this.dataCard;
       product.quantity = (product.minimum !== 0) ? product.minimum : 1;
 
       this.addProduct(product)
+
+      this.action_data_basket_info(product);
+      this.action_visible_basket_info(true);
     },
     preOrder() {
       this.getProfile();

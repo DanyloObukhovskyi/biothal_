@@ -2,7 +2,6 @@ const state = {
     products: [],
     globalSales: [],
     groupSales: [],
-    visible: false
 }
 
 const mutations = {
@@ -70,9 +69,6 @@ const actions = {
     },
     SET_GROUP_SALES(context, groupSales) {
         context.commit('SET_GROUP_SALES', groupSales);
-    },
-    VISIBLE_BASKET(context, visible) {
-        context.commit('VISIBLE_BASKET', visible);
     },
     CLEAR_ALL_CART(context){
         context.commit('CLEAR_ALL_CART');

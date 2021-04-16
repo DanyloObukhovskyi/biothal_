@@ -4,13 +4,15 @@ import createPersistedState from "vuex-persistedstate";
 
 import session from './modules/session'
 import basket from "./modules/basket";
+import modals from "./modules/modals";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
         session,
-        basket
+        basket,
+        modals
     },
     state: {},
     actions: {},

@@ -1,5 +1,6 @@
 
 import variables from '@/styles/main.scss'
+import {mapActions, mapGetters} from "vuex";
 
 
 export default {
@@ -20,9 +21,19 @@ export default {
         },
         isAuthorize() {
             return this.$store.getters.getToken;
-        }
+        },
+      ...mapGetters('modals', {
+        visible_basket: 'visible_basket',
+        visible_basket_info: 'visible_basket_info',
+        data_basket_info: 'visible_data_basket_info'
+      })
     },
     methods: {
+      ...mapActions('modals', {
+        action_visible_basket: 'ACTION_VISIBLE_BASKET',
+        action_visible_basket_info: 'ACTION_VISIBLE_BASKET_INFO',
+        action_data_basket_info: 'ACTION_VISIBLE_DATA_BASKET_INFO'
+      }),
         toPage(rout) {
             if (this.$router.history.current.name !== rout.name
                 || JSON.stringify(this.$router.history.current.params) !== JSON.stringify(rout.params ? rout.params : {})) {
