@@ -39,39 +39,6 @@
       </v-btn>
     </div>
 
-
-<!--    <v-snackbar-->
-<!--      v-model="showMessage"-->
-<!--      v-bind="snackbar">-->
-<!--        <span style="color: black; display: flex; justify-content: center; margin-bottom: 7px">-->
-<!--            Товар добавлен в корзину-->
-<!--        </span>-->
-<!--        <v-divider style="color: #c7c7c7;"/>-->
-
-<!--            <img class="product__snackbar" @click="toPage({name: 'product', params: {id: dataCard['id']}})"-->
-<!--                 :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"-->
-<!--                 :alt="dataCard.image ? dataCard.image.name : ''"/>-->
-
-<!--            <span class="product__text" style=" display: block; text-overflow: ellipsis; white-space: normal;">{{-->
-<!--                  dataCard['product_description']['name']-->
-<!--                }}-->
-<!--            </span>-->
-
-<!--        <div class="product__info">-->
-<!--            <span class="product__info__price default-cursor">-->
-<!--                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн-->
-<!--            </span>-->
-
-<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="action_visible_basket(true)">-->
-<!--                Перейти в корзину-->
-<!--            </v-btn>-->
-<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="showMessage = false">-->
-<!--                Продолжить покупки-->
-<!--            </v-btn>-->
-<!--        </div>-->
-
-<!--    </v-snackbar>-->
-
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
                            :user_id="user_id"/>
   </div>
