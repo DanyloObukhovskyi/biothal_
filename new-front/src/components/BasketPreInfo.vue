@@ -48,7 +48,7 @@ export default {
         top: true,
         right: !this.isMobile,
         color: '#fff',
-        timeout: 100000000,
+        timeout: 10000,
         multiLine: true,
         centered: this.isMobile,
         'content-class': 'basket-pre-info',
