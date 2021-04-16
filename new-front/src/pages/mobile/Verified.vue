@@ -19,6 +19,7 @@
                 </div>
             </v-form>
         </div>
+        <div class="re-request" @click="getNewVerifyCode">Отправить код повторно</div>
         <div class="page-form__bottom">
             <v-btn dark class="checkout-button" @click="saveUser" elevation="0">
                 Подтвердить
@@ -86,6 +87,30 @@
             },
             clearValidation(){
                 this.errorValid.code = ''
+            },
+            async getNewVerifyCode() {
+
+                this.$loading(true)
+                let user = {
+                    code: this.code,
+                    phone_number: this.phone
+                }
+                try {
+                    await this.axios.post('newVerifyCode' , user).then(({data}) => {
+
+                        if (data) {
+                            this.$loading(false)
+                            this.$notify({
+                                type: 'success',
+                                title: 'Код отправлен повторно'
+                            });
+                        }
+                    });
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
             }
         }
     }
@@ -169,5 +194,11 @@
     }
     .register_input{
         margin-bottom: 30px;
+    }
+
+    .re-request {
+        margin-bottom: 20px;
+        color: #1b4b72;
+        cursor: pointer;
     }
 </style>

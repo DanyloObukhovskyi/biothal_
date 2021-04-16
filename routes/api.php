@@ -83,6 +83,7 @@ Route::group(['namespace' => 'Api'], function () {
 //Route::namespace('api')->post('loggedOut', 'Auth\LoginController@loggedOut');
 
 Route::post('register', 'Auth\RegisterController@create');
+Route::post('newVerifyCode', 'Auth\RegisterController@getNewVerifyCode');
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
 Route::post('refresh', 'AuthController@refresh');

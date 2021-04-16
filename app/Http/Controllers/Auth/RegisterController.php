@@ -126,6 +126,23 @@ class RegisterController extends Controller
         return $randomString;
     }
 
+    public  function getNewVerifyCode(Request $request) {
+
+        $code = $this->generateRandomString(6);
+
+        PhoneVerify::where('phone_number', $request->phone_number)->update([
+            'code' => $code,
+            'expired_in' => Carbon::now()->addMinute(30)
+        ]);
+
+        $this->sendCode($request->phone_number, $code);
+
+        return response()->json([
+            'message' => 'Код отправлен повторно',
+        ], 201);
+
+    }
+
     public function sendCode($phone, $code)
     {
 
