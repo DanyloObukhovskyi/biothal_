@@ -44,7 +44,13 @@ class ProfileController extends Controller
             'emailReceive',
             'image'
         ])->find($userId);
-        $orderList = Order::with( 'orderType', 'userAddress', 'orderStatus')->where('user_id', $userId)->get();
+        $orderList = Order::with( [
+            'globalSales',
+            'groupSales',
+            'orderType',
+            'userAddress',
+            'orderStatus'
+        ])->where('user_id', $userId)->get();
 
         return response()->json([
             'orderList' => $orderList,

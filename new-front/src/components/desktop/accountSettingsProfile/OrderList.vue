@@ -34,8 +34,13 @@
             </template>
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length">
-
-
+                    <div class="product-basket__left">
+                        <div>Область: {{item.user_address.region || 'не указано'}}</div>
+                        <div>Город: {{item.user_address.cities || 'не указано'}}</div>
+                        <div>{{ item.user_address.is_address_delivery ? 'Адрес:' : 'Отделение:'}} {{item.user_address.department || 'не указано'}}</div>
+                        <div v-if="item.sale_id">{{ item.sale_type === 1 ? 'Глобальная' : 'Групповая'}} скидка: {{item.sale_type === 1 ? item.global_sales.procent_modal : item.group_sales.percent }}%</div>
+                    </div>
+                    <hr>
                     <div class="product-card__content">
                         <OrderProductCard class="product-card__item-three"
                             v-for="product in orderProducts"
@@ -136,6 +141,7 @@
                         }).then(({data}) => {
                             this.orderProducts = data.orderProducts;
                         })
+                        console.log(this.orderProducts)
 
                     }
                     this.$loading(false)
@@ -149,6 +155,10 @@
 </script>
 
 <style scoped lang="scss">
+
+    @import "src/styles/main";
+    @import "@/styles/mixins";
+
     .order-list {
         &__wrapper {
             background-color: #fff;
@@ -159,5 +169,23 @@
     .sum-orders {
         font-size: 16px !important;
         font-weight: 400;
+    }
+
+    .product-basket {
+
+        &__left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            margin: 10px 0;
+            background-color: #fff;
+            width: 100%;
+
+            @include _600 {
+                width: 40%;
+                /*padding: 15px 4px;*/
+            }
+        }
     }
 </style>

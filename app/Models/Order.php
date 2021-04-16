@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Products\GlobalSales;
 use App\Models\OrderHistory;
 use App\Models\ShoppingCart;
 use App\Models\OrderStatuses;
@@ -58,5 +59,13 @@ class Order extends Model
 
     public function payment () {
         return $this->hasOne(Payment::class, 'order_id', 'id');
+    }
+
+    public function globalSales () {
+        return $this->hasOne(GlobalSales::class, 'id', 'sale_id');
+    }
+
+    public function groupSales () {
+        return $this->hasOne(GroupSale::class, 'id', 'sale_id');
     }
 }

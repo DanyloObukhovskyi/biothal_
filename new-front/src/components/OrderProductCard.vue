@@ -1,5 +1,6 @@
 <template>
     <div class="product-basket__wrapper">
+        <div class="product-basket__sale" v-if="product.is_sales">-{{ product.percent }}%</div>
         <div class="product-basket__left">
             <img class="product-basket__image" height="130" width="130"
                  @click="toPage({name: 'product', params: {id: product.product_data.id}})"
@@ -12,9 +13,16 @@
             <div class="product-basket__right__text">
                 <div class="product-basket__right__text__quantity">Количество: {{product.quantity}} шт.</div>
 
-                <div class="product-basket__right__text__price">Цена: {{ product.is_sales ? product.price_with_sales : product.price }} грн.</div>
+                <div v-if="product.is_sales" class="product-basket__right__text__old-price">
+                    Старая цена: {{product.price}} грн.
+                </div>
+                <div class="product-basket__right__text__price">
+                    Цена: {{ product.is_sales ? product.price_with_sales : product.price }} грн.
+                </div>
 
-                <div class="product-basket__right__text__price">Сумма: {{product.quantity * (product.is_sales ? product.price_with_sales : product.price) }} грн.</div>
+                <div class="product-basket__right__text__price">
+                    Сумма: {{product.quantity * (product.is_sales ? product.price_with_sales : product.price) }} грн.
+                </div>
             </div>
         </div>
     </div>
