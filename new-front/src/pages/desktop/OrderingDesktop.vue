@@ -441,7 +441,6 @@ export default {
                 this.clearValidation()
                 let validate = await this.$refs['orderForm'].validate();
 
-                console.log(this.paymentMethod)
                 if (validate) {
                     const form = {
                         number: this.number,
@@ -465,7 +464,7 @@ export default {
                         });
                         this.clearValidation();
                         let postData = data.portmone
-                        console.log(postData)
+
                         if (postData) {
                             this.toPage({name: 'payment', params: {paymentUrl: postData}});
                         } else {

@@ -61,7 +61,7 @@ export default {
       snackbar: {
         right: true,
         color: 'white',
-        timeout: 10000,
+        timeout: 900,
         multiLine: true
       },
       name: '',

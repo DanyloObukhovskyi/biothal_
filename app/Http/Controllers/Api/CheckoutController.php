@@ -306,6 +306,7 @@ class CheckoutController extends Controller
         $orderType = OrderType::find(1);
 
         return response()->json([
+            'token' => $order->token,
             'order_id' => $order->user_order_id,
             'message' => 'Заказ оформлен!'
         ]);
@@ -388,6 +389,7 @@ class CheckoutController extends Controller
         $orderType = OrderType::find(1);
 
         return response()->json([
+            'token' => $order->token,
             'order_id' => $order->user_order_id,
             'message' => 'Заказ оформлен!'
         ]);
@@ -433,6 +435,7 @@ class CheckoutController extends Controller
         $order->save();
 
         return response()->json([
+            'token' => $order->token,
             'order_id' => $order->user_order_id,
             'message' => 'Предзаказ оформлен!'
         ]);

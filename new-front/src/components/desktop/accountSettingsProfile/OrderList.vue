@@ -3,10 +3,11 @@
         <v-data-table
             :headers="orderListHeaders"
             :items="orderList"
-            :single-expand="true"
             :expanded.sync="expanded"
             item-key="id"
             show-expand
+            single-expand
+            @item-expanded="fetchOrderProducts"
             class="elevation-1"
             :hide-default-footer="!orderList.length"
             :hide-default-header="!orderList.length"
@@ -22,8 +23,8 @@
             </template>
             <template v-if="orderList.length" slot="body.append">
                 <tr>
-                    <th class="title">Сумма заказов</th><th></th><th></th>
-                    <th class="title">{{ sumField('total_sum') }}</th>
+                    <th></th><th></th><th></th><th class="sum-orders">Сумма заказов</th>
+                    <th class="sum-orders">{{ sumField('total_sum') }}</th>
                 </tr>
             </template>
             <template slot="no-data">
@@ -33,7 +34,14 @@
             </template>
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length">
-                    More info about {{ item.name }}
+
+
+                    <div class="product-card__content">
+                        <OrderProductCard class="product-card__item-three"
+                            v-for="product in orderProducts"
+                            :key="product.id"
+                            :data-card="product"/>
+                    </div>
                 </td>
             </template>
         </v-data-table>
@@ -41,8 +49,13 @@
 </template>
 
 <script>
+    import OrderProductCard from "../../OrderProductCard";
+
     export default {
         name: "OrderList",
+        components: {
+            OrderProductCard
+        },
         data() {
             return {
                 isOrders: true,
@@ -68,20 +81,10 @@
                         order_type: {
                             title: ''
                         },
-                        total_sum: '',
-                        // products: {
-                        //     attr: {
-                        //         image: {
-                        //             name: ''
-                        //         }
-                        //     },
-                        //     is_sales: '',
-                        //     price: '',
-                        //     price_with_sales: '',
-                        //     quantity: ''
-                        // }
+                        total_sum: ''
                     }
-                ]
+                ],
+                orderProducts: []
             }
         },
         mounted() {
@@ -119,6 +122,27 @@
             },
             sumField(key) {
                 return (this.orderList.reduce((a, b) => +a + (+b[key] || 0), 0)).toFixed(2)
+            },
+            async fetchOrderProducts({item}){
+                console.log(item)
+                this.$loading(true)
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        await this.axios.post('profileOrderProducts/' + item.id, {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        }).then(({data}) => {
+                            this.orderProducts = data.orderProducts;
+                        })
+
+                    }
+                    this.$loading(false)
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
             }
         }
     }
@@ -130,5 +154,10 @@
             background-color: #fff;
             width: 100%;
         }
+    }
+
+    .sum-orders {
+        font-size: 16px !important;
+        font-weight: 400;
     }
 </style>

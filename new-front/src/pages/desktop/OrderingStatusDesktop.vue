@@ -59,6 +59,10 @@
                 10000
             );
         },
+        beforeRouteLeave (to, from, next) {
+            clearTimeout(this.redirect);
+            next()
+        },
         methods: {
             ...mapActions('basket', {
                 deleteProduct: 'DELETE_PRODUCT',
@@ -123,7 +127,7 @@
             font-weight: bold;
             font-size: 16px;
             line-height: 22px;
-            margin-top: 10px;
+            margin-bottom: 20px;
 
             &:hover {
                 box-shadow: 0 0 33px #f2f2f2;

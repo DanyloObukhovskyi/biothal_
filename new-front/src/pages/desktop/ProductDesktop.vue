@@ -55,7 +55,8 @@
                 class="info-count__input-control">
                 mdi-plus
               </v-icon>
-              <input v-model="count_good" :disabled="stock_status === 2" type="number" class="input-count-good"/>
+              <input v-model="count_good" :disabled="stock_status === 2" type="number"
+                                   class="input-count-good"/>
               <v-icon
                 @click="decrementCountGood"
                 :disabled="stock_status === 2"
@@ -87,7 +88,8 @@
               </v-form>
               <span v-if="stock_status === 2" class="info-pay-control__text"
                     @click="preOrder()">Оформить предзаказ</span>
-              <span v-else class="info-pay-control__text" @click="checkout()">Оформить товар в 1 клик</span>
+              <span v-else class="info-pay-control__text"
+                                  @click="checkout()">Оформить товар в 1 клик</span>
             </div>
           </div>
         </div>
@@ -163,96 +165,96 @@ import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
 import VueGallerySlideshow from 'vue-gallery-slideshow';
 import {mapActions, mapGetters} from "vuex";
 
-export default {
-  name: "ProductDesktop",
-  components: {
-    TheMask,
-    ProductCardsSet,
-    VueGallerySlideshow
-  },
-  props: {
-    id: {
-      type: [Number, String],
-      default: 1
-    },
-  },
-  computed: {
-    validPhoneInput() {
-      return this.phone.length === 10
-    },
-    route() {
-      return this.$route.params;
-    },
-    numberRules() {
-      return [
-        v => !!v || 'Вы не ввели свой телефоный номер',
-        v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
-      ];
-    }
-  },
-  watch: {
-    route: {
-      deep: true,
-      handler(newRoute, oldRoute) {
-        this.fetchProductDetails();
-      },
-    }
-  },
-  created() {
-    this.getProfile();
-    this.fetchProductDetails();
-  },
-  data() {
-    return {
-      tab: null,
-      count_good: 1,
-      minimum_quantity: '',
-      items: [],
-      is_discount: false,
-      phone: '', user_id: '',
-      productData: {
-        image: {
-          name: ''
+    export default {
+        name: "ProductDesktop",
+        components: {
+            TheMask,
+            ProductCardsSet,
+            VueGallerySlideshow
         },
-        product_description: {}
-      }, stock_status: '',
-      attr: [],
-      description: [],
-      productImages: [],
-      recommendedProduct: [],
-      images: [],
-      image: '',
-      index: null,
-      subImages: null,
-      category: {
-        main_category: {
-          title: ''
+        props: {
+            id: {
+                type: [Number, String],
+                default: 1
+            },
         },
-        sub_category: {
-          title: ''
-        }
-      },
-      productDescription: '',
-      showMessage: false,
-      snackbar: {
-        top: true,
-        right: true,
-        color: 'white',
-        timeout: 10000,
-        multiLine: true
-      },
-      errorValid: {
-        phone: ''
-      }
-    }
-  },
-  methods: {
-    ...mapActions('basket', {
-      addProduct: 'ADD_PRODUCT',
-      visibleBasket: 'VISIBLE_BASKET'
-    }),
-    addToCart() {
-      // this.showMessage = true;
+        computed: {
+            validPhoneInput() {
+                return this.phone.length === 10
+            },
+            route() {
+                return this.$route.params;
+            },
+            numberRules() {
+                return [
+                    v => !!v || 'Вы не ввели свой телефоный номер',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символов',
+                ];
+            }
+        },
+        watch: {
+            route: {
+                deep: true,
+                handler(newRoute, oldRoute) {
+                    this.fetchProductDetails();
+                },
+            }
+        },
+        created() {
+            this.getProfile();
+            this.fetchProductDetails();
+        },
+        data() {
+            return {
+                tab: null,
+                count_good: 1,
+                minimum_quantity: '',
+                items: [],
+                is_discount: false,
+                phone: '', user_id: '',
+                productData: {
+                    image: {
+                        name: ''
+                    },
+                    product_description: {}
+                }, stock_status: '',
+                attr: [],
+                description: [],
+                productImages: [],
+                recommendedProduct: [],
+                images: [],
+                image: '',
+                index: null,
+                subImages: null,
+                category: {
+                    main_category: {
+                        title: ''
+                    },
+                    sub_category: {
+                        title: ''
+                    }
+                },
+                productDescription: '',
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    right: true,
+                    color: 'white',
+                    timeout: 900,
+                    multiLine: true
+                },
+                errorValid: {
+                    phone: ''
+                }
+            }
+        },
+        methods: {
+            ...mapActions('basket', {
+                addProduct: 'ADD_PRODUCT',
+                visibleBasket: 'VISIBLE_BASKET'
+            }),
+            addToCart() {
+                // this.showMessage = true;
       const product = this.productData;
       product.quantity = this.count_good;
 
@@ -283,7 +285,7 @@ export default {
       this.category = data.data.product_category;
       this.count_good = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
       this.minimum_quantity = (data.data.productDetails.minimum !== 0) ? data.data.productDetails.minimum : 1;
-      this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
+                this.stock_status = data.data.productDetails.stock_status_id ? data.data.productDetails.stock_status_id : '';
 
       if (this.productImages) {
         let url = [];
@@ -313,61 +315,61 @@ export default {
         this.clearValidation()
         let validate = await this.$refs['orderQuickForm'].validate();
 
-        if (validate) {
-          const product = this.productData;
-          product.quantity = this.count_good;
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
 
-          const form = {
-            phone: this.phone,
-            product: product,
-            user_id: this.user_id
-          };
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
 
-          let data = await this.axios.post('checkout/create/orderQuickFromProduct', form)
+                        await this.axios.post('checkout/create/orderQuickFromProduct', form).then(({data}) => {
 
-          if (data) {
-            let message = data.data.message
+                            if (data) {
+                                this.$notify({
+                                    type: 'success',
+                                    title: 'Успех!',
+                                    text: data.message
+                                });
+                                this.clearValidation();
 
-            this.$notify({
-              type: 'success',
-              title: 'Успех!',
-              text: message
-            });
-            this.clearValidation();
+                                this.toPage({name: 'order-status', params: {token: data.token}});
 
-            this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+                                this.clearCartProducts()
+                            }
+                        })
+                    }
+                    this.$loading(false);
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
 
-            this.clearCartProducts()
-          }
-        }
-        this.$loading(false);
-      } catch (e) {
-        this.$loading(false);
-        this.errorMessagesValidation(e);
-      }
+            },
+            async preOrder() {
+                this.$loading(true);
+                try {
+                    this.clearValidation()
+                    let validate = await this.$refs['orderQuickForm'].validate();
 
-    },
-    async preOrder() {
-      this.$loading(true);
-      try {
-        this.clearValidation()
-        let validate = await this.$refs['orderQuickForm'].validate();
+                    if (validate) {
+                        const product = this.productData;
+                        product.quantity = this.count_good;
 
-        if (validate) {
-          const product = this.productData;
-          product.quantity = this.count_good;
+                        const form = {
+                            phone: this.phone,
+                            product: product,
+                            user_id: this.user_id
+                        };
 
-          const form = {
-            phone: this.phone,
-            product: product,
-            user_id: this.user_id
-          };
+                        await this.axios.post('checkout/create/preOrder', form).then(({data}) => {
 
-          let data = await this.axios.post('checkout/create/preOrder', form)
+                            this.clearValidation();
 
-          this.clearValidation();
-
-          this.toPage({name: 'order-status', params: {id: data.data.order_id}});
+          this.toPage({name: 'order-status', params: {token: data.token}});
+                        })
         }
         this.$loading(false);
       } catch (e) {
@@ -625,18 +627,18 @@ export default {
           height: 48px;
           text-align: center;
           border-radius: 50px;
-          position: relative;
-          align-items: center;
-          padding: 0 25px !important;
+                        position: relative;
+                        align-items: center;
+                        padding: 0 25px !important;
 
-          &.v-text-field {
-            padding: 0;
-          }
+                        &.v-text-field {
+                            padding: 0;
+                        }
 
-          & ::v-deep {
-            & .v-input__slot {
-              padding: 0;
-              margin: 0;
+                        & ::v-deep {
+                            & .v-input__slot {
+                                padding: 0;
+                                margin: 0;
 
               & input {
                 padding: 0;
@@ -649,17 +651,17 @@ export default {
               }
             }
 
-            & .v-text-field {
-              &__details {
-                position: absolute;
-                bottom: -15px;
-                white-space: nowrap;
-                transform: translateX(0);
-                min-width: fit-content;
-                text-align: center;
-              }
-            }
-          }
+                            & .v-text-field {
+                                &__details {
+                                    position: absolute;
+                                    bottom: -15px;
+                                    white-space: nowrap;
+                                    transform: translateX(0);
+                                    min-width: fit-content;
+                                    text-align: center;
+                                }
+                            }
+                        }
         }
       }
     }
@@ -727,18 +729,18 @@ input[type=number] {
     height: 25px;
   }
 
-  .description-content {
-    padding: 0 20px;
+        .description-content {
+            padding: 0 20px;
 
-    & > div {
-      float: left;
-    }
+            & > div {
+                float: left;
+            }
 
-    & * {
-      font-family: inherit;
+            & * {
+                font-family: inherit;
+            }
+        }
     }
-  }
-}
 
 .input-count-good {
   width: 42px;
