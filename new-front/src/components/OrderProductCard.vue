@@ -94,10 +94,9 @@
 
         &__left {
             background-color: #fff;
-            width: 25%;
 
             @include _600 {
-                width: 40%;
+                /*min-width: 40%;*/
                 /*padding: 15px 4px;*/
             }
         }

@@ -23,9 +23,9 @@
                         <v-spacer></v-spacer>
                     </v-toolbar>
                 </template>
-                <template v-if="orderList.length" slot="body.append">
+                <template v-if="orderList.length" slot="body.append, body.isMobile" >
                     <tr>
-                        <th></th><th></th><th class="sum-orders">Сумма заказов</th>
+                        <th></th><th></th><th></th><th class="sum-orders">Сумма заказов</th>
                         <th class="sum-orders">{{ sumField('total_sum') }}</th>
                     </tr>
                 </template>
@@ -42,7 +42,23 @@
                                           :key="product.id"
                                           :data-card="product"/>
                     </div>
-
+                    <hr>
+                    <div class="product-basket__left">
+                        <div>
+                            Область: {{item.user_address ? item.user_address.region ? item.user_address.region : 'не указано' : ''}}
+                        </div>
+                        <div>
+                            Город: {{item.user_address ? item.user_address.cities ? item.user_address.cities : 'не указано' : ''}}
+                        </div>
+                        <div>
+                            {{item.user_address ? item.user_address.is_address_delivery ? 'Адрес:' : 'Отделение:' : ''}}
+                            {{item.user_address ? item.user_address.department ? item.user_address.department : 'не указано' : ''}}
+                        </div>
+                        <div v-if="item.sale_id">
+                            {{ item.sale_type === 1 ? 'Глобальная' : 'Групповая'}}
+                            скидка: {{item.sale_type === 1 ? item.global_sales.procent_modal : item.group_sales.percent }}%
+                        </div>
+                    </div>
                 </td>
             </template>
             </v-data-table>
@@ -190,24 +206,27 @@
             sumField(key) {
                 return (this.orderList.reduce((a, b) => +a + (+b[key] || 0), 0)).toFixed(2)
             },
-            async fetchOrderProducts({item}){
-                this.$loading(true)
-                try {
-                    const token = this.$store.getters.getToken;
-                    if (token) {
-                        await this.axios.post('profileOrderProducts/' + item.id, {}, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        }).then(({data}) => {
-                            this.orderProducts = data.orderProducts;
-                        })
+            async fetchOrderProducts({item, value}){
+                if (value) {
+                    this.$loading(true)
+                    try {
+                        const token = this.$store.getters.getToken;
+                        if (token) {
+                            await this.axios.post('profileOrderProducts/' + item.id, {}, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            }).then(({data}) => {
+                                this.orderProducts = data.orderProducts;
+                            })
+                        }
+                        this.$loading(false)
+                    } catch (e) {
+                        this.$loading(false)
+                        this.errorMessagesValidation(e);
                     }
-                    this.$loading(false)
-
-                } catch (e) {
-                    this.$loading(false)
-                    this.errorMessagesValidation(e);
+                } else {
+                    this.orderProducts = [];
                 }
             }
         }
@@ -215,11 +234,35 @@
 </script>
 
 <style scoped lang="scss">
+
+    @import "src/styles/main";
+    @import "@/styles/mixins";
+
     .order-list {
         &__wrapper {
-            height: 100%;
+            /*height: 100%;*/
             background-color: #f7f7f7;
-            padding: 20px;
+            /*padding: 20px;*/
         }
     }
+
+    .sum-orders {
+        font-size: 12px !important;
+        font-weight: 400;
+    }
+
+    .product-basket {
+
+        &__left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            margin: 10px 0;
+            background-color: #fff;
+            min-width: 40%;
+
+        }
+    }
+
 </style>

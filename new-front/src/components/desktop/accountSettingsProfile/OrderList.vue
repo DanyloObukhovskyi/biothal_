@@ -34,18 +34,28 @@
             </template>
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length">
-                    <div class="product-basket__left">
-                        <div>Область: {{item.user_address.region || 'не указано'}}</div>
-                        <div>Город: {{item.user_address.cities || 'не указано'}}</div>
-                        <div>{{ item.user_address.is_address_delivery ? 'Адрес:' : 'Отделение:'}} {{item.user_address.department || 'не указано'}}</div>
-                        <div v-if="item.sale_id">{{ item.sale_type === 1 ? 'Глобальная' : 'Групповая'}} скидка: {{item.sale_type === 1 ? item.global_sales.procent_modal : item.group_sales.percent }}%</div>
-                    </div>
-                    <hr>
                     <div class="product-card__content">
                         <OrderProductCard class="product-card__item-three"
                             v-for="product in orderProducts"
                             :key="product.id"
                             :data-card="product"/>
+                    </div>
+                    <hr>
+                    <div class="product-basket__left">
+                        <div>
+                            Область: {{item.user_address ? item.user_address.region ? item.user_address.region : 'не указано' : ''}}
+                        </div>
+                        <div>
+                            Город: {{item.user_address ? item.user_address.cities ? item.user_address.cities : 'не указано' : ''}}
+                        </div>
+                        <div>
+                            {{item.user_address ? item.user_address.is_address_delivery ? 'Адрес:' : 'Отделение:' : ''}}
+                            {{item.user_address ? item.user_address.department ? item.user_address.department : 'не указано' : ''}}
+                        </div>
+                        <div v-if="item.sale_id">
+                            {{ item.sale_type === 1 ? 'Глобальная' : 'Групповая'}}
+                            скидка: {{item.sale_type === 1 ? item.global_sales.procent_modal : item.group_sales.percent }}%
+                        </div>
                     </div>
                 </td>
             </template>
@@ -128,26 +138,27 @@
             sumField(key) {
                 return (this.orderList.reduce((a, b) => +a + (+b[key] || 0), 0)).toFixed(2)
             },
-            async fetchOrderProducts({item}){
-                console.log(item)
-                this.$loading(true)
-                try {
-                    const token = this.$store.getters.getToken;
-                    if (token) {
-                        await this.axios.post('profileOrderProducts/' + item.id, {}, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        }).then(({data}) => {
-                            this.orderProducts = data.orderProducts;
-                        })
-                        console.log(this.orderProducts)
-
+            async fetchOrderProducts({item, value}){
+                if (value) {
+                    this.$loading(true)
+                    try {
+                        const token = this.$store.getters.getToken;
+                        if (token) {
+                            await this.axios.post('profileOrderProducts/' + item.id, {}, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            }).then(({data}) => {
+                                this.orderProducts = data.orderProducts;
+                            })
+                        }
+                        this.$loading(false)
+                    } catch (e) {
+                        this.$loading(false)
+                        this.errorMessagesValidation(e);
                     }
-                    this.$loading(false)
-                } catch (e) {
-                    this.$loading(false)
-                    this.errorMessagesValidation(e);
+                } else {
+                    this.orderProducts = [];
                 }
             }
         }
@@ -181,11 +192,6 @@
             margin: 10px 0;
             background-color: #fff;
             width: 100%;
-
-            @include _600 {
-                width: 40%;
-                /*padding: 15px 4px;*/
-            }
         }
     }
 </style>
