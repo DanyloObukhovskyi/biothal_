@@ -62,7 +62,7 @@
 <!--                {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн-->
 <!--            </span>-->
 
-<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="action_visible_basket(true)">-->-->
+<!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="action_visible_basket(true)">-->
 <!--                Перейти в корзину-->
 <!--            </v-btn>-->
 <!--            <v-btn class="product__button__snackbar white&#45;&#45;text" elevation="0" @click="showMessage = false">-->
