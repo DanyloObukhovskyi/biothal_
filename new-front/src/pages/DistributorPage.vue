@@ -1,6 +1,6 @@
 <template>
     <div>
-        <agile autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
+        <agile class="agile-slider" autoplay :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
             <div class="slide" v-for="(item, index) in carousel" :key="index">
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
@@ -247,5 +247,9 @@
         height: 54px;
         background: #F7F7F7;
         border-radius: 2px;
+    }
+
+    .agile-slider {
+        padding: 0 !important;
     }
 </style>
