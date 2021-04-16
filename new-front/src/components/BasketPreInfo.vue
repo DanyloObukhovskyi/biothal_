@@ -25,11 +25,11 @@
     </div>
 
     <div class="basket-pre-info__product__control">
-      <v-btn rounded class="basket-pre-info__control__button" :color="variables.basecolor" height="28" width="100%"
+      <v-btn rounded class="basket-pre-info__control__button" :color="variables.basecolor" height="36" width="80%"
              @click="action_visible_basket_info(false); action_visible_basket(true)">
         Перейти в корзину
       </v-btn>
-      <v-btn rounded :color="variables.basecolor" class="basket-pre-info__control__button" height="28" width="100%"
+      <v-btn rounded :color="variables.basecolor" class="basket-pre-info__control__button" height="36" width="80%"
              @click="action_data_basket_info(null); action_visible_basket_info(false)">
         Продолжить покупки
       </v-btn>
@@ -115,10 +115,11 @@ export default {
     }
 
     &__control {
+      margin-top: rem(10);
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      height: rem(70);
+      height: rem(90);
     }
   }
 }
