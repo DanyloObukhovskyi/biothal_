@@ -2,7 +2,7 @@
   <v-navigation-drawer
     :width="isMobile ? '100%' : 'auto'"
     :right="!isMobile"
-    :value="visible"
+    :value="visible_basket"
     @input="visibleModal($event)"
     height="100vh"
     class="basket"
@@ -140,12 +140,11 @@ export default {
       'nextGroupSales',
       'linear',
       'productsSum',
-      'productsSumWithSales',
-      'visible'
-    ]),
+      'productsSumWithSales'
+    ])
   },
   watch: {
-    visible(newValue) {
+    visible_basket(newValue) {
       if (newValue) {
         document.querySelector('html')
           .classList
@@ -162,11 +161,10 @@ export default {
       deleteProduct: 'DELETE_PRODUCT',
       setGlobalSales: 'SET_GLOBAL_SALES',
       setGroupSales: 'SET_GROUP_SALES',
-      visibleBasket: 'VISIBLE_BASKET'
         }),
         visibleModal(visible) {
             window.scrollTo(0, 0)
-            this.$store.commit('basket/VISIBLE_BASKET', visible)
+          this.action_visible_basket(visible);
         },
         getGlobalSales() {
             this.axios.post('sales/global')

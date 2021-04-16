@@ -228,11 +228,13 @@ export default {
                 }
             },
             addToCart() {
-                this.showMessage = true;
                 const product = this.productData;
                 product.quantity = 1;
 
-      this.addProduct(product)
+                this.addProduct(product);
+
+              this.action_data_basket_info(product);
+              this.action_visible_basket_info(true);
     },
     async fetchProductDetails() {
       let data = await this.axios.get('product/' + this.id);

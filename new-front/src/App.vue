@@ -7,14 +7,17 @@
     <div id="app">
       <router-view/>
       <notifications/>
+      <basket-pre-info class="pre-info" />
     </div>
 
 </template>
 
 <script>
 
+import BasketPreInfo from "@/components/BasketPreInfo";
 export default {
   name: 'App',
+  components: {BasketPreInfo},
   created() {
     this.checkUser()
   },
@@ -111,5 +114,13 @@ div::-webkit-scrollbar {
 div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #EAEAEA;
+}
+
+.pre-info {
+  top: rem(40);
+
+  @include _600 {
+    top: rem(26);
+  }
 }
 </style>
