@@ -27,11 +27,10 @@ class ArticleController extends Controller
             }
         }
 
-        $carousel = ImageGlobal::all();
-
         return response()->json([
             'article' => $article,
-            'carousel' => $carousel
+            'carouselDesktop' => ImageGlobal::where([['parent_id'], ['active', 1]])->get(),
+            'carouselMobile' => ImageGlobal::where([['parent_id', '!=', null], ['active', 1]])->get()
         ]);
     }
 

@@ -23,11 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $carousel = ImageGlobal::where([
-                'parent_id' => null,
-                'active' => 1
-            ])->get();
-
         $products = Product::with([
                 'image',
                 'productDescription',
@@ -42,8 +37,9 @@ class HomeController extends Controller
             ->paginate(12);
 
         return response()->json([
-            'carousel' => $carousel,
             'products' => $products,
+            'carouselDesktop' => ImageGlobal::where([['parent_id'], ['active', 1]])->get(),
+            'carouselMobile' => ImageGlobal::where([['parent_id', '!=', null], ['active', 1]])->get()
         ]);
     }
 

@@ -83,7 +83,7 @@
             async fetchCarouselImage() {
                 let data = await this.axios.get('image');
 
-                this.carousel = data.data;
+                this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
             },
             async getCategoryDetails() {
                 let id = (!this.$route.params.subCategory) ? this.$route.params.category : this.$route.params.subCategory;

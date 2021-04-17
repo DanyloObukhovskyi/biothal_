@@ -110,7 +110,7 @@
             async fetchCarouselImage() {
                 let data = await this.axios.get('image');
 
-                this.carousel = data.data;
+                this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
             },
             async send() {
                 this.$loading(true);

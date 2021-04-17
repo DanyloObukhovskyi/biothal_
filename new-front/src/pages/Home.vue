@@ -189,7 +189,7 @@ export default {
     async getProductData() {
       let data = await this.axios.get('home');
 
-      this.carousel = data.data.carousel;
+      this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
       this.productData = data.data.products.data;
     },
     async getBestSellers(page = 1) {

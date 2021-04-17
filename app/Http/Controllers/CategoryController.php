@@ -64,7 +64,10 @@ class CategoryController extends Controller
     }
 
     public function getImage(){
-        return response()->json(ImageGlobal::all());
+        return response()->json([
+            'carouselDesktop' => ImageGlobal::where([['parent_id'], ['active', 1]])->get(),
+            'carouselMobile' => ImageGlobal::where([['parent_id', '!=', null], ['active', 1]])->get()
+        ]);
     }
 
     public function getCategoryDetails($id){

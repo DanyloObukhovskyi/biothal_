@@ -54,7 +54,7 @@
                 let data = await this.axios.get('info-page/' + this.$route.params.id);
 
                 this.article =  data.data.article;
-                this.carousel = data.data.carousel;
+                this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
                 this.title =  this.$route.params.id;
             }
         }
