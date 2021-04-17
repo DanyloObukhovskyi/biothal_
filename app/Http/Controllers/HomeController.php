@@ -23,7 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $carousel = ImageGlobal::all();
+        $carousel = ImageGlobal::where([
+                'parent_id' => null,
+                'active' => 1
+            ])->get();
+
         $products = Product::with([
                 'image',
                 'productDescription',

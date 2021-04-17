@@ -230,6 +230,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('/addGlobal', 'ImageController@addGlobalImage')
                 ->name('admin.addGlobalImage');
 
+            Route::post('/changeImageActive', 'ImageController@changeImageActive')
+                ->name('admin.changeImageActive');
+
             Route::post('/delete', 'ImageController@deleteImage')
                 ->name('admin.deleteImage');
 

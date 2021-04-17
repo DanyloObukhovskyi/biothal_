@@ -8,9 +8,7 @@ class ImageGlobal extends Model
 {
     protected $table = 'image_global';
 
-    protected $fillable = [
-        'name', 'id'
-    ];
+    protected $guarded = [];
 
     public $timestamps = false;
 }

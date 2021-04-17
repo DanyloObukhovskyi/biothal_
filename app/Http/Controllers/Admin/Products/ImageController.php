@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Products\Product;
 use App\Models\Admin\Products\ProductImages;
 use App\Models\ImageGlobal;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\
 {
     ValidImgRequest,
@@ -61,7 +62,7 @@ class ImageController extends Controller
         $images = [];
         $imagesGlobal = [];
         $imagesAll = Image::all();
-        $imagesGlobalAll = ImageGlobal::all();
+        $imagesGlobalAll = ImageGlobal::where('parent_id')->get();
         // Если нет изображений, выводим подсказку
 //        if (count($imagesAll) == 0) {
 //            return view('admin.images.index', ['images' => null]);
@@ -77,7 +78,7 @@ class ImageController extends Controller
             $imageS[$i + 1] = $image;
             $i++;
             $images[$n] = $imageS;
-            if ($i % 4 == 0) {
+            if ($i % 5 == 0) {
                 $imageS = null;
                 $n++;
             }
@@ -90,7 +91,7 @@ class ImageController extends Controller
             $imageS[$i + 1] = $image;
             $i++;
             $imagesGlobal[$n] = $imageS;
-            if ($i % 4 == 0) {
+            if ($i % 5 == 0) {
                 $imageS = null;
                 $n++;
             }
@@ -125,18 +126,26 @@ class ImageController extends Controller
 
     public function addGlobalImage(ValidImgRequest $request)
     {
-//        dd($request->toArray());
         // Проверяем есть ли файл
-        if (!$request->hasFile('img2')) {
-            return redirect()->route('admin.images.page');
+        if (!$request->hasFile('img2') && !$request->hasFile('img_mobile')) {
+            return redirect()->route('admin.images.banner');
         }
-        $name = $request->file('img2')->getClientOriginalName();
+        $name_desktop = $request->file('img2')->getClientOriginalName();
+        $name_mobile = $request->file('img_mobile')->getClientOriginalName();
         // Помещаем файл в репозиторий
-        $request->file('img2')->move(public_path("storage/img/carousel"), $name);
+        $request->file('img2')->move(public_path("storage/img/carousel"), $name_desktop);
+        $request->file('img_mobile')->move(public_path("storage/img/carousel"), $name_mobile);
+
         // Добавляем файл в базу
-        ImageGlobal::create([
-            'name' => $name
+        $image_desktop = ImageGlobal::create([
+            'name' => $name_desktop
         ]);
+
+        $image_mobile = ImageGlobal::create([
+            'name' => $name_mobile,
+            'parent_id' => $image_desktop->id
+        ]);
+
         return redirect()->route('admin.images.banner');
     }
 
@@ -191,4 +200,23 @@ class ImageController extends Controller
             'data' => $images->paginate($request->input('count', 12))
         ]);
     }
+
+    public function changeImageActive(Request $request)
+    {
+        if (!empty($request->get('id'))) {
+
+            ImageGlobal::where('id', $request->get('id'))->update(['active' => $request->get('active')]);
+            ImageGlobal::where('parent_id', $request->get('id'))->update(['active' => $request->get('active')]);
+
+            return response()->json([
+                'message' => 'Баннер ' . ($request->get('active') ? 'включен' : 'выключен')
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Ошибка'
+            ], 404);
+        }
+    }
+
+
 }
