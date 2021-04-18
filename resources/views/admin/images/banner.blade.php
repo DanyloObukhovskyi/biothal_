@@ -39,7 +39,7 @@
                 <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Глобальные изображения</div>
                 <div class="pull-right col-sm-6">
                     <a href="javascript" data-toggle="modal" data-target="#example_modal2" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                    <button id="deletePic2" onclick="deleteBaner()" type="button" data-toggle="tooltip" data-placement="right" title="Удалить" class="btn btn-danger">
+                    <button id="deletePic2" type="button" data-toggle="tooltip" data-placement="right" title="Удалить" class="btn btn-danger">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </div>
@@ -182,7 +182,7 @@
                 }
             })
         }
-        function deleteBaner() {
+        $("body").on("click", '#deletePic2', function () {
             var checked = document.querySelectorAll('input[id^=pictures]:checked'), i, arr = [];
             if (checked.length !== 0) {
                 for (i = 0; i < checked.length; i++) {
