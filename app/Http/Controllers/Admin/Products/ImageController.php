@@ -180,11 +180,16 @@ class ImageController extends Controller
             $image2 = ImageGlobal::where('id', (int)$imgId2)->first();
             $image_child = ImageGlobal::where('parent_id', (int)$imgId2)->first();
             $pathToYourFile = public_path("storage/img/carousel/".$image2->name);
-            $pathToYourFileChild = public_path("storage/img/carousel/".$image_child->name);
-            if(file_exists($pathToYourFile) && file_exists($pathToYourFileChild))
+            $pathToYourFileChild = '';
+            if(!empty($image_child)){
+                $pathToYourFileChild = public_path("storage/img/carousel/".$image_child->name);
+            }
+            if(file_exists($pathToYourFile) && !empty($pathToYourFileChild) && file_exists($pathToYourFileChild))
             {
                 unlink($pathToYourFile);
                 unlink($pathToYourFileChild);
+            } elseif(file_exists($pathToYourFile)){
+                unlink($pathToYourFile);
             }
             $image2->delete();
             $image_child->delete();
