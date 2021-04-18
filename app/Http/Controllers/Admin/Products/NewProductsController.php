@@ -219,6 +219,8 @@ class NewProductsController extends Controller
                     ]);
                 }
             }
+        } else {
+            ProductImages::where('product_id', $product['id'])->delete();
         }
         /* START: updating data for product*/
         $product->update(array_filter($request->all(), function ($element, $key) {
