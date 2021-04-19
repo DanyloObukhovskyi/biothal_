@@ -22,9 +22,9 @@
                 <img width="127" height="38" src="../../../public/logo-biothal.svg"/>
             </div>
             <div class="footer__links">
-                <a style="margin-right: 10px" href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
                 <a style="margin-right: 10px" href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-youtube</v-icon></a>
-                <a style="margin-right: 10px" href="https://www.instagram.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
+                <a style="margin-right: 10px" href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
+                <a href="https://www.instagram.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
             </div>
         </div>
         <div class="footer__block-2">
@@ -260,7 +260,6 @@
       }
 
       &__links {
-          width: 25%;
           display: flex;
       }
     }
