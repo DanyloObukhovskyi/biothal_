@@ -39,6 +39,7 @@ export default {
             this.clearCart()
         },
         iframeURLChange(iframe, callback) {
+            this.$loading(true)
             var lastDispatched = null;
 
             var dispatchChange = function () {
@@ -71,7 +72,7 @@ export default {
             });
 
             attachUnload();
-            this.$loading(false)
+            // this.$loading(false)
         }
 
     },
