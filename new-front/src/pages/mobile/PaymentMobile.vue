@@ -38,7 +38,6 @@ export default {
             this.clearCart()
         },
         iframeURLChange(iframe, callback) {
-            this.$loading(true)
             var lastDispatched = null;
 
             var dispatchChange = function () {
@@ -71,7 +70,6 @@ export default {
             });
 
             attachUnload();
-            this.$loading(false)
         }
 
     },
@@ -82,7 +80,12 @@ export default {
                 window.location.href = newURL
             }
         });
-        // this.$loading(false)
+        setTimeout(
+            function () {
+                this.$loading(false)
+            }.bind(this),
+            2000
+        );
         this.clearCartProducts();
     }
 }
