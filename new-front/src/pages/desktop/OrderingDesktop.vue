@@ -468,11 +468,11 @@ export default {
                         if (postData) {
                             this.toPage({name: 'payment', params: {paymentUrl: postData}});
                         } else {
+                            this.$loading(false);
                             this.toPage({name: 'order-status', params: {token: data.token}});
                         }
                     })
                 }
-                this.$loading(false);
             } catch (e) {
                 this.$loading(false);
                 this.errorMessagesValidation(e);

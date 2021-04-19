@@ -2,7 +2,8 @@
     <div class="ordering__wrapper">
         <div class="ordering__content">
             <div class="ordering__middle">
-                <iframe scrolling="no"
+                <iframe @load="load"
+                        scrolling="no"
                         id="paymentFrame"
                         allowpaymentrequest
                         :src="paymentUrl"
@@ -38,6 +39,7 @@ export default {
             this.clearCart()
         },
         iframeURLChange(iframe, callback) {
+            this.$loading(true)
             var lastDispatched = null;
 
             var dispatchChange = function () {
@@ -70,22 +72,22 @@ export default {
             });
 
             attachUnload();
+        },
+        load() {
+            setTimeout(
+                function () {
+                    this.$loading(false)
+                }.bind(this),
+                500
+            );
         }
-
     },
     mounted() {
-        this.$loading(true)
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
             if (newURL !== 'about:blank') {
                 window.location.href = newURL
             }
         });
-        setTimeout(
-            function () {
-                this.$loading(false)
-            }.bind(this),
-            2000
-        );
         this.clearCartProducts();
     }
 }
