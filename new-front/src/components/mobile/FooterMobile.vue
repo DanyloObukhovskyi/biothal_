@@ -21,7 +21,7 @@
             <div @click="toPage({name: 'home'})">
                 <img width="127" height="38" src="../../../public/logo-biothal.svg"/>
             </div>
-            <div style="width: 25%; display:-webkit-flex; gap: 10px">
+            <div class="footer__links">
                 <a href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
                 <a href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-youtube</v-icon></a>
                 <a href="https://www.instagram.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
@@ -257,6 +257,22 @@
         line-height: 19px;
         font-size: 14px;
         font-weight: 200;
+      }
+
+      &__links {
+          width: 25%;
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+
+          -webkit-flex-wrap: nowrap;
+          -moz-flex-wrap: nowrap;
+          -ms-flex-wrap: nowrap;
+          -o-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          gap: 10px;
       }
     }
 </style>
