@@ -72,7 +72,7 @@ export default {
             });
 
             attachUnload();
-            // this.$loading(false)
+            this.$loading(false)
         }
 
     },
@@ -83,7 +83,7 @@ export default {
                 window.location.href = newURL
             }
         });
-        this.$loading(false)
+        // this.$loading(false)
         this.clearCartProducts();
     }
 }
