@@ -15,6 +15,7 @@ use App\Models\{Categories,
     Image,
     Order,
     OrderProduct,
+    OrderStatuses,
     StockStatus,
     Admin\Products\Product};
 use Illuminate\Support\Facades\Log;
@@ -44,13 +45,16 @@ class ProfileController extends Controller
             'emailReceive',
             'image'
         ])->find($userId);
+
+        $status = OrderStatuses::where('name', OrderStatuses::CANCEL)->first();
+
         $orderList = Order::with( [
             'globalSales',
             'groupSales',
             'orderType',
             'userAddress',
             'orderStatus'
-        ])->where('user_id', $userId)->get();
+        ])->where([['user_id', $userId],['order_status_id', '!=', $status->id]])->get();
 
         return response()->json([
             'orderList' => $orderList,

@@ -71,15 +71,18 @@ export default {
             });
 
             attachUnload();
+            this.$loading(false)
         }
 
     },
     mounted() {
+        this.$loading(true)
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
             if (newURL !== 'about:blank') {
                 window.location.href = newURL
             }
         });
+        this.$loading(false)
         this.clearCartProducts();
     }
 }

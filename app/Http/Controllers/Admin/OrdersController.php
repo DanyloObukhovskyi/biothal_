@@ -109,7 +109,7 @@ class OrdersController extends Controller
             default: $sale = [];
         }
 
-        $order_history = OrderHistory::where('order_id', $id)->paginate(5);
+        $order_history = OrderHistory::where('order_id', $id)->get();
 
         if (empty($order)) {
             return response()->json([], 404);
@@ -167,20 +167,6 @@ class OrdersController extends Controller
         ));
     }
 
-    public function getOrderHistoryByPage (Request $request) {
-        $id = $request->input('id');
-        $order_statuses = [];
-        $_statuses = OrderStatuses::all()->toArray();
-        foreach ($_statuses as $status) {
-            $order_statuses[$status['id']] = $status;
-        }
-        $order_history = OrderHistory::where('order_id', $id)->paginate(5);
-        $html = View::make('admin.orders.partials.orderHistoryPartial',
-            compact('order_history', 'id', 'order_statuses'))
-            ->render();
-
-        return response()->json(['html' => $html]);
-    }
 
     public function saveHistory (Request $request) {
         OrderHistory::create([
@@ -190,10 +176,8 @@ class OrdersController extends Controller
             'status_id' => $request->input('status'),
         ]);
 
-        if ($request->input('override') === 'true') {
-            Order::where('id', $request->input('order_id'))
-                ->update(['order_status_id' => $request->input('status')]);
-        }
+        Order::where('id', $request->input('order_id'))
+            ->update(['order_status_id' => $request->input('status')]);
 
         return response()->json(['success' => true]);
     }

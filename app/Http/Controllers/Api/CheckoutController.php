@@ -169,6 +169,10 @@ class CheckoutController extends Controller
         if (isset($orderType) and OrderType::CARD_METHOD === $orderType->type) {
             $amount = 0;
 
+            $orderStatus = OrderStatuses::where('name', OrderStatuses::PAYMENT_PROCESS)
+                ->first();
+            $order->update(['order_status_id' => $orderStatus->id]);
+
             foreach ($orderProducts as $orderProduct) {
                 if ($orderProduct->is_sales) {
                     $amount += $orderProduct->price_with_sales;

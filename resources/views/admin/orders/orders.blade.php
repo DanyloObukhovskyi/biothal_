@@ -125,7 +125,7 @@
                                         </td>
                                         <td class="text-left">
                                             @if($order['order_status']['name'] == 'active')
-                                                Активный
+                                                Закупка
                                             @elseif($order['order_status']['name'] == 'payment_process')
                                                 В процессе оплаты
                                             @elseif($order['order_status']['name'] == 'shipping_process')
@@ -134,6 +134,10 @@
                                                 Получена
                                             @elseif($order['order_status']['name'] == 'pre_order')
                                                 Предзаказ
+                                            @elseif($order['order_status']['name'] == 'paid')
+                                                Оплачен
+                                            @elseif($order['order_status']['name'] == 'cancel')
+                                                Отменен
                                             @endif
                                         </td>
                                         <td class="text-right">{{ceil($order['total_sum'])}} грн</td>

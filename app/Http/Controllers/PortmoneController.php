@@ -23,7 +23,7 @@ class PortmoneController extends Controller
         $payment->status = Payment::STATUS_SUCCESS;
         $payment->save();
 
-        $status = OrderStatuses::where('name', OrderStatuses::PAYMENT_PROCESS)->first();
+        $status = OrderStatuses::where('name', OrderStatuses::PAID)->first();
 
         $order = Order::where('id', $order_id)->first();
         $order->order_status_id = $status->id;
@@ -40,7 +40,11 @@ class PortmoneController extends Controller
         $payment->status = Payment::STATUS_CANCELED;
         $payment->save();
 
+        $status = OrderStatuses::where('name', OrderStatuses::CANCEL)->first();
+
         $order = Order::where('id', $order_id)->first();
+        $order->order_status_id = $status->id;
+        $order->save();
 
         return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
     }

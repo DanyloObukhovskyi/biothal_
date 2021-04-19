@@ -9,6 +9,9 @@ class OrderStatusesSeeder extends Seeder
         'payment_process',
         'shipping_process',
         'finish',
+        'pre_order',
+        'paid',
+        'cancel',
     ];
 
     /**
