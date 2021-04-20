@@ -84,7 +84,7 @@ export default {
     mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
             if (newURL !== 'about:blank') {
-                // window.location.href = newURL
+                window.location.href = newURL
             }
         });
         this.clearCartProducts();
@@ -94,12 +94,13 @@ export default {
 
 <style scoped lang="scss">
 .ordering__middle {
-    margin: 100px;
+    margin: 10px;
     justify-content: center;
     display: flex;
 
     iframe {
-        height: 1200px;
+        height: 900px;
+        width: 601px;
     }
 }
 </style>

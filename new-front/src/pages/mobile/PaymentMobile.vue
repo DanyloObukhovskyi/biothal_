@@ -98,7 +98,7 @@ export default {
     display: flex;
 
     iframe {
-        height: 1200px;
+        height: 1000px;
         width: 100%;
     }
 }
