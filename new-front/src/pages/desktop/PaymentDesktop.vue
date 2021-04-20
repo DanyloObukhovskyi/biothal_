@@ -84,7 +84,7 @@ export default {
     mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
             if (newURL !== 'about:blank') {
-                window.location.href = newURL
+                // window.location.href = newURL
             }
         });
         this.clearCartProducts();
