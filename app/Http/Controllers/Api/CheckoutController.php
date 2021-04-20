@@ -8,6 +8,7 @@ use App\Models\Admin\Products\GroupSales;
 use App\Models\Admin\Products\Product;
 use App\Models\Order;
 use App\Models\OrderDeliveryType;
+use App\Models\OrderHistory;
 use App\Models\OrderProduct;
 use App\Models\OrderStatuses;
 use App\Models\OrderType;
@@ -166,12 +167,29 @@ class CheckoutController extends Controller
         $order->save();
         $orderType = OrderType::find($request->get('paymentMethod'));
 
+        $orderStatusHistory = OrderStatuses::where('name', OrderStatuses::ACTIVE)
+            ->first();
+
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'notify' => 0,
+            'comment' => 'Заказ создан',
+            'status_id' => $orderStatusHistory->id,
+        ]);
+
         if (isset($orderType) and OrderType::CARD_METHOD === $orderType->type) {
             $amount = 0;
 
             $orderStatus = OrderStatuses::where('name', OrderStatuses::PAYMENT_PROCESS)
                 ->first();
             $order->update(['order_status_id' => $orderStatus->id]);
+
+            OrderHistory::create([
+                'order_id' => $order->id,
+                'notify' => 0,
+                'comment' => 'В процессе оплаты',
+                'status_id' => $orderStatus->id,
+            ]);
 
             foreach ($orderProducts as $orderProduct) {
                 if ($orderProduct->is_sales) {
@@ -244,8 +262,19 @@ class CheckoutController extends Controller
     {
 
         $userOrderAddress = new UserOrderAddress();
-        $userOrderAddress->phone = $request->get('number');
-        $userOrderAddress->name = $request->get('name');
+
+        $userId = $request->get('user_id');
+        $user = User::where('id', $userId)->first();
+
+        if (!empty($userId) && !empty($user)) {
+            $userOrderAddress->phone = $user->phone_number;
+            $userOrderAddress->name = $user->name;
+            $userOrderAddress->LastName = $user->sur_name;
+            $userOrderAddress->full_name = $user->name . ' ' . $user->sur_name;
+        } else {
+            $userOrderAddress->phone = $request->get('number');
+            $userOrderAddress->name = $request->get('name');
+        }
         $userOrderAddress->save();
 
         $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)
@@ -308,6 +337,13 @@ class CheckoutController extends Controller
         $order->save();
 
         $orderType = OrderType::find(1);
+
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'notify' => 0,
+            'comment' => 'Заказ создан',
+            'status_id' => $orderStatus->id,
+        ]);
 
         return response()->json([
             'token' => $order->token,
@@ -392,6 +428,13 @@ class CheckoutController extends Controller
 
         $orderType = OrderType::find(1);
 
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'notify' => 0,
+            'comment' => 'Заказ создан',
+            'status_id' => $orderStatus->id,
+        ]);
+
         return response()->json([
             'token' => $order->token,
             'order_id' => $order->user_order_id,
@@ -437,6 +480,15 @@ class CheckoutController extends Controller
 
         $order->total_sum = 0;
         $order->save();
+
+        $orderStatus = OrderStatuses::where('name', OrderStatuses::PRE_ORDER)->first();
+
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'notify' => 0,
+            'comment' => 'Предзаказ создан',
+            'status_id' => $orderStatus->id,
+        ]);
 
         return response()->json([
             'token' => $order->token,

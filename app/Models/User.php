@@ -82,7 +82,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function totalOrders()
     {
-        return $this->hasMany(Order::class,'user_id','id');
-
+        $status = OrderStatuses::where('name', OrderStatuses::CANCEL)->first();
+        return $this->hasMany(Order::class,'user_id','id')->where('order_status_id', '!=', $status->id);
     }
 }

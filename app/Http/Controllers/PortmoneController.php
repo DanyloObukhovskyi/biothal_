@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderHistory;
 use App\Models\OrderStatuses;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -29,6 +30,12 @@ class PortmoneController extends Controller
         $order->order_status_id = $status->id;
         $order->save();
 
+        OrderHistory::create([
+            'order_id' => $order_id,
+            'notify' => 0,
+            'comment' => 'Оплачен',
+            'status_id' => $status->id,
+        ]);
         return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token);
     }
 
@@ -45,6 +52,13 @@ class PortmoneController extends Controller
         $order = Order::where('id', $order_id)->first();
         $order->order_status_id = $status->id;
         $order->save();
+
+        OrderHistory::create([
+            'order_id' => $order_id,
+            'notify' => 0,
+            'comment' => 'Отмена оплаты',
+            'status_id' => $status->id,
+        ]);
 
         return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
     }
