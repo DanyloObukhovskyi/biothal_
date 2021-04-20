@@ -75,7 +75,8 @@ export default {
 
             attachUnload();
         },
-        loader() {
+        loader(temp) {
+            console.log('loader '+temp)
             setTimeout(
                 function () {
                     this.$loading(false)
@@ -90,7 +91,8 @@ export default {
             console.log('mounted '+newURL)
             if (newURL !== 'about:blank') {
                 // window.location.href = newURL
-                this.$router.push(newURL)
+                setTimeout(function () { window.location.href = newURL}, 50);
+                // this.$router.push(newURL)
             }
         });
         this.clearCartProducts();
