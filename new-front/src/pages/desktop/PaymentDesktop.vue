@@ -43,10 +43,10 @@ export default {
 
             var dispatchChange = function () {
                 var newHref = iframe.contentWindow.location.href;
-                console.log('dispatchChange '+newURL)
+                console.log('dispatchChange '+newHref)
 
                 if (newHref !== lastDispatched) {
-                    console.log('in if '+newURL)
+                    console.log('in if '+newHref)
 
                     callback(newHref);
                     lastDispatched = newHref;
