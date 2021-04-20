@@ -127,7 +127,7 @@ class OrdersController extends Controller
         $registered_user = UserOrderAddress::where('id', $order['user_order_id'])->first();
 
         if(!empty($order['user'])){
-            $registered_user['type'] = 'Зарегестрированый';
+            $registered_user['type'] = 'Зарегистрированный';
             $registered_user['email'] = $order['user']['email'];
         }
         if(!empty($order['products'])){

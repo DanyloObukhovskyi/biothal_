@@ -2,8 +2,7 @@
     <div class="ordering__wrapper">
         <div class="ordering__content">
             <div class="ordering__middle">
-                <iframe
-                    @load="load"
+                <iframe @load="loader"
                     id="paymentFrame"
                     scrolling="no"
                     :src="paymentUrl"
@@ -40,8 +39,6 @@ export default {
             this.clearCart()
         },
         iframeURLChange(iframe, callback) {
-            this.$loading(true)
-
             var lastDispatched = null;
 
             var dispatchChange = function () {
@@ -75,7 +72,7 @@ export default {
 
             attachUnload();
         },
-        load() {
+        loader() {
             setTimeout(
                 function () {
                     this.$loading(false)
@@ -84,7 +81,7 @@ export default {
             );
         }
     },
-    created: function () {
+    mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
             if (newURL !== 'about:blank') {
                 window.location.href = newURL
