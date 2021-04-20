@@ -77,12 +77,14 @@ export default {
                 function () {
                     this.$loading(false)
                 }.bind(this),
+
                 500
             );
         }
     },
     mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
+            console.log(newURL)
             if (newURL !== 'about:blank') {
                 window.location.href = newURL
             }
