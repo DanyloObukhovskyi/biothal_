@@ -43,8 +43,11 @@ export default {
 
             var dispatchChange = function () {
                 var newHref = iframe.contentWindow.location.href;
+                console.log('dispatchChange '+newURL)
 
                 if (newHref !== lastDispatched) {
+                    console.log('in if '+newURL)
+
                     callback(newHref);
                     lastDispatched = newHref;
                 }
@@ -84,9 +87,10 @@ export default {
     },
     mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
-            console.log(newURL)
+            console.log('mounted '+newURL)
             if (newURL !== 'about:blank') {
-                window.location.href = newURL
+                // window.location.href = newURL
+                this.$router.push(newURL)
             }
         });
         this.clearCartProducts();
