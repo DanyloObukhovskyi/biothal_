@@ -306,8 +306,8 @@
   }
 
   .package{
-      height: 6.2vh;
-      width: 6.2vh;
-      margin-top: 2vh;
+      height: 3.5vh;
+      width: 3.5vh;
+      margin-top: 1vh;
   }
 </style>
