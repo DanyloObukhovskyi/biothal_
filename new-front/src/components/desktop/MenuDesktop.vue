@@ -2,7 +2,7 @@
   <div class="menu-wrapper">
     <v-system-bar class="menu-wrapper__system-bar default-cursor">
       <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
-      <div><img width="18" height="18" src="../../../public/package.svg"/></div>
+      <div><img class="package" src="../../../public/package.svg"/></div>
     </v-system-bar>
 
     <v-app-bar class="menu-wrapper__menu">
@@ -303,5 +303,11 @@
 
   .basket_lenght {
     margin: -2px;
+  }
+
+  .package{
+      height: 6.2vh;
+      width: 6.2vh;
+      margin-top: 2vh;
   }
 </style>
