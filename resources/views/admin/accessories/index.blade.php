@@ -74,6 +74,21 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
+                            <label class="input-group-text" for="padre_accessory_select">Родительская
+                                категория</label>
+                        </div>
+                        <select class="custom-select" id="padre_accessory_select_change" name="padre_accessory_select">
+                            <option value="NoAccessory">Без родительской категории</option>
+                            @if(!empty($categories))
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{ $category->title}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
                             <span class="input-group-text">Название потребности</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Название потребности"

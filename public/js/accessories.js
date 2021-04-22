@@ -118,10 +118,12 @@ $(function () {
 
 // Изменение Потребностей
     $(document).on("click", "[id^=accessory_change]", function () {
-        var id = $(this).data('id');
-        var title = $(this).data('title');
-        var order = $(this).data('order');
+        let parentId = $(this).data('parentId');
+        let id = $(this).data('id');
+        let title = $(this).data('title');
+        let order = $(this).data('order');
 
+        $("#padre_accessory_select_change").val(parentId); // Parent id
         $("#title_accessory_change").val(title); // Title
         $("#accessory_hidden_id").val(id);     // Id
         $("#ordering_accessory_change").val(order);  // Ordering
@@ -140,9 +142,10 @@ $(function () {
     })
 
     $(document).on("click", "#b_change_accessory", function () {
-        var title = $('#title_accessory_change').val();
-        var ordering = $('#ordering_accessory_change').val();
-        var id = $('#accessory_hidden_id').val();
+        let parent_id = $('#padre_accessory_select_change').val();
+        let title = $('#title_accessory_change').val();
+        let ordering = $('#ordering_accessory_change').val();
+        let id = $('#accessory_hidden_id').val();
 
         $.ajax({
             url: "/admin/accessories/change",
@@ -150,7 +153,8 @@ $(function () {
             data: {
                 "title": title,
                 "ordering": ordering,
-                "id": id
+                "id": id,
+                "parent_id": parent_id,
             },
             error: function (xhr, status, error) {
                 var errors = xhr.responseJSON.errors, errorMessage = "";
