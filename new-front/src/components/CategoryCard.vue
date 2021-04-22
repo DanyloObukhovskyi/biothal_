@@ -26,9 +26,9 @@
             goToPages()
             {
                 if(this.face){
-                    this.toPage({name: 'category-page', params: {category: this.slug }})
+                    this.toPage({name: 'category', params: {category: this.slug }})
                 } else {
-                    this.toPage({name: 'category-page', params: {category: this.slug }})
+                    this.toPage({name: 'category', params: {category: this.slug }})
                 }
             },
             async fetchMainCategories()

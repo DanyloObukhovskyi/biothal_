@@ -6,7 +6,9 @@ use App\Http\Requests\Accessories\Add as AccessoryAddRequest;
 use App\Http\Requests\Accessories\Delete as AccessoryDeleteRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Accessories\Accessories;
+use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -15,9 +17,10 @@ class AccessoriesController extends Controller
     public function index(Request $request)
     {
         $accessories = Accessories::all();
+        $categories = Categories::where([['parent_id', null], ['type_category', 0]])->get();
 
         if (count($accessories) == 0) {
-            return view('admin.accessories.index', ['accessories' => null]);
+            return view('admin.accessories.index', ['accessories' => null, 'categories' => $categories]);
         }
 
         if ($request->ajax()) {
@@ -25,11 +28,14 @@ class AccessoriesController extends Controller
                 $accessories[$key]['number'] = $key + 1;
             }
             return Datatables::of($accessories)
+                ->editColumn('parent_id', function ($row) {
+                    return $row->parent_id != null ? $row->Category->title : "Без родительской категории";
+                })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '<button type="button" data-toggle="modal" data-target="#change_access" name="tofita" data-id="'
                         . $row->id . '" data-title="' . $row->title . '" data-order="' . $row->ordering
-                        . '" data-parent="' . ($row->parent_id != null ? $row->Accessory->title : "null")
+                        . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "Без родительской категории")
                         . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null")
                         . '" id="' . ("accessory_change" . $row->id) . '" class="btn btn-outline-dark fa fa-wrench"></button>';
                     return $btn;
@@ -38,9 +44,7 @@ class AccessoriesController extends Controller
                 ->make(true);
         }
 
-         $accessories = Accessories::where('parent_id', null)->get();
-
-        return view('admin.accessories.index', ['accessories' => $accessories]);
+        return view('admin.accessories.index', ['accessories' => $accessories, 'categories' => $categories]);
     }
 
     public function addAccessory(AccessoryAddRequest $request)
@@ -60,13 +64,13 @@ class AccessoriesController extends Controller
 
         $accessory = Accessories::all()->last();
         // Проверяем создана ли РОДИТЕЛЬСКАЯ категория, если да - добавляем в модалку в селект
-        if ($accessory->parent_id == null) {
-            return response()->json([
-                'message' => "Категория успешно добавлена",
-                'value' => $accessory->title,
-                'parent' => $accessory->title,
-            ]);
-        }
+//        if ($accessory->parent_id == null) {
+//            return response()->json([
+//                'message' => "Категория успешно добавлена",
+//                'value' => $accessory->title,
+//                'parent' => $accessory->title,
+//            ]);
+//        }
 
         return response()->json([
             'message' => "Потребность успешно добавлена",
@@ -159,6 +163,14 @@ class AccessoriesController extends Controller
 
         return response()->json([
             'message' => "Потребность успешно изменена"
+        ]);
+    }
+
+    public function getAccessoriesByCategory(Request $request) {
+        $accessories = Accessories::where('parent_id', $request->id)->get();
+
+        return response()->json([
+            'accessories' => $accessories
         ]);
     }
 }

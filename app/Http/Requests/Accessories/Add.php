@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Accessories;
 
 use App\Models\Admin\Accessories\Accessories;
+use App\Models\Categories;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Add extends FormRequest
@@ -25,7 +26,7 @@ class Add extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => 'nullable|integer|exists:'.Accessories::class.',id',
+            'parent_id' => 'required|integer|exists:'.Categories::class.',id',
             'title' => 'required',
             'ordering' => 'required|integer|between:1,9999',
         ];
@@ -34,11 +35,13 @@ class Add extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Поле "Название категории" не должно быть пустым!',
-            'ordering.required' => 'Поле "Порядок сортировки" не должно быть пустым!',
-            'ordering.integer' => 'Поле "Порядок сортировки" должно быть числом!',
-            'ordering.between' => 'Поле "Порядок сортировки" должно быть в пределах от :min до :max!    ',
-            'ordering.max' => 'Поле "Порядок сортировки" должно быть как минимум :max!',
+            'parent_id.required' => 'Поле "Родительская категория" должно быть выбранным!<br>',
+            'parent_id.exists' => 'Такой категории не существует!<br>',
+            'title.required' => 'Поле "Название категории" не должно быть пустым!<br>',
+            'ordering.required' => 'Поле "Порядок сортировки" не должно быть пустым!<br>',
+            'ordering.integer' => 'Поле "Порядок сортировки" должно быть числом!<br>',
+            'ordering.between' => 'Поле "Порядок сортировки" должно быть в пределах от :min до :max!<br>',
+            'ordering.max' => 'Поле "Порядок сортировки" должно быть как минимум :max!<br>',
           ];
     }
 }

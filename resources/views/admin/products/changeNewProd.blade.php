@@ -282,4 +282,84 @@
     <script type="text/javascript">
         $('.summernote').summernote();
     </script>
+
+<script type="text/javascript">
+    function getAccessories() {
+
+        let id = $('#main_category_id').val();
+        $.ajax({
+            url: "/admin/accessories/get",
+            method: 'GET',
+            data: {
+                "id": id
+            },
+            error: function (xhr, status, error) {
+                var errors = xhr.responseJSON.errors, errorMessage = "";
+                $.each(errors, function (index, value) {
+                    $.each(value, function (key, message) {
+                        errorMessage += message + " ";
+                    })
+                })
+                Swal.fire({
+                    icon: 'error',
+                    title: errorMessage,
+                    showConfirmButton: true,
+                })
+            },
+            success: function (resp) {
+                $('#accessory_id option').each( function () {
+                        $(this).remove()
+                    }
+                )
+                $('#accessories-rows').each( function () {
+                        $(this).remove()
+                    }
+                )
+                $('#tab-links').append('<div id="accessories-rows"><div>');
+                $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
+                if($.trim(resp['accessories'])){
+                    let html = '';
+                    resp['accessories'].forEach(function (item, index) {
+                        html += '<option id="accessory_'+item.id+'" value="'+item.id+'">'
+                        html +=     item.title
+                        html += '</option>'
+                    });
+                    $('#accessory_id').append(html);
+                } else {
+                    $('#accessory_id option').each( function () {
+                            $(this).remove()
+                        }
+                    )
+                    $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
+                }
+            }
+        })
+    }
+
+    function addAccessory() {
+
+        let accessory_id = $('#accessory_id').val();
+        let accessory_title = $('#accessory_' + accessory_id).text();
+
+        if ($('#main_category_id').val() !== 'null'){
+            if ($('#accessory_id').val() !== 'null') {
+                if (!$('#accessory-row' + accessory_id).length) {
+                    html  = '<div class="form-group" id="accessory-row' + accessory_id + '">';
+                    html += '   <div class="col-sm-2 d-flex justify-content-end"><button type="button" onclick="$(\'#accessory-row' + accessory_id  + '\').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></div>';
+                    html += '   <div class="col-sm-10"><input disabled id="' + accessory_id + '" type="text" value="' + accessory_title + '" class="form-control" /></div>';
+                    html += '   <input hidden type="text" name="accessoryProducts[' + accessory_id + '][accessory_id]" value="' + accessory_id + '" class="form-control" />';
+                    html += '</div>';
+
+                    $('#accessories-rows').append(html);
+                }
+
+            } else {
+                $('#noChoose').text('--- Не выбрана потребность! ---');
+            }
+
+        } else {
+            $('#noChoose').text('--- Не выбрана категория! ---');
+        }
+    }
+</script>
 @endsection

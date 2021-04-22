@@ -94,18 +94,18 @@ const routes = [
                 props: true
             },
             {
-                path: 'category-page/:category',
-                name: 'category-page',
+                path: 'category/:category/:subCategory?',
+                name: 'category',
                 component: () => import('../pages/CategoryPage'),
                 meta: {},
                 props: true
             },
             {
-                path: 'sub-category-page/:category/:subCategory',
-                name: 'sub-category-page',
+                path: 'accessory/:accessory',
+                name: 'accessories',
                 component: () => import('../pages/CategoryPage'),
                 meta: {},
-                prop: true
+                props: true
             },
             {
                 path: 'info-page/:id',

@@ -16,11 +16,15 @@ Route::namespace('api')->post('category/products/{id}', 'CategoryController@getC
 
 Route::namespace('api')->post('category/products/{id}/{children_id}', 'CategoryController@getSubCategory');
 
+Route::namespace('api')->post('accessory/products/{id}', 'AccessoryController@getAccessory');
+
 Route::namespace('api')->get('info-page/{id}', 'ArticleController@getArticle');
 
 Route::namespace('api')->get('image', 'CategoryController@getImage');
 
 Route::namespace('api')->get('categoryDetails/{id}', 'CategoryController@getCategoryDetails');
+
+Route::namespace('api')->get('accessoryDetails/{id}', 'AccessoryController@getAccessoryDetails');
 
 Route::namespace('api')->post('distributionOffer', 'DistributionOfferController@createOffer');
 

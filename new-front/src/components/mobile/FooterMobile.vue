@@ -30,7 +30,7 @@
         <div class="footer__block-2">
             <div class="footer__block-2__block-2-1">
                 <v-btn text class="list-item" dark v-for="(item, index) in menuItems.slice(0, 4)" :key="index"
-                       @click="toPage({name: 'category-page', params: {category: item.slug }})">
+                       @click="toPage({name: 'category', params: {category: item.slug }})">
                     - {{ item.title }}
                 </v-btn>
             </div>

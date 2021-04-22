@@ -17,7 +17,7 @@
 <!--    </div>-->
     <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
       <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
-      <div><img width="18" height="18" src="../../../public/package.svg"/></div>
+      <div style="margin-top: 5px;"> <img width="18" height="18" src="../../../public/package.svg"/></div>
     </v-system-bar>
 
     <div class="product-info__wrapper">

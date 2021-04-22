@@ -71,10 +71,13 @@
         methods: {
             async getProducts(page = 1) {
                 this.$loading(true)
-
-                let data = await this.axios.post(`${this.url}?page=${page}`);
-
-                this.products = data.data;
+                try {
+                    let data = await this.axios.post(`${this.url}?page=${page}`);
+                    this.products = data.data;
+                } catch (e) {
+                    this.$loading(false)
+                    this.errorMessagesValidation(e);
+                }
                 this.$loading(false)
             },
             setUrl(url) {

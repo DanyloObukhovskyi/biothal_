@@ -25,13 +25,13 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="padre_accessory_select">Родительская
-                                потребность</label>
+                                категория</label>
                         </div>
                         <select class="custom-select" id="padre_accessory_select" name="padre_accessory_select">
-                            <option value="NoAccessory">Без родительской потребности</option>
-                            @if(!empty($accessories))
-                                @foreach($accessories as $accessory)
-                                        <option value="{{$accessory->id}}">{{$accessory->title}}</option>
+                            <option value="NoAccessory">Без родительской категории</option>
+                            @if(!empty($categories))
+                                @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{ $category->title}}</option>
                                 @endforeach
                             @endif
                         </select>

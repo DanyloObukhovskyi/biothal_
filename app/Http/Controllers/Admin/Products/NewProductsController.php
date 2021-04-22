@@ -44,7 +44,13 @@ use App\Models\Admin\Products\{
 use App\Models\Admin\UrlAlias;
 use App\Models\GroupSale;
 
-use App\Models\{Categories, CategoryProducts, Image, StockStatus, Admin\Products\Product};
+use App\Models\{AccessoryProducts,
+    Admin\Accessories\Accessories,
+    Categories,
+    CategoryProducts,
+    Image,
+    StockStatus,
+    Admin\Products\Product};
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -157,6 +163,20 @@ class NewProductsController extends Controller
         }
         /* END: updating apts data for product*/
 
+        /* START: adding accessory data for product*/
+        if (isset($request['accessoryProducts'])) {
+            AccessoryProducts::where('product_id', $product['id'])->delete();
+            foreach ($request['accessoryProducts'] as $productAccessory) {
+                if (!empty($productAccessory['accessory_id'])) {
+                    AccessoryProducts::insert([
+                        'product_id' => $product['id'],
+                        'accessory_id' => $productAccessory['accessory_id']
+                    ]);
+                }
+            }
+        }
+        /* END: adding accessory data for product*/
+
         return redirect()->route('admin.products.updateProductNew', ['id' => $product['id']])
             ->with('success', 'Товар был успешно создан!');
     }
@@ -177,10 +197,13 @@ class NewProductsController extends Controller
             $categories[$category_key]["full_name"] = $full_cat_path;
         }
 
+        $accessories = Accessories::where('parent_id', $product->productCategory->category_id)->get()->toArray();
+
         return view('admin.products.changeNewProd', compact(
             'id',
             'product',
             'stock_statuses',
+            'accessories',
             'categories',
             'images'
         ));
@@ -258,6 +281,22 @@ class NewProductsController extends Controller
             }
         }
         /* END: updating apts data for product*/
+
+        /* START: updating accessory data for product*/
+        if (isset($request['accessoryProducts'])) {
+            AccessoryProducts::where('product_id', $product['id'])->delete();
+            foreach ($request['accessoryProducts'] as $productAccessory) {
+                if (!empty($productAccessory['accessory_id'])) {
+                    AccessoryProducts::insert([
+                        'product_id' => $product['id'],
+                        'accessory_id' => $productAccessory['accessory_id']
+                    ]);
+                }
+            }
+        } else {
+            AccessoryProducts::where('product_id', $product['id'])->delete();
+        }
+        /* END: updating accessory data for product*/
 
         return back()->with('success', 'Товар был успешно обновлен!');
     }

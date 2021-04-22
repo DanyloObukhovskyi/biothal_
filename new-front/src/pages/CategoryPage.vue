@@ -58,8 +58,7 @@
             }
         },
         created() {
-            this.productsUrl = (!this.$route.params.subCategory) ? 'category/products/' + this.$route.params.category : 'category/products/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
-
+            this.productsUrl = (this.$route.params.accessory) ? 'accessory/products/' + this.$route.params.accessory : (!this.$route.params.subCategory) ? 'category/products/' + this.$route.params.category : 'category/products/' + this.$route.params.category + '/' +  this.$route.params.subCategory;
             this.fetchCarouselImage();
             this.getCategoryDetails();
         },
@@ -70,7 +69,7 @@
                     this.fetchCarouselImage();
                     this.getCategoryDetails();
 
-                    this.productsUrl = (!newRoute.subCategory) ? 'category/products/' + newRoute.category : 'category/products/' + newRoute.category + '/' +  newRoute.subCategory;
+                    this.productsUrl = (newRoute.accessory) ? 'accessory/products/' + newRoute.accessory : (!newRoute.subCategory) ? 'category/products/' + newRoute.category : 'category/products/' + newRoute.category + '/' +  newRoute.subCategory;
                 },
             },
             productsUrl(val) {
@@ -86,8 +85,8 @@
                 this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
             },
             async getCategoryDetails() {
-                let id = (!this.$route.params.subCategory) ? this.$route.params.category : this.$route.params.subCategory;
-                let data = await this.axios.get('categoryDetails/' + id);
+                let id = (this.$route.params.accessory) ? this.$route.params.accessory : (!this.$route.params.subCategory) ? this.$route.params.category : this.$route.params.subCategory;
+                let data = await this.axios.get(((this.$route.params.accessory) ? 'accessoryDetails/' : 'categoryDetails/') + id);
 
                 this.categoryDetails = data.data;
 

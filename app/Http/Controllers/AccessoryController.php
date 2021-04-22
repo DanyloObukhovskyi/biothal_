@@ -7,17 +7,28 @@ use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Admin\Products\Product;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class AccessoryController extends Controller
 {
-    public function getAccessory($parent_id, $id){
-        $accessoriesProducts = Accessories::with('products')->where([['parent_id', '=', $parent_id], ['id', '=', $id]])->get();
-        $products_ids = AccessoryProducts::whereIn('accessory_id', Arr::pluck($accessoriesProducts, 'id'))
-            ->orderBy('product_id', 'desc')
-            ->get()->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $products_ids)->paginate('12');
-        $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
-        return view('accessory', compact('products', 'this_accessory'));
+    public function getAccessory($id){
+        $accessory = Accessories::where('slug', $id)->first();
+        $products_ids = AccessoryProducts::select('product_id')->where([
+            'accessory_id' => $accessory['id']
+        ])->get();
+
+        $products = Product::with([
+            'image',
+            'productDescription',
+            'getSale'
+        ])
+            ->where([
+                'status' => 1
+            ])
+            ->whereIn('id', $products_ids)
+            ->paginate(12);
+
+        return response()->json($products);
     }
 
     public function getParentAccessory($id, Request $request){
@@ -28,5 +39,9 @@ class AccessoryController extends Controller
         $products = Product::whereIn('id', $products_ids)->paginate('12');
         $this_accessory = Accessories::with('products')->where('id', '=', $id)->first();
         return view('allaccessory', compact('products', 'this_accessory'));
+    }
+
+    public function getAccessoryDetails($id){
+        return response()->json(Accessories::where('slug', $id)->first());
     }
 }

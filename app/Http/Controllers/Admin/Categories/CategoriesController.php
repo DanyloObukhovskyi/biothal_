@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Categories;
 use App\Http\Requests\Categories\Add as CategoryAddRequest;
 use App\Http\Requests\Categories\Delete as CategoryDeleteRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use DataTables;
@@ -105,7 +106,7 @@ class CategoriesController extends Controller
                         return response()->json([
                             'warning' => [
                                 'title' => 'Вы уверены что хотите удалить эту категорию?',
-                                'text' => 'Это приведет к удалению дочерних категорий!',
+                                'text' => 'Это приведет к удалению дочерних категорий и потребностей!',
                             ]
                         ]);
                     }
@@ -142,6 +143,12 @@ class CategoriesController extends Controller
                             foreach ($sonsCategories as $son) {
                                 $son->delete();
                             }
+                        }
+
+                        $values[] += $category->id;
+                        $sonsAccessories = Accessories::where('parent_id', $category->id)->get();
+                        foreach ($sonsAccessories as $son) {
+                            $son->delete();
                         }
 
                         $category->delete();

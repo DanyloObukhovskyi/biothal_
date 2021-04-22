@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Accessories\Accessories;
 use App\Models\Admin\Products\Information;
 use App\Models\Admin\Products\InformationAttributes;
 use App\Models\Admin\Products\InformationToLayout;
@@ -35,6 +36,11 @@ class Categories extends Model
     public function childrenArticle()
     {
         return $this->hasMany(InformationToLayout::class,'layout_id','id')->with(['info','attribute']);
+    }
+
+    public function Accessory()
+    {
+        return $this->hasMany(Accessories::class,'parent_id','id');
     }
 
     use HasSlug;

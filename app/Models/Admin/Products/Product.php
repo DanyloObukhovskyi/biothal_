@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Products;
 
+use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
@@ -66,7 +67,7 @@ class Product extends Model
 
     public function accessories()
     {
-        return $this->belongsToMany(Accessories::class,'accessory_products','product_id','accessory_id');
+        return $this->hasMany(AccessoryProducts::class,'product_id','id')->with('accessoryDetails');
     }
 }
 

@@ -74,6 +74,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             Route::post('change', 'AccessoriesController@changeAccessory')
                 ->name('admin.accessories.change');
+
+            Route::get('get', 'AccessoriesController@getAccessoriesByCategory')
+                ->name('admin.accessories.get');
         });
 
         //  Товары

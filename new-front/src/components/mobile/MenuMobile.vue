@@ -44,7 +44,7 @@
           :readonly="item.children ? !item.children.length : true">
           <v-expansion-panel-header
             :expand-icon="showIconItemMenu(item)">
-                        <span @click="toPage({name: 'category-page', params:{ category: item.slug }} )">
+                        <span @click="toPage({name: 'category', params:{ category: item.slug }} )">
                             {{ item.title }}
                         </span>
           </v-expansion-panel-header>
@@ -56,7 +56,7 @@
                 v-for="(item,index) in item.children"
                 :key="index">
                 <v-expansion-panel-header
-                  @click="toPage({name: 'sub-category-page', params:{ category: item.category.slug, subCategory: item.slug }} )"
+                  @click="toPage({name: 'category', params:{ category: item.category.slug, subCategory: item.slug }} )"
                   expand-icon="">
                   - {{ item.title }}
                 </v-expansion-panel-header>

@@ -65,7 +65,6 @@ class HomeController extends Controller
     {
         $bestSeller = Product::with('image', 'productDescription', 'stockStatus')
             ->where([
-                'sale_id' => null,
                 'is_best_seller' => 1,
                 'status' => 1
             ])
@@ -85,7 +84,7 @@ class HomeController extends Controller
             ->OrderBy('ordering', 'ASC')
             ->get();
 
-        $categories = Categories::with('children')
+        $categories = Categories::with('children', 'Accessory')
             ->where([
                 'parent_id' => null,
                 'type_category' => 0

@@ -18,26 +18,42 @@
                   v-bind="attrs"
                   v-on="on"
                   plain
-                  @click="toPage({name: 'category-page', params:{ category: item.slug }})">
+                  @click="toPage({name: 'category', params:{ category: item.slug }})">
                   <span class="bar-menu__category">{{ item.title }}</span>
                   <v-icon>
                     {{ value ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
                   </v-icon>
                 </v-btn>
               </template>
-              <v-list class="bar-menu__wrapper">
-                <v-list-item
-                  class="point-cursor bar-menu__sub-category"
-                  v-for="(item, index) in item.children"
-                  :key="index"
-                  @click="toPage({name: 'sub-category-page', params:{ category: item.category.slug, subCategory: item.slug }})">
-                  <v-list-item-title class="bar-menu__sub-category-title">
-                    - {{ item.title }}
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
+                <div class="bar-menu__wrapper__categories">
+                    <v-list class="bar-menu__wrapper__left">
+                        <div class="bar-menu__main-title">Категории</div>
+                        <v-list-item
+                            class="point-cursor bar-menu__sub-category"
+                            v-for="(item, index) in item.children"
+                            :key="index"
+                            @click="toPage({name: 'category', params:{ category: item.category.slug, subCategory: item.slug }})">
+                            <v-list-item-title class="bar-menu__sub-category-title">
+                                - {{ item.title }}
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                    <v-list v-if="item.accessory.length" class="bar-menu__wrapper__right">
+                        <div class="bar-menu__main-title">Потребности</div>
+                        <v-list-item
+                            class="point-cursor bar-menu__sub-category"
+                            v-for="(item, index) in item.accessory"
+                            :key="index"
+                            @click="toPage({name: 'accessories', params:{ accessory: item.slug }})">
+                            <v-list-item-title class="bar-menu__sub-category-title-right">
+                                - {{ item.title }}
+                            </v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </div>
+
             </v-menu>
-            <v-btn v-else @click="toPage({name: 'category-page', params:{ category: item.slug }})" plain>
+            <v-btn v-else @click="toPage({name: 'category', params:{ category: item.slug }})" plain>
               <span class="bar-menu__category">{{ item.title}}</span>
             </v-btn>
           </v-slide-item>
@@ -254,6 +270,34 @@
   .bar-menu {
     &__wrapper {
       padding: 0 0 6px 0 !important;
+
+        &__categories {
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+
+        &__left {
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+            padding: 0 0 6px 14px;
+        }
+
+        &__right {
+            flex-direction: column;
+            justify-content: space-between;
+            /*width: 50%;*/
+            text-align: left;
+            padding: 0 0 6px 0;
+        }
+    }
+
+    &__main-title {
+        display: flex;
+        justify-content: center;
+        padding: 0 14px 0 0;
     }
 
     &__category {
@@ -278,6 +322,13 @@
       font-size: 12px;
       line-height: 24px;
       padding: 0 54px 0 14px;
+    }
+    &__sub-category-title-right {
+      font-style: normal;
+      font-weight: 200;
+      font-size: 12px;
+      line-height: 24px;
+      padding: 0 14px 0 14px;
     }
   }
 </style>

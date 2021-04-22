@@ -5,11 +5,11 @@
       <span class="breadcrumb-item" @click="toPage( {name:'home'} )">Главная</span>
       <span>/</span>
       <span class="breadcrumb-item"
-            @click="toPage({name: 'category-page', params:{ category: category['main_category']['slug'] }} )">
+            @click="toPage({name: 'category', params:{ category: category['main_category']['slug'] }} )">
         {{ category['main_category']['title'] }}</span>
       <span v-if="category['main_category'].length !== 0">/</span>
       <span v-if="category['sub_category']" class="breadcrumb-item"
-            @click="toPage({name: 'sub-category-page', params:{ category: category['sub_category']['slug'], subCategory: category['sub_category']['slug'] }} )">
+            @click="toPage({name: 'category', params:{ category: category['main_category']['slug'], subCategory: category['sub_category']['slug'] }} )">
         {{ category['sub_category']['title'] }}</span>
       <span v-if="category['sub_category']">/</span>
       <span class="breadcrumb-item">{{ description['name'] }}</span>

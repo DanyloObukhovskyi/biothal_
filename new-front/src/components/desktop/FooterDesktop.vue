@@ -33,7 +33,7 @@
               <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
               <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
                            :key="index"
-                           @click="toPage({name: 'category-page', params: {category: item.slug }})">
+                           @click="toPage({name: 'category', params: {category: item.slug }})">
                 <v-list-item-content>
                   - {{ item.title }}
                 </v-list-item-content>
