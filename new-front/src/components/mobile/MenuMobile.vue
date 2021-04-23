@@ -44,14 +44,15 @@
           :readonly="item.children ? !item.children.length : true">
           <v-expansion-panel-header
             :expand-icon="showIconItemMenu(item)">
-                        <span @click="toPage({name: 'category', params:{ category: item.slug }} )">
-                            {{ item.title }}
-                        </span>
+                <span @click="toPage({name: 'category', params:{ category: item.slug }} )">
+                    {{ item.title }}
+                </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="inner-list">
             <v-divider/>
             <v-expansion-panels v-if="item.children ? item.children.length : false" accordion>
-              <v-expansion-panel
+                <span v-if="item.accessory ? item.accessory.length : false" class="main-title-for-children">Категории</span>
+                <v-expansion-panel
                 readonly
                 v-for="(item,index) in item.children"
                 :key="index">
@@ -62,11 +63,23 @@
                 </v-expansion-panel-header>
               </v-expansion-panel>
             </v-expansion-panels>
+              <v-divider/>
+          <v-expansion-panels v-if="item.accessory ? item.accessory.length : false" accordion>
+              <span v-if="item.accessory ? item.accessory.length : false" class="main-title-for-children">Потребности</span>
+              <v-expansion-panel
+                  v-for="(item,index) in item.accessory"
+                  :key="item.id"
+                  :readonly="item.accessory ? !item.accessory.length : true">
+                  <v-expansion-panel-header
+                      @click="toPage({name: 'accessories', params:{ accessory: item.slug }} )"
+                      expand-icon="">
+                      - {{ item.title }}
+                  </v-expansion-panel-header>
+              </v-expansion-panel>
+          </v-expansion-panels>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
-
-
       <v-expansion-panels accordion>
         <v-expansion-panel
           v-for="(item,index) in menuItemsInfoPage"
@@ -74,9 +87,9 @@
           :readonly="item.children_article ? !item.children_article.length : true">
           <v-expansion-panel-header
             :expand-icon="showIconItemInfoPageMenu(item)">
-                        <span @click="toPage({name: 'info-page', params:{ id: item.slug }} )">
-                            {{ item.title }}
-                        </span>
+                <span @click="toPage({name: 'info-page', params:{ id: item.slug }} )">
+                    {{ item.title }}
+                </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="inner-list">
             <v-divider/>
@@ -173,7 +186,7 @@ export default {
       menuVisible: false,
       menuItemsCategory: [],
       menuItemsInfoPage: [],
-      marginTopNavigation: 0,
+      marginTopNavigation: 0
     }
   },
   mounted() {
@@ -241,6 +254,11 @@ export default {
 
 .main-toolbar-title {
   padding: 0 !important;
+}
+
+.main-title-for-children {
+    margin: 20px 0 5px 0;
+    font-weight: 600;
 }
 
 </style>

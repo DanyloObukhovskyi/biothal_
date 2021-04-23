@@ -6,8 +6,8 @@
     <div class="product__description">
       <img class="product__image"
            @click="toPage({name: 'product', params: {id: dataCard['id']}})"
-           :src="this.api+'/storage/img/products/' + dataCard['image']['name']"
-           :alt="dataCard['image']['name']"/>
+           :src="dataCard.image ? this.api+'/storage/img/products/' + dataCard.image.name : ''"
+           :alt="dataCard.image ? dataCard.image.name : ''"/>
 
       <div @click="toPage({name: 'product', params: {id: dataCard['id']}})" class="product__description__text">
         {{ dataCard['product_description']['name'] }}

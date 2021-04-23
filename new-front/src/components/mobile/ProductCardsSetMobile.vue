@@ -2,7 +2,7 @@
   <div class="product-card__wrapper">
     <div class="product-card__wrapper-content">
       <div class="product-card__title" v-if="isShowTitle">{{title}}</div>
-      <div class="product-card__title" v-if="isShowMessage">{{message}}</div>
+      <div style="margin: 10px" v-if="isShowMessage">{{message}}</div>
       <div class="product-card__content" v-if="typeSet === 'product'">
         <ProductCardMobile class="product-card__item-two"
                            v-for="item in productData"

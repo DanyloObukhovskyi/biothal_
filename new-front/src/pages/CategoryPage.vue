@@ -5,7 +5,7 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <ProductsPaginate ref="productsPaginate" :title="categoryDetails.title" :is-empty-message="categoryMessage" :url="productsUrl"/>
+        <ProductsPaginate ref="productsPaginate" :title="categoryDetails.title" :is-empty-message="this.$route.params.accessory ? accessoryMessage : categoryMessage" :url="productsUrl"/>
         <div class="main-title seo-text-title">{{categoryDetails.seo_title}}</div>
         <div class="seo-text-description" v-html="categoryDetails.seo_description"></div>
     </div>
@@ -48,6 +48,7 @@
                 productData: [],
                 categoryDetails: [],
                 categoryMessage: 'В данной категории нет товаров.',
+                accessoryMessage: 'В данной потребности нет товаров.',
                 seoText: 'SEO-ТЕКСТ ДЛЯ КАТЕГОРИИ',
                 productsUrl: null,
             }

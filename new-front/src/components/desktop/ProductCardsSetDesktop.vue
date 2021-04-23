@@ -3,7 +3,7 @@
     <div class="product-card__wrapper-content">
       <div class="product-card__title" v-if="isShowTitle">{{ title }}</div>
 
-      <p v-if="isShowMessage && message">{{ message }}</p>
+      <div style="margin: 10px" v-if="isShowMessage && message">{{ message }}</div>
 
       <agile class="slider" v-if="withSlider" infinite :key="productData.length" :slidesToShow="3" autoplay
              :autoplaySpeed="5000"
