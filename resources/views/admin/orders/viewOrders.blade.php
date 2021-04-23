@@ -151,8 +151,8 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['is_address_delivery'] ? $order['user_address']['department'] . ' (АДРЕСНАЯ)' : $order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}</td>
-                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['is_address_delivery'] ? $order['user_address']['department'] . ' (АДРЕСНАЯ)' : $order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['is_address_delivery'] ? $order['user_address']['department'] . ' (АДРЕСНАЯ)' : $order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}<br />{{$order['user_address']['not_call'] ? 'Не перезванивать для подтверждения':''}}</td>
+                        <td class="text-left">{{$order['user_address']['name']}} {{$order['user_address']['LastName']}}<br />{{$order['user_address']['is_address_delivery'] ? $order['user_address']['department'] . ' (АДРЕСНАЯ)' : $order['user_address']['department']}}<br />{{$order['user_address']['cities']}}<br />{{$order['user_address']['region']}}<br />{{$order['user_address']['not_call'] ? 'Не перезванивать для подтверждения':''}}</td>
                     </tr>
                     </tbody>
                 </table>

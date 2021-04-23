@@ -29,7 +29,7 @@
         </div>
         <div class="links-wrapper">
           <div class="footer__middle__block">
-            <v-list class="v-list-item" dense>
+            <v-list class="v-list-title-name" dense>
               <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
               <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
                            :key="index"
@@ -314,6 +314,9 @@ export default {
     }
   }
 }
+.v-list-title-name {
+    padding: 16px 0;
+}
 </style>
 
 <style lang="scss">
@@ -343,7 +346,5 @@ export default {
     padding: 0 0 3px 0;
   }
 }
-.v-list-item {
-    padding: 16px 0;
-}
+
 </style>

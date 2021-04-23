@@ -102,6 +102,8 @@ class CheckoutController extends Controller
         $userOrderAddress->department_number = $request->get('deliveryMethod') == 1 ? $postalOffice->number : null;
         $userOrderAddress->full_name = $request->get('name') . ' ' . $request->get('surname');
         $userOrderAddress->is_address_delivery = $request->get('deliveryMethod') == 1 ? false : true;
+        $userOrderAddress->not_call = $request->get('notCall') ? true : false;
+
         $userOrderAddress->save();
 
         $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)

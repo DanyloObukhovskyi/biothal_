@@ -142,6 +142,25 @@
                 </div>
             </div>
         </div>
+        <div class="not-call">
+            <v-checkbox
+                :color="variables.basecolor"
+                v-model="notCall"
+                label="Не перезванивать для подтверждения заказа"/>
+            <v-tooltip right>
+                <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on">
+                        <v-icon color="#000" size="24" style="margin: 0 0 0 5px; cursor: help">
+                            mdi-alert-circle-outline
+                        </v-icon>
+                    </span>
+                </template>
+                <span>
+                    В случае выбора этой опции, Ваш заказ будет сформировать и отправлен без звонка менеджера.
+                    <br>Пожалуйста, проверьте внимательно все ли данные внесены корректно.
+                </span>
+            </v-tooltip>
+        </div>
         <div class="page-form__bottom">
             <v-btn dark
                    class="checkout-button"
@@ -185,6 +204,7 @@ import {mapActions, mapGetters} from "vuex";
                 paymentMethods: [],
                 deliveryMethods: [],
                 validProfile: false,
+                notCall: false,
                 errorValid: {
                     name: '',
                     surname: '',
@@ -361,7 +381,8 @@ import {mapActions, mapGetters} from "vuex";
                             paymentMethod: this.paymentMethod,
                             deliveryMethod: this.deliveryMethod,
                             products: this.products,
-                            user_id: this.user_id
+                            user_id: this.user_id,
+                            notCall: this.notCall
                         };
 
                         await this.axios.post('checkout/create/order', form).then(({data}) => {
@@ -503,5 +524,18 @@ import {mapActions, mapGetters} from "vuex";
     }
     .mt-25px {
         margin-top: 25px;
+    }
+
+    .not-call {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 1em;
+        margin-top: 15px;
+
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 1em;
+        }
     }
 </style>

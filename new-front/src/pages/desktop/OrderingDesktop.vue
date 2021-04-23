@@ -163,6 +163,25 @@
                             </div>
                         </v-form>
                     </div>
+                    <div class="not-call">
+                        <v-checkbox
+                            :color="variables.basecolor"
+                            v-model="notCall"
+                            label="Не перезванивать для подтверждения заказа"/>
+                        <v-tooltip right>
+                            <template v-slot:activator="{ on, attrs }">
+                                <span v-bind="attrs" v-on="on">
+                                    <v-icon color="#000" size="24" style="margin: 0 0 0 5px; cursor: help">
+                                        mdi-alert-circle-outline
+                                    </v-icon>
+                                </span>
+                            </template>
+                            <span>
+                                В случае выбора этой опции, Ваш заказ будет сформировать и отправлен без звонка менеджера.
+                                <br>Пожалуйста, проверьте внимательно все ли данные внесены корректно.
+                            </span>
+                        </v-tooltip>
+                    </div>
                     <div class="ordering__middle__left__checkout">
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
@@ -225,462 +244,477 @@
 </template>
 
 <script>
-import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
-import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
-import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
-import {mapActions, mapGetters} from "vuex";
+    import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
+    import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
+    import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
+    import {mapActions, mapGetters} from "vuex";
 
-export default {
-    name: "OrderingDesktop",
-    components: {
-        ProductCardBasket,
-        PlaceOrderOneClick,
-        ProductCardsSet
-    },
-    data() {
-        return {
-            deliveryPrice: 40,
-            number: '',
-            name: '',
-            surname: '',
-            region: '',
-            city: '',
-            user_id: '',
-            postalOffice: '',
-            paymentMethod: '',
-            deliveryMethod: 1,
-            recommendedProducts: [],
-            regions: [],
-            regionsLoading: false,
-            cities: [],
-            citiesLoading: false,
-            postalOffices: [],
-            postalOfficesLoading: false,
-            paymentMethods: [],
-            deliveryMethods: [],
-            validProfile: false,
-            errorValid: {
+    export default {
+        name: "OrderingDesktop",
+        components: {
+            ProductCardBasket,
+            PlaceOrderOneClick,
+            ProductCardsSet
+        },
+        data() {
+            return {
+                deliveryPrice: 40,
+                number: '',
                 name: '',
                 surname: '',
-                email: '',
-                number: '',
                 region: '',
                 city: '',
+                user_id: '',
                 postalOffice: '',
                 paymentMethod: '',
-                deliveryMethod: ''
+                deliveryMethod: 1,
+                recommendedProducts: [],
+                regions: [],
+                regionsLoading: false,
+                cities: [],
+                citiesLoading: false,
+                postalOffices: [],
+                postalOfficesLoading: false,
+                paymentMethods: [],
+                deliveryMethods: [],
+                validProfile: false,
+                notCall: false,
+                errorValid: {
+                    name: '',
+                    surname: '',
+                    email: '',
+                    number: '',
+                    region: '',
+                    city: '',
+                    postalOffice: '',
+                    paymentMethod: '',
+                    deliveryMethod: ''
+                },
+                profile: {
+                    number: '',
+                    name: '',
+                    surname: '',
+                    user_id: ''
+                }
+            }
+        },
+        computed: {
+            ...mapGetters('basket', [
+                'products',
+                'globalSales',
+                'currentGlobalSales',
+                'nextGlobalSales',
+                'groupSales',
+                'currentGroupSales',
+                'nextGroupSales',
+                'linear',
+                'productsSum',
+                'productsSumWithSales'
+            ]),
+            numberRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое телефоный номер',
+                    v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символа',
+                ];
             },
-            profile: {
-                number: '',
-                name: '',
-                surname: '',
-                user_id: ''
-            }
-        }
-    },
-    computed: {
-        ...mapGetters('basket', [
-            'products',
-            'globalSales',
-            'currentGlobalSales',
-            'nextGlobalSales',
-            'groupSales',
-            'currentGroupSales',
-            'nextGroupSales',
-            'linear',
-            'productsSum',
-            'productsSumWithSales'
-        ]),
-        numberRules() {
-            return [
-                v => !!v || 'Вы не ввели свое телефоный номер',
-                v => v.length >= 18 || 'Телефон должен содержать больше чем 12 символа',
-            ];
-        },
-        nameRules() {
-            return [
-                v => !!v || 'Вы не ввели свое имя',
-                v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
-            ]
-        },
-        surnameRules() {
-            return [
-                v => !!v || 'Вы не ввели свою фамилию',
-                v => v.length >= 2 || 'фамилия должна содержать больше чем 2 символа',
-            ]
-        },
-        regionRules() {
-            return [
-                v => !!v || 'Вы не выбрали регион',
-            ]
-        },
-        cityRules() {
-            return [
-                v => !!v || 'Вы не выбрали город',
-            ]
-        },
-        postalOfficeRules() {
-            return [
-                v => !!v || 'Вы не выбрали город',
-            ]
-        },
-        postalOfficeRulesInput() {
-            return [
-                v => !!v || 'Вы не ввели адрес',
-            ]
-        },
-        paymentMethodRules() {
-            return [
-                v => !!v || 'Вы не выбрали способ оплаты',
-            ]
-        },
-        deliveryMethodRules() {
-            return [
-                v => !!v || 'Вы не выбрали способ доставки',
-            ]
-        }
-    },
-    watch: {
-        region() {
-            if (this.region !== null && this.region !== '') {
-                this.getCities()
-                this.postalOffices = [];
-                this.city = '';
+            nameRules() {
+                return [
+                    v => !!v || 'Вы не ввели свое имя',
+                    v => v.length >= 2 || 'Имя должно содержать больше чем 2 символа',
+                ]
+            },
+            surnameRules() {
+                return [
+                    v => !!v || 'Вы не ввели свою фамилию',
+                    v => v.length >= 2 || 'фамилия должна содержать больше чем 2 символа',
+                ]
+            },
+            regionRules() {
+                return [
+                    v => !!v || 'Вы не выбрали регион',
+                ]
+            },
+            cityRules() {
+                return [
+                    v => !!v || 'Вы не выбрали город',
+                ]
+            },
+            postalOfficeRules() {
+                return [
+                    v => !!v || 'Вы не выбрали город',
+                ]
+            },
+            postalOfficeRulesInput() {
+                return [
+                    v => !!v || 'Вы не ввели адрес',
+                ]
+            },
+            paymentMethodRules() {
+                return [
+                    v => !!v || 'Вы не выбрали способ оплаты',
+                ]
+            },
+            deliveryMethodRules() {
+                return [
+                    v => !!v || 'Вы не выбрали способ доставки',
+                ]
             }
         },
-        city() {
-            if (this.region !== null && this.region !== '') {
-                this.getPostalOffices()
+        watch: {
+            region() {
+                if (this.region !== null && this.region !== '') {
+                    this.getCities()
+                    this.postalOffices = [];
+                    this.city = '';
+                }
+            },
+            city() {
+                if (this.region !== null && this.region !== '') {
+                    this.getPostalOffices()
+                }
+            },
+            products: function (newProducts, old) {
+                if (newProducts.length === 0) {
+                    this.toPage({name: 'home'})
+                }
+            },
+            deliveryMethod: function (newValue, oldValue) {
+                if (newValue !== 1) {
+                    this.postalOffice = '';
+                }
             }
         },
-        products: function (newProducts, old) {
-            if (newProducts.length === 0) {
-                this.toPage({name: 'home'})
-            }
-        },
-        deliveryMethod: function (newValue, oldValue) {
-            if (newValue !== 1) {
-                this.postalOffice = '';
-            }
-        }
-    },
-    methods: {
-        ...mapActions('basket', {
-            deleteProduct: 'DELETE_PRODUCT',
-            setGlobalSales: 'SET_GLOBAL_SALES',
-            setGroupSales: 'SET_GROUP_SALES'
-        }),
-        getRecommendedProduct() {
-            this.axios.post('products/recommended')
-                .then(({data}) => {
-                    this.recommendedProducts = data
-                })
-        },
-        getRegionsAndCities() {
-            this.regionsLoading = true;
-
-            this.axios.post('checkout/regions')
-                .then(({data}) => {
-                    this.regions = data;
-                    this.regionsLoading = false;
-                })
-        },
-        getCities() {
-            this.citiesLoading = true;
-
-            const data = {
-                region: this.region,
-            }
-            this.axios.post('checkout/cities', data)
-                .then(({data}) => {
-                    this.cities = data;
-                    this.citiesLoading = false;
-                })
-        },
-        getPostalOffices() {
-            this.postalOfficesLoading = true;
-
-            const city = this.cities.find(c => c.name === this.city)
-
-            this.axios.post('checkout/postal/offices', {city})
-                .then(({data}) => {
-                    this.postalOffices = data;
-                    this.postalOfficesLoading = false;
-                })
-        },
-        getPaymentMethods() {
-            this.axios.post('checkout/payment/methods')
-                .then(({data}) => {
-                    this.paymentMethods = data;
-                })
-        },
-        getDeliveryMethods() {
-            this.axios.post('checkout/delivery/methods')
-                .then(({data}) => {
-                    this.deliveryMethods = data;
-                })
-        },
-        clearValidation() {
-            this.errorValid = {
-                name: '',
-                surname: '',
-                email: '',
-                number: '',
-                region: '',
-                city: '',
-                postalOffice: '',
-                paymentMethod: '',
-                deliveryMethod: ''
-            }
-        },
-        async checkout() {
-            this.$loading(true)
-
-            try {
-                //this.toPage({name: 'payment', params: {paymentUrl: 454}})
-                this.clearValidation()
-                let validate = await this.$refs['orderForm'].validate();
-
-                if (validate) {
-                    const form = {
-                        number: this.number,
-                        name: this.name,
-                        surname: this.surname,
-                        city: this.city,
-                        region: this.region,
-                        postalOffice: this.postalOffice,
-                        paymentMethod: this.paymentMethod,
-                        deliveryMethod: this.deliveryMethod,
-                        products: this.products,
-                        user_id: this.user_id
-                    };
-                    await this.axios.post('checkout/create/order', form).then(({data}) => {
-                        let message = data.message
-
-                        this.$notify({
-                            type: 'success',
-                            title: 'Успех!',
-                            text: message
-                        });
-                        this.clearValidation();
-                        let postData = data.portmone
-
-                        if (postData) {
-                            this.toPage({name: 'payment', params: {paymentUrl: postData}});
-                        } else {
-                            this.$loading(false);
-                            this.toPage({name: 'order-status', params: {token: data.token}});
-                        }
+        methods: {
+            ...mapActions('basket', {
+                deleteProduct: 'DELETE_PRODUCT',
+                setGlobalSales: 'SET_GLOBAL_SALES',
+                setGroupSales: 'SET_GROUP_SALES'
+            }),
+            getRecommendedProduct() {
+                this.axios.post('products/recommended')
+                    .then(({data}) => {
+                        this.recommendedProducts = data
                     })
+            },
+            getRegionsAndCities() {
+                this.regionsLoading = true;
+
+                this.axios.post('checkout/regions')
+                    .then(({data}) => {
+                        this.regions = data;
+                        this.regionsLoading = false;
+                    })
+            },
+            getCities() {
+                this.citiesLoading = true;
+
+                const data = {
+                    region: this.region,
                 }
-            } catch (e) {
-                this.$loading(false);
-                this.errorMessagesValidation(e);
-            }
-        },
-        async getProfile() {
-            await this.checkUserIsValid()
-            try {
-                const token = this.$store.getters.getToken;
-                if (token) {
-                    let data = await this.axios.post('profile', {}, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    if (data) {
-                        let user = data.data.user
-                        this.number = user.phone_number,
-                            this.name = user.name,
-                            this.surname = user.sur_name,
-                            this.user_id = user.id
+                this.axios.post('checkout/cities', data)
+                    .then(({data}) => {
+                        this.cities = data;
+                        this.citiesLoading = false;
+                    })
+            },
+            getPostalOffices() {
+                this.postalOfficesLoading = true;
+
+                const city = this.cities.find(c => c.name === this.city)
+
+                this.axios.post('checkout/postal/offices', {city})
+                    .then(({data}) => {
+                        this.postalOffices = data;
+                        this.postalOfficesLoading = false;
+                    })
+            },
+            getPaymentMethods() {
+                this.axios.post('checkout/payment/methods')
+                    .then(({data}) => {
+                        this.paymentMethods = data;
+                    })
+            },
+            getDeliveryMethods() {
+                this.axios.post('checkout/delivery/methods')
+                    .then(({data}) => {
+                        this.deliveryMethods = data;
+                    })
+            },
+            clearValidation() {
+                this.errorValid = {
+                    name: '',
+                    surname: '',
+                    email: '',
+                    number: '',
+                    region: '',
+                    city: '',
+                    postalOffice: '',
+                    paymentMethod: '',
+                    deliveryMethod: ''
+                }
+            },
+            async checkout() {
+                this.$loading(true)
+
+                try {
+                    //this.toPage({name: 'payment', params: {paymentUrl: 454}})
+                    this.clearValidation()
+                    let validate = await this.$refs['orderForm'].validate();
+
+                    if (validate) {
+                        const form = {
+                            number: this.number,
+                            name: this.name,
+                            surname: this.surname,
+                            city: this.city,
+                            region: this.region,
+                            postalOffice: this.postalOffice,
+                            paymentMethod: this.paymentMethod,
+                            deliveryMethod: this.deliveryMethod,
+                            products: this.products,
+                            user_id: this.user_id,
+                            notCall: this.notCall
+                        };
+                        await this.axios.post('checkout/create/order', form).then(({data}) => {
+                            let message = data.message
+
+                            this.$notify({
+                                type: 'success',
+                                title: 'Успех!',
+                                text: message
+                            });
+                            this.clearValidation();
+                            let postData = data.portmone
+
+                            if (postData) {
+                                this.toPage({name: 'payment', params: {paymentUrl: postData}});
+                            } else {
+                                this.$loading(false);
+                                this.toPage({name: 'order-status', params: {token: data.token}});
+                            }
+                        })
                     }
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
                 }
-            } catch (e) {
-                this.errorMessagesValidation(e);
-            }
-        },
-        async checkUserIsValid() {
-            try {
-                const token = this.$store.getters.getToken;
-                if (token) {
-                    let data = await this.axios.post('checkUser', {}, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
+            },
+            async getProfile() {
+                await this.checkUserIsValid()
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('profile', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (data) {
+                            let user = data.data.user
+                            this.number = user.phone_number,
+                                this.name = user.name,
+                                this.surname = user.sur_name,
+                                this.user_id = user.id
                         }
-                    });
-                    if (data) {
-                        let exist = data.data.exist
-                        if (!exist) {
+                    }
+                } catch (e) {
+                    this.errorMessagesValidation(e);
+                }
+            },
+            async checkUserIsValid() {
+                try {
+                    const token = this.$store.getters.getToken;
+                    if (token) {
+                        let data = await this.axios.post('checkUser', {}, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (data) {
+                            let exist = data.data.exist
+                            if (!exist) {
+                                await this.$store.dispatch('LOGIN', null);
+                                return false;
+                            }
+                        } else {
                             await this.$store.dispatch('LOGIN', null);
-                            return false;
                         }
+                        return true;
                     } else {
-                        await this.$store.dispatch('LOGIN', null);
+                        return false;
                     }
-                    return true;
-                } else {
-                    return false;
+                } catch (e) {
+                    await this.$store.dispatch('LOGIN', null);
+                    this.errorMessagesValidation(e);
                 }
-            } catch (e) {
-                await this.$store.dispatch('LOGIN', null);
-                this.errorMessagesValidation(e);
             }
+        },
+        mounted() {
+            this.getRecommendedProduct();
+            this.getRegionsAndCities();
+            this.getPaymentMethods();
+            this.getDeliveryMethods();
+            this.getProfile()
         }
-    },
-    mounted() {
-        this.getRecommendedProduct();
-        this.getRegionsAndCities();
-        this.getPaymentMethods();
-        this.getDeliveryMethods();
-        this.getProfile()
     }
-}
 </script>
 
 <style scoped lang="scss">
 
-@import 'src/styles/mixins';
+    @import 'src/styles/mixins';
 
-.ordering {
+    .ordering {
 
-    &__wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: scroll;
-    }
-
-    &__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    &__top {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-
-        &__title {
-            font-size: 18px;
-            margin: 20px;
-        }
-    }
-
-    &__middle {
-        display: flex;
-        flex-direction: row;
-        margin-top: 30px;
-        flex-wrap: wrap;
-
-        &__left {
+        &__wrapper {
             display: flex;
             flex-direction: column;
-            width: 50%;
+            justify-content: center;
+            align-items: center;
+            overflow: scroll;
+        }
 
-            &__checkout {
+        &__content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        &__top {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            &__title {
+                font-size: 18px;
+                margin: 20px;
+            }
+        }
+
+        &__middle {
+            display: flex;
+            flex-direction: row;
+            margin-top: 30px;
+            flex-wrap: wrap;
+
+            &__left {
                 display: flex;
-                margin-top: 20px;
+                flex-direction: column;
+                width: 50%;
 
-                @include media(991) {
-                  flex-direction: column;
-                  justify-content: center;
+                &__checkout {
+                    display: flex;
+                    margin-top: 20px;
+
+                    @include media(991) {
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            &__right {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 50%;
+
+                &__product-set {
+                    height: 610px;
+                    overflow: auto;
+                    padding: 7px;
                 }
             }
         }
+    }
 
-        &__right {
+    .main-input-label {
+        padding: 0 0 0 20px;
+        margin: 0;
+        font-weight: 200;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .main-input-field {
+        margin: 0;
+        padding: 5px;
+    }
+
+    .checkout-button {
+        border-radius: 50px;
+        width: 190px;
+        height: 44px !important;
+        font-size: 12px;
+        line-height: 17px;
+        font-weight: 500;
+
+        &__wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 50%;
 
-            &__product-set {
-                height: 610px;
-                overflow: auto;
-                padding: 7px;
+            @include media(991) {
+                justify-content: center;
             }
         }
     }
-}
 
-.main-input-label {
-    padding: 0 0 0 20px;
-    margin: 0;
-    font-weight: 200;
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.main-input-field {
-    margin: 0;
-    padding: 5px;
-}
-
-.checkout-button {
-    border-radius: 50px;
-    width: 190px;
-    height: 44px !important;
-    font-size: 12px;
-    line-height: 17px;
-    font-weight: 500;
-
-    &__wrapper {
+    .checkout-link {
         display: flex;
+        font-weight: 200;
+        font-size: 12px;
+        line-height: 16px;
+        text-decoration-line: underline;
+        margin: auto 36px;
 
-        @include media(991) {
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 991px) {
             justify-content: center;
+            margin-top: 10px;
         }
     }
-}
 
-.checkout-link {
-    display: flex;
-    font-weight: 200;
-    font-size: 12px;
-    line-height: 16px;
-    text-decoration-line: underline;
-    margin: auto 36px;
+    .total {
+        display: flex;
+        flex-direction: row;
+        font-weight: 200;
+        font-size: 11px;
+        line-height: 15px;
 
+        &__wrapper {
+            padding: 20px 0 0 70px;
+        }
 
-    &:hover {
-        cursor: pointer;
+        &__left {
+            width: 50%;
+        }
+
+        &__right {
+            width: 50%;
+            text-align: right;
+        }
     }
 
-    @media screen and (max-width: 991px) {
-        justify-content: center;
-        margin-top: 10px;
-    }
-}
-
-.total {
-    display: flex;
-    flex-direction: row;
-    font-weight: 200;
-    font-size: 11px;
-    line-height: 15px;
-
-    &__wrapper {
-        padding: 20px 0 0 70px;
+    .main-linear {
+        border-radius: 60px;
     }
 
-    &__left {
-        width: 50%;
+    .mt-18px {
+        margin-top: 18px;
     }
 
-    &__right {
-        width: 50%;
-        text-align: right;
+    .not-call {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 1em;
+        margin-top: 15px;
+
+        @media screen and (max-width: 1000px) {
+            margin-bottom: 1em;
+        }
     }
-}
-
-.main-linear {
-    border-radius: 60px;
-}
-
-.mt-18px {
-    margin-top: 18px;
-}
 </style>
