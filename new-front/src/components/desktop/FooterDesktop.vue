@@ -20,7 +20,7 @@
 
         <div class="footer__middle__block footer-middle-block-description">
           <img class="footer-middle-block__image" @click="toPage({name: 'home'})" width="127" height="38" src="../../../public/logo-biothal.svg"
-               style="cursor: pointer; margin-bottom: 18px"/>
+               style="cursor: pointer; margin-bottom: 8px"/>
           <div class="footer-middle-block__text">
             Каждый продукт Biothal представляет собой настоящий эликсир красоты и молодости, концентрат морской
             силы, который работает в абсолютной синергии с кожей и соответствует самым высоким мировым
@@ -29,7 +29,7 @@
         </div>
         <div class="links-wrapper">
           <div class="footer__middle__block">
-            <v-list dense>
+            <v-list class="v-list-item" dense>
               <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
               <v-list-item class="list-item" v-for="(item, index) in menuItemsCategory.slice(0, 4)"
                            :key="index"
@@ -41,7 +41,7 @@
             </v-list>
           </div>
           <div class="footer__middle__block">
-            <v-list dense>
+            <v-list class="v-list-item" dense>
               <v-list-item-title class="list-item__title">О нас</v-list-item-title>
               <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)"
                            :key="index"
@@ -53,7 +53,7 @@
             </v-list>
           </div>
           <div class="footer__middle__block">
-            <v-list dense>
+            <v-list class="v-list-item" dense>
               <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
               <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
                            style="display: flex; align-items: center" :href="item.href" target="_blank">
@@ -273,7 +273,6 @@ export default {
     font-size: 17px;
     line-height: 23px;
     letter-spacing: -0.231818px;
-    margin-bottom: 20px;
   }
 }
 
@@ -343,5 +342,8 @@ export default {
   & input {
     padding: 0 0 3px 0;
   }
+}
+.v-list-item {
+    padding: 16px 0;
 }
 </style>
