@@ -41,7 +41,7 @@
         <v-expansion-panel
           v-for="(item,index) in menuItemsCategory"
           :key="index"
-          :readonly="item.children ? !item.children.length : true">
+          :readonly="false">
           <v-expansion-panel-header
             :expand-icon="showIconItemMenu(item)">
                 <span @click="toPage({name: 'category', params:{ category: item.slug }} )">
@@ -203,7 +203,7 @@ export default {
   },
   methods: {
     showIconItemMenu(item) {
-      return item.children ? item.children.length ? 'east' : '' : 'east'
+      return item.children || item.accessory ? item.children.length || item.accessory.length ? 'east' : '' : 'east'
     },
     showIconItemInfoPageMenu(item) {
       return item.children_article ? item.children_article.length ? 'east' : '' : 'east'

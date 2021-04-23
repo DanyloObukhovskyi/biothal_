@@ -167,7 +167,8 @@ class AccessoriesController extends Controller
     }
 
     public function getAccessoriesByCategory(Request $request) {
-        $accessories = Accessories::where('parent_id', $request->id)->get();
+        $category = Categories::find($request->id);
+        $accessories = Accessories::where('parent_id', $category->parent_id ? $category->parent_id : $request->id)->get();
 
         return response()->json([
             'accessories' => $accessories

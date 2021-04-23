@@ -12,7 +12,7 @@
           multiple
           show-arrows>
           <v-slide-item v-for="(item, index) in menuItemsCategory" :key="item.id">
-            <v-menu v-if="item.children.length" open-on-hover offset-y>
+            <v-menu v-if="item.children.length || item.accessory.length" open-on-hover offset-y>
               <template v-slot:activator="{ on, attrs, value }">
                 <v-btn
                   v-bind="attrs"
@@ -26,7 +26,7 @@
                 </v-btn>
               </template>
                 <div class="bar-menu__wrapper__categories">
-                    <v-list class="bar-menu__wrapper__left">
+                    <v-list v-if="item.children.length" class="bar-menu__wrapper__left">
                         <div class="bar-menu__main-title">Категории</div>
                         <v-list-item
                             class="point-cursor bar-menu__sub-category"
@@ -38,7 +38,7 @@
                             </v-list-item-title>
                         </v-list-item>
                     </v-list>
-                    <v-list v-if="item.accessory.length" class="bar-menu__wrapper__right">
+                    <v-list v-if="item.accessory.length" :class="item.children.length ? 'bar-menu__wrapper__right' : 'bar-menu__wrapper__left'">
                         <div class="bar-menu__main-title">Потребности</div>
                         <v-list-item
                             class="point-cursor bar-menu__sub-category"
@@ -279,6 +279,7 @@
         }
 
         &__left {
+            width: 100%;
             flex-direction: column;
             justify-content: space-between;
             text-align: left;

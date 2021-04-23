@@ -197,7 +197,9 @@ class NewProductsController extends Controller
             $categories[$category_key]["full_name"] = $full_cat_path;
         }
 
-        $accessories = Accessories::where('parent_id', $product->productCategory->category_id)->get()->toArray();
+        $category = Categories::find($product->productCategory->category_id);
+
+        $accessories = Accessories::where('parent_id', $category->parent_id ? $category->parent_id : $product->productCategory->category_id)->get()->toArray();
 
         return view('admin.products.changeNewProd', compact(
             'id',
