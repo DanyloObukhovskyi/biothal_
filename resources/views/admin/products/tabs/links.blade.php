@@ -32,12 +32,17 @@
         <label class="col-sm-2 control-label" for="input-category">Потребность товара:</label>
         <div class="col-sm-10">
             <select id="accessory_id" class="form-control">
-                <option id="noChoose" value="null">
+                <option id="noChoose" value="null"
+                    @if (empty($accessories))
+                        selected="selected"
+                    @endif>
                     --- Не выбрано ---
                 </option>
-                @foreach($accessories as $accessory)
-                    <option id="accessory_{{$accessory['id']}}" value="{{$accessory['id']}}">{{$accessory['title']}}</option>
-                @endforeach
+                @if (!empty($accessories))
+                    @foreach($accessories as $accessory)
+                        <option id="accessory_{{$accessory['id']}}" value="{{$accessory['id']}}">{{$accessory['title']}}</option>
+                    @endforeach
+                @endif
             </select>
         </div>
 

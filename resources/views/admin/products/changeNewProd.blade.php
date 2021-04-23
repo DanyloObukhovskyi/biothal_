@@ -287,53 +287,67 @@
     function getAccessories() {
 
         let id = $('#main_category_id').val();
-        $.ajax({
-            url: "/admin/accessories/get",
-            method: 'GET',
-            data: {
-                "id": id
-            },
-            error: function (xhr, status, error) {
-                var errors = xhr.responseJSON.errors, errorMessage = "";
-                $.each(errors, function (index, value) {
-                    $.each(value, function (key, message) {
-                        errorMessage += message + " ";
+
+        if (id !== 'null') {
+            $.ajax({
+                url: "/admin/accessories/get",
+                method: 'GET',
+                data: {
+                    "id": id
+                },
+                error: function (xhr, status, error) {
+                    var errors = xhr.responseJSON.errors, errorMessage = "";
+                    $.each(errors, function (index, value) {
+                        $.each(value, function (key, message) {
+                            errorMessage += message + " ";
+                        })
                     })
-                })
-                Swal.fire({
-                    icon: 'error',
-                    title: errorMessage,
-                    showConfirmButton: true,
-                })
-            },
-            success: function (resp) {
-                $('#accessory_id option').each( function () {
-                        $(this).remove()
-                    }
-                )
-                $('#accessories-rows').each( function () {
-                        $(this).remove()
-                    }
-                )
-                $('#tab-links').append('<div id="accessories-rows"><div>');
-                $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
-                if($.trim(resp['accessories'])){
-                    let html = '';
-                    resp['accessories'].forEach(function (item, index) {
-                        html += '<option id="accessory_'+item.id+'" value="'+item.id+'">'
-                        html +=     item.title
-                        html += '</option>'
-                    });
-                    $('#accessory_id').append(html);
-                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: errorMessage,
+                        showConfirmButton: true,
+                    })
+                },
+                success: function (resp) {
                     $('#accessory_id option').each( function () {
                             $(this).remove()
                         }
                     )
+                    $('#accessories-rows').each( function () {
+                            $(this).remove()
+                        }
+                    )
+                    $('#tab-links').append('<div id="accessories-rows"><div>');
                     $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
+                    if($.trim(resp['accessories'])){
+                        let html = '';
+                        resp['accessories'].forEach(function (item, index) {
+                            html += '<option id="accessory_'+item.id+'" value="'+item.id+'">'
+                            html +=     item.title
+                            html += '</option>'
+                        });
+                        $('#accessory_id').append(html);
+                    } else {
+                        $('#accessory_id option').each( function () {
+                                $(this).remove()
+                            }
+                        )
+                        $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            $('#accessory_id option').each( function () {
+                    $(this).remove()
+                }
+            )
+            $('#accessories-rows').each( function () {
+                    $(this).remove()
+                }
+            )
+            $('#tab-links').append('<div id="accessories-rows"><div>');
+            $('#accessory_id').append('<option id="noChoose" value="null">--- Не выбрано ---</option>');
+        }
     }
 
     function addAccessory() {
