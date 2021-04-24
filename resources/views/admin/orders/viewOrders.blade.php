@@ -38,7 +38,7 @@
                     </div>
                     <table class="table">
                         <tr>
-                            <td style=""><button data-toggle="tooltip" title="Магазин" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
+                            <td style="width: 1%;"><button data-toggle="tooltip" title="Магазин" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
                             <td><a href="/" target="_blank">Biothal</a></td>
                         </tr>
                         <tr>
