@@ -88,19 +88,21 @@ class CheckoutController extends Controller
 
     public function createOrder(Request $request)
     {
+        $user = User::where([['type', User::CLIENT_TYPE], ['phone_number', $request->get('number')]])->first();
+
         if ($request->get('deliveryMethod') == 1){
             $postalOffice = (object)$request->get('postalOffice');
         }
 
         $userOrderAddress = new UserOrderAddress();
         $userOrderAddress->phone = $request->get('number');
-        $userOrderAddress->name = $request->get('name');
-        $userOrderAddress->LastName = $request->get('surname');
+        $userOrderAddress->name = !empty($user) ? $user->name : $request->get('name');
+        $userOrderAddress->LastName = !empty($user) ? $user->sur_name : $request->get('surname');
         $userOrderAddress->region = $request->get('region');
         $userOrderAddress->cities = $request->get('city');
         $userOrderAddress->department = $request->get('deliveryMethod') == 1 ? $postalOffice->name : $request->get('postalOffice');
         $userOrderAddress->department_number = $request->get('deliveryMethod') == 1 ? $postalOffice->number : null;
-        $userOrderAddress->full_name = $request->get('name') . ' ' . $request->get('surname');
+        $userOrderAddress->full_name = !empty($user) ? $user->name . ' ' . $user->sur_name : $request->get('name') . ' ' . $request->get('surname');
         $userOrderAddress->is_address_delivery = $request->get('deliveryMethod') == 1 ? false : true;
         $userOrderAddress->not_call = $request->get('notCall') ? true : false;
 
@@ -113,7 +115,7 @@ class CheckoutController extends Controller
         $order->user_order_id = $userOrderAddress->id;
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = $request->get('paymentMethod');
-        $order->user_id = $request->get('user_id');
+        $order->user_id = !empty($request->get('user_id')) ? $request->get('user_id') : (!empty($user) ? $user->id : null);
         $order->token = $this->generateRandomString(12);
 
         $order->save();

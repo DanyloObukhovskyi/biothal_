@@ -8,8 +8,8 @@
                 <div>
                     <p class="main-input-label">Введите номер телефона</p>
                     <v-text-field
-                        placeholder="+38 (___) ___-__-__"
-                        v-mask="'+38 (###) ###-##-##'"
+                        placeholder="+38(___) ___-__-__"
+                        v-mask="'+38(###) ###-##-##'"
                         class="main-input-field"
                         :error-messages="errorValid.number"
                         :rules="numberRules"
@@ -144,6 +144,7 @@
         </div>
         <div class="not-call">
             <v-checkbox
+                class="not-call-check"
                 :color="variables.basecolor"
                 v-model="notCall"
                 label="Не перезванивать для подтверждения заказа"/>
@@ -538,4 +539,10 @@ import {mapActions, mapGetters} from "vuex";
             margin-bottom: 1em;
         }
     }
+    .not-call-check .v-label.theme-light{
+        font-size: 10px!important;
+    }
+    /*.v-label.theme--light{*/
+    /*    font-size: 14px;*/
+    /*}*/
 </style>

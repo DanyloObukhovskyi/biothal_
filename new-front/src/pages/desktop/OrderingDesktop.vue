@@ -25,8 +25,8 @@
                                     v-model="number"
                                     :error-messages="errorValid.number"
                                     :rules="numberRules"
-                                    placeholder="+38 (___) ___-__-__"
-                                    v-mask="'+38 (###) ###-##-##'"
+                                    placeholder="+38(___) ___-__-__"
+                                    v-mask="'+38(###) ###-##-##'"
                                     class="main-input-field"
                                     background-color="#F7F7F7"
                                     flat
