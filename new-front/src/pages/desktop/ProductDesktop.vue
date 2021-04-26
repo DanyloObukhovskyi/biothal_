@@ -51,12 +51,11 @@
               <v-icon
                 @click="incrementCountGood"
                 :disabled="stock_status === 2"
-                :style="{'background-color': stock_status === 2 ? variables.disablecolor : variables.basecolor, color: stock_status === 2 ? '#000000' : '#ffffff'}"
+                :style="{'background-color': stock_status === 2 || count_good > 98 ? variables.disablecolor : variables.basecolor, color: stock_status === 2 || count_good > 98 ? '#000000' : '#ffffff'}"
                 class="info-count__input-control">
                 mdi-plus
               </v-icon>
-              <input v-model="count_good" :disabled="stock_status === 2" type="number"
-                                   class="input-count-good"/>
+              <input v-model="count_good" :disabled="stock_status === 2" type="number" max="100" class="input-count-good"/>
               <v-icon
                 @click="decrementCountGood"
                 :disabled="stock_status === 2"
@@ -198,6 +197,13 @@ import {mapActions, mapGetters} from "vuex";
                 handler(newRoute, oldRoute) {
                     this.fetchProductDetails();
                 },
+            },
+            count_good: function (valueNew, valueOld) {
+                if (valueNew > 99) {
+                    this.count_good = valueOld;
+                } else if (valueNew < 0) {
+                    this.count_good = 1;
+                }
             }
         },
         created() {
@@ -264,7 +270,9 @@ import {mapActions, mapGetters} from "vuex";
       this.action_visible_basket_info(true);
     },
     incrementCountGood() {
-      ++this.count_good;
+        if (this.count_good < 99) {
+            ++this.count_good;
+        }
     },
     decrementCountGood() {
       if (this.count_good > this.minimum_quantity) {

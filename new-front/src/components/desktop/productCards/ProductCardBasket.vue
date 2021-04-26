@@ -17,8 +17,8 @@
                   @click="dataCard.quantity > dataCard.minimum ? decrementQuantity(dataCard.id) : null">
             mdi-minus
           </v-icon>
-          <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="dataCard.minimum"/>
-          <v-icon class="main-icon-btn" size="12" @click="incrementQuantity(dataCard.id)">mdi-plus</v-icon>
+          <input style="width: 30px" v-model="dataCard.quantity" type="number" :min="dataCard.minimum" max="100"/>
+          <v-icon class="main-icon-btn" size="12" @click="dataCard.quantity < 99 ? incrementQuantity(dataCard.id) : null">mdi-plus</v-icon>
         </div>
 
         <div v-if="isShowStock" class="product-basket__right__text__old-price">Старая цена: {{
@@ -51,9 +51,13 @@ export default {
     }
   },
   watch: {
-    'dataCard.quantity': function (value) {
-      if (value === 0) {
-        this.$emit('delete')
+    'dataCard.quantity': function (valueNew, valueOld) {
+      // if (valueNew === 0) {
+      //   this.$emit('delete')}
+      if (valueNew > 99) {
+          this.dataCard.quantity = valueOld;
+      } else if (valueNew < 0) {
+          this.dataCard.quantity = 1;
       }
     }
   },
