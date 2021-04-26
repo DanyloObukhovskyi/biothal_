@@ -68,7 +68,7 @@
                         rounded>
                     </v-autocomplete>
                 </div>
-                <div v-if="deliveryMethod === 1"  class="mt-25px">
+                <div v-if="deliveryMethod === 1" class="mt-25px">
                     <p class="main-input-label">Выберите отделение Новой Почты</p>
                     <v-autocomplete
                         type="search" autocomplete="off"
@@ -131,6 +131,7 @@
         <div class="terms-use">
             <div>
                 <v-checkbox
+                    :color="variables.basecolor"
                     v-model="termsUse"/>
             </div>
             <div class="terms-use__right">
@@ -163,21 +164,42 @@
             </v-tooltip>
         </div>
         <div class="page-form__bottom">
-            <v-btn dark
-                   class="checkout-button"
+            <v-btn
+                   class="checkout-button white--text"
                    :style="{
                         opacity: !termsUse ? '.5' : '1'
                    }"
+                   :disabled="!termsUse"
                    @click="checkout">
                 Оформить заказ
             </v-btn>
         </div>
+        <v-snackbar
+            v-model="showMessage"
+            v-bind="snackbar"
+            rounded="5">
+            <div>
+                <span>
+                В случае выбора этой опции, Ваш заказ будет сформировать и отправлен без звонка менеджера.
+                <br>Пожалуйста, проверьте внимательно все ли данные внесены корректно.
+                </span>
+            </div>
+            <div style="margin-top: 5px; display: flex; justify-content: center">
+                <v-btn
+                    small
+                    bottom
+                    center
+                    @click="showMessage = false">
+                    Закрыть
+                </v-btn>
+            </div>
+        </v-snackbar>
     </div>
 </template>
 
 <script>
 
-import {mapActions, mapGetters} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "OrderingMobile",
@@ -206,6 +228,14 @@ import {mapActions, mapGetters} from "vuex";
                 deliveryMethods: [],
                 validProfile: false,
                 notCall: false,
+                showMessage: false,
+                snackbar: {
+                    top: true,
+                    center: true,
+                    color: 'rgba(97,97,97,.9)',
+                    timeout: 7000,
+                    multiLine: true
+                },
                 errorValid: {
                     name: '',
                     surname: '',
@@ -294,6 +324,11 @@ import {mapActions, mapGetters} from "vuex";
                 if (newValue !== 1) {
                     this.postalOffice = '';
                 }
+            },
+            notCall: function (newValue) {
+                if (newValue) {
+                    this.showMessage = true
+                }
             }
         },
         methods: {
@@ -364,14 +399,12 @@ import {mapActions, mapGetters} from "vuex";
                     })
             },
             async checkout() {
-                this.$loading(true)
-
                 try {
-                    this.$loading(true)
                     this.clearValidation()
                     let validate = await this.$refs['orderForm'].validate();
 
                     if (validate) {
+                        this.$loading(true)
                         const form = {
                             number: this.number,
                             name: this.name,
@@ -409,44 +442,40 @@ import {mapActions, mapGetters} from "vuex";
                     this.errorMessagesValidation(e);
                 }
             },
-            async getProfile(){
+            async getProfile() {
                 await this.checkUserIsValid()
                 try {
                     const token = this.$store.getters.getToken;
-                    if(token){
-                        let data = await this.axios.post('profile', {
-
-                        },  {
+                    if (token) {
+                        let data = await this.axios.post('profile', {}, {
                             headers: {
                                 'Authorization': `Bearer ${token}`
                             }
                         });
-                        if(data){
+                        if (data) {
                             let user = data.data.user
                             this.number = user.phone_number,
-                            this.name = user.name,
-                            this.surname = user.sur_name,
-                            this.user_id = user.id
+                                this.name = user.name,
+                                this.surname = user.sur_name,
+                                this.user_id = user.id
                         }
                     }
                 } catch (e) {
                     this.errorMessagesValidation(e);
                 }
             },
-            async checkUserIsValid(){
+            async checkUserIsValid() {
                 try {
                     const token = this.$store.getters.getToken;
-                    if(token){
-                        let data = await this.axios.post('checkUser', {
-
-                        },  {
+                    if (token) {
+                        let data = await this.axios.post('checkUser', {}, {
                             headers: {
                                 'Authorization': `Bearer ${token}`
                             }
                         });
-                        if(data){
+                        if (data) {
                             let exist = data.data.exist
-                            if(!exist){
+                            if (!exist) {
                                 await this.$store.dispatch('LOGIN', null);
                                 return false;
                             }
@@ -523,6 +552,7 @@ import {mapActions, mapGetters} from "vuex";
             align-items: flex-end;
         }
     }
+
     .mt-25px {
         margin-top: 25px;
     }
@@ -539,10 +569,8 @@ import {mapActions, mapGetters} from "vuex";
             margin-bottom: 1em;
         }
     }
-    .not-call-check .v-label.theme-light{
-        font-size: 10px!important;
+
+    .message-not-call {
+        color: black;
     }
-    /*.v-label.theme--light{*/
-    /*    font-size: 14px;*/
-    /*}*/
 </style>
