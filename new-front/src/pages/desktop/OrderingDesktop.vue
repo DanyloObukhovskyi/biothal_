@@ -454,14 +454,13 @@
                 }
             },
             async checkout() {
-                this.$loading(true)
-
                 try {
                     //this.toPage({name: 'payment', params: {paymentUrl: 454}})
                     this.clearValidation()
                     let validate = await this.$refs['orderForm'].validate();
 
                     if (validate) {
+                        this.$loading(true)
                         const form = {
                             number: this.number,
                             name: this.name,
