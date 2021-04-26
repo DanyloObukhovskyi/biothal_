@@ -87,6 +87,7 @@ export default {
     flex-direction: row;
     position: relative;
     padding: 15px 4px;
+    width: 100%;
 
     &:hover {
       box-shadow: 0 0 33px #f2f2f2;

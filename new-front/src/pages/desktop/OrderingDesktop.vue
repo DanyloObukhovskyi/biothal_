@@ -4,7 +4,7 @@
             <div class="ordering__top">
                 <div class="ordering__top__title">Оформление заказа</div>
                 <template v-if="globalSales.length > 0 && nextGlobalSales !== null">
-                    <div style="margin-bottom: 17px; font-size: 12px">
+                    <div style="margin-bottom: 10px; font-size: 16px">
                         Еще {{ nextGlobalSales.sum_modal - productsSum }} грн и сработает скидка
                         {{ nextGlobalSales.procent_modal }}%
                     </div>
@@ -630,8 +630,9 @@
         padding: 0 0 0 20px;
         margin: 0;
         font-weight: 200;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 16px;
+        color: black;
     }
 
     .main-input-field {
@@ -643,7 +644,7 @@
         border-radius: 50px;
         width: 190px;
         height: 44px !important;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 17px;
         font-weight: 500;
 
@@ -659,7 +660,7 @@
     .checkout-link {
         display: flex;
         font-weight: 200;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 16px;
         text-decoration-line: underline;
         margin: auto 36px;
@@ -679,8 +680,9 @@
         display: flex;
         flex-direction: row;
         font-weight: 200;
-        font-size: 11px;
+        font-size: 14px;
         line-height: 15px;
+        padding-bottom: 5px;
 
         &__wrapper {
             padding: 20px 0 0 70px;

@@ -519,7 +519,7 @@
             text-align: center;
 
             &__title {
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 19px;
                 font-weight: 400;
             }
@@ -577,5 +577,11 @@
 
     .message-not-call {
         color: black;
+    }
+
+    .main-input-label {
+        font-size: 14px;
+        color: #000000;
+        margin-bottom: 10px;
     }
 </style>
