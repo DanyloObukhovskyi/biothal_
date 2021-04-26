@@ -205,7 +205,7 @@ export default {
     justify-content: space-between;
 
     &__text {
-      min-height: 30px;
+      min-height: 42px;
       font-weight: 700;
 
       &:hover {

@@ -535,6 +535,11 @@
             width: 100%;
             display: flex;
             justify-content: center;
+
+            .theme--light.v-btn {
+                color: white !important;
+                background-color: #2F7484 !important;
+            }
         }
     }
 
