@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-{{--                                    <label class="col-sm-2 control-label" for="input-status">Статус</label>--}}
+                                    <label class="col-sm-2 control-label" for="input-status">Статус</label>
                                     <div class="col-sm-10">
                                         <select name="status" id="input-status" class="form-control">
                                             <option selected="selected" value="1">Включено</option>
@@ -120,7 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-sort-order">Порядок сортировки</label>
+                                    <label class="col-sm-2 control-label required" for="input-sort-order">Порядок сортировки</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="sort_order" placeholder="Порядок сортировки" id="input-sort-order" class="form-control" />
                                     </div>
@@ -132,7 +132,7 @@
                                         <thead>
                                         <tr>
                                             <td class="text-left">Магазины</td>
-                                            <td class="text-left">Выберите схему</td>
+                                            <td class="control-label required text-left">Выберите схему</td>
                                         </tr>
                                         </thead>
                                         <tbody>

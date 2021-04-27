@@ -124,6 +124,7 @@ $(function () {
         var title = $(this).data('title');
         var order = $(this).data('order');
         var seo_title = $(this).data('seoTitle');
+        var bottom_view = $(this).data('bottom');
         var demand = $(this).data('demand');
 
         $("#type_category_change").val(typeCategory); // typeCategory
@@ -131,6 +132,7 @@ $(function () {
         $("#category_hidden_id").val(id);     // Id
         $("#ordering_category_change").val(order);  // Ordering
         $("#seo_title_change").val(seo_title);  // SEO title
+        $("#bottom_view_change").val(bottom_view);  // SEO title
 
         if (typeCategory) {
             $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
@@ -148,8 +150,15 @@ $(function () {
 
         if (typeCategory) { // Тип категории
             $("#type_category_change option[value=info]").prop('selected', true);
+            if (bottom_view) { // Тип категории
+                $("#bottom_view_change option[value=1]").prop('selected', true);
+            } else {
+                $("#bottom_view_change option[value=0]").prop('selected', true);
+            }
         } else {
             $("#type_category_change option[value=forProduct]").prop('selected', true);
+            $("#btm_view_change").attr('hidden', true);
+            $("#bottom_view_change option[value=0]").prop('selected', true);
         }
 
         if (demand === 1) { // Категория\Потребность
@@ -166,6 +175,7 @@ $(function () {
         var ordering = $('#ordering_category_change').val();
         var seo_title = $('#seo_title_change').val();
         var seo_description = $('#summernote_change').val();
+        var bottom_view = $('#bottom_view_change').val();
 
         var is_demand = $('#demand_change').prop("checked") ? 1 : 0;
         var id = $('#category_hidden_id').val();
@@ -181,7 +191,8 @@ $(function () {
                 "seo_title": seo_title,
                 "seo_description": seo_description,
                 "is_demand": is_demand,
-                "id": id
+                "id": id,
+                "bottom_view": bottom_view
             },
             error: function (xhr, status, error) {
                 var errors = xhr.responseJSON.errors, errorMessage = "";
@@ -224,6 +235,7 @@ $(function () {
         var ordering = $('#ordering_category').val();
         var seo_title = $('#seo_title').val();
         var seo_description = $('#summernote').val();
+        var bottom_view = $('#bottom_view').val();
 
         // var is_demand = $('#demand').prop("checked") ? 1 : 0;
         $.ajax({
@@ -235,7 +247,8 @@ $(function () {
                 "title": title,
                 "ordering": ordering,
                 "seo_title": seo_title,
-                "seo_description": seo_description
+                "seo_description": seo_description,
+                "bottom_view": bottom_view
                 // "is_demand": is_demand, //to do удалить demand из базы, контролерра и вообще кругом
             },
             error: function (xhr, status, error) {
@@ -322,8 +335,11 @@ $(function () {
         if(type_category === 'info'){
             $("#padre_category_select_change option[value=NoCategory]").prop('selected', true);
             $("#padre_category_select_change").attr('disabled', true);
+            $("#btm_view_change").attr('hidden', false);
         } else {
             $('#padre_category_select_change').attr('disabled', false);
+            $("#btm_view_change").attr('hidden', true);
+            $("#bottom_view_change option[value=0]").prop('selected', true);
         }
     })
     document.getElementById('type_category').addEventListener('change', function() {
@@ -332,9 +348,14 @@ $(function () {
         if(type_category === 'info'){
             $("#padre_category_select option[value=NoCategory]").prop('selected', true);
             $("#padre_category_select").attr('disabled', true);
+            $("#btm_view").attr('hidden', false);
+
         } else {
             $('#padre_category_select').attr('disabled', false);
+            $("#btm_view").attr('hidden', true);
+            $("#bottom_view option[value=0]").prop('selected', true);
         }
     })
+
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Products;
 
+use App\Models\Categories;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;

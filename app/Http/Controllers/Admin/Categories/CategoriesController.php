@@ -38,7 +38,7 @@ class CategoriesController extends Controller
                 })
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" onClick="getDescriptionText(' . $row->id . ')" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) .'" data-type-category-change="' . $row->type_category . '" data-seo-title="' . $row->seo_title . '" class="btn btn-outline-dark fa fa-wrench"></button>';
+                    $btn = '<button type="button" onClick="getDescriptionText(' . $row->id . ')" data-toggle="modal" data-target="#change_categ" name="tofita" data-id="' . $row->id . '" data-title="' . $row->title . '" data-demand="' . $row->is_demand . '" data-order="' . $row->ordering . '" data-parent="' . ($row->parent_id != null ? $row->Category->title : "null") . '" data-parent-id="' . ($row->parent_id != null ? $row->parent_id : "null") . '" id="' . ("category_change" . $row->id) .'" data-type-category-change="' . $row->type_category . '" data-seo-title="' . $row->seo_title . '" data-bottom="' . $row->bottom . '" class="btn btn-outline-dark fa fa-wrench"></button>';
 
                     return $btn;
                 })
@@ -64,7 +64,8 @@ class CategoriesController extends Controller
             'seo_title' => $request->seo_title,
             'seo_description' => $request->seo_description,
             'is_demand' => 0,
-            'type_category' => $type_category
+            'type_category' => $type_category,
+            'bottom' => $request->bottom_view
         ]);
 
         if ($categoriesCount == 0){
@@ -191,6 +192,7 @@ class CategoriesController extends Controller
             'seo_description' => $request->seo_description,
             'is_demand' => $request->is_demand,
             'type_category' => $type_category,
+            'bottom' => $request->bottom_view
         ]);
 
         return response()->json([

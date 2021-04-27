@@ -28,6 +28,25 @@
           </div>
         </div>
         <div class="links-wrapper">
+           <div v-if="visibleInfoBottom" class="footer__middle__block" >
+               <div v-for="(item, index) in menuItemsBottomInfo.slice(0, 4)"
+                    :key="index">
+                   <v-list v-if="item.children_article_bottom.length" class="v-list-title-name" dense>
+                       <v-list-item-title class="list-item__title">{{item.title}}</v-list-item-title>
+                       <div v-for="(item, index) in item.children_article_bottom"
+                            :key="index">
+                           <v-list-item v-if="item.info_for_bottom" class="list-item"
+                                        @click="toPage({name: 'info-page', params: {id: item.info_for_bottom ? item.info_for_bottom.attributes.slug : '' }})">
+                               <v-list-item-content>
+                                   - {{ item.info_for_bottom ? item.info_for_bottom.attributes.title : ''}}
+                               </v-list-item-content>
+                           </v-list-item>
+                       </div>
+
+                   </v-list>
+               </div>
+           </div>
+
           <div class="footer__middle__block">
             <v-list class="v-list-title-name" dense>
               <v-list-item-title class="list-item__title">Каталог</v-list-item-title>
@@ -64,6 +83,7 @@
                   {{ item.title }}
                 </v-list-item-content>
               </v-list-item>
+                <img style="height: 24px; margin-top: 10px" src="../../../public/visaMasterCard.svg" alt="">
             </v-list>
           </div>
         </div>
@@ -84,8 +104,10 @@ export default {
   name: "FooterDesktop",
   data() {
     return {
+      menuItemsBottomInfo: [],
       menuItemsCategory: [],
       menuItemsInfoPage: [],
+      visibleInfoBottom: false,
       menuItemsLinksPage: [
         {
           href: 'https://www.facebook.com/biothal.ua/',
@@ -113,8 +135,18 @@ export default {
     async fetchFooterData() {
       let data = await this.axios.get('footer');
 
+      this.menuItemsBottomInfo = data.data.article_bottom;
+      console.log(this.menuItemsBottomInfo)
       this.menuItemsCategory = data.data.categories;
       this.menuItemsInfoPage = data.data.article;
+      let visible = false;
+      this.menuItemsBottomInfo.forEach( function (value, index) {
+        if (value.children_article_bottom.length) {
+          visible = true;
+          return
+        }
+      })
+        this.visibleInfoBottom = visible;
     },
     async addEmailToReceiveList() {
       let email = this.email_for_receive_list;

@@ -93,6 +93,19 @@
                             {{$product['productDescription']['description'] ?? ''}}
                         </textarea>
                     </div>
+
+                    <div class="input-group mb-3" id="btm_view" hidden>
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="bottom_view">
+                                Отображать внизу
+                            </label>
+                        </div>
+                        <select required class="custom-select" id="bottom_view"
+                                name="bottom_view">
+                            <option selected value="0" class="no_category">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="add_category" class="btn btn-primary">Добавить</button>
@@ -152,11 +165,11 @@
                                name="title_category" autocomplete="off">
                     </div>
 
-                    <input type="checkbox" id="demand_change" name="demand_category" checked="" class="check_demand"
-                           value="check">
-                    <label for="demand">
-                        Категория - потребность
-                    </label>
+{{--                    <input type="checkbox" id="demand_change" name="demand_category" checked="" class="check_demand"--}}
+{{--                           value="check">--}}
+{{--                    <label for="demand">--}}
+{{--                        Категория - потребность--}}
+{{--                    </label>--}}
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -183,6 +196,19 @@
                                   id="input-seo-description" aria-label="SEO description"
                                   class="form-control summernote">
                         </textarea>
+                    </div>
+
+                    <div class="input-group mb-3" id="btm_view_change">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="bottom_view_change">
+                                Отображать внизу
+                            </label>
+                        </div>
+                        <select required class="custom-select" id="bottom_view_change"
+                                name="bottom_view">
+                            <option selected value="0" class="no_category">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
                     </div>
                 </div>
                 <input type="hidden" name="category_hidden_id" id="category_hidden_id" value="">
@@ -275,6 +301,13 @@
                 },
                 success: function (resp) {
                     $("#summernote_change").summernote('code', resp.text);  // SEO description
+                    let type_category = $('#type_category_change').val();
+                    console.log(type_category)
+                    if(type_category === 'info'){
+                        $("#btm_view_change").attr('hidden', false);
+                    } else {
+                        $("#btm_view_change").attr('hidden', true);
+                    }
                 }
             });
         }

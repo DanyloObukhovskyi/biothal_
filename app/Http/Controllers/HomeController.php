@@ -78,7 +78,8 @@ class HomeController extends Controller
     {
         $info_categories = Categories::where([
                 'parent_id' => null,
-                'type_category' => 1
+                'type_category' => 1,
+                'bottom' => 0
             ])
             ->with('childrenArticle')
             ->OrderBy('ordering', 'ASC')
@@ -87,7 +88,8 @@ class HomeController extends Controller
         $categories = Categories::with('children', 'Accessory')
             ->where([
                 'parent_id' => null,
-                'type_category' => 0
+                'type_category' => 0,
+                'bottom' => 0
             ])
             ->OrderBy('ordering', 'ASC')
             ->get();
@@ -110,16 +112,27 @@ class HomeController extends Controller
             ->where('bottom', 1)
             ->get();
 
+        $article = InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
+
         $categories = Categories::where([
-                ['parent_id', null],
-                ['type_category', 0]
+            ['parent_id', null],
+            ['type_category', 0]
+        ])
+            ->OrderBy('ordering', 'ASC')
+            ->get();
+
+
+        $info_categories_bottom = Categories::with('childrenArticleBottom')
+            ->where([
+                ['type_category', 1],
+                ['bottom', 1]
             ])
             ->OrderBy('ordering', 'ASC')
             ->get();
-        $article = InformationAttributes::whereIn('information_id', Arr::pluck($bottom_article, 'information_id'))->get();
 
         return response()->json([
             'article' => $article,
+            'article_bottom' => $info_categories_bottom,
             'categories' => $categories
         ]);
     }
