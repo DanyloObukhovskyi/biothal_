@@ -152,7 +152,7 @@
 
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <form method="POST" action="{{ route('login.post') }}">
+                        <form method="POST" action="{{ route('admin.login.post') }}">
                             @csrf
                             <div class="form-group">
                                 <label class="form-control-label">Електронная почта</label>
