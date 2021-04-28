@@ -47,7 +47,7 @@ class Categories extends Model
     {
         return $this->hasMany(InformationToLayout::class,'layout_id','id')->with('infoForBottom');
     }
-    
+
     use HasSlug;
 
     /**

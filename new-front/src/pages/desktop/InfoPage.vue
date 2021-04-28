@@ -8,19 +8,46 @@
         <div class="info-page__title">
             {{article.title || 'Статья еще не добавлена'}}
         </div>
-        <div class="info-page__content__wrapper" v-html="article.description">
+        <div class="info-page__content__wrapper" v-if="this.$route.params.id !== 'sertifikaty'" v-html="article.description">
+        </div>
+        <vue-gallery-slideshow :images="images" :index="index" @close="index = null"/>
+        <div v-if="this.$route.params.id === 'sertifikaty'" id="app" class="certificates-image">
+            <img class="image" v-for="(image, i) in images" :src="image" :key="i" @click="index = i">
+            <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
         </div>
     </div>
 </template>
 
 <script>
+
+    import VueGallerySlideshow from 'vue-gallery-slideshow';
+
     export default {
         name: "InfoPage",
+        components: {
+            VueGallerySlideshow
+        },
         data() {
             return {
                 title: '',
                 article: [],
-                carousel: []
+                carousel: [],
+                isCertificate: false,
+                images: [
+                    '/storage/img/certificates/1-min.jpg',
+                    '/storage/img/certificates/2-min.jpg',
+                    '/storage/img/certificates/3-min.jpg',
+                    '/storage/img/certificates/4-min.jpg',
+                    '/storage/img/certificates/5-min.jpg',
+                    '/storage/img/certificates/6-min.jpg',
+                    '/storage/img/certificates/7-min.jpg',
+                    '/storage/img/certificates/8-min.jpg',
+                    '/storage/img/certificates/9-min.jpg',
+                    '/storage/img/certificates/10-min.jpg',
+                    '/storage/img/certificates/11-min.jpg',
+                    '/storage/img/certificates/12-min.jpg',
+                ],
+                index: null
             }
         },
         metaInfo() {
@@ -43,20 +70,46 @@
                 deep: true,
                 handler (newRoute, oldRoute) {
                     this.fetchInfoPage();
+                    this.isCertificate = this.$route.params.id === 'sertifikaty';
                 },
             }
         },
         created() {
             this.fetchInfoPage();
+
+            let img = [];
+            let api = this.api;
+            this.images.forEach( function (value, index) {
+                img[index] = api + value;
+            })
+            this.images = img;
+
+            this.isCertificate = this.$route.params.id === 'sertifikaty';
         },
         methods: {
             async fetchInfoPage() {
-                let data = await this.axios.get('info-page/' + this.$route.params.id);
+                this.$loading(true)
+                let data = await this.axios.get('info-page/' + this.$route.params.id)
 
-                this.article =  data.data.article;
-                this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
-                this.title =  this.$route.params.id;
-            }
+                try {
+                    if (data) {
+                        this.article =  data.data.article;
+                        this.carousel = this.isMobile ? data.data.carouselMobile : data.data.carouselDesktop;
+                        this.title =  this.$route.params.id;
+
+                        this.$loading(false)
+                    }
+                } catch (e) {
+                    this.$loading(false);
+                    this.errorMessagesValidation(e);
+                }
+
+            },
+            async getSubImages() {
+                if (this.images[0]) {
+                    this.index = 0;
+                }
+            },
         }
     }
 </script>
@@ -90,5 +143,22 @@
 
     .agile-slider {
         padding: 0 !important;
+    }
+
+    .image {
+        width: 174px;
+        height: 250px;
+        background-size: cover;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 3px;
+        border: 1px solid lightgray;
+        object-fit: contain;
+    }
+
+    .certificates-image {
+        text-align: center;
+        padding-top: 30px!important;
+        padding-bottom: 40px!important;
     }
 </style>

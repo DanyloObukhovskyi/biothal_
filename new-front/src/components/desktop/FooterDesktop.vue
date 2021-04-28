@@ -136,7 +136,6 @@ export default {
       let data = await this.axios.get('footer');
 
       this.menuItemsBottomInfo = data.data.article_bottom;
-      console.log(this.menuItemsBottomInfo)
       this.menuItemsCategory = data.data.categories;
       this.menuItemsInfoPage = data.data.article;
       let visible = false;
