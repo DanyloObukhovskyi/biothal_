@@ -29,6 +29,7 @@ Route::namespace('api')->get('accessoryDetails/{id}', 'AccessoryController@getAc
 Route::namespace('api')->post('distributionOffer', 'DistributionOfferController@createOffer');
 
 Route::group(['namespace' => 'Api'], function () {
+
     Route::post('auth/user', 'UserController@getAuthUser')
         ->name('get.auth.user');
 
