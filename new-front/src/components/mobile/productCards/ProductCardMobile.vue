@@ -14,6 +14,7 @@
       </div>
     </div>
     <div class="product__description__price">
+      <span class="product__description__discount" v-if="isShowStock">{{ dataCard.price }} грн</span>
       <div class="product__description__price-text default-cursor">
         {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
       </div>
@@ -226,6 +227,11 @@ export default {
         margin-top: rem(7);
       }
     }
+
+      &__discount {
+          font-size: 15px;
+          text-decoration: line-through;
+      }
   }
 
   &__button {

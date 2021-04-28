@@ -138,7 +138,7 @@
                 <div>
                     Я прочитал и согласен с правилами
                 </div>
-                <div style="font-weight: 700">
+                <div style="font-weight: 700" @click="toPage({name: 'info-page', params: { id: 'polzovatelskoe-soglasenie'}})">
                     Пользовательское соглашение
                 </div>
             </div>

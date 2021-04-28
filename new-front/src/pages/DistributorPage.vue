@@ -5,59 +5,61 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <div class="info-page__title"><b>МИССИЯ BIOTHAL</b></div>
-        <div class="info-page__content__wrapper" v-html="text"></div>
+        <div>
+            <div class="info-page__title"><b>МИССИЯ BIOTHAL</b></div>
+            <div class="info-page__content__wrapper" v-html="text"></div>
 
-        <div class="info-page__title"><b>ПОЛУЧИТЕ ЭКСКЛЮЗИВНОЕ ПРЕДЛОЖЕНИЕ</b></div>
-        <div class="info-page__content__wrapper">
-            <div class="page-form__middle">
-                <v-form ref="createOffer" autocomplete="off">
-                    <div>
-                        <span class="input_label main-input-label">Ваше имя</span>
-                        <v-text-field
-                            class="main-input-field"
-                            v-model="offer.name"
-                            :error-messages="errorValid.name"
-                            :rules="nameRules"
-                            flat
-                            rounded/>
-                    </div>
-                    <div>
-                        <span class="input_label main-input-label">Ваш номер телефона</span>
-                        <v-text-field
-                            placeholder="+38(___) ___-__-__"
-                            v-mask="'+38(###) ###-##-##'"
-                            v-model="offer.phone"
-                            :error-messages="errorValid.phone"
-                            :rules="phoneRules"
-                            class="main-input-field"
-                            flat
-                            rounded/>
-                    </div>
-                    <div>
-                        <span class="input_label main-input-label">Ваш email</span>
-                        <v-text-field
-                            class="main-input-field"
-                            v-model="offer.email"
-                            :error-messages="errorValid.email"
-                            :rules="emailRules"
-                            flat
-                            rounded/>
-                    </div>
-                    <div>
-                        <span class="input_label main-input-label">Сообщение</span>
-                        <v-textarea
-                            filled
-                            name="input-7-4"
-                            v-model="offer.text"
-                            :error-messages="errorValid.text"/>
-                    </div>
-                </v-form>
-            </div>
-            <div class="page-form__bottom">
-                <button class="checkout-button white--text" @click="send">
-                    Получить
-                </button>
+            <div class="info-page__title"><b>ПОЛУЧИТЕ ЭКСКЛЮЗИВНОЕ ПРЕДЛОЖЕНИЕ</b></div>
+            <div class="info-page__content__wrapper">
+                <div class="page-form__middle">
+                    <v-form ref="createOffer" autocomplete="off">
+                        <div>
+                            <span class="input_label main-input-label">Ваше имя</span>
+                            <v-text-field
+                                class="main-input-field"
+                                v-model="offer.name"
+                                :error-messages="errorValid.name"
+                                :rules="nameRules"
+                                flat
+                                rounded/>
+                        </div>
+                        <div>
+                            <span class="input_label main-input-label">Ваш номер телефона</span>
+                            <v-text-field
+                                placeholder="+38(___) ___-__-__"
+                                v-mask="'+38(###) ###-##-##'"
+                                v-model="offer.phone"
+                                :error-messages="errorValid.phone"
+                                :rules="phoneRules"
+                                class="main-input-field"
+                                flat
+                                rounded/>
+                        </div>
+                        <div>
+                            <span class="input_label main-input-label">Ваш email</span>
+                            <v-text-field
+                                class="main-input-field"
+                                v-model="offer.email"
+                                :error-messages="errorValid.email"
+                                :rules="emailRules"
+                                flat
+                                rounded/>
+                        </div>
+                        <div>
+                            <span class="input_label main-input-label">Сообщение</span>
+                            <v-textarea
+                                filled
+                                name="input-7-4"
+                                v-model="offer.text"
+                                :error-messages="errorValid.text"/>
+                        </div>
+                    </v-form>
+                </div>
+                <div class="page-form__bottom">
+                    <button class="checkout-button white--text" @click="send">
+                        Получить
+                    </button>
+                </div>
             </div>
         </div>
     </div>

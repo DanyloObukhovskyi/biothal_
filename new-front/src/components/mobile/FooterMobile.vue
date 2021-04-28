@@ -44,23 +44,24 @@
             </div>
         </div>
         <div class="footer__block-3">
-<!--            <div>-->
-<!--                <v-btn-->
-<!--                    elevation="0"-->
-<!--                    class="main-button"-->
-<!--                    @click="toPage({name: 'info-page', params: {category: 'become-distributor'}})">-->
-<!--                    Стать дистрибьютером-->
-<!--                </v-btn>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <img width="37" height="9" src="../../../public/visaMasterCard.svg"/>-->
-<!--            </div>-->
+            <div>
+                <v-btn
+                    elevation="0"
+                    class="main-button"
+                    style="height: 34px!important;"
+                    @click="toPage({name: 'distributor'})">
+                    Стать дистрибьютером
+                </v-btn>
+            </div>
+            <div>
+                <img style="margin-top: 34px" width="37" height="9" src="../../../public/visaMasterCard.svg"/>
+            </div>
         </div>
         <div class="footer__block-4">
             <div style="font-size: 11px; font-weight: 400; line-height: 15px;">
                 © BIOTHAL 2019—2020
             </div>
-            <div style="font-size: 9px; font-weight: 400; line-height: 12px;">
+            <div style="cursor: pointer; font-size: 9px; font-weight: 400; line-height: 12px;" @click="toPage({name: 'info-page', params: { id: 'polzovatelskoe-soglasenie'}})">
                 Пользовательское соглашение
             </div>
         </div>
@@ -202,6 +203,7 @@
         font-size: 12px;
         font-weight: 300;
         line-height: 16px;
+        margin-top: 10px;
     }
 
     .special-offer {
@@ -262,6 +264,10 @@
       &__links {
           display: flex;
       }
+    }
+
+    .v-btn {
+        height: 30px !important;
     }
 </style>
 
