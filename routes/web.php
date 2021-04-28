@@ -3,9 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::any('portmone/success/{order_id}', 'PortmoneController@success')->name('portmone.success');
-Route::any('portmone/canceled/{order_id}', 'PortmoneController@cancel')->name('portmone.cancel');
-
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 

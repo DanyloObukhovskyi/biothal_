@@ -29,6 +29,10 @@ Route::namespace('api')->get('accessoryDetails/{id}', 'AccessoryController@getAc
 Route::namespace('api')->post('distributionOffer', 'DistributionOfferController@createOffer');
 
 Route::group(['namespace' => 'Api'], function () {
+
+    Route::any('portmone/success/{order_id}', 'PortmoneController@success')->name('portmone.success');
+    Route::any('portmone/canceled/{order_id}', 'PortmoneController@cancel')->name('portmone.cancel');
+
     Route::post('auth/user', 'UserController@getAuthUser')
         ->name('get.auth.user');
 
