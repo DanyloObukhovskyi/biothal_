@@ -36,10 +36,7 @@ class PortmoneController extends Controller
             'comment' => 'Оплачен',
             'status_id' => $status->id,
         ]);
-
-        return 'http://192.168.31.156:7070/order-status/'. $order->token;
-//        return redirect('http://192.168.31.156:7070/order-status/'. $order->token);
-//        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token);
+        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token);
     }
 
     public function cancel($order_id)
@@ -63,8 +60,6 @@ class PortmoneController extends Controller
             'status_id' => $status->id,
         ]);
 
-//        return 'http://192.168.31.156:7070/order-cancel/'. $order->token;
-        return redirect('http://192.168.31.156:7070/order-cancel/'. $order->token);
-//        return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
+        return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
     }
 }
