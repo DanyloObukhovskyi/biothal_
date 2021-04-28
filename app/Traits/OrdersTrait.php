@@ -3,6 +3,7 @@
 
 namespace App\Traits;
 
+use App\Models\Order;
 use App\Models\OrderStatuses;
 use Carbon\Carbon;
 
@@ -42,6 +43,10 @@ trait OrdersTrait
                 } else {
                     continue;
                 }
+            } else {
+                Order::find($order['id'])->update([
+                    'import_status' => 1
+                ]);
             }
             $xmlBody = [];
             $xmlBody["ИдентификаторЗаказа"] = $order['id'];
