@@ -3,6 +3,7 @@
 
 namespace App\Traits;
 
+use App\Models\Order;
 use App\Models\OrderStatuses;
 use Carbon\Carbon;
 
@@ -36,12 +37,19 @@ trait OrdersTrait
         foreach ($orders as $order) {
             if($order['order_type_id'] === 2){
                 if(!empty($order['payment'])){
+                    Order::find($order['id'])->update([
+                        'import_status' => 1
+                    ]);
                     if($order['payment']['status'] !== 'success'){
                         continue;
                     }
                 } else {
                     continue;
                 }
+            } else {
+                Order::find($order['id'])->update([
+                    'import_status' => 1
+                ]);
             }
             $xmlBody = [];
             $xmlBody["ИдентификаторЗаказа"] = $order['id'];
