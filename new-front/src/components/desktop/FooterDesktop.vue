@@ -83,7 +83,7 @@
                   {{ item.title }}
                 </v-list-item-content>
               </v-list-item>
-                <img style="height: 24px; margin-top: 10px" src="../../../public/visaMasterCard.svg" alt="">
+                <img style="height: 24px; margin-top: 10px" src="../../../public/visaMasterCard.svg">
             </v-list>
           </div>
         </div>
@@ -92,7 +92,7 @@
         <div>
           Copyright © 2020. Все права защищены.
         </div>
-        <div>
+        <div style="cursor: pointer;" @click="toPage({name: 'info-page', params: { id: 'polzovatelskoe-soglasenie'}})">
           Пользовательское соглашение
         </div>
       </div>

@@ -21,8 +21,6 @@
                 </div>
                 <div id="apts_1" class="apt-list">
                     @if(isset($id))
-                        <div>{{$id}}</div>
-                        <div>{{$product->productApts}}</div>
                         @foreach ($product->productApts as $key => $productApt)
                             <div id="apt_row_{{ $productApt->language_id }}_{{ $key }}" class="row" style="margin-bottom: 20px">
                                 <input type="hidden" name="product_apt[{{$key}}][language_id]" value ="{{$productApt['language_id']}}">
