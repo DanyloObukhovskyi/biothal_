@@ -28,6 +28,8 @@ class PortmoneService
         $url = self::GETAWAY_URL . '?' . http_build_query([
                 'paymentTypes' => ['applepay' => 'Y','gpay' => 'Y'],
                 'payee_id' => '262930',//env('PORTMONE_SHOP_ID'),
+                'login' => 'USB_biothal',
+                'pass' => 'ferkalyak1898',
                 'shop_order_number' => $payment->id,
                 'bill_amount' => $payment->amount,
                 'description' => env('PORTMONE_DESCRIPTION'),
