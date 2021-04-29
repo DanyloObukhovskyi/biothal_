@@ -27,7 +27,7 @@
               </template>
                 <div class="bar-menu__wrapper__categories">
                     <v-list v-if="item.children.length" class="bar-menu__wrapper__left">
-                        <div class="bar-menu__main-title">Категории</div>
+                        <div v-if="item.accessory.length" class="bar-menu__main-title">Категории</div>
                         <v-list-item
                             class="point-cursor bar-menu__sub-category"
                             v-for="(item, index) in item.children"
@@ -298,7 +298,7 @@
     &__main-title {
         display: flex;
         justify-content: center;
-        padding: 0 14px 0 0;
+        padding: 5px 14px 6px 0;
     }
 
     &__category {
@@ -312,22 +312,22 @@
 
     &__sub-category {
       min-height: 24px;
-      padding: 0;
-      font-size: 14px;
+      padding: 0 0 5px 0;
+      font-size: 16px;
       line-height: 24px;
     }
 
     &__sub-category-title {
       font-style: normal;
       font-weight: 200;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 24px;
       padding: 0 54px 0 14px;
     }
     &__sub-category-title-right {
       font-style: normal;
       font-weight: 200;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 24px;
       padding: 0 14px 0 14px;
     }
