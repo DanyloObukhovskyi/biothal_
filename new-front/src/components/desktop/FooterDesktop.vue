@@ -60,7 +60,7 @@
             </v-list>
           </div>
           <div class="footer__middle__block">
-            <v-list class="v-list-item" dense>
+            <v-list class="v-list-title-name" dense>
               <v-list-item-title class="list-item__title">О нас</v-list-item-title>
               <v-list-item class="list-item" v-for="(item, index) in menuItemsInfoPage.slice(0, 4)"
                            :key="index"
@@ -72,7 +72,7 @@
             </v-list>
           </div>
           <div class="footer__middle__block">
-            <v-list class="v-list-item" dense>
+            <v-list class="v-list-title-name" style="padding-top: 16px" dense>
               <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
               <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
                            style="display: flex; align-items: center" :href="item.href" target="_blank">
