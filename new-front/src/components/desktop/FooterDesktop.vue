@@ -83,7 +83,7 @@
                   {{ item.title }}
                 </v-list-item-content>
               </v-list-item>
-                <img style="height: 24px; margin-top: 10px" src="../../../public/visaMasterCard.svg">
+                <img style="height:30px; margin-top: 10px" src="../../../public/visaMasterCard.png">
             </v-list>
           </div>
         </div>

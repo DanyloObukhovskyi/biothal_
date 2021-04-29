@@ -5,16 +5,19 @@
                 <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <div class="info-page__title">
-            {{article.title || 'Статья еще не добавлена'}}
+        <div>
+            <div class="info-page__title">
+                {{article.title || 'Статья еще не добавлена'}}
+            </div>
+            <div class="info-page__content__wrapper" v-if="this.$route.params.id !== 'sertifikaty'" v-html="article.description">
+            </div>
+            <vue-gallery-slideshow :images="images" :index="index" @close="index = null"/>
+            <div v-if="this.$route.params.id === 'sertifikaty'" id="app" class="certificates-image">
+                <img class="image" v-for="(image, i) in images" :src="image" :key="i" @click="index = i">
+                <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
+            </div>
         </div>
-        <div class="info-page__content__wrapper" v-if="this.$route.params.id !== 'sertifikaty'" v-html="article.description">
-        </div>
-        <vue-gallery-slideshow :images="images" :index="index" @close="index = null"/>
-        <div v-if="this.$route.params.id === 'sertifikaty'" id="app" class="certificates-image">
-            <img class="image" v-for="(image, i) in images" :src="image" :key="i" @click="index = i">
-            <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow>
-        </div>
+
     </div>
 </template>
 
