@@ -42,7 +42,6 @@ class PortmoneService
                 'type' => 'light',
             ]);
 
-Log::info($url);
         return $url;
     }
 }
