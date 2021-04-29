@@ -38,7 +38,7 @@ trait OrdersTrait
             if($order['order_type_id'] === 2){
                 if(!empty($order['payment'])){
                     Order::find($order['id'])->update([
-                        'import_status' => 1
+                        'import_status' => 0
                     ]);
                     if($order['payment']['status'] !== 'success'){
                         continue;
@@ -48,18 +48,18 @@ trait OrdersTrait
                 }
             } else {
                 Order::find($order['id'])->update([
-                    'import_status' => 1
+                    'import_status' => 0
                 ]);
             }
             $xmlBody = [];
-            $xmlBody["ИдентификаторЗаказа"] = $order['id'];
-            $xmlBody["НомерЗаказа"] = $order['id'];
-            $xmlBody["ДатаСозданияЗаказа"] = Carbon::parse($order['created_at'])->format('Y-m-d H:i:s');
-            //$xmlBody["ХозОперация"] = "Заказ товара";
-            //$xmlBody["Роль"] = "Продавец";
+            $xmlBody["Ид"] = $order['id'];
+            $xmlBody["Номер"] = $order['id'];
+            $xmlBody["Дата"] = Carbon::parse($order['created_at'])->format('Y-m-d H:i:s');
+            $xmlBody["ХозОперация"] = "Заказ товара";
+            $xmlBody["Роль"] = "Покупатель";
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
-
+            $xmlBody["Сумма"] = $order['total_sum'];
             $counterparty = [];
             if (!empty($order['user_address'])) {
                 $counterparty = $this->getCounterpartyData($order['user_address']);
@@ -124,7 +124,7 @@ trait OrdersTrait
         return [
             "counterparty" => [
                 "Контрагент" => [
-                    "ИдентификаторПользователя" => $userData['id'],
+                    "Ид" => $userData['id'],
                     "Наименование" => $userData['name'],
                     "ПолноеНаименование" => $userData['LastName'] . " " . $userData['name'],
                     "Роль" => "Покупатель",
@@ -168,11 +168,22 @@ trait OrdersTrait
             $price += $productPrice * $count;
 
             $productData["Товар"][] = [
-                "ИдентификаторТовара" =>  $product['id'],
+                "Ид" =>  $product['id'],
                 "Наименование" => $product['attr']['product_description']['name'],
+                "БазоваяЕдиница" => [
+                        'Код' => '796',
+                        'НаименованиеПолное' => 'Штука',
+                        'МеждународноеСокращение' => 'PCE'
+                    ],
                 "ЦенаЗаЕдиницу" => $productPrice,
                 "Количество" => $count,
-                "Сумма" => $productPrice * $count
+                "Сумма" => $productPrice * $count,
+                "ЗначенияРеквизитов" => [
+                    'ЗначениеРеквизита' => [
+                        'Наименование' => 'ВидНоменклатуры',
+                        'Значение' => 'Товар'
+                    ]
+                ]
             ];
         }
 
