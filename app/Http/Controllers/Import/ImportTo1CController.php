@@ -298,4 +298,84 @@ class ImportTo1CController {
     {
         return 'success';
     }
+
+    protected function getFile()
+    {
+        $modelFileName = $this->request->input('filename');
+        $fileName = $modelFileName;
+
+        if (empty($fileName)) {
+            return $this->failure('Mode: '.$this->stepFile
+                .', parameter filename is empty');
+        }
+
+        $fullPath = $this->getFullPathToFile($fileName, true);
+
+        $fData = $this->getFileGetData();
+
+        if (empty($fData)) {
+            return $this->failure('Mode: '.$this->stepFile
+                .', input data is empty.');
+        }
+
+        if ($file = fopen($fullPath, 'ab')) {
+            $dataLen = mb_strlen($fData, 'latin1');
+            $result = fwrite($file, $fData);
+
+            if ($result === $dataLen) {
+                // файлы, требующие распаковки
+                $files = [];
+
+                if ($this->canUseZip()) {
+                    $files = session('inputZipped', []);
+                    $files[$fileName] = $fullPath;
+                }
+
+                session(['inputZipped' => $files]);
+
+                return $this->success();
+            }
+
+            $this->failure('Mode: '.$this->stepFile
+                .', can`t wrote data to file: '.$fullPath);
+        } else {
+            return $this->failure('Mode: '.$this->stepFile.', cant open file: '
+                .$fullPath.' to write.');
+        }
+
+        return $this->failure('Mode: '.$this->stepFile.', unexpected error.');
+    }
+
+    protected function getFullPathToFile($fileName, $clearOld = false)
+    {
+        $workDirName = $this->checkInputPath();
+
+        if ($clearOld) {
+            $this->clearInputPath($workDirName);
+        }
+
+        $path = asset('');
+
+        return $path.'/'.$workDirName.'/'.$fileName;
+    }
+
+    protected function getFileGetData()
+    {
+        /*if (function_exists("file_get_contents")) {
+            $fData = file_get_contents("php://input");
+        } elseif (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
+            $fData = &$GLOBALS["HTTP_RAW_POST_DATA"];
+        } else {
+            $fData = '';
+        }
+
+        if (\App::environment('testing')) {
+            $fData = \Request::getContent();
+        }
+
+        return $fData;
+        */
+
+        return \Request::getContent();
+    }
 }
