@@ -63,7 +63,7 @@ class HomeController extends Controller
 
     public function bestSellers()
     {
-        $bestSeller = Product::with('image', 'productDescription', 'stockStatus')
+        $bestSeller = Product::with('image', 'getSale', 'productDescription', 'stockStatus')
             ->where([
                 'is_best_seller' => 1,
                 'status' => 1
