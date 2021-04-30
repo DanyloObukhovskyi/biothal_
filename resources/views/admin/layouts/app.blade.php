@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{asset('css/admin.css')}}" crossorigin="anonymous">
         <link rel="stylesheet" href="{{asset('plugins/css/viewbox.css')}}">
         <link rel="stylesheet" href="{{asset('plugins/css/tagsinput.css')}}">
+        <link rel="stylesheet" href="{{asset('css/loader.css')}}">
         @yield('style')
     </head>
     <body>
@@ -40,6 +41,7 @@
         <script src="https://cdn.tiny.cloud/1/3vlv10v55em66sedjznmo9mev2n7w9z374b2ib6zfa9moz6q/tinymce/5/jquery.tinymce.min.js" referrerpolicy="origin"></script>
         <script src="{{asset('js/admin.js')}}"></script>
         <script src="{{asset('js/app.js')}}"></script>
+        <script src="{{asset('js/loader.js')}}"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
         <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
@@ -52,7 +54,9 @@
         <script src="{{asset('plugins/js/jquery.viewbox.min.js')}}" defer></script>
         <script src="{{asset('plugins/js/thumbnail.js')}}" defer></script>
     <script>
-
     </script>
+        <section id="loading">
+            <div id="loading-content"></div>
+        </section>
     </body>
 </html>

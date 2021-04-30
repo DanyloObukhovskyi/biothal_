@@ -722,7 +722,7 @@
             $(document).on("click", "#b_send_phones", function () {
                 let description = $('#description_send').val();
                 let group_id = $('#group_id_send').val();
-
+                showLoading();
                 $.ajax({
                     url: '/admin/sendPhone',
                     method: 'POST',
@@ -731,6 +731,7 @@
                         "description": description
                     },
                     error: function (xhr, status, error) {
+                        hideLoading();
                         var errors = xhr.responseJSON.errors, errorMessage = "";
                         $.each(errors, function (index, value) {
                             $.each(value, function (key, message) {
@@ -744,10 +745,10 @@
                         })
                     },
                     success: function (resp) {
-
+                        hideLoading();
                         // Меняем категорию
                         if (resp['message']) {
-                            $('#send_emails').modal('hide');
+                            $('#send_phones').modal('hide');
                             $('.modal-backdrop').remove();
                             Swal.fire({
                                 icon: 'success',
