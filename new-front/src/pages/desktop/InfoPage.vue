@@ -37,18 +37,18 @@
                 carousel: [],
                 isCertificate: false,
                 images: [
-                    '/storage/img/products/1-min.jpg',
-                    '/storage/img/products/2-min.jpg',
-                    '/storage/img/products/3-min.jpg',
-                    '/storage/img/products/4-min.jpg',
-                    '/storage/img/products/5-min.jpg',
-                    '/storage/img/products/6-min.jpg',
-                    '/storage/img/products/7-min.jpg',
-                    '/storage/img/products/8-min.jpg',
-                    '/storage/img/products/9-min.jpg',
-                    '/storage/img/products/10-min.jpg',
-                    '/storage/img/products/11-min.jpg',
-                    '/storage/img/products/12-min.jpg',
+                    '/storage/img/certificate/1-min.jpg',
+                    '/storage/img/certificate/2-min.jpg',
+                    '/storage/img/certificate/3-min.jpg',
+                    '/storage/img/certificate/4-min.jpg',
+                    '/storage/img/certificate/5-min.jpg',
+                    '/storage/img/certificate/6-min.jpg',
+                    '/storage/img/certificate/7-min.jpg',
+                    '/storage/img/certificate/8-min.jpg',
+                    '/storage/img/certificate/9-min.jpg',
+                    '/storage/img/certificate/10-min.jpg',
+                    '/storage/img/certificate/11-min.jpg',
+                    '/storage/img/certificate/12-min.jpg',
                 ],
                 index: null
             }
@@ -164,4 +164,21 @@
         padding-top: 30px!important;
         padding-bottom: 40px!important;
     }
+
+    .vgs{
+        & ::v-deep &__container {
+            height: 90vh!important;
+        }
+
+        & ::v-deep &__gallery__container {
+            height: 62px;
+        }
+
+        & ::v-deep &__gallery__container__img {
+            width: 60px;
+            height: 60px;
+            margin-right: 18px;
+        }
+    }
+
 </style>
