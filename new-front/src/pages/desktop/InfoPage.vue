@@ -168,8 +168,8 @@
     @media screen and (max-width: 600px) {
         .vgs{
             & ::v-deep &__container {
-                top: 38%;
-                height: 65vh!important;
+                top: 43%;
+                height: 52vh!important;
             }
         }
     }
