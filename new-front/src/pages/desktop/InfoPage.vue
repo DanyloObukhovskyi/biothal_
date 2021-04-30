@@ -165,6 +165,14 @@
         padding-bottom: 40px!important;
     }
 
+    @media screen and (max-width: 600px) {
+        .vgs{
+            & ::v-deep &__container {
+                top: 38%;
+                height: 65vh!important;
+            }
+        }
+    }
 
     @media screen and (min-width: 600px) {
         .vgs{
