@@ -165,19 +165,22 @@
         padding-bottom: 40px!important;
     }
 
-    .vgs{
-        & ::v-deep &__container {
-            height: 90vh!important;
-        }
 
-        & ::v-deep &__gallery__container {
-            height: 62px;
-        }
+    @media screen and (min-width: 600px) {
+        .vgs{
+            & ::v-deep &__container {
+                height: 90vh!important;
+            }
 
-        & ::v-deep &__gallery__container__img {
-            width: 60px;
-            height: 60px;
-            margin-right: 18px;
+            & ::v-deep &__gallery__container {
+                height: 62px;
+            }
+
+            & ::v-deep &__gallery__container__img {
+                width: 60px;
+                height: 60px;
+                margin-right: 18px;
+            }
         }
     }
 
