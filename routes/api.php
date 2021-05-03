@@ -81,6 +81,9 @@ Route::group(['namespace' => 'Api'], function () {
 
         Route::post('/create/preOrder', 'CheckoutController@createPreOrder')
             ->name('create.order.preOrder');
+
+        Route::post('/create/unfinishedOrder', 'CheckoutController@createUnfinishedOrder')
+            ->name('create.order.unfinishedOrder');
     });
 });
 

@@ -138,6 +138,8 @@
                                                 Оплачен
                                             @elseif($order['order_status']['name'] == 'cancel')
                                                 Отменен
+                                            @elseif($order['order_status']['name'] == 'unfinished')
+                                                Не закончен
                                             @endif
                                         </td>
                                         <td class="text-right">{{ceil($order['total_sum'])}} грн</td>

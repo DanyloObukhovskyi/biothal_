@@ -512,6 +512,116 @@ class CheckoutController extends Controller
         }
     }
 
+    public function createUnfinishedOrder (Request $request){
+
+        $order = new Order();
+        $orderHistory = new OrderHistory();
+        $userOrderAddress = new UserOrderAddress();
+
+        if(!empty($request->unfinished_order_id)) {
+            $orderOld = Order::find($request->unfinished_order_id);
+            $userOrderAddressOld = UserOrderAddress::find($orderOld->user_order_id);
+            $orderProductOld = OrderProduct::where('order_id', $request->unfinished_order_id)->first();
+            $orderHistoryOld = OrderHistory::where('order_id', $request->unfinished_order_id)->first();
+
+            $orderOld->delete();
+            $orderProductOld->delete();
+            $orderHistoryOld->delete();
+            $userOrderAddressOld->delete();
+
+            $orderHistory->id = $orderHistoryOld->id;
+            $order->id = $request->unfinished_order_id;
+            $userOrderAddress->id = $userOrderAddressOld->id;
+        }
+
+        $userOrderAddress->phone = $request->get('number');
+        $userOrderAddress->name = !empty($user) ? $user->name : $request->get('name');
+        $userOrderAddress->LastName = !empty($user) ? $user->sur_name : null;
+
+        $userOrderAddress->save();
+
+
+        $orderStatus = OrderStatuses::where('name', OrderStatuses::UNFINISHED)
+            ->first();
+
+        $order->user_order_id = $userOrderAddress->id;
+        $order->order_status_id = $orderStatus->id;
+        $order->order_type_id = 1;
+        $order->user_id = !empty($request->get('user_id')) ? $request->get('user_id') : (!empty($user) ? $user->id : null);
+        $order->token = $this->generateRandomString(12);
+
+        $order->save();
+
+        $total = 0;
+        $orderProducts = [];
+
+        foreach ($request->get('products') as $product) {
+
+            $orderProduct = new OrderProduct();
+            if(!empty($request->unfinished_order_id)) {
+                $orderProduct->id = $orderProductOld->id;
+            }
+            $orderProduct->product_id = $product['id'];
+            $orderProduct->order_id = $order->id;
+            $orderProduct->quantity = $product['quantity'];
+            $orderProduct->price = $product['price'];
+            $orderProduct->price_with_sales = $product['price_with_sale'];
+            $orderProduct->sale_id = $product['sale_id'];
+            $orderProduct->is_sales = !empty($product['sale_id']) ? 1 : 0 ;
+            $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
+            $orderProduct->save();
+
+            $orderProducts[] = $orderProduct;
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $product['quantity'] : $product['price'] * $product['quantity'];
+        }
+        $globalSale = GlobalSales::where([
+            ['sum_modal', '<=', $total],
+            ['active', 1]
+        ])
+            ->orderBy('procent_modal', 'desc')
+            ->first();
+
+        $groupSale = GroupSales::where([
+            ['sum', '<=', $total],
+            ['active', 1]
+        ])
+            ->orderBy('percent', 'desc')
+            ->first();
+
+        if (isset($globalSale)) {
+            $order->sale_id = $globalSale->id;
+            $order->with_sales = 1;
+            $order->sale_type = Order::GLOBAL_SALES;
+            $amountPercent = $total / 100 * $globalSale->procent_modal;
+            $total = $total - $amountPercent;
+        } else {
+            if (isset($groupSale)) {
+                $order->sale_id = $groupSale->id;
+                $order->with_sales = 1;
+                $order->sale_type = Order::GROUP_SALES;
+                $amountPercent = $total / 100 * $groupSale->percent;
+                $total = $total - $amountPercent;
+            }
+        }
+        $order->total_sum = ceil($total);
+        $order->save();
+
+        $orderStatusHistory = OrderStatuses::where('name', OrderStatuses::UNFINISHED)
+            ->first();
+
+        $orderHistory->order_id = $order->id;
+        $orderHistory->notify = 0;
+        $orderHistory->comment = 'Заказ со222здан';
+        $orderHistory->status_id = $orderStatusHistory->id;
+        $orderHistory->save();
+
+        return response()->json([
+            'token' => $order->token,
+            'order_id' => $order->id
+        ]);
+
+    }
+
     public  function generateRandomString($length = 20) {
         $characters = '0123456789abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

@@ -12,6 +12,7 @@ class OrderStatusesSeeder extends Seeder
         'pre_order',
         'paid',
         'cancel',
+        'unfinished',
     ];
 
     /**

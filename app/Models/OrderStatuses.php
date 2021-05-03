@@ -16,6 +16,7 @@ class OrderStatuses extends Model
     public const PRE_ORDER = 'pre_order';
     public const PAID = 'paid';
     public const CANCEL = 'cancel';
+    public const UNFINISHED = 'unfinished';
 
     public const STATUS = [
         OrderStatuses::ACTIVE => 'Закупка',
@@ -25,6 +26,7 @@ class OrderStatuses extends Model
         OrderStatuses::PRE_ORDER => 'Предзаказ',
         OrderStatuses::PAID => 'Оплачен',
         OrderStatuses::CANCEL => 'Отменен',
+        OrderStatuses::UNFINISHED => 'Не закончен',
     ];
 
     protected $table = "order_statuses";

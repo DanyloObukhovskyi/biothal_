@@ -244,7 +244,6 @@
 </template>
 
 <script>
-    import ProductCardBasket from "../../components/desktop/productCards/ProductCardBasket";
     import PlaceOrderOneClick from "../../components/PlaceOrderOneClickModal";
     import ProductCardsSet from "../../components/desktop/ProductCardsSetDesktop";
     import {mapActions, mapGetters} from "vuex";
@@ -252,7 +251,6 @@
     export default {
         name: "OrderingDesktop",
         components: {
-            ProductCardBasket,
             PlaceOrderOneClick,
             ProductCardsSet
         },
@@ -309,7 +307,8 @@
                 'nextGroupSales',
                 'linear',
                 'productsSum',
-                'productsSumWithSales'
+                'productsSumWithSales',
+                'getUnfinishedOrderId'
             ]),
             numberRules() {
                 return [
@@ -373,12 +372,12 @@
                     this.getPostalOffices()
                 }
             },
-            products: function (newProducts, old) {
+            products: function (newProducts) {
                 if (newProducts.length === 0) {
                     this.toPage({name: 'home'})
                 }
             },
-            deliveryMethod: function (newValue, oldValue) {
+            deliveryMethod: function (newValue) {
                 if (newValue !== 1) {
                     this.postalOffice = '';
                 }
@@ -388,7 +387,9 @@
             ...mapActions('basket', {
                 deleteProduct: 'DELETE_PRODUCT',
                 setGlobalSales: 'SET_GLOBAL_SALES',
-                setGroupSales: 'SET_GROUP_SALES'
+                setGroupSales: 'SET_GROUP_SALES',
+                setUnfinishedOrderId: 'SET_UNFINISHED_ORDER_ID',
+                clearUnfinishedOrderId: 'CLEAR_UNFINISHED_ORDER_ID'
             }),
             getRecommendedProduct() {
                 this.axios.post('products/recommended')
@@ -472,7 +473,8 @@
                             deliveryMethod: this.deliveryMethod,
                             products: this.products,
                             user_id: this.user_id,
-                            notCall: this.notCall
+                            notCall: this.notCall,
+                            unfinished_order_id: this.getUnfinishedOrderId
                         };
                         await this.axios.post('checkout/create/order', form).then(({data}) => {
                             let message = data.message
@@ -482,6 +484,8 @@
                                 title: 'Успех!',
                                 text: message
                             });
+
+                            this.clearUnfinishedOrderId();
                             this.clearValidation();
                             let postData = data.portmone
 
@@ -492,7 +496,22 @@
                                 this.toPage({name: 'order-status', params: {token: data.token}});
                             }
                         })
-                    }
+                    } else {
+                        if (this.number.length >= 18 && this.name.length >= 2) {
+                            const form = {
+                                number: this.number,
+                                name: this.name,
+                                products: this.products,
+                                user_id: this.user_id,
+                                unfinished_order_id: this.getUnfinishedOrderId,
+                            };
+
+                            await this.axios.post('checkout/create/unfinishedOrder', form).then(({data}) => {
+
+                                this.setUnfinishedOrderId(data.order_id);
+                            })
+                        }
+                     }
                 } catch (e) {
                     this.$loading(false);
                     this.errorMessagesValidation(e);

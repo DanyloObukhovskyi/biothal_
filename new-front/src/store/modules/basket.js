@@ -1,4 +1,5 @@
 const state = {
+    unfinishedOrderId: '',
     products: [],
     globalSales: [],
     groupSales: [],
@@ -24,6 +25,9 @@ const mutations = {
     CLEAR_ALL_CART(state){
         state.products = []
     },
+    CLEAR_UNFINISHED_ORDER_ID(state){
+        state.unfinishedOrderId = ''
+    },
     INCREMENT_PRODUCT_QUANTITY(state, productId) {
         state.products = state.products.map(p => {
             if (p.id === productId) {
@@ -48,6 +52,9 @@ const mutations = {
     },
     VISIBLE_BASKET(state, visible) {
         state.visible = visible;
+    },
+    SET_UNFINISHED_ORDER_ID(state, id) {
+        state.unfinishedOrderId = id;
     }
 }
 
@@ -70,8 +77,14 @@ const actions = {
     SET_GROUP_SALES(context, groupSales) {
         context.commit('SET_GROUP_SALES', groupSales);
     },
+    SET_UNFINISHED_ORDER_ID(context, id) {
+        context.commit('SET_UNFINISHED_ORDER_ID', id);
+    },
     CLEAR_ALL_CART(context){
         context.commit('CLEAR_ALL_CART');
+    },
+    CLEAR_UNFINISHED_ORDER_ID(context){
+        context.commit('CLEAR_UNFINISHED_ORDER_ID');
     }
 }
 
@@ -80,6 +93,8 @@ const getters = {
     globalSales: state => state.globalSales,
     groupSales: state => state.groupSales,
     visible: state => state.visible,
+    unfinishedOrderId: state => state.unfinishedOrderId,
+
     currentGlobalSales: (state, getters) => {
         let current = null;
 
@@ -167,6 +182,9 @@ const getters = {
     },
     visibleBasket: (state, getters) => {
         return state.visible;
+    },
+    getUnfinishedOrderId: state => {
+        return state.unfinishedOrderId;
     }
 }
 
