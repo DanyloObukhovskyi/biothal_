@@ -31,6 +31,13 @@
                 default: 1
             },
         },
+        beforeRouteEnter(to, from, next) {
+            if (to.query.frame) {
+                window.parent.location.href = document.location.href.replace('?frame=true', '');
+            } else {
+                next()
+            }
+        },
         data() {
             return {
                 title: '',

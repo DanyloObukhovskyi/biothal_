@@ -38,19 +38,12 @@ export default {
         clearCartProducts() {
             this.clearCart()
         },
-        iframeURLChange(iframe, callback) {
-            var lastDispatched = null;
-
-            var dispatchChange = function () {
-                var newHref = iframe.contentWindow.location.href;
-
-                if (newHref !== lastDispatched) {
-                    callback(newHref);
-                    lastDispatched = newHref;
-                }
+        iframeURLChange(iframe) {
+            let dispatchChange = function () {
+                let newHref = iframe.contentWindow.location.href;
             };
 
-            var unloadHandler = function () {
+            let unloadHandler = function () {
                 // Timeout needed because the URL changes immediately after
                 // the `unload` event is dispatched.
                 setTimeout(dispatchChange, 0);
@@ -82,11 +75,7 @@ export default {
         }
     },
     mounted() {
-        this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
-            if (newURL !== 'about:blank') {
-                window.location.href = newURL
-            }
-        });
+        this.iframeURLChange(document.getElementById("paymentFrame"));
         this.clearCartProducts();
     }
 }

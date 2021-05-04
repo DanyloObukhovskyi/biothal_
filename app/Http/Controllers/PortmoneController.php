@@ -36,7 +36,7 @@ class PortmoneController extends Controller
             'comment' => 'Оплачен',
             'status_id' => $status->id,
         ]);
-        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token);
+        return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token . '?frame=true');
     }
 
     public function cancel($order_id)
@@ -59,7 +59,6 @@ class PortmoneController extends Controller
             'comment' => 'Отмена оплаты',
             'status_id' => $status->id,
         ]);
-
-        return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token);
+        return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token . '?frame=true');
     }
 }

@@ -4,7 +4,7 @@
             Ваш заказ № {{id}} отменен
         </div>
         <div class="order-status__content">
-            <br>Call - центр работает по будням: <b>10:00 — 17:00.</b>
+            Call - центр работает по будням: <b>10:00 — 17:00.</b>
             <br>Суббота / Воскресенье: <b>Выходной.</b>
             <br>Остались вопросы? <br>Звони <b>+38 (068) 888-12-08</b>
             <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>
@@ -26,6 +26,13 @@
                 type: [Number, String],
                 default: 1
             },
+        },
+        beforeRouteEnter(to, from, next) {
+            if (to.query.frame) {
+                window.parent.location.href = document.location.href.replace('?frame=true', '');
+            } else {
+                next()
+            }
         },
         data() {
           return {

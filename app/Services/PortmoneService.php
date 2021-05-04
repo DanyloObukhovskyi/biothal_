@@ -16,8 +16,8 @@ class PortmoneService
     public function makeRequest($amount, $order)
     {
         $agent = new Agent();
-        Log::info($agent->platform());
-        Log::info($agent->browser());
+//        Log::info($agent->platform());
+//        Log::info($agent->browser());
 
         $payment = new Payment();
         $payment->order_id = $order->id;
@@ -26,10 +26,8 @@ class PortmoneService
         $payment->save();
 
         $url = self::GETAWAY_URL . '?' . http_build_query([
-                'paymentTypes' => ['applepay' => 'Y','gpay' => 'Y'],
-                'payee_id' => '262930',//env('PORTMONE_SHOP_ID'),
-                'login' => 'USB_biothal',
-                'pass' => 'ferkalyak1898',
+//                'paymentTypes' => ['applepay' => 'Y','gpay' => 'Y'],
+                'payee_id' => env('PORTMONE_SHOP_ID'),//'262930',
                 'shop_order_number' => $payment->id,
                 'bill_amount' => $payment->amount,
                 'description' => env('PORTMONE_DESCRIPTION'),
@@ -37,7 +35,6 @@ class PortmoneService
                 'failure_url' => route('portmone.cancel', ['order_id' => $order->id]),
                 'lang' => 'ru',
                 'encoding' => 'UTF-8',
-
                 'exp_time' => env('PORTMONE_WAITING_TIME_FOR_PAYMENT') * 60,
                 'type' => 'light',
             ]);
