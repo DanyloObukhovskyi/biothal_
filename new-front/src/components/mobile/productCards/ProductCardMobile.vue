@@ -219,7 +219,7 @@ export default {
       &-text {
         font-style: normal;
         font-weight: 800;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 25px;
       }
 

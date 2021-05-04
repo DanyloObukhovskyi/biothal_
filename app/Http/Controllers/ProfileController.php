@@ -46,7 +46,8 @@ class ProfileController extends Controller
             'image'
         ])->find($userId);
 
-        $status = OrderStatuses::where('name', OrderStatuses::CANCEL)->first();
+        $statusCancel = OrderStatuses::where('name', OrderStatuses::CANCEL)->first();
+        $statusUnfinished = OrderStatuses::where('name', OrderStatuses::UNFINISHED)->first();
 
         $orderList = Order::with( [
             'globalSales',
@@ -54,7 +55,11 @@ class ProfileController extends Controller
             'orderType',
             'userAddress',
             'orderStatus'
-        ])->where([['user_id', $userId],['order_status_id', '!=', $status->id]])->get();
+        ])->where([
+            ['user_id', $userId],
+            ['order_status_id', '!=', $statusCancel->id],
+            ['order_status_id', '!=', $statusUnfinished->id]
+        ])->get();
 
         return response()->json([
             'orderList' => $orderList,

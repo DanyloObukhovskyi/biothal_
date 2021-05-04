@@ -43,11 +43,8 @@ export default {
 
             var dispatchChange = function () {
                 var newHref = iframe.contentWindow.location.href;
-                console.log('dispatchChange '+newHref)
 
                 if (newHref !== lastDispatched) {
-                    console.log('in if '+newHref)
-
                     callback(newHref);
                     lastDispatched = newHref;
                 }
@@ -75,24 +72,19 @@ export default {
 
             attachUnload();
         },
-        loader(temp) {
-            console.log('loader '+temp)
+        loader() {
             setTimeout(
                 function () {
                     this.$loading(false)
                 }.bind(this),
-
                 500
             );
         }
     },
     mounted() {
         this.iframeURLChange(document.getElementById("paymentFrame"), function (newURL) {
-            console.log('mounted '+newURL)
             if (newURL !== 'about:blank') {
-                // window.location.href = newURL
-                setTimeout(function () { window.location.href = newURL}, 50);
-                // this.$router.push(newURL)
+                window.location.href = newURL
             }
         });
         this.clearCartProducts();

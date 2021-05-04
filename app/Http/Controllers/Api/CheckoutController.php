@@ -88,13 +88,34 @@ class CheckoutController extends Controller
 
     public function createOrder(Request $request)
     {
+        $order = new Order();
+        $orderHistory = new OrderHistory();
+        $userOrderAddress = new UserOrderAddress();
+        $orderOld = null;
+
+        if(!empty($request->unfinished_order_id)) {
+            $orderOld = Order::find($request->unfinished_order_id);
+            if(!empty($orderOld)) {
+                $userOrderAddressOld = UserOrderAddress::find($orderOld->user_order_id);
+                $orderProductOld = OrderProduct::where('order_id', $request->unfinished_order_id)->delete();
+                $orderHistoryOld = OrderHistory::where('order_id', $request->unfinished_order_id)->first();
+
+                $orderOld->delete();
+                $orderHistoryOld->delete();
+                $userOrderAddressOld->delete();
+
+                $orderHistory->id = $orderHistoryOld->id;
+                $order->id = $request->unfinished_order_id;
+                $userOrderAddress->id = $userOrderAddressOld->id;
+            }
+        }
+
         $user = User::where([['type', User::CLIENT_TYPE], ['phone_number', $request->get('number')]])->first();
 
         if ($request->get('deliveryMethod') == 1){
             $postalOffice = (object)$request->get('postalOffice');
         }
 
-        $userOrderAddress = new UserOrderAddress();
         $userOrderAddress->phone = $request->get('number');
         $userOrderAddress->name = !empty($user) ? $user->name : $request->get('name');
         $userOrderAddress->LastName = !empty($user) ? $user->sur_name : $request->get('surname');
@@ -111,7 +132,6 @@ class CheckoutController extends Controller
         $orderStatus = OrderStatuses::where('name', OrderStatuses::ACTIVE)
             ->first();
 
-        $order = new Order();
         $order->user_order_id = $userOrderAddress->id;
         $order->order_status_id = $orderStatus->id;
         $order->order_type_id = $request->get('paymentMethod');
@@ -174,12 +194,11 @@ class CheckoutController extends Controller
         $orderStatusHistory = OrderStatuses::where('name', OrderStatuses::ACTIVE)
             ->first();
 
-        OrderHistory::create([
-            'order_id' => $order->id,
-            'notify' => 0,
-            'comment' => 'Заказ создан',
-            'status_id' => $orderStatusHistory->id,
-        ]);
+        $orderHistory->order_id = $order->id;
+        $orderHistory->notify = 0;
+        $orderHistory->comment = 'Заказ создан';
+        $orderHistory->status_id = $orderStatusHistory->id;
+        $orderHistory->save();
 
         if (isset($orderType) and OrderType::CARD_METHOD === $orderType->type) {
             $amount = 0;
@@ -514,24 +533,27 @@ class CheckoutController extends Controller
 
     public function createUnfinishedOrder (Request $request){
 
+        $user = User::where([['type', User::CLIENT_TYPE], ['phone_number', $request->get('number')]])->first();
+
         $order = new Order();
         $orderHistory = new OrderHistory();
         $userOrderAddress = new UserOrderAddress();
-
+        $orderOld = null;
         if(!empty($request->unfinished_order_id)) {
             $orderOld = Order::find($request->unfinished_order_id);
-            $userOrderAddressOld = UserOrderAddress::find($orderOld->user_order_id);
-            $orderProductOld = OrderProduct::where('order_id', $request->unfinished_order_id)->first();
-            $orderHistoryOld = OrderHistory::where('order_id', $request->unfinished_order_id)->first();
+            if(!empty($orderOld)) {
+                $userOrderAddressOld = UserOrderAddress::find($orderOld->user_order_id);
+                $orderProductOld = OrderProduct::where('order_id', $request->unfinished_order_id)->delete();
+                $orderHistoryOld = OrderHistory::where('order_id', $request->unfinished_order_id)->first();
 
-            $orderOld->delete();
-            $orderProductOld->delete();
-            $orderHistoryOld->delete();
-            $userOrderAddressOld->delete();
+                $orderOld->delete();
+                $orderHistoryOld->delete();
+                $userOrderAddressOld->delete();
 
-            $orderHistory->id = $orderHistoryOld->id;
-            $order->id = $request->unfinished_order_id;
-            $userOrderAddress->id = $userOrderAddressOld->id;
+                $orderHistory->id = $orderHistoryOld->id;
+                $order->id = $request->unfinished_order_id;
+                $userOrderAddress->id = $userOrderAddressOld->id;
+            }
         }
 
         $userOrderAddress->phone = $request->get('number');
@@ -558,9 +580,6 @@ class CheckoutController extends Controller
         foreach ($request->get('products') as $product) {
 
             $orderProduct = new OrderProduct();
-            if(!empty($request->unfinished_order_id)) {
-                $orderProduct->id = $orderProductOld->id;
-            }
             $orderProduct->product_id = $product['id'];
             $orderProduct->order_id = $order->id;
             $orderProduct->quantity = $product['quantity'];
@@ -611,7 +630,7 @@ class CheckoutController extends Controller
 
         $orderHistory->order_id = $order->id;
         $orderHistory->notify = 0;
-        $orderHistory->comment = 'Заказ со222здан';
+        $orderHistory->comment = 'Заказ создан';
         $orderHistory->status_id = $orderStatusHistory->id;
         $orderHistory->save();
 

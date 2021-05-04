@@ -256,7 +256,8 @@
                 'nextGlobalSales',
                 'linear',
                 'productsSum',
-                'productsSumWithSales'
+                'productsSumWithSales',
+                'getUnfinishedOrderId'
             ]),
             numberRules() {
                 return [
@@ -333,7 +334,9 @@
         },
         methods: {
             ...mapActions('basket', {
-                deleteProduct: 'DELETE_PRODUCT'
+                deleteProduct: 'DELETE_PRODUCT',
+                setUnfinishedOrderId: 'SET_UNFINISHED_ORDER_ID',
+                clearUnfinishedOrderId: 'CLEAR_UNFINISHED_ORDER_ID'
             }),
             clearValidation() {
                 this.errorValid = {
@@ -416,7 +419,8 @@
                             deliveryMethod: this.deliveryMethod,
                             products: this.products,
                             user_id: this.user_id,
-                            notCall: this.notCall
+                            notCall: this.notCall,
+                            unfinished_order_id: this.getUnfinishedOrderId
                         };
 
                         await this.axios.post('checkout/create/order', form).then(({data}) => {
@@ -427,6 +431,8 @@
                                 title: 'Успех!',
                                 text: message
                             });
+
+                            this.clearUnfinishedOrderId();
                             this.clearValidation();
                             let postData = data.portmone
                             if (postData) {
@@ -436,6 +442,21 @@
                                 this.toPage({name: 'order-status', params: {token: data.token}});
                             }
                         })
+                    } else {
+                        if (this.number.length >= 18 && this.name.length >= 2) {
+                            const form = {
+                                number: this.number,
+                                name: this.name,
+                                products: this.products,
+                                user_id: this.user_id,
+                                unfinished_order_id: this.getUnfinishedOrderId,
+                            };
+
+                            await this.axios.post('checkout/create/unfinishedOrder', form).then(({data}) => {
+
+                                this.setUnfinishedOrderId(data.order_id);
+                            })
+                        }
                     }
                 } catch (e) {
                     this.$loading(false)
