@@ -18,15 +18,18 @@
       <span class="product__description__price-text default-cursor">
         {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
       </span>
-      <v-btn v-if="dataCard.stock_status_id === 2"
-             class="product__description__price-button product__button white--text"
-             :color="variables.basecolor" elevation="0"
-             @click="preOrder">
-        Предзаказ
-      </v-btn>
-      <v-btn v-else class="product__description__price-button product__button white--text" elevation="0" @click="addToCart">
-        Купить
-      </v-btn>
+        <div>
+            <v-btn v-if="dataCard.stock_status_id === 2"
+                   class="product__description__price-button product__button white--text"
+                   :color="variables.basecolor" elevation="0"
+                   @click="preOrder">
+                Предзаказ
+            </v-btn>
+            <v-btn v-else class="product__description__price-button product__button white--text" elevation="0" @click="addToCart">
+                Купить
+            </v-btn>
+        </div>
+
     </div>
 
     <PreOrderOneClickModal ref="PreOrderOneClickModal" :data-card="dataCard" :name="name" :phone="phone"
