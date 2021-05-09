@@ -357,7 +357,7 @@ class ImportTo1CController {
             $this->clearInputPath($workDirName);
         }
 
-        $path = asset('');
+        $path = public_path("storage");
 
         return $path.'/'.$workDirName.'/'.$fileName;
     }
@@ -417,7 +417,7 @@ class ImportTo1CController {
             $folderName = date('Y-m-d_H-i-s').'_'.md5(time());
 
             $fullPath =
-                asset().DIRECTORY_SEPARATOR
+                public_path("storage").DIRECTORY_SEPARATOR
                 .$folderName;
 
             if (! File::isDirectory($fullPath)) {
