@@ -131,7 +131,7 @@ class ImportTo1CController {
 
             case $this->stepImport:
                 try {
-                    return true;
+                    $this->import();
                 } catch (Exception $e) {
                     return $this->failure($e->getMessage());
                 }
@@ -375,5 +375,32 @@ class ImportTo1CController {
         */
 
         return \Request::getContent();
+    }
+
+    protected function import()
+    {
+
+        return $this->answer("success\n");
+
+    }
+
+    protected function importAnalyzeModelAnswer($result)
+    {
+//        $retData = explode("\n", $result);
+//        $valid = [
+//            Import::answerSuccess,
+//            Import::answerProgress,
+//            Import::answerFailure,
+//        ];
+//
+//        if (! in_array($retData[0], $valid)) {
+//            return $this->failure('Mode: '.$this->stepImport.' model '
+//                .class_basename($model)
+//                .' model return wrong answer');
+//        }
+//
+        //$log = $model->getAnswerDetail();
+
+        return $this->answer("success\n");
     }
 }
