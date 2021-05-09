@@ -12,6 +12,7 @@ use App\Models\{
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use File;
 
 class ImportTo1CController {
 
