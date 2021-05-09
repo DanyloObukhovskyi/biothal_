@@ -299,14 +299,56 @@ class ImportTo1CController {
 
     protected function getFile()
     {
-        $this->success();
+        $modelFileName = $this->request->input('filename');
+        $fileName = $modelFileName;
+
+        if (empty($fileName)) {
+            return $this->failure('Mode: '.$this->stepFile
+                .', parameter filename is empty');
+        }
+
+        $fullPath = $this->getFullPathToFile($fileName, true);
+
+        $fData = $this->getFileGetData();
+
+        if (empty($fData)) {
+            return $this->failure('Mode: '.$this->stepFile
+                .', input data is empty.');
+        }
+
+        if ($file = fopen($fullPath, 'ab')) {
+            $dataLen = mb_strlen($fData, 'latin1');
+            $result = fwrite($file, $fData);
+
+            if ($result === $dataLen) {
+                // файлы, требующие распаковки
+                $files = [];
+
+                if ($this->canUseZip()) {
+                    $files = session('inputZipped', []);
+                    $files[$fileName] = $fullPath;
+                }
+
+                session(['inputZipped' => $files]);
+
+                return $this->success();
+            }
+
+            $this->failure('Mode: '.$this->stepFile
+                .', can`t wrote data to file: '.$fullPath);
+        } else {
+            return $this->failure('Mode: '.$this->stepFile.', cant open file: '
+                .$fullPath.' to write.');
+        }
+
+        return $this->failure('Mode: '.$this->stepFile.', unexpected error.');
     }
 
     protected function success()
     {
         return $this->answer('success');
     }
-    
+
     protected function getFullPathToFile($fileName, $clearOld = false)
     {
         $workDirName = $this->checkInputPath();
@@ -365,5 +407,26 @@ class ImportTo1CController {
         //$log = $model->getAnswerDetail();
 
         return $this->answer("success\n");
+    }
+
+    protected function checkInputPath()
+    {
+        $folderName = session('inputFolderName');
+
+        if (empty($folderName)) {
+            $folderName = date('Y-m-d_H-i-s').'_'.md5(time());
+
+            $fullPath =
+                asset().DIRECTORY_SEPARATOR
+                .$folderName;
+
+            if (! File::isDirectory($fullPath)) {
+                File::makeDirectory($fullPath, 0755, true);
+            }
+
+            session(['inputFolderName' => $folderName]);
+        }
+
+        return $folderName;
     }
 }
