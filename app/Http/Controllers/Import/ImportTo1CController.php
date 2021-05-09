@@ -299,51 +299,14 @@ class ImportTo1CController {
 
     protected function getFile()
     {
-        $modelFileName = $this->request->input('filename');
-        $fileName = $modelFileName;
-
-        if (empty($fileName)) {
-            return $this->failure('Mode: '.$this->stepFile
-                .', parameter filename is empty');
-        }
-
-        $fullPath = $this->getFullPathToFile($fileName, true);
-
-        $fData = $this->getFileGetData();
-
-        if (empty($fData)) {
-            return $this->failure('Mode: '.$this->stepFile
-                .', input data is empty.');
-        }
-
-        if ($file = fopen($fullPath, 'ab')) {
-            $dataLen = mb_strlen($fData, 'latin1');
-            $result = fwrite($file, $fData);
-
-            if ($result === $dataLen) {
-                // файлы, требующие распаковки
-                $files = [];
-
-                if ($this->canUseZip()) {
-                    $files = session('inputZipped', []);
-                    $files[$fileName] = $fullPath;
-                }
-
-                session(['inputZipped' => $files]);
-
-                return $this->success();
-            }
-
-            $this->failure('Mode: '.$this->stepFile
-                .', can`t wrote data to file: '.$fullPath);
-        } else {
-            return $this->failure('Mode: '.$this->stepFile.', cant open file: '
-                .$fullPath.' to write.');
-        }
-
-        return $this->failure('Mode: '.$this->stepFile.', unexpected error.');
+        $this->success();
     }
 
+    protected function success()
+    {
+        return $this->answer('success');
+    }
+    
     protected function getFullPathToFile($fileName, $clearOld = false)
     {
         $workDirName = $this->checkInputPath();
