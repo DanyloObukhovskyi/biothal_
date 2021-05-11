@@ -12,6 +12,7 @@ use App\Models\{
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use File;
 
 class ImportTo1CController {
 
@@ -131,7 +132,7 @@ class ImportTo1CController {
 
             case $this->stepImport:
                 try {
-                    return true;
+                    $this->import();
                 } catch (Exception $e) {
                     return $this->failure($e->getMessage());
                 }
@@ -344,6 +345,11 @@ class ImportTo1CController {
         return $this->failure('Mode: '.$this->stepFile.', unexpected error.');
     }
 
+    protected function success()
+    {
+        return $this->answer('success');
+    }
+
     protected function getFullPathToFile($fileName, $clearOld = false)
     {
         $workDirName = $this->checkInputPath();
@@ -352,7 +358,7 @@ class ImportTo1CController {
             $this->clearInputPath($workDirName);
         }
 
-        $path = asset('');
+        $path = public_path("storage/1c");
 
         return $path.'/'.$workDirName.'/'.$fileName;
     }
@@ -375,5 +381,64 @@ class ImportTo1CController {
         */
 
         return \Request::getContent();
+    }
+
+    protected function import()
+    {
+
+        return $this->answer("success\n");
+
+    }
+
+    protected function importAnalyzeModelAnswer($result)
+    {
+//        $retData = explode("\n", $result);
+//        $valid = [
+//            Import::answerSuccess,
+//            Import::answerProgress,
+//            Import::answerFailure,
+//        ];
+//
+//        if (! in_array($retData[0], $valid)) {
+//            return $this->failure('Mode: '.$this->stepImport.' model '
+//                .class_basename($model)
+//                .' model return wrong answer');
+//        }
+//
+        //$log = $model->getAnswerDetail();
+
+        return $this->answer("success\n");
+    }
+
+    protected function checkInputPath()
+    {
+        $folderName = session('inputFolderName');
+
+        if (empty($folderName)) {
+            $folderName = date('Y-m-d_H-i-s').'_'.md5(time());
+
+            $fullPath =
+                public_path("storage/1c").DIRECTORY_SEPARATOR
+                .$folderName;
+
+            if (! File::isDirectory($fullPath)) {
+                File::makeDirectory($fullPath, 0755, true);
+            }
+
+            session(['inputFolderName' => $folderName]);
+        }
+
+        return $folderName;
+    }
+
+    protected function clearInputPath($currentFolder)
+    {
+        $storePath = public_path("storage/1c");
+
+        foreach (File::directories($storePath) as $path) {
+            if (File::basename($path) != $currentFolder) {
+                File::deleteDirectory($path);
+            }
+        }
     }
 }
