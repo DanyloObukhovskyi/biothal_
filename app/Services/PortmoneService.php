@@ -26,16 +26,6 @@ class PortmoneService
         $payment->save();
 
         $url = self::GETAWAY_URL . '?' . http_build_query([
-
-                'paymentTypes' => [
-                    'applepay' => 'Y',
-                    'gpay' => 'N',
-                ],
-                'priorityPaymentTypes' => [
-                    'applepay' => '1',
-                    'gpay' => '0',
-                ],
-//                'paymentTypes' => ['applepay' => 'Y','gpay' => 'N'],
                 'payee_id' => env('PORTMONE_SHOP_ID'),
                 'shop_order_number' => $payment->id,
                 'bill_amount' => $payment->amount,
