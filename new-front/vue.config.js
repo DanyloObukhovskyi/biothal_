@@ -19,17 +19,16 @@ module.exports = {
                 args[0].filename = 'index.html'
                 return args
             })
-
-        config.plugins.delete('prefetch')
-
-        /*
-           Configure preload to load all chunks
-           NOTE: use `allChunks` instead of `all` (deprecated)
-        */
-        config.plugin('preload').tap((options) => {
-            options[0].include = 'allChunks'
-            return options
-        })
+        // config.plugins.delete('prefetch')
+        //
+        // /*
+        //    Configure preload to load all chunks
+        //    NOTE: use `allChunks` instead of `all` (deprecated)
+        // */
+        // config.plugin('preload').tap((options) => {
+        //     options[0].include = 'allChunks'
+        //     return options
+        // })
     },
 
   configureWebpack: {
@@ -39,27 +38,27 @@ module.exports = {
       }
     },
       plugins: [
-          // new CompressionPlugin({
-          //     algorithm: "gzip",
-          //     test: /\.js(\?.*)?$/i,
-          //     exclude: '/node_modules/',
-          // }),
-          // new PreloadWebpackPlugin({
-          //     rel: 'preload',
-          //     as: 'script'
-          // })
+          new CompressionPlugin({
+              algorithm: "gzip",
+              test: /\.js(\?.*)?$/i,
+              exclude: '/node_modules/',
+          }),
+          new PreloadWebpackPlugin({
+              rel: 'preload',
+              as: 'script'
+          })
           // new HtmlWebpackPlugin({
           //     template: 'public/index.html'
           // })
       ],
-    // module: {
-    //     rules: [
-    //
-    //     ],
-    // },
-    // optimization: {
-    //     minimizer: [new UglifyJsPlugin()],
-    // },
+    module: {
+        rules: [
+
+        ],
+    },
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
+    },
   },
 
 }
