@@ -19,7 +19,19 @@ module.exports = {
                 args[0].filename = 'index.html'
                 return args
             })
+
+        config.plugins.delete('prefetch')
+
+        /*
+           Configure preload to load all chunks
+           NOTE: use `allChunks` instead of `all` (deprecated)
+        */
+        config.plugin('preload').tap((options) => {
+            options[0].include = 'allChunks'
+            return options
+        })
     },
+
   configureWebpack: {
     resolve: {
       alias: {
