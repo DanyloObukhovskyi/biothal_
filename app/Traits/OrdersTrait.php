@@ -109,7 +109,7 @@ trait OrdersTrait
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Адрес доставки",
-                "Значение" => implode(", ", [ $order['user_address']['region'], $order['user_address']['department'] ])
+                "Значение" => implode(", ", [ $order['user_address']['region'], $order['user_address']['department'] , $order['user_address']['cities']])
             ];
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
@@ -151,7 +151,7 @@ trait OrdersTrait
     public function getCounterpartyData ($userData) {
         $comment = $userData['id'] . " Тел.: " . $userData['phone'] .
             "  Имя: " . $userData['LastName'] . " " . $userData['name'] . " Адрес: "  .
-            implode(", ", [ $userData['region'], $userData['department'] ]);
+            implode(", ", [ $userData['region'], $userData['department'] ,$userData['cities']]);
 
         return [
             "counterparty" => [
@@ -167,6 +167,7 @@ trait OrdersTrait
                         "Представление" => implode(", ", [
                             $userData['region'],
                             $userData['department'],
+                            $userData['cities']
                         ]),
                         "Контакты" => [
                             "Контакт" => [
