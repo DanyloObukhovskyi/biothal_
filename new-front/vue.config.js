@@ -39,11 +39,11 @@ module.exports = {
       }
     },
       plugins: [
-          new CompressionPlugin({
-              algorithm: "gzip",
-              test: /\.js(\?.*)?$/i,
-              exclude: '/node_modules/',
-          }),
+          // new CompressionPlugin({
+          //     algorithm: "gzip",
+          //     test: /\.js(\?.*)?$/i,
+          //     exclude: '/node_modules/',
+          // }),
           // new PreloadWebpackPlugin({
           //     rel: 'preload',
           //     as: 'script'
@@ -52,14 +52,14 @@ module.exports = {
           //     template: 'public/index.html'
           // })
       ],
-    module: {
-        rules: [
-
-        ],
-    },
-    optimization: {
-        minimizer: [new UglifyJsPlugin()],
-    },
+    // module: {
+    //     rules: [
+    //
+    //     ],
+    // },
+    // optimization: {
+    //     minimizer: [new UglifyJsPlugin()],
+    // },
   },
 
 }
