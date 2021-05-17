@@ -44,10 +44,10 @@ module.exports = {
               test: /\.js(\?.*)?$/i,
               exclude: '/node_modules/',
           }),
-          new PreloadWebpackPlugin({
-              rel: 'preload',
-              as: 'script'
-          })
+          // new PreloadWebpackPlugin({
+          //     rel: 'preload',
+          //     as: 'script'
+          // })
           // new HtmlWebpackPlugin({
           //     template: 'public/index.html'
           // })
