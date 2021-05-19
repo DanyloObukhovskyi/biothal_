@@ -37,14 +37,14 @@
       clipped
       width="100%">
       <div :style="`height: ${marginTopNavigation}`"/>
-      <v-expansion-panels accordion>
+      <v-expansion-panels accordion :value="[]">
         <v-expansion-panel
           v-for="(item,index) in menuItemsCategory"
           :key="index"
           :readonly="false">
           <v-expansion-panel-header
             :expand-icon="showIconItemMenu(item)">
-                <span @click="toPage({name: 'category', params:{ category: item.slug }} )">
+                <span @click.prevent.stop="toPage({name: 'category', params:{ category: item.slug }} )">
                     {{ item.title }}
                 </span>
           </v-expansion-panel-header>

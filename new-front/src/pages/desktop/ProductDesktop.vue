@@ -635,18 +635,18 @@ import {mapActions, mapGetters} from "vuex";
           height: 48px;
           text-align: center;
           border-radius: 50px;
-                        position: relative;
-                        align-items: center;
-                        padding: 0 25px !important;
+          position: relative;
+          align-items: center;
+          padding: 0 50px !important;
 
-                        &.v-text-field {
-                            padding: 0;
-                        }
+            &.v-text-field {
+              padding: 0;
+            }
 
-                        & ::v-deep {
-                            & .v-input__slot {
-                                padding: 0;
-                                margin: 0;
+            & ::v-deep {
+              & .v-input__slot {
+                padding: 0;
+                margin: 0;
 
               & input {
                 padding: 0;
@@ -655,21 +655,21 @@ import {mapActions, mapGetters} from "vuex";
                 font-weight: 500;
                 font-family: Manrope, sans-serif !important;
                 color: black;
-                text-align: center;
+                  width: 145px;
               }
             }
 
-                            & .v-text-field {
-                                &__details {
-                                    position: absolute;
-                                    bottom: -15px;
-                                    white-space: nowrap;
-                                    transform: translateX(0);
-                                    min-width: fit-content;
-                                    text-align: center;
-                                }
-                            }
-                        }
+                & .v-text-field {
+                    &__details {
+                        position: absolute;
+                        bottom: -15px;
+                        white-space: nowrap;
+                        transform: translateX(0);
+                        min-width: fit-content;
+                        text-align: center;
+                    }
+                }
+            }
         }
       }
     }
