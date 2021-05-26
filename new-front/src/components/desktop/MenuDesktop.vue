@@ -10,6 +10,7 @@
       <div class="app-bar-menu-wrapper">
         <v-slide-group
           multiple
+          force-arrow
           show-arrows>
           <v-slide-item v-for="(item, index) in menuItemsCategory" :key="item.id">
             <v-menu v-if="item.children.length || item.accessory.length" open-on-hover offset-y>
