@@ -35,6 +35,9 @@ class Update extends FormRequest
             'product_description.*.meta_keywords' => 'max:250',
             'product_description.*.meta_title' => 'required',
             'categoryProducts.category_id' => 'integer',
+            'product_apt.*.tab_title' => 'required',
+            'product_apt.*.tab_desc' => 'required',
+            'product_apt.*.sort_order' => 'required|integer',
         ];
     }
 
@@ -52,6 +55,9 @@ class Update extends FormRequest
             'product_description.*.name.required' => 'Поле "Название" - обязательное!',
             'product_description.*.meta_title.required' => 'Поле "Мета-тег Title" - обязательное!',
             'categoryProducts.category_id.integer' => 'Поле "Категория товара" - обязательное! Во вкладке "Связи"',
+            'product_apt.*.tab_title.required' => 'Поле "Заголовок" - обязательное! Во вкладке "Вкладки"',
+            'product_apt.*.tab_desc.required' => 'Поле "Содержимое" - обязательное! Во вкладке "Вкладки"',
+            'product_apt.*.sort_order.required' => 'Поле "Порядок" - обязательное! Во вкладке "Вкладки"',
         ];
     }
 }

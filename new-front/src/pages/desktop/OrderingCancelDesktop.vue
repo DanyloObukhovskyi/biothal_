@@ -6,7 +6,7 @@
         <div class="order-status__content">
             Call - центр работает по будням: <b>10:00 — 17:00.</b>
             <br>Суббота / Воскресенье: <b>Выходной.</b>
-            <br>Остались вопросы? <br>Звони <b>+38 (068) 888-12-08</b>
+            <br>Остались вопросы? <br>Звони <b>+38 (099) 088-12-08</b><br><b>+38 (067) 568-08-13</b>
             <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>
         </div>
         <div class="button">
