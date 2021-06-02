@@ -54,8 +54,8 @@ trait OrdersTrait
             $xmlBody = [];
             $xmlBody["Ид"] = $order['id'];
             $xmlBody["Номер"] = $order['id'];
-            $xmlBody["Дата"] = Carbon::parse($order['created_at'])->format('Y-m-d');
-            $xmlBody["Время"] = Carbon::parse($order['created_at'])->format('H:i:s');
+            $xmlBody["Дата"] = date('Y-m-d', strtotime($order['created_at']));
+            $xmlBody["Время"] = date('H:i:s', strtotime($order['created_at']));
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
             $xmlBody["ХозОперация"] = "Заказ товара";
