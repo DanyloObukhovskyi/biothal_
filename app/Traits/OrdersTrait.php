@@ -157,7 +157,7 @@ trait OrdersTrait
             "counterparty" => [
                 "Контрагент" => [
                     "Ид" => $userData['id'],
-                    "Наименование" => $userData['name'],
+                    "Наименование" => $userData['LastName'] . " " . $userData['name'],
                     "Роль" => "Покупатель",
                     "Группа" => "Default",
                     "ПолноеНаименование" => $userData['LastName'] . " " . $userData['name'],
@@ -169,17 +169,16 @@ trait OrdersTrait
                             $userData['department'],
                             $userData['cities']
                         ]),
-                        "Контакты" => [
-                            "Контакт" => [
-                                'Тип' => 'Телефон рабочий',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Электронная почта',
-                                'Значение' => $userData['email'] ?? 'nomail@biothal.com.ua'
-                            ]
+                    ],
+                    "Контакты" => [
+                        "Контакт" => [
+                            'Тип' => 'Телефон рабочий',
+                            'Значение' => $userData['phone']
+                        ],
+                        "Контакт" => [
+                            'Тип' => 'Электронная почта',
+                            'Значение' => $userData['email'] ?? 'nomail@biothal.com.ua'
                         ]
-
                     ]
 
                 ]
