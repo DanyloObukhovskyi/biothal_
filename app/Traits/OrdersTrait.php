@@ -188,6 +188,7 @@ trait OrdersTrait
                     "ПолноеНаименование" => $userData['LastName'] . " " . $userData['name'],
                     "Фамилия" => $userData['LastName'],
                     "Имя" => $userData['name'],
+                    "Телефон" => $userData['phone'],
                     "Адрес" => [
                         "Представление" => implode(", ", [
                             $userData['region'],
