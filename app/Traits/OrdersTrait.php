@@ -75,7 +75,7 @@ trait OrdersTrait
             $xmlBody["Скидка"] = "0";
 
             //$status = OrderStatuses::where('id', $order['order_status_id'])->first()->name;
-            $orderType = $order['order_type_id'] === 1 ? 7 : 8;
+            $orderType = $order['order_type_id'] === 1 ? 'Н' : 'О';
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Статуса заказа ИД",
