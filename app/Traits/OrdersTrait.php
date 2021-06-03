@@ -58,7 +58,7 @@ trait OrdersTrait
             $xmlBody["Время"] = date('H:i:s', strtotime($order['created_at']));
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
-            $xmlBody["ХозОперация"] = "ЗаказТовара";
+            $xmlBody["ХозОперация"] = "Заказ товара";
             $xmlBody["Роль"] = "Продавец";
             $xmlBody["Сумма"] = (!empty($order["total_sum"]))
                 ? $order["total_sum"]
