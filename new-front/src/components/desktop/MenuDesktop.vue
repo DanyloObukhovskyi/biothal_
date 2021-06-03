@@ -10,7 +10,6 @@
       <div class="app-bar-menu-wrapper">
         <v-slide-group
           multiple
-          force-arrow
           show-arrows>
           <v-slide-item v-for="(item, index) in menuItemsCategory" :key="item.id">
             <v-menu v-if="item.children.length || item.accessory.length" open-on-hover offset-y>
@@ -21,9 +20,18 @@
                   plain
                   @click="toPage({name: 'category', params:{ category: item.slug }})">
                   <span class="bar-menu__category">{{ item.title }}</span>
-                  <v-icon>
-                    {{ value ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
-                  </v-icon>
+                    <span v-if="value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" stroke="olivedrab"
+                             stroke-linecap="round" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                        </svg>
+                    </span>
+                    <span v-else>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" stroke="olivedrab"
+                             stroke-linecap="round" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
                 </v-btn>
               </template>
                 <div class="bar-menu__wrapper__categories">
@@ -67,9 +75,18 @@
                   plain
                   @click="toPage({name: 'info-page', params:{ id: itemInfoPage.slug }})">
                   <span class="bar-menu__category">{{ itemInfoPage.title }}</span>
-                  <v-icon>
-                    {{value ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
-                  </v-icon>
+                    <span v-if="value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" stroke="olivedrab"
+                             stroke-linecap="round" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                        </svg>
+                    </span>
+                    <span v-else>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" stroke="olivedrab"
+                             stroke-linecap="round" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </span>
                 </v-btn>
               </template>
               <v-list class="bar-menu__wrapper">
@@ -199,9 +216,6 @@
     },
     created() {
       this.fetchMenuData();
-    },
-    mounted() {
-      this.test();
     },
     methods: {
       async fetchMenuData() {
@@ -333,6 +347,12 @@
       padding: 0 14px 0 14px;
     }
   }
+
+    ::v-deep .app-bar-menu-wrapper .v-btn__content{
+        font-size: 0;
+        line-height: 0;
+        margin-left: 5px;
+    }
 </style>
 
 <style lang="scss">
