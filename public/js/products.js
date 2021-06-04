@@ -729,27 +729,6 @@ $(function () {
         });
     }
 
-    $("#delete_sale").on("click", function () {
-        let productsId = [];
-        let productId = $(this).attr('data-id');
-        productsId[0] = productId;
-
-        $.ajax({
-            url: '/admin/products/clear/sales',
-            method: 'PUT',
-            data: {
-                'productsId':productsId,
-            },
-            error: function (xhr, status, error) {
-                fatalError(xhr);
-            },
-            success: function (resp) {
-                successMessage(resp);
-                location.reload();
-            }
-        });
-    });
-
 // Delete func
     function deleteItems(buttonId) {
         if (buttonId == 'delete_products') {

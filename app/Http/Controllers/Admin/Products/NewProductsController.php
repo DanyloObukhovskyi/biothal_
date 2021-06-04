@@ -76,7 +76,7 @@ class NewProductsController extends Controller
             }
         }
         $products = $products->get()->toArray();
-        $sales = Sale::all();
+        $sales = Sale::where('active', 1)->get();
         return view('admin.products.indexNew', compact('products', 'sales'));
     }
 
@@ -542,6 +542,11 @@ class NewProductsController extends Controller
 
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
+                    $product = Product::where('sale_id', $catId)->update([
+                        'sale_id' => null,
+                        'price_with_sale' => null,
+                    ]);
+
                     $sale = Sale::where('id', (int)$catId)->update(['active' => 0]);
                 }
                 return response()->json([

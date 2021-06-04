@@ -20,8 +20,7 @@ class Clear extends FormRequest
     public function rules()
     {
         return [
-            'productsId' => 'required|array',
-            'productsId.*' => 'integer',
+            'productsId' => 'required|integer',
         ];
     }
 
@@ -29,8 +28,6 @@ class Clear extends FormRequest
     {
         return [
             'productsId.required' => 'Выберите товар',
-            'productsId.array' => 'Попытка изменить внутренние файлы, попробуйте перезагрузить страницу',
-            'productsId.*.integer' => 'Id должен быть натуральным числом',
         ];
     }
 }

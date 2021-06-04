@@ -124,7 +124,7 @@
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 @if(!empty($product['price_with_sale']))
-                                                    <button type="button" id="delete_sale" data-id="{{ $product['id'] }}" class="btn btn-dark" data-title="tooltip"
+                                                    <button type="button" onclick="deleteSale({{ $product['id'] }})" id="delete_sale_{{ $product['id'] }}" data-id="{{ $product['id'] }}" class="btn btn-dark"
                                                             data-placement="top">Очистить скидки
                                                     </button>
                                                 @endif
@@ -221,6 +221,55 @@
 @section('script')
     <script src="{{asset('js/products.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false
+        });
+
+        function fatalError(xhr) {
+            var errors = xhr.responseJSON.errors, errorMessage = "";
+            $.each(errors, function (index, value) {
+                $.each(value, function (key, message) {
+                    errorMessage += message + " ";
+                })
+            })
+            Swal.fire({
+                icon: 'error',
+                title: errorMessage,
+                showConfirmButton: true,
+            })
+        }
+
+        function successMessage(resp) {
+            Swal.fire({
+                icon: 'success',
+                title: resp['message'],
+                timer: 1500,
+                showConfirmButton: false,
+            });
+        }
+
+        function deleteSale (id) {
+
+            $.ajax({
+                url: '/admin/products/clear/sales',
+                method: 'PUT',
+                data: {
+                    'productsId':id,
+                },
+                error: function (xhr, status, error) {
+                    fatalError(xhr);
+                },
+                success: function (resp) {
+                    successMessage(resp);
+                    location.reload();
+                }
+            });
+        }
+    </script>
     <script>
 
         $('#input-title-product').on('keyup', function (e) {

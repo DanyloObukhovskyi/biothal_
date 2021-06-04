@@ -136,14 +136,12 @@ class SalesController extends Controller
     // Очистить скидки для продуктов
     public function clearSales(ClearRequest $request)
     {
-        foreach ($request->productsId as $id) {
-            $product = Product::find($id);
-            if ($product) {
-                $product->update([
-                    'sale_id' => null,
-                    'price_with_sale' => null,
-                ]);
-            }
+        $product = Product::find($request->productsId);
+        if ($product) {
+            $product->update([
+                'sale_id' => null,
+                'price_with_sale' => null,
+            ]);
         }
 
         return response()->json([
