@@ -63,7 +63,7 @@ class ImportTo1CController {
      * @return xml
      */
     public function getTestDataToImport () {
-        $orders = $this->getImportedOrderData([
+        $orders = $this->getNotImportedOrderData([
             'products',
             'userAddress',
             'orderType',
