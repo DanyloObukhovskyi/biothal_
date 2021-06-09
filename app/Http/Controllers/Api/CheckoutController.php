@@ -240,14 +240,14 @@ class CheckoutController extends Controller
                 $order->sale_id = $globalSale->id;
                 $order->with_sales = 1;
                 $order->sale_type = Order::GLOBAL_SALES;
-                $amountPercent = $total / 100 * $globalSale->procent_modal;
-                $amount = $total - $amountPercent;
+                $amountPercent = $amountPercent;
+                $amount = $total;
             } else {
                 if (isset($groupSale)) {
                     $order->sale_id = $groupSale->id;
                     $order->with_sales = 1;
                     $order->sale_type = Order::GROUP_SALES;
-                    $amountPercent = $total / 100 * $groupSale->percent;
+                    $amountPercent = $amountPercent;
                     $amount = $total - $amountPercent;
                 }
             }
