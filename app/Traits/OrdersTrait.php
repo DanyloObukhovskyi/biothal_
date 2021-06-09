@@ -69,7 +69,7 @@ trait OrdersTrait
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
             $xmlBody["ХозОперация"] = "Заказ товара";
-            $xmlBody["Роль"] = "Продавец";
+            $xmlBody["Роль"] = "Покупатель";
             $xmlBody["Сумма"] = (!empty($order["total_sum"]))
                 ? $order["total_sum"]
                 : 0;
