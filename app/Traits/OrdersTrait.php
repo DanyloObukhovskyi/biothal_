@@ -200,11 +200,7 @@ trait OrdersTrait
                     "Имя" => $userData['name'],
                     "Телефон" => $userData['phone'],
                     "Адрес" => [
-                        "Представление" => implode(", ", [
-                            $userData['region'],
-                            $userData['department'],
-                            $userData['cities']
-                        ]),
+                        "Представление" => $userData['region']. ' '. $userData['department']. ' ' . $userData['cities'],
                     ],
                     "Контакты" => [
                         "Контакт" => [
