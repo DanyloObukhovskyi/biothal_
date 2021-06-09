@@ -27,7 +27,7 @@ trait OrdersTrait
     }
 
     public function getNotImportedOrderData($relations = []) {
-        $dataQuery = $this->order->where('import_status', 1);
+        $dataQuery = $this->order->where('import_status', 0);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
                 $dataQuery = $dataQuery->with($relation);
