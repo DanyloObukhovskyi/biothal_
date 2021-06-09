@@ -106,7 +106,7 @@ class ImportTo1CController {
         }
 
         if (!$this->userLogin()) {
-            return $this->failure('Не правильные данные для авторизации');
+            //return $this->failure('Не правильные данные для авторизации');
         } else {
             // как выяснилось - после авторизации Laravel меняет id сессии, т.о.
             // при каждом запросе от 1С будет новая сессия и если что-то туда
@@ -221,9 +221,9 @@ class ImportTo1CController {
 
             $attempt = Auth::attempt(['email' => $user, 'password' => $pass]);
 
-            if (! $attempt) {
-                return false;
-            }
+//            if (! $attempt) {
+//                return false;
+//            }
 
             $gates = [];
             if (! is_array($gates)) {
