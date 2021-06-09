@@ -15,7 +15,7 @@ trait OrdersTrait
      * @param array $relations - relation name from App\Models\ShoppingCart model
      * @return array
      */
-    public function getNotImportedOrderData($relations = []) {
+    public function getImportedOrderData($relations = []) {
         $dataQuery = $this->order->where('import_status', 0);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
@@ -26,7 +26,7 @@ trait OrdersTrait
         return $dataQuery->get()->toArray();
     }
 
-    public function getImportedOrderData($relations = []) {
+    public function getNotImportedOrderData($relations = []) {
         $dataQuery = $this->order->where('import_status', 1);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
