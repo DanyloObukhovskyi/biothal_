@@ -27,7 +27,7 @@ trait OrdersTrait
     }
 
     public function getNotImportedOrderData($relations = []) {
-        $dataQuery = $this->order->where('import_status', 0);
+        $dataQuery = $this->order->where('import_status', 1);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
                 $dataQuery = $dataQuery->with($relation);
@@ -69,7 +69,7 @@ trait OrdersTrait
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
             $xmlBody["ХозОперация"] = "Заказ товара";
-            $xmlBody["Роль"] = "Продавец";
+            $xmlBody["Роль"] = "Покупатель";
             $xmlBody["Сумма"] = (!empty($order["total_sum"]))
                 ? $order["total_sum"]
                 : 0;
@@ -199,6 +199,13 @@ trait OrdersTrait
                     "Фамилия" => $userData['LastName'],
                     "Имя" => $userData['name'],
                     "Телефон" => $userData['phone'],
+                    "Адрес" => [
+                        "Представление" => implode(", ", [
+                            $userData['region'],
+                            $userData['department'],
+                            $userData['cities']
+                        ]),
+                    ],
                     "Контакты" => [
                         "Контакт" => [
                             'Тип' => 'Телефон внутренний',
