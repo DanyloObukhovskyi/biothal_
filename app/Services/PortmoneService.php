@@ -21,7 +21,7 @@ class PortmoneService
 
         $payment = new Payment();
         $payment->order_id = $order->id;
-        $payment->amount = $amount;
+        $payment->amount = $order->total_sum;
         $payment->status = Payment::STATUS_PENDING;
         $payment->save();
 
