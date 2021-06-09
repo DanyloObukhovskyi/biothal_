@@ -199,9 +199,7 @@ trait OrdersTrait
                     "Фамилия" => $userData['LastName'],
                     "Имя" => $userData['name'],
                     "Телефон" => $userData['phone'],
-                    "Адрес" => [
-                        "Представление" => $userData['region']. ' '. $userData['department']. ' ' . $userData['cities'],
-                    ],
+                    "Адрес" => $userData['region']. ', '. $userData['department']. ', ' . $userData['cities'],
                     "Контакты" => [
                         "Контакт" => [
                             'Тип' => 'Телефон внутренний',
