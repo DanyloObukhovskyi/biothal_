@@ -47,7 +47,7 @@ class ImportTo1CController {
      */
     public function getDataToImportData () {
 
-        $orders = $this->getNotImportedOrderData([
+        $orders = $this->getImportedOrderData([
             'products',
             'userAddress',
             'orderType',
