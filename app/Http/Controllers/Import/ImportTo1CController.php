@@ -63,7 +63,15 @@ class ImportTo1CController {
      * @return xml
      */
     public function getTestDataToImport () {
-        return response("<test>qdqwd</test>", 200, [
+        $orders = $this->getImportedOrderData([
+            'products',
+            'userAddress',
+            'orderType',
+            'payment'
+        ]);
+        $data = $this->prepareXmlArray($orders);
+        $result = ArrayToXml::convert($data);
+        return response($result, 200, [
             'Content-Type' => 'application/xml'
         ]);
     }

@@ -26,6 +26,16 @@ trait OrdersTrait
         return $dataQuery->get()->toArray();
     }
 
+    public function getImportedOrderData($relations = []) {
+        $dataQuery = $this->order->where('import_status', 1);
+        if (!empty($relations)) {
+            foreach ($relations as $relation) {
+                $dataQuery = $dataQuery->with($relation);
+            }
+        }
+
+        return $dataQuery->get()->toArray();
+    }
     /**
      * Method for generate array for convert order to XML
      *
