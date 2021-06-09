@@ -240,20 +240,20 @@ class CheckoutController extends Controller
                 $order->sale_id = $globalSale->id;
                 $order->with_sales = 1;
                 $order->sale_type = Order::GLOBAL_SALES;
-                $amountPercent = $amount / 100 * $globalSale->procent_modal;
-                $amount = $amount - $amountPercent;
+                $amountPercent = $total / 100 * $globalSale->procent_modal;
+                $amount = $total - $amountPercent;
             } else {
                 if (isset($groupSale)) {
                     $order->sale_id = $groupSale->id;
                     $order->with_sales = 1;
                     $order->sale_type = Order::GROUP_SALES;
-                    $amountPercent = $amount / 100 * $groupSale->percent;
-                    $amount = $amount - $amountPercent;
+                    $amountPercent = $total / 100 * $groupSale->percent;
+                    $amount = $total - $amountPercent;
                 }
             }
 
             $portmoneUrl = $this->portmoneService->makeRequest(
-                $amount,
+                ceil($amount),
                 $order
             );
 
