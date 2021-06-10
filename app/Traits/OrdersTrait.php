@@ -47,12 +47,12 @@ trait OrdersTrait
         foreach ($orders as $order) {
             if($order['order_type_id'] === 2){
                 if(!empty($order['payment'])){
-                    Order::find($order['id'])->update([
-                        'import_status' => 1
-                    ]);
                     if($order['payment']['status'] !== 'success'){
                         continue;
                     }
+                    Order::find($order['id'])->update([
+                        'import_status' => 1
+                    ]);
                 } else {
                     continue;
                 }
