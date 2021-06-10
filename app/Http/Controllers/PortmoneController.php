@@ -7,6 +7,7 @@ use App\Models\OrderHistory;
 use App\Models\OrderStatuses;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PortmoneController extends Controller
 {
@@ -36,6 +37,8 @@ class PortmoneController extends Controller
             'comment' => 'Оплачен',
             'status_id' => $status->id,
         ]);
+
+        Log::debug('Success order from portmone: '.$order_id);
         return redirect(env('FRONT_APP_URL'). '/order-status/'. $order->token . '?frame=true');
     }
 
@@ -59,6 +62,7 @@ class PortmoneController extends Controller
             'comment' => 'Отмена оплаты',
             'status_id' => $status->id,
         ]);
+        Log::debug('Cancel order from portmone: '.$order_id);
         return redirect(env('FRONT_APP_URL'). '/order-cancel/'. $order->token . '?frame=true');
     }
 }
