@@ -69,7 +69,7 @@ trait OrdersTrait
             $xmlBody["Валюта"] = "GRN";
             $xmlBody["Курс"] = "1";
             $xmlBody["ХозОперация"] = "Заказ товара";
-            $xmlBody["Роль"] = "Покупатель";
+            $xmlBody["Роль"] = "Продавец";
             $xmlBody["Сумма"] = (!empty($order["total_sum"]))
                 ? $order["total_sum"]
                 : 0;
@@ -153,15 +153,7 @@ trait OrdersTrait
                             $userData['region'],
                             $userData['department'],
                             $userData['cities']
-                        ]),
-                        "АдресноеПоле" => [
-                            'Тип' => 'Область',
-                            'Значение' => $userData['region']
-                        ],
-                        "АдресноеПоле" => [
-                            'Тип' => 'Город',
-                            'Значение' => $userData['cities']
-                        ]
+                        ])
                     ],
                     "Контакты" => [
 //                        "Контакт" => [
