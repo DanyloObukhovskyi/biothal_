@@ -46,7 +46,7 @@
                                            id="input-title-product" class="form-control"/>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label" for="input-status">Статус</label>
                                     <select name="filter_status" id="input-status" class="form-control">
@@ -59,12 +59,26 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-availability">Наличие</label>
+                                    <select name="filter_availability" id="input-availability" class="form-control">
+                                        <option value=""> Вибирите наличие</option>
+                                        @foreach($stock_statuses as $stock_status)
+                                            <option value="{{$stock_status['stock_status_id']}}"
+                                                    @if(request()->input('availability') !== null && request()->input('availability') == $stock_status['stock_status_id']) selected @endif>
+                                                {{$stock_status['name']}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-1">
-                                <button type="button" id="button-filter" class="btn btn-primary pull-right">
-                                    <a href="{{route('admin.products.pageNew')}}" id="filter-href" style="color: #ffffff !important;">
+                                <a href="{{route('admin.products.pageNew')}}" id="filter-href" style="color: #ffffff !important;">
+                                    <button type="button" id="button-filter" class="btn btn-primary pull-right">
                                         <i class="fa fa-filter"></i> Фильтр
-                                    </a>
-                                </button>
+                                    </button>
+                                </a>
                             </div>
                             <div class="col-sm-1" >
                                 <button type="button" id="button-sales" data-toggle="modal" data-target="#choice_your_sale_modal"  class="btn btn-danger pull-right" style="margin-right: 6px;"><i
@@ -72,9 +86,11 @@
                                 </button>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" id="button-global-sales" class="btn btn-dark pull-right"> <a style="color:white" href="{{route('admin.products.salesGlobal')}}"><i
-                                            class="fa fa-percent"></i> Глобальная скидка</a>
-                                </button>
+                                <a style="color:white" href="{{route('admin.products.salesGlobal')}}">
+                                    <button type="button" id="button-global-sales" class="btn btn-dark pull-right">
+                                        <i class="fa fa-percent"></i> Глобальная скидка
+                                    </button>
+                                </a>
                             </div>
                         </div>
 
@@ -293,6 +309,19 @@
               searchParams.set("status", status);
             } else {
               searchParams.delete("status");
+            }
+            $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
+        })
+
+        $('#input-availability').change(function () {
+            var availability = $(this).val();
+            var url = new URL($("#filter-href").attr("href"));
+            var searchParams = new URLSearchParams(url.search);
+
+            if(availability != '') {
+              searchParams.set("availability", availability);
+            } else {
+              searchParams.delete("availability");
             }
             $("#filter-href").attr("href", url.origin + url.pathname + "?" + searchParams.toString());
         })

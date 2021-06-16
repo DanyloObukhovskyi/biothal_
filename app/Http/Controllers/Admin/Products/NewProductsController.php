@@ -60,6 +60,7 @@ class NewProductsController extends Controller
 {
     public function indexNew(Request $request)
     {
+        $stock_statuses = StockStatus::all();
         $products = Product::with([
             'productDescription',
             'image'
@@ -67,6 +68,10 @@ class NewProductsController extends Controller
         if (!empty($request->all())) {
             if ($request->input('status') !== null) {
                 $products = $products->where('status', $request->input('status'));
+            }
+            if ($request->input('availability') !== null) {
+                $products = $products->where('stock_status_id', $request->input('availability'));
+                Log::info($products->get());
             }
             if (!empty($request->input('title_product'))) {
                 $title = $request->input('title_product');
@@ -77,7 +82,7 @@ class NewProductsController extends Controller
         }
         $products = $products->get()->toArray();
         $sales = Sale::where('active', 1)->get();
-        return view('admin.products.indexNew', compact('products', 'sales'));
+        return view('admin.products.indexNew', compact('products', 'stock_statuses', 'sales'));
     }
 
     public function createProd()

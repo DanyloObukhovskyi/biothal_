@@ -41,6 +41,7 @@
                     stock_status === 3 ? '2-3 Дня' : ''
               }}
             </p>
+            <span class="info-count__title">{{ productData['jan'] || '' }}</span>
           </div>
           <span
             class="info-title__subtitle">{{ productData['product_description']['short_description'] }}</span>
