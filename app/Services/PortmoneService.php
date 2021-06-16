@@ -21,13 +21,13 @@ class PortmoneService
 
         $payment = new Payment();
         $payment->order_id = $order->id;
-        $payment->amount = $amount;
+        $payment->amount = $order->total_sum;
         $payment->status = Payment::STATUS_PENDING;
         $payment->save();
 
         $url = self::GETAWAY_URL . '?' . http_build_query([
                 'payee_id' => env('PORTMONE_SHOP_ID'),
-                'shop_order_number' => $payment->id,
+                'shop_order_number' => $order->id,
                 'bill_amount' => $payment->amount,
                 'description' => env('PORTMONE_DESCRIPTION'),
                 'success_url' => route('portmone.success', ['order_id' => $order->id]),

@@ -15,7 +15,7 @@ trait OrdersTrait
      * @param array $relations - relation name from App\Models\ShoppingCart model
      * @return array
      */
-    public function getNotImportedOrderData($relations = []) {
+    public function getImportedOrderData($relations = []) {
         $dataQuery = $this->order->where('import_status', 0);
         if (!empty($relations)) {
             foreach ($relations as $relation) {
@@ -26,6 +26,16 @@ trait OrdersTrait
         return $dataQuery->get()->toArray();
     }
 
+    public function getNotImportedOrderData($relations = []) {
+        $dataQuery = $this->order->where('import_status', 1);
+        if (!empty($relations)) {
+            foreach ($relations as $relation) {
+                $dataQuery = $dataQuery->with($relation);
+            }
+        }
+
+        return $dataQuery->get()->toArray();
+    }
     /**
      * Method for generate array for convert order to XML
      *
@@ -37,12 +47,12 @@ trait OrdersTrait
         foreach ($orders as $order) {
             if($order['order_type_id'] === 2){
                 if(!empty($order['payment'])){
-                    Order::find($order['id'])->update([
-                        'import_status' => 1
-                    ]);
                     if($order['payment']['status'] !== 'success'){
                         continue;
                     }
+                    Order::find($order['id'])->update([
+                        'import_status' => 1
+                    ]);
                 } else {
                     continue;
                 }
@@ -75,16 +85,11 @@ trait OrdersTrait
             $xmlBody["Скидка"] = "0";
 
             //$status = OrderStatuses::where('id', $order['order_status_id'])->first()->name;
-            $orderType = $order['order_type_id'] === 1 ? 'Н' : 'О';
+            $orderType = $order['order_type_id'] === 1 || $order['order_type_id'] === 0 ? 'Н' : 'О';
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Статуса заказа ИД",
                 "Значение" => $orderType
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Почтовый индекс",
-                "Значение" => 'Пусто'
             ];
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
@@ -94,54 +99,7 @@ trait OrdersTrait
 
             $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
                 "Наименование" => "Метод оплаты ИД",
-                "Значение" => $order['order_type']['title']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Телефон внутренний",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Телефон запасной",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Номер телефона",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Телефон домашний",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Телефон мобильный",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Телефон рабочий",
-                "Значение" => $order['user_address']['phone']
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Электронная почта",
-                "Значение" => $order['user_address']['email'] ?? 'nomail@biothal.com.ua'
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Адрес доставки",
-                "Значение" => implode(", ", [ $order['user_address']['region'], $order['user_address']['department'] , $order['user_address']['cities']])
-            ];
-
-            $xmlBody["ЗначенияРеквизитов"]["ЗначениеРеквизита"][] = [
-                "Наименование" => "Примечание к заказу",
-                "Значение" => (!empty($counterparty["comment"]))
-                    ? $counterparty["comment"]
-                    : ""
+                "Значение" => $order['order_type']['title'] ?? 'Оплата при получении'
             ];
 
             $xmlBody["Контрагенты"] = (!empty($counterparty["counterparty"]))
@@ -158,8 +116,8 @@ trait OrdersTrait
                 : "";
 
             //TODO: optimize this part
-            $status = OrderStatuses::where('id', $order['order_status_id'])->first()->name;
-            $orderType = $order['order_type_id'] === 1 ? 'Наложка' : 'Оплачен';
+//            $status = OrderStatuses::where('id', $order['order_status_id'])->first()->name;
+//            $orderType = $order['order_type_id'] === 1 ? 'Наложка' : 'Оплачен';
 
             $xmlData["Документ"][] = $xmlBody;
         }
@@ -184,90 +142,46 @@ trait OrdersTrait
                     "Ид" => $userData['id'],
                     "Наименование" => $userData['LastName'] . " " . $userData['name'],
                     "Роль" => "Покупатель",
-                    "Группа" => "Default",
                     "ПолноеНаименование" => $userData['LastName'] . " " . $userData['name'],
                     "Фамилия" => $userData['LastName'],
                     "Имя" => $userData['name'],
-                    "Телефон" => $userData['phone'],
-                    "Адрес" => [
+                    "Телефон" => [
+                        "Представление" => $userData['phone']
+                    ],
+                    "АдресРегистрации" => [
                         "Представление" => implode(", ", [
                             $userData['region'],
                             $userData['department'],
                             $userData['cities']
-                        ]),
+                        ])
                     ],
                     "Контакты" => [
-                        "Контакт" => [
-                            'Тип' => 'Телефон внутренний',
-                            'Значение' => $userData['phone']
-                        ],
-                        "Контакт" => [
-                            'Тип' => 'Телефон домашний',
-                            'Значение' => $userData['phone']
-                        ],
-                        "Контакт" => [
-                            'Тип' => 'Телефон мобильный',
-                            'Значение' => $userData['phone']
-                        ],
-                        "Контакт" => [
-                            'Тип' => 'Телефон рабочий',
-                            'Значение' => $userData['phone']
-                        ],
+//                        "Контакт" => [
+//                            'Тип' => 'Телефон внутренний',
+//                            'Значение' => $userData['phone']
+//                        ],
+//                        "Контакт" => [
+//                            'Тип' => 'Телефон домашний',
+//                            'Значение' => $userData['phone']
+//                        ],
+//                        "Контакт" => [
+//                            'Тип' => 'Телефон мобильный',
+//                            'Значение' => $userData['phone']
+//                        ],
+//                        "Контакт" => [
+//                            'Тип' => 'Телефон рабочий',
+//                            'Значение' => $userData['phone']
+//                        ],
                         "Контакт" => [
                             'Тип' => 'Телефон для связи',
                             'Значение' => $userData['phone']
                         ]
-//                        "Контакт" => [
-//                            'Тип' => 'Электронная почта',
-//                            'Значение' => $userData['email'] ?? 'nomail@biothal.com.ua'
-//                        ]
+////                        "Контакт" => [
+////                            'Тип' => 'Электронная почта',
+////                            'Значение' => $userData['email'] ?? 'nomail@biothal.com.ua'
+////                        ]
                     ],
 
-                ],
-                "КонтактныеЛица" => [
-                    "КонтактноеЛицо" => [
-                        "Ид" => $userData['id'],
-                        "ИдКонтрагента" => $userData['id'],
-                        "Наименование" => $userData['LastName'] . " " . $userData['name'],
-                        "Контакты" => [
-                            "Контакт" => [
-                                'Тип' => 'Телефон внутренний',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон домашний',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон мобильный',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон рабочий',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон контрагента',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон организации',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон физ лица',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон по юр адресу организации',
-                                'Значение' => $userData['phone']
-                            ],
-                            "Контакт" => [
-                                'Тип' => 'Телефон для связи',
-                                'Значение' => $userData['phone']
-                            ],
-                        ],
-                    ]
                 ]
             ],
 
