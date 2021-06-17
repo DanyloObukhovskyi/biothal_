@@ -301,6 +301,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::get('/offer', 'DistributionController@offer')
             ->name('admin.distribution.offer');
+
+        Route::post('/deleteOffer', 'DistributionController@deleteOffer')
+            ->name('admin.distribution.offer.delete');
     });
 
 

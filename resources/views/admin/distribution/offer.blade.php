@@ -22,6 +22,11 @@
                 <div class="row">
                     <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Дистрибьюторы</div>
                     <div class="pull-right col-sm-6">
+                        <button id="delete_offer" type="button" data-toggle="tooltip" title="Удалить" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                    <div class="pull-right col-sm-6">
 {{--                        <a href="javascript" data-target="#add_emails" data-toggle="modal" title="Добавить" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
 {{--                        <a href="javascript" data-target="#groups" data-toggle="modal" title="Группа" class="btn btn-info">Группы</a>--}}
 {{--                        <a href="javascript" data-target="#send_emails" data-toggle="modal" title="Отправить Эмейл" class="btn btn-success">Отправить Рассылку</a>--}}
@@ -74,38 +79,5 @@
     <script type="text/javascript">
         $('.summernote').summernote();
     </script>
-    <script>
-        $(function () {
-            var table = $('#offer_table').DataTable({
-                "language": {
-                    "search":  'Поиск',
-                    "processing": 'Загрузка......',
-                    "sInfo": 'Показано _START_ по _END_ с _TOTAL_ записей',
-                    "infoEmpty": 'Показано с 0 по 0 из 0 записей',
-                    "lengthMenu": 'Показать _MENU_ Записей',
-                    "paginate": {
-                        "first":      "Первая",
-                        "last":       "Последняя",
-                        "next":       "Следующая",
-                        "previous":   "Предыдущая"
-                    },
-                    "zeroRecords": 'Пусто'
-                },
-                processing: true,
-                serverSide: true,
-                ajax: "/admin/offer",
-                columns: [
-                    {"data": "number", "name": "id"},
-                    {"data": "name", "name": "name"},
-                    {"data": "email", "name": "email"},
-                    {"data": "phone", "name": "phone"},
-                    {"data": "message", "name": "message"},
-                ],
-                select: {
-                    style: 'multi',
-                    selector: 'td:not(:last-child)'
-                },
-            });
-        });
-    </script>
+    <script src="{{asset('js/offers.js')}}"></script>
 @endsection

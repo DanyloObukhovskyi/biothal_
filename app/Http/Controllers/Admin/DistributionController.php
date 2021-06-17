@@ -559,7 +559,6 @@ class DistributionController extends Controller
                     return $row->message;
                 })
                 ->addIndexColumn()
-                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -568,5 +567,26 @@ class DistributionController extends Controller
         return view('admin.distribution.offer', [
             'offers' => $offers
         ]);
+    }
+
+    public function deleteOffer(Request $request)
+    {
+        $status = $request->status;
+
+        if ($status == 0) {
+            if ($request->checked != 0) {
+                foreach ($request->checked as $offerId) {
+                    $offer = DistributionOffer::where('id', (int)$offerId)->first();
+                    $offer->delete();
+                }
+                return response()->json([
+                    'accepted' => 'Дистрибьюторы успешно удалены'
+                ]);
+            }
+
+            return response()->json([
+                'error' => "Выберите хотя бы 1 дистрибьютора"
+            ]);
+        }
     }
 }
