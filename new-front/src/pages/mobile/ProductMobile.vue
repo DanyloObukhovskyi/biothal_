@@ -40,6 +40,9 @@
       </div>
       <div class="product-info__title">
         {{ productData['upc'] || '' }}
+          <span>
+            {{ productData['jan'] || '' }}
+          </span>
       </div>
 
       <div class="product-info__price">
