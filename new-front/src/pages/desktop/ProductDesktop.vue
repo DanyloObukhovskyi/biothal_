@@ -200,6 +200,9 @@ import {mapActions, mapGetters} from "vuex";
                 },
             },
             count_good: function (valueNew, valueOld) {
+                if (String(valueNew) === '0') {
+                    this.count_good = 1;
+                }
                 if (valueNew > 99) {
                     this.count_good = valueOld;
                 } else if (valueNew < 0) {

@@ -52,12 +52,13 @@ export default {
   },
   watch: {
     'dataCard.quantity': function (valueNew, valueOld) {
-      // if (valueNew === 0) {
-      //   this.$emit('delete')}
+      if (String(valueNew) === '0') {
+        this.dataCard.quantity = 1;
+      }
       if (valueNew > 99) {
-          this.dataCard.quantity = valueOld;
+        this.dataCard.quantity = valueOld;
       } else if (valueNew < 0) {
-          this.dataCard.quantity = 1;
+        this.dataCard.quantity = 1;
       }
     }
   },
