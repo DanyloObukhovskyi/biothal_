@@ -132,7 +132,8 @@ trait OrdersTrait
      * @return array
      */
     public function getCounterpartyData ($userData) {
-        $comment = $userData['id'] . " Тел.: " . $userData['phone'] .
+        $call = !empty($userData['not_call']) && $userData['not_call'] === '1' ? 'Не перезванивать'  : 'Звонить для подтвреждения';
+        $comment = $userData['id'] . " Тел.: " . $userData['phone'] . " Делать ли звонок:" . $call .
             "  Имя: " . $userData['LastName'] . " " . $userData['name'] . " Адрес: "  .
             implode(", ", [ $userData['region'], $userData['department'] ,$userData['cities']]);
 
