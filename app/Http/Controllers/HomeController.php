@@ -33,7 +33,7 @@ class HomeController extends Controller
                 'status' => 1
             ])
             ->whereNotNull('sale_id')
-            ->orderBy('sort_order', 'ASC')
+            ->orderBy('stock_status_id', 'ASC')
             ->paginate(12);
 
         return response()->json([
@@ -55,7 +55,7 @@ class HomeController extends Controller
                 'status' => 1
             ])
             ->whereNotNull('sale_id')
-            ->orderBy('sort_order', 'ASC')
+            ->orderBy('stock_status_id', 'ASC')
             ->paginate(12);
 
         return response()->json($products);
@@ -68,7 +68,7 @@ class HomeController extends Controller
                 'is_best_seller' => 1,
                 'status' => 1
             ])
-            ->orderBy('sort_order', 'ASC')
+            ->orderBy('stock_status_id', 'ASC')
             ->paginate(12);
 
         return response()->json($bestSeller);

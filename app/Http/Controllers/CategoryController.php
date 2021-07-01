@@ -37,6 +37,7 @@ class CategoryController extends Controller
                 'status' => 1
             ])
             ->whereIn('id', $products_ids)
+            ->orderBy('stock_status_id', 'ASC')
             ->paginate(12);
 
         return response()->json($products);
@@ -58,6 +59,7 @@ class CategoryController extends Controller
                 'status' => 1
             ])
             ->whereIn('id', $products_ids)
+            ->orderBy('stock_status_id', 'ASC')
             ->paginate(12);
 
         return response()->json($products);

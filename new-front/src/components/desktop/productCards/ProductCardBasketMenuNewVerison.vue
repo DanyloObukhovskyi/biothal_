@@ -1,5 +1,5 @@
 <template>
-  <div class="product-basket__wrapper">
+  <div :style="{'opacity': dataCard.stock_status_id === 2 ? '55%':'100%' }" class="product-basket__wrapper">
     <img class="product-basket__image" height="150" width="150"
          :src="dataCard.image ? this.image_uri + dataCard.image.name : ''"
          :alt="dataCard.image ? dataCard.image.name : ''"/>

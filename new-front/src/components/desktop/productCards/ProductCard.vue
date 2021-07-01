@@ -1,5 +1,5 @@
 <template>
-  <div class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
+  <div :style="{'opacity': dataCard.stock_status_id === 2 ? '55%':'100%' }" class="product" @mouseover="isFavoritesShow = true" @mouseleave="isFavoritesShow = false">
     <div class="product__sale" v-if="isShowStock">-{{ dataCard.get_sale.percent }}%</div>
     <div class="product__heart" v-if="isShowFavorite">
       <v-btn

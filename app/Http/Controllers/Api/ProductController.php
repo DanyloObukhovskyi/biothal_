@@ -81,6 +81,7 @@ class ProductController extends Controller
                 'getSale'
             ])
             ->where('is_recommended', '=', 1)
+            ->orderBy('stock_status_id', 'asc')
             ->get();
 
         return response()->json($recommendedProduct);
