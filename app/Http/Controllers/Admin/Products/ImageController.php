@@ -126,6 +126,7 @@ class ImageController extends Controller
 
     public function addGlobalImage(ValidImgRequest $request)
     {
+
         // Проверяем есть ли файл
         if (!$request->hasFile('img2') && !$request->hasFile('img_mobile')) {
             return redirect()->route('admin.images.banner');
@@ -135,15 +136,17 @@ class ImageController extends Controller
         // Помещаем файл в репозиторий
         $request->file('img2')->move(public_path("storage/img/carousel"), $name_desktop);
         $request->file('img_mobile')->move(public_path("storage/img/carousel"), $name_mobile);
-
+        $href = $request->input('baner_url');
         // Добавляем файл в базу
         $image_desktop = ImageGlobal::create([
-            'name' => $name_desktop
+            'name' => $name_desktop,
+            'href' => $href
         ]);
 
         $image_mobile = ImageGlobal::create([
             'name' => $name_mobile,
-            'parent_id' => $image_desktop->id
+            'parent_id' => $image_desktop->id,
+            'href' => !empty($href) ? $href : ''
         ]);
 
         return redirect()->route('admin.images.banner');

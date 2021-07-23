@@ -101,6 +101,13 @@ const routes = [
                 props: true
             },
             {
+                path: 'category/new_products',
+                name: 'new_category',
+                component: () => import('../pages/CategoryPage'),
+                meta: {},
+                props: true
+            },
+            {
                 path: 'accessory/:accessory',
                 name: 'accessories',
                 component: () => import('../pages/CategoryPage'),

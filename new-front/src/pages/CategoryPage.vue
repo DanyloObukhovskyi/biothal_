@@ -2,10 +2,11 @@
     <div>
         <agile class="agile-slider" :autoplay="carousel.length!==1" :infinite="carousel.length!==1" :autoplaySpeed="5000" :navButtons="false" :speed="1000" :key="carousel.length">
             <div class="slide" v-for="(item, index) in carousel" :key="index">
-                <img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
+                <a v-if="item.href" :href="item.href"><img width="100%" :src="api + '/storage/img/carousel/' + item['name']"/></a>
+                <img v-else width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <ProductsPaginate ref="productsPaginate" :title="categoryDetails.title" :is-empty-message="this.$route.params.accessory ? accessoryMessage : categoryMessage" :url="productsUrl"/>
+        <ProductsPaginate ref="productsPaginate" :title="$route.params.category == 'new_products' ? 'Новые Товары' : categoryDetails.title" :is-empty-message="this.$route.params.accessory ? accessoryMessage : categoryMessage" :url="productsUrl"/>
         <div class="main-title seo-text-title">{{categoryDetails.seo_title}}</div>
         <div class="seo-text-description" v-html="categoryDetails.seo_description"></div>
     </div>

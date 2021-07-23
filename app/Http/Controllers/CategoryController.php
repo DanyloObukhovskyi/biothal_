@@ -14,32 +14,46 @@ class CategoryController extends Controller
 {
     public function getCategoryProducts($id)
     {
-        $category = Categories::where('slug', $id)->first();
-
-        $categoryParentProducts = Categories::select('id')->where('parent_id', '=', $category['id'])->get()->toArray();
-
-        if (!empty(Categories::where('parent_id', $category['id'])->first())) { // Проверка есть ли у родительской категории дети
-            $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoryParentProducts, 'id'))
-                ->orderBy('product_id', 'desc')
-                ->get()->pluck('product_id')->toArray();
-        } else {
-            $products_ids = CategoryProducts::where('category_id', $category['id'])
-                ->orderBy('product_id', 'desc')
-                ->get()->pluck('product_id')->toArray();
-        }
-
-        $products = Product::with([
+        if($id === 'new_products'){
+            $products = Product::with([
                 'image',
                 'productDescription',
                 'getSale'
             ])
-            ->where([
-                'status' => 1
-            ])
-            ->whereIn('id', $products_ids)
-            ->orderBy('stock_status_id', 'ASC')
-            ->paginate(12);
+                ->where([
+                    'status' => 1,
+                    'is_new' => true
+                ])
+                ->orderBy('stock_status_id', 'ASC')
+                ->paginate(12);
+        } else {
+            $category = Categories::where('slug', $id)->first();
 
+            $categoryParentProducts = Categories::select('id')->where('parent_id', '=', $category['id'])->get()->toArray();
+
+            if (!empty(Categories::where('parent_id', $category['id'])->first())) { // Проверка есть ли у родительской категории дети
+                $products_ids = CategoryProducts::whereIn('category_id', Arr::pluck($categoryParentProducts, 'id'))
+                    ->orderBy('product_id', 'desc')
+                    ->get()->pluck('product_id')->toArray();
+            } else {
+                $products_ids = CategoryProducts::where('category_id', $category['id'])
+                    ->orderBy('product_id', 'desc')
+                    ->get()->pluck('product_id')->toArray();
+            }
+
+            $products = Product::with([
+                'image',
+                'productDescription',
+                'getSale'
+            ])
+                ->where([
+                    'status' => 1
+                ])
+                ->whereIn('id', $products_ids)
+                ->orderBy('stock_status_id', 'ASC')
+                ->paginate(12);
+
+        }
         return response()->json($products);
     }
 

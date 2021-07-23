@@ -16,5 +16,9 @@ return [
     'product_is_best_seller' => [
         0 => "Нет",
         1 => "Да"
+    ],
+    'product_is_new' => [
+        0 => "Нет",
+        1 => "Да"
     ]
 ];

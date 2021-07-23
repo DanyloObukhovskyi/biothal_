@@ -152,4 +152,20 @@
             </select>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="input-is-new">Новинка</label>
+        <div class="col-sm-10">
+            <select name="is_new" id="input-is-new" class="form-control">
+                @foreach(config('products.product_is_new') as $product_is_new_key => $product_is_new)
+                    <option value="{{$product_is_new_key}}"
+                            @if(!empty($product) && $product_is_new_key == $product['is_new'] || empty($product) && $product_is_new_key == 0)
+                            selected="selected"
+                        @endif
+                    >
+                        {{$product_is_new}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 </div>

@@ -87,6 +87,12 @@
                              width="180" height="180">
                         <input id="img-mobile-input" type="file" name="img_mobile" onchange="readURL(this);">
                     </div>
+                    <div class="modal-body text-center">
+                        <label for="basic-url">Ссылка банера</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="baner_url" id="basic-url" aria-describedby="basic-addon3">
+                        </div>
+                    </div>
                     <div class="modal-footer">
 
                         <input type='submit' class="btn btn-dark" value="Добавить">
