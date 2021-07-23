@@ -8,6 +8,8 @@ Route::namespace('api')->post('home/best-sellers', 'HomeController@bestSellers')
 
 Route::namespace('api')->post('home/sales-products', 'HomeController@products');
 
+Route::namespace('api')->post('home/new-products', 'HomeController@newProducts');
+
 Route::namespace('api')->get('menu', 'HomeController@menu');
 
 Route::namespace('api')->get('footer', 'HomeController@footer');

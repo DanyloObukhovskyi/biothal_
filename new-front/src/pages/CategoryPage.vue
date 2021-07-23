@@ -6,7 +6,7 @@
                 <img v-else width="100%" :src="api + '/storage/img/carousel/' + item['name']"/>
             </div>
         </agile>
-        <ProductsPaginate ref="productsPaginate" :title="$route.params.category == 'new_products' ? 'Новые Товары' : categoryDetails.title" :is-empty-message="this.$route.params.accessory ? accessoryMessage : categoryMessage" :url="productsUrl"/>
+        <ProductsPaginate ref="productsPaginate" :title="$route.params.category == 'new_products' ? 'Новинки Biothal' : categoryDetails.title" :is-empty-message="this.$route.params.accessory ? accessoryMessage : categoryMessage" :url="productsUrl"/>
         <div class="main-title seo-text-title">{{categoryDetails.seo_title}}</div>
         <div class="seo-text-description" v-html="categoryDetails.seo_description"></div>
     </div>

@@ -74,6 +74,19 @@ class HomeController extends Controller
         return response()->json($bestSeller);
     }
 
+    public function newProducts()
+    {
+        $newProducts = Product::with('image', 'getSale', 'productDescription', 'stockStatus')
+            ->where([
+                'is_new' => true,
+                'status' => 1
+            ])
+            ->orderBy('stock_status_id', 'ASC')
+            ->paginate(12);
+
+        return response()->json($newProducts);
+    }
+
     public function menu()
     {
         $info_categories = Categories::where([

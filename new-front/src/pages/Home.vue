@@ -7,6 +7,8 @@
       </div>
     </agile>
 
+    <products-paginate v-if="newProductsData.data.length" url="category/products/new_products" title="Новинки Biothal" />
+
     <products-paginate v-if="productsData.data.length" url="home/sales-products" title="Подарки и скидки"
                        :isShowStock="true"/>
 
@@ -143,6 +145,9 @@ export default {
       productsData: {
         data: {}
       },
+      newProductsData: {
+        data: {}
+      },
       productsPage: 1
     }
   },
@@ -150,6 +155,7 @@ export default {
     this.getProductData();
     this.getBestSellers();
     this.getSalesProducts();
+    this.getNewProducts();
     this.addUserToGroup();
   },
   watch: {
@@ -202,6 +208,11 @@ export default {
       let data = await this.axios.post('home/sales-products?page=' + page);
 
       this.productsData = data.data;
+    },
+    async getNewProducts(page = 1) {
+      let data = await this.axios.post('home/new-products?page=' + page);
+
+      this.newProductsData = data.data;
     },
     async addUserToGroup() {
       if (this.token) {
