@@ -1,7 +1,7 @@
 <template>
   <div class="menu-wrapper">
     <v-system-bar class="menu-wrapper__system-bar default-cursor">
-      <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
+      <div>Отправка заказов в течении 3-5 рабочих дней</div>
       <div><img class="package" src="../../../public/package.svg"/></div>
     </v-system-bar>
 
