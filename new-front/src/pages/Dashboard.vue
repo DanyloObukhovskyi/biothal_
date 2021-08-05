@@ -60,4 +60,7 @@
 </script>
 
 <style scoped lang="scss">
+    .v-main {
+        padding-top: 0 !important;
+    }
 </style>

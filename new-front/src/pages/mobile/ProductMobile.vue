@@ -15,10 +15,14 @@
 <!--      <span v-if="category['sub_category'] !== null" class="breadcrumb-item arrow"/>-->
 <!--      <span class="breadcrumb-item">{{ description['name'] }}</span>-->
 <!--    </div>-->
-    <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">
-      <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>
-      <div style="margin-top: 5px;"> <img width="18" height="18" src="../../../public/package.svg"/></div>
-    </v-system-bar>
+<!--    <v-system-bar color="#000" class="product-mobile__system-bar" dark height="34">-->
+<!--      <div>Бесплатная доставка от <span style="font-weight: 700">1500 грн</span></div>-->
+<!--      <div style="margin-top: 5px;"> <img width="18" height="18" src="../../../public/package.svg"/></div>-->
+<!--    </v-system-bar>-->
+
+<!--    <v-system-bar color="#000" class="product-mobile__system-bar" dark height="44">-->
+<!--        <div style="font-size: 11px; text-align: center">Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.</div>-->
+<!--    </v-system-bar>-->
 
     <div class="product-info__wrapper">
       <div class="product-info__discount" v-if="is_discount">

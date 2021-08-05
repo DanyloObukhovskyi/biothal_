@@ -2,32 +2,36 @@
   <div class="menu-wrapper">
     <v-app-bar app height="75" style="width: 100%; padding-left: 20px; padding-right: 20px" color="#fff"
                ref="app-bar">
-      <v-app-bar-nav-icon @click.stop="menuVisible = !menuVisible"></v-app-bar-nav-icon>
-      <v-toolbar-title class="main-toolbar-title" @click="toPage({name: 'home'})">
-        <img width="108" height="32" src="../../../public/logo-biothal.svg"/>
-      </v-toolbar-title>
-      <div class="app-bar-menu-icon">
-        <v-icon color="#000" size="18"
-                @click="$refs['AccountMenuMobile'].visible = true">
-          mdi-account-outline
-        </v-icon>
+        <v-app-bar-nav-icon @click.stop="menuVisible = !menuVisible"></v-app-bar-nav-icon>
+        <v-toolbar-title class="main-toolbar-title" @click="toPage({name: 'home'})">
+            <img width="108" height="32" src="../../../public/logo-biothal.svg"/>
+        </v-toolbar-title>
+        <div class="app-bar-menu-icon">
+            <v-icon color="#000" size="18"
+                    @click="$refs['AccountMenuMobile'].visible = true">
+                mdi-account-outline
+            </v-icon>
 
-        <v-badge
-          v-if="products.length > 0"
-          color="black"
-          :content="products.length">
+            <v-badge
+                v-if="products.length > 0"
+                color="black"
+                :content="products.length">
 
-          <v-icon color="#000" size="18" @click="action_visible_basket(true)">
-            mdi-briefcase-outline
-          </v-icon>
+                <v-icon color="#000" size="18" @click="action_visible_basket(true)">
+                    mdi-briefcase-outline
+                </v-icon>
 
-        </v-badge>
+            </v-badge>
 
-        <v-icon v-else color="#000" size="18" @click="action_visible_basket(true)">
-          mdi-briefcase-outline
-        </v-icon>
-      </div>
+            <v-icon v-else color="#000" size="18" @click="action_visible_basket(true)">
+                mdi-briefcase-outline
+            </v-icon>
+        </div>
     </v-app-bar>
+
+      <div style="background-color: black; height: 34px; color: white; font-size: 11px; text-align: center" ref="app-bar-info">
+          Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.
+      </div>
 
     <v-navigation-drawer
       style="height: auto"
@@ -192,6 +196,9 @@ export default {
   mounted() {
     this.fetchMenuData();
     this.marginTopNavigation = this.$refs['app-bar']?.styles.height
+    var height = +this.$refs['app-bar']?.styles.height.replace('px', '') + 'px'
+    const _this1 = this;
+    _this1.$refs['app-bar-info'].style['margin-top'] = height;
 
     const _this = this;
     const onScroll = function(){
