@@ -26,6 +26,7 @@
           }} грн.
         </div>
 
+        <input type="hidden" class="price_in_currency" :value=' dataCard.currency + " USD"'>
         <div class="product-basket__right__text__price">Цена: {{
             isShowStock ? dataCard.price_with_sale : dataCard.price }} грн.</div>
                 <div class="product-basket__right__text__delete-basket" @click="$emit('delete')">Удалить из корзины

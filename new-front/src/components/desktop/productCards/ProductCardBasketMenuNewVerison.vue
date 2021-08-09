@@ -9,6 +9,7 @@
       </div>
       <div class="product-basket__position-bottom">
         <div class="product-basket__text__price">{{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
+        <input type="hidden" class="price_in_currency" :value=' dataCard.currency + " USD"'>
         <v-btn v-if="dataCard.stock_status_id === 2" dark class="product__button" elevation="0" @click="preOrder">
             Предзаказ
         </v-btn>

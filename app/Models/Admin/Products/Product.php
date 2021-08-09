@@ -88,7 +88,7 @@ class Product extends Model
             }
         }
 
-        return !empty($this->sale_id) ? round($this->price /  $exchange):  round($this->price_with_sale /  $exchange) ;
+        return !isset($this->price_with_sale) ? round($this->price / $exchange) : round($this->price_with_sale / $exchange);
     }
 }
 

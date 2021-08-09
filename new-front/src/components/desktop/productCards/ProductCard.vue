@@ -27,6 +27,7 @@
     <div class="product__info">
         <div>
             <span class="info-price__discount" v-if="isShowStock">{{ dataCard.price }} грн</span>
+            <input type="hidden" class="price_in_currency" :value=' dataCard.currency + " USD"'>
             <span class="product__info__price default-cursor">
                 {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
             </span>

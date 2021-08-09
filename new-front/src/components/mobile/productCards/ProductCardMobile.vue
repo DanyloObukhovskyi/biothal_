@@ -18,6 +18,7 @@
       <span class="product__description__price-text default-cursor">
         {{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн
       </span>
+        <input type="hidden" class="price_in_currency" :value=' dataCard.currency + " USD"'>
         <div>
             <v-btn v-if="dataCard.stock_status_id === 2"
                    class="product__description__price-button product__button white--text"

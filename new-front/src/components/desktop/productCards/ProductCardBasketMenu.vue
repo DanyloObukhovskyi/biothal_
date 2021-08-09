@@ -10,6 +10,7 @@
             </div>
             <div class="product-basket__text">
                 <div class="product-basket__text__price">{{ isShowStock ? dataCard.price_with_sale : dataCard.price }} грн</div>
+                <input type="hidden" class="price_in_currency" :value=' dataCard.currency + " USD"'>
                 <div class="product-basket__text__delete-basket">
                     <v-btn :disabled="dataCard.stock_status_id === 3" class="product__button white--text" elevation="0" @click="addToCart">
                         {{ dataCard.stock_status_id === 3 ? 'Нет в наличии' : 'Добавить'}}
