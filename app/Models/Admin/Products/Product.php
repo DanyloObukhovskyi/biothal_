@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Models\Admin\Products\ProductDescription;
 use App\Models\StockStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Product extends Model
 {
@@ -17,6 +18,10 @@ class Product extends Model
     protected $primaryKey = 'id';
 
     protected $guarded = [];
+
+    protected $appends = [
+        'currency'
+    ];
 
     public function productsAttributes()
     {
@@ -68,6 +73,22 @@ class Product extends Model
     public function accessories()
     {
         return $this->hasMany(AccessoryProducts::class,'product_id','id')->with('accessoryDetails');
+    }
+
+    public function getCurrencyAttribute()
+    {
+        $response = Http::get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
+        $exchange = 0;
+        $currencies = $response->json();
+        if(!empty($currencies)){
+            foreach($currencies as $currency){
+                if($currency['ccy'] === 'USD'){
+                    $exchange = $currency['buy'];
+                }
+            }
+        }
+
+        return !empty($this->sale_id) ? round($this->price /  $exchange):  round($this->price_with_sale /  $exchange) ;
     }
 }
 
