@@ -29,8 +29,10 @@
         </div>
     </v-app-bar>
 
-      <div style="background-color: black; height: 34px; color: white; font-size: 11px; text-align: center" ref="app-bar-info">
-          Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.
+      <div style="background-color: black; height: 34px; color: white; font-size: 14px; text-align: center; display: flex; justify-content: center;" ref="app-bar-info">
+<!--          Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.-->
+          <div style="margin-top: 7px;">Отправка заказов в течении 3-5 рабочих дней</div>
+          <div><img class="package-mobile" src="../../../public/package.svg"/></div>
       </div>
 
     <v-navigation-drawer
@@ -237,7 +239,12 @@ export default {
   }
 }
 
-
+.package-mobile{
+    height: 20px;
+    width: 20px;
+    margin-top: 6px;
+    margin-left: 5px;
+}
 </style>
 
 <style lang="scss">

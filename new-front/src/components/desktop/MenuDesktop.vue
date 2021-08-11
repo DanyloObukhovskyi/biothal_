@@ -1,9 +1,9 @@
 <template>
   <div class="menu-wrapper">
     <v-system-bar class="menu-wrapper__system-bar default-cursor">
-<!--        <div>Отправка заказов в течении 3-5 рабочих дней</div>-->
-<!--        <div><img class="package" src="../../../public/package.svg"/></div>-->
-        <div>Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.</div>
+        <div>Отправка заказов в течении 3-5 рабочих дней</div>
+        <div><img class="package" src="../../../public/package.svg"/></div>
+<!--        <div>Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.</div>-->
     </v-system-bar>
 
     <v-app-bar class="menu-wrapper__menu">
