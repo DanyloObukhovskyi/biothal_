@@ -54,12 +54,14 @@
     </div>
     <div id="accessories-rows">
         @if(isset($id))
-            @foreach ($product->accessories as $key => $accessory)
-                <div class="form-group" id="accessory-row{{$accessory->accessory_id}}">
-                    <div class="col-sm-2 d-flex justify-content-end"><button type="button" onclick="$('#accessory-row{{$accessory->accessory_id}}').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></div>
-                    <div class="col-sm-10"><input disabled id="{{$key}}" type="text" value="{{$accessory->accessoryDetails[0]['title']}}" class="form-control" /></div>
-                    <input hidden type="text" name="accessoryProducts[{{$key}}][accessory_id]" value="{{$accessory['accessory_id']}}" class="form-control" />
-                </div>
+                @foreach ($product->accessories as $key => $accessory)
+                    @if(isset($accessory->accessoryDetails[0]))
+                        <div class="form-group" id="accessory-row{{$accessory->accessory_id}}">
+                            <div class="col-sm-2 d-flex justify-content-end"><button type="button" onclick="$('#accessory-row{{$accessory->accessory_id}}').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></div>
+                            <div class="col-sm-10"><input disabled id="{{$key}}" type="text" value="{{$accessory->accessoryDetails[0]['title']}}" class="form-control" /></div>
+                            <input hidden type="text" name="accessoryProducts[{{$key}}][accessory_id]" value="{{$accessory['accessory_id']}}" class="form-control" />
+                        </div>
+                    @endif
             @endforeach
         @endif
     </div>

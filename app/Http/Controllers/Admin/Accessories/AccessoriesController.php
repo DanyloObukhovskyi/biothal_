@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Accessories;
 use App\Http\Requests\Accessories\Add as AccessoryAddRequest;
 use App\Http\Requests\Accessories\Delete as AccessoryDeleteRequest;
 use App\Http\Controllers\Controller;
+use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use Illuminate\Http\Request;
@@ -102,6 +103,7 @@ class AccessoriesController extends Controller
                 // Если родительских категорий нет, то просто удаляем
                 foreach ($request->checked as $catId) {
                     $accessory = Accessories::where('id', (int)$catId)->first();
+                    AccessoryProducts::where('accessory_id', $accessory->id)->delete();
                     $accessory->delete();
                 }
                 return response()->json([
@@ -124,6 +126,7 @@ class AccessoriesController extends Controller
 
                     if ($accessory != null) {
                         $values[] += $accessory->id;
+                        AccessoryProducts::where('accessory_id', $accessory->id)->delete();
                         $accessory->delete();
                     }
                 }
