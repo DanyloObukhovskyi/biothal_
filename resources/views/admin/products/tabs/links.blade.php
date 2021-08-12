@@ -54,7 +54,7 @@
     </div>
     <div id="accessories-rows">
         @if(isset($id))
-            @if(!empty($product->accessories))
+            @if(!empty($product->accessories) && count($product->accessories) > 0)
                 @foreach ($product->accessories as $key => $accessory)
                     <div class="form-group" id="accessory-row{{$accessory->accessory_id}}">
                         <div class="col-sm-2 d-flex justify-content-end"><button type="button" onclick="$('#accessory-row{{$accessory->accessory_id}}').remove();" data-toggle="tooltip" title="Удалить" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></div>
