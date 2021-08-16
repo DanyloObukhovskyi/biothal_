@@ -14,6 +14,7 @@ import lodash from 'lodash';
 import VueLoading from 'vuejs-loading-plugin';
 import VueMeta from 'vue-meta';
 import VueGtm from '@gtm-support/vue2-gtm';
+import VueFacebookPixel from 'vue-facebook-pixel';
 
 axios.defaults.baseURL = process.env.VUE_APP_REQUEST_BASE_URL + process.env.VUE_APP_REQUEST_PREFIX;
 
@@ -90,6 +91,11 @@ Vue.use(  VueGtm, {
     loadScript: true, // Whether or not to load the GTM Script (Helpful if you are including GTM manually, but need the dataLayer functionality in your components) (optional)
     vueRouter: router, // Pass the router instance to automatically sync with router (optional)// Don't trigger events for specified router names (case insensitive) (optional)
     trackOnNextTick: false, // Whether or not call trackView in Vue.nextTick
+})
+Vue.use(VueFacebookPixel)
+
+Vue.analytics.fbq.init('223046382786714', {
+    // em: 'user@mail.com'
 })
 
 import '@/styles/main.scss';

@@ -239,6 +239,9 @@ export default {
                 const product = this.productData;
                 product.quantity = 1;
 
+                this.$analytics.fbq.event('track', 'AddToCart', {
+                    value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
+                })
                 this.addProduct(product);
 
               this.action_data_basket_info(product);
@@ -273,6 +276,10 @@ export default {
       if (this.productData.sale_id !== null) {
         this.is_discount = true;
       }
+
+      this.$analytics.fbq.event('track', 'ViewContent', {
+          value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
+      })
     },
     async getSubImages() {
       if (this.images[0]) {

@@ -119,6 +119,10 @@
             async preOrder() {
 
                 this.$loading(true);
+
+                this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                    value: this.dataCard.currency, currency: 'USD', content_type: 'product', content_ids: this.dataCard.id
+                })
                 try {
                     this.clearValidation()
                     let validate = await this.$refs['orderQuickForm'].validate();

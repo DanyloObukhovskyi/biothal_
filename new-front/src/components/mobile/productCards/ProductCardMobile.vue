@@ -82,6 +82,9 @@ export default {
       const product = this.dataCard;
       product.quantity = 1;
 
+      this.$analytics.fbq.event('track', 'AddToCart', {
+          value: this.dataCard.currency, currency: 'USD', content_type: 'product', content_ids: this.dataCard.id
+      })
       this.addProduct(product);
 
       this.action_data_basket_info(product);

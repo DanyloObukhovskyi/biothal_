@@ -139,9 +139,11 @@
                             });
                             this.clearValidation();
 
+                            this.$analytics.fbq.event('track', 'Contact')
                             this.$loading(false);
                         }
                     } else {
+                        this.$analytics.fbq.event('track', 'Lead')
                         this.$loading(false);
                     }
                 } catch (e) {

@@ -75,7 +75,7 @@
             <v-list class="v-list-title-name" style="padding-top: 16px" dense>
               <v-list-item-title class="list-item__title">Мы в сетях</v-list-item-title>
               <v-list-item v-for="(item, index) in menuItemsLinksPage" :key="index" class="list-item"
-                           style="display: flex; align-items: center" :href="item.href" target="_blank">
+                           style="display: flex; align-items: center" :href="item.href" @click="fbMethod" target="_blank">
                 <v-list-item-icon>
                   <v-icon style="margin: 0" size="20" color="#000">{{ item.icon }}</v-icon>
                 </v-list-item-icon>
@@ -151,6 +151,8 @@ export default {
       let email = this.email_for_receive_list;
       let valide = /.+@.+/.test(email);
       this.$loading(true)
+
+      this.$analytics.fbq.event('track', 'Contact')
       if (valide) {
         try {
           let data = await this.axios.post('addEmailForReceive', {
@@ -182,6 +184,9 @@ export default {
         });
         this.$loading(false)
       }
+    },
+    fbMethod() {
+        this.$analytics.fbq.event('track', 'Contact')
     }
   }
 }

@@ -43,7 +43,8 @@
                 title: '',
                 message: '',
                 redirect: '',
-                id: ''
+                id: '',
+                total_sum: ''
             }
         },
         computed: {
@@ -65,6 +66,9 @@
               }.bind(this),
                 10000
             );
+            this.$analytics.fbq.event('track', 'Purchase', {
+                value: this.total_sum / 27 , currency: 'USD', content_type: 'product', content_ids: this.id
+            })
         },
         beforeRouteLeave (to, from, next) {
             clearTimeout(this.redirect);
@@ -82,6 +86,7 @@
                 let data = await this.axios.get('order-status/' + this.token);
 
                 this.id = data.data.order.id;
+                this.total_sum = data.data.order.total_sum;
             },
             sendEmailToUser(id)
             {

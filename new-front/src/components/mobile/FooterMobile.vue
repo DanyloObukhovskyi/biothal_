@@ -22,9 +22,9 @@
                 <img width="127" height="38" src="../../../public/logo-biothal.svg"/>
             </div>
             <div class="footer__links">
-                <a style="margin-right: 10px" href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-youtube</v-icon></a>
-                <a style="margin-right: 10px" href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
-                <a href="https://www.instagram.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
+                <a @click="fbMethod" style="margin-right: 10px" href="https://www.youtube.com/channel/UCrfHUxmilxCSfhMG9TKLa1Q" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-youtube</v-icon></a>
+                <a @click="fbMethod" style="margin-right: 10px" href="https://www.facebook.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-facebook</v-icon></a>
+                <a @click="fbMethod" href="https://www.instagram.com/biothal.ua/" target="_blank" class="link-to-site"><v-icon color="#fff" size="17">mdi-instagram</v-icon></a>
             </div>
         </div>
         <div class="footer__block-2">
@@ -93,6 +93,7 @@
                 let email = this.email_for_receive_list;
                 let valide = /.+@.+/.test(email);
                 this.$loading(true)
+                this.fbMethod()
                 if(valide){
                     try{
                         let data = await this.axios.post('addEmailForReceive', {
@@ -124,6 +125,9 @@
                     });
                     this.$loading(false)
                 }
+            },
+            fbMethod() {
+                this.$analytics.fbq.event('track', 'Contact')
             }
         }
     }
