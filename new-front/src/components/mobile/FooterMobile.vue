@@ -127,6 +127,7 @@
                 }
             },
             fbMethod() {
+                console.log('Contact')
                 this.$analytics.fbq.event('track', 'Contact')
             }
         }

@@ -82,8 +82,11 @@ export default {
       const product = this.dataCard;
       product.quantity = 1;
 
+        console.log('AddToCart',{
+            value: this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category
+        })
       this.$analytics.fbq.event('track', 'AddToCart', {
-          value: this.dataCard.currency, currency: 'USD', content_type: 'product', content_ids: this.dataCard.id
+          value: this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category
       })
       this.addProduct(product);
 

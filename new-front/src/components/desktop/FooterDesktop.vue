@@ -152,6 +152,7 @@ export default {
       let valide = /.+@.+/.test(email);
       this.$loading(true)
 
+        console.log('Contact')
       this.$analytics.fbq.event('track', 'Contact')
       if (valide) {
         try {
@@ -186,6 +187,7 @@ export default {
       }
     },
     fbMethod() {
+        console.log('Contact')
         this.$analytics.fbq.event('track', 'Contact')
     }
   }

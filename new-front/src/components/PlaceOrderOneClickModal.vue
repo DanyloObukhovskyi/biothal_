@@ -103,6 +103,14 @@
             async checkout() {
                 this.$loading(true);
                 try {
+                    this.products.map(product => {
+                        console.log('InitiateCheckout',{
+                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                        })
+                        this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                        })
+                    })
                     this.clearValidation()
                     let validate = await this.$refs['orderQuickForm'].validate();
 

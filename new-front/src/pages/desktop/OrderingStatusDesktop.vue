@@ -59,6 +59,7 @@
             ])
         },
         created() {
+            this.fbMethod();
             this.fetchOrderStatus();
             this.redirect = setTimeout(
               function () {
@@ -66,9 +67,6 @@
               }.bind(this),
                 10000
             );
-            this.$analytics.fbq.event('track', 'Purchase', {
-                value: this.total_sum / 27 , currency: 'USD', content_type: 'product', content_ids: this.id
-            })
         },
         beforeRouteLeave (to, from, next) {
             clearTimeout(this.redirect);
@@ -97,6 +95,16 @@
             toHome (){
                 this.toPage({name: 'home'});
                 clearTimeout(this.redirect);
+            },
+            fbMethod() {
+                this.products.map(product => {
+                    console.log('Purchase',{
+                        value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                    })
+                    this.$analytics.fbq.event('track', 'Purchase', {
+                        value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                    })
+                })
             }
         },
         mounted() {

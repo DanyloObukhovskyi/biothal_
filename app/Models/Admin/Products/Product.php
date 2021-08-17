@@ -20,7 +20,8 @@ class Product extends Model
     protected $guarded = [];
 
     protected $appends = [
-        'currency'
+        'currency',
+        'category'
     ];
 
     public function productsAttributes()
@@ -91,6 +92,13 @@ class Product extends Model
         $exchange = 26.7;
 
         return !isset($this->price_with_sale) ? round($this->price / $exchange) : round($this->price_with_sale / $exchange);
+    }
+
+    public function getCategoryAttribute()
+    {
+        $categoryProducts = CategoryProducts::where('product_id', $this->id)->first();
+        $category = Categories::where('id', $categoryProducts->category_id)->first();
+        return $category->slug;
     }
 }
 

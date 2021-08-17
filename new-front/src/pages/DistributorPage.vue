@@ -116,6 +116,8 @@
             },
             async send() {
                 this.$loading(true);
+                console.log('Lead')
+                this.$analytics.fbq.event('track', 'Lead')
                 try {
                     this.clearValidation()
                     let validate = await this.$refs['createOffer'].validate();
@@ -139,11 +141,9 @@
                             });
                             this.clearValidation();
 
-                            this.$analytics.fbq.event('track', 'Contact')
                             this.$loading(false);
                         }
                     } else {
-                        this.$analytics.fbq.event('track', 'Lead')
                         this.$loading(false);
                     }
                 } catch (e) {

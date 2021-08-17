@@ -186,7 +186,7 @@
                         <div class="checkout-button__wrapper" @click="checkout">
                             <v-btn dark class="checkout-button" elevation="0">Оформить заказ</v-btn>
                         </div>
-                        <div class="checkout-link" @click="$refs['PlaceOrderOneClick'].visible=true">
+                        <div class="checkout-link" @click="fbMethod(), $refs['PlaceOrderOneClick'].visible=true">
                             Оформить в 1 клик
                         </div>
                     </div>
@@ -456,7 +456,15 @@
             },
             async checkout() {
                 try {
-                    //this.toPage({name: 'payment', params: {paymentUrl: 454}})
+                    this.products.map(product => {
+                        console.log('InitiateCheckout',{
+                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                        })
+                        this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                        })
+                    })
+
                     this.clearValidation()
                     let validate = await this.$refs['orderForm'].validate();
 
@@ -565,6 +573,16 @@
                     await this.$store.dispatch('LOGIN', null);
                     this.errorMessagesValidation(e);
                 }
+            },
+            fbMethod() {
+                this.products.map(product => {
+                    console.log('InitiateCheckout',{
+                        value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                    })
+                    this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                        value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+                    })
+                })
             }
         },
         mounted() {

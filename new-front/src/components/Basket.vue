@@ -77,7 +77,7 @@
               </div>
             </div>
             <div class="checkout-button__wrapper">
-              <v-btn dark class="checkout-button" elevation="0" @click="toPage({name: 'ordering'})">
+              <v-btn dark class="checkout-button" elevation="0" @click="fbMethod(), toPage({name: 'ordering'})">
                 Оформить заказ
               </v-btn>
             </div>
@@ -161,29 +161,41 @@ export default {
       deleteProduct: 'DELETE_PRODUCT',
       setGlobalSales: 'SET_GLOBAL_SALES',
       setGroupSales: 'SET_GROUP_SALES',
-        }),
-        visibleModal(visible) {
-            window.scrollTo(0, 0)
-          this.action_visible_basket(visible);
-        },
-        getGlobalSales() {
-            this.axios.post('sales/global')
-                .then(({data}) => {
-                    this.setGlobalSales(data)
-                })
-        },
-        getRecommendedProduct() {
-            this.axios.post('products/recommended')
-                .then(({data}) => {
-                    this.recommendedProducts = data
-                })
-        },
-        getGroupSales(){
-            this.axios.post('sales/group')
-                .then(({data}) => {
-                    this.setGroupSales(data)
-                })
-        }},
+    }),
+    visibleModal(visible) {
+        window.scrollTo(0, 0)
+      this.action_visible_basket(visible);
+    },
+    getGlobalSales() {
+        this.axios.post('sales/global')
+            .then(({data}) => {
+                this.setGlobalSales(data)
+            })
+    },
+    getRecommendedProduct() {
+        this.axios.post('products/recommended')
+            .then(({data}) => {
+                this.recommendedProducts = data
+            })
+    },
+    getGroupSales(){
+        this.axios.post('sales/group')
+            .then(({data}) => {
+                this.setGroupSales(data)
+            })
+    },
+    fbMethod() {
+        this.products.map(product => {
+            console.log('InitiateCheckout',{
+                value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+            })
+            this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
+            })
+        })
+    },
+  },
+
   mounted() {
     this.getGlobalSales();
     this.getRecommendedProduct();

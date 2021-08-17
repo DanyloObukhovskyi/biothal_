@@ -53,7 +53,7 @@
         <span class="product-info__price__price">{{
             is_discount ? productData['price_with_sale'] : productData['price']
           }} грн</span>
-          <input type="hidden" class="price_in_currency" :value=' productData["currency"] + " USD"'>
+          <input type="hidden" class="price_in_currency" :value='productData["currency"] + " USD"'>
           <span class="product-info__price__discount" v-if="is_discount">Старая цена: {{
             productData['price']
           }} грн.</span>
@@ -239,8 +239,11 @@ export default {
                 const product = this.productData;
                 product.quantity = 1;
 
+                console.log('AddToCart',{
+                    value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
+                })
                 this.$analytics.fbq.event('track', 'AddToCart', {
-                    value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
+                    value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
                 })
                 this.addProduct(product);
 
@@ -276,9 +279,11 @@ export default {
       if (this.productData.sale_id !== null) {
         this.is_discount = true;
       }
-
+        console.log('ViewContent',{
+            value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
+        })
       this.$analytics.fbq.event('track', 'ViewContent', {
-          value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
+          value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
       })
     },
     async getSubImages() {
