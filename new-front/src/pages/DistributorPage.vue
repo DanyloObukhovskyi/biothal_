@@ -117,7 +117,7 @@
             async send() {
                 this.$loading(true);
                 console.log('Lead')
-                this.$analytics.fbq.event('track', 'Lead')
+                this.$analytics.fbq.event( 'Lead')
                 try {
                     this.clearValidation()
                     let validate = await this.$refs['createOffer'].validate();

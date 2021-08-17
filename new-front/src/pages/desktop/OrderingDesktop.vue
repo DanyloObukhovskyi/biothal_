@@ -460,7 +460,7 @@
                         console.log('InitiateCheckout',{
                             value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                         })
-                        this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                        this.$analytics.fbq.event( 'InitiateCheckout', {
                             value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                         })
                     })
@@ -579,7 +579,7 @@
                     console.log('InitiateCheckout',{
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
-                    this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                    this.$analytics.fbq.event( 'InitiateCheckout', {
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
                 })

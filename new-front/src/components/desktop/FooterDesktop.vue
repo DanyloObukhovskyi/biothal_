@@ -153,7 +153,7 @@ export default {
       this.$loading(true)
 
         console.log('Contact')
-      this.$analytics.fbq.event('track', 'Contact')
+      this.$analytics.fbq.event( 'Contact')
       if (valide) {
         try {
           let data = await this.axios.post('addEmailForReceive', {
@@ -188,7 +188,7 @@ export default {
     },
     fbMethod() {
         console.log('Contact')
-        this.$analytics.fbq.event('track', 'Contact')
+        this.$analytics.fbq.event( 'Contact')
     }
   }
 }

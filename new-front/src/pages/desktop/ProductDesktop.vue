@@ -272,7 +272,7 @@ import {mapActions, mapGetters} from "vuex";
         console.log('AddToCart',{
             value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
         })
-      this.$analytics.fbq.event('track', 'AddToCart', {
+      this.$analytics.fbq.event( 'AddToCart', {
           value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
       })
       this.addProduct(product);
@@ -310,7 +310,7 @@ import {mapActions, mapGetters} from "vuex";
       console.log('ViewContent',{
           value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
       })
-      this.$analytics.fbq.event('track', 'ViewContent', {
+      this.$analytics.fbq.event( 'ViewContent', {
           value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
       })
 
@@ -342,7 +342,7 @@ import {mapActions, mapGetters} from "vuex";
         console.log('InitiateCheckout', {
             value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
         })
-      this.$analytics.fbq.event('track', 'InitiateCheckout', {
+      this.$analytics.fbq.event( 'InitiateCheckout', {
           value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
       })
       try {
@@ -385,7 +385,7 @@ import {mapActions, mapGetters} from "vuex";
             async preOrder() {
                 this.$loading(true);
 
-                this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                this.$analytics.fbq.event( 'InitiateCheckout', {
                     value: this.productData["currency"], currency: 'USD', content_type: 'product', content_category: this.category['sub_category']['slug'], content_ids: this.productData["id"]
                 })
                 try {
