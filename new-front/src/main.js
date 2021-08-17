@@ -95,7 +95,7 @@ Vue.use(  VueGtm, {
 Vue.use(VueFacebookPixel)
 
 Vue.analytics.fbq.init('223046382786714', {
-    // em: 'user@mail.com'
+    em: 'niksgreek@gmail.com'
 })
 
 import '@/styles/main.scss';
