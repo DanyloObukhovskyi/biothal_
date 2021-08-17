@@ -116,7 +116,7 @@ export default {
       this.$analytics.fbq.event('track', 'AddToCart', {
           value: this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category
       })
-        console.log($analytics)
+        console.log(this.$analytics)
       this.addProduct(product)
 
       this.action_data_basket_info(product);
