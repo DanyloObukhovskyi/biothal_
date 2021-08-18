@@ -101,7 +101,7 @@
                     console.log('Purchase',{
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
-                    this.$analytics.fbq.event('track', 'Purchase', {
+                    this.$analytics.fbq.event( 'Purchase', {
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
                 })

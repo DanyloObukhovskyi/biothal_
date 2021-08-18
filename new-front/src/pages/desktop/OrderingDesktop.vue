@@ -456,13 +456,14 @@
             },
             async checkout() {
                 try {
+                    let productIds = [];
+                    let sum = 0;
                     this.products.map(product => {
-                        console.log('InitiateCheckout',{
-                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
-                        })
-                        this.$analytics.fbq.event('track', 'InitiateCheckout', {
-                            value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
-                        })
+                        productIds.push(product.id);
+                        sum = (sum + (product.currency * product.quantity));
+                    })
+                    this.$analytics.fbq.event( 'InitiateCheckout', {
+                        value: sum, currency: 'USD', content_ids: productIds, content_type: 'product'
                     })
 
                     this.clearValidation()
@@ -579,7 +580,7 @@
                     console.log('InitiateCheckout',{
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
-                    this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                    this.$analytics.fbq.event( 'InitiateCheckout', {
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
                 })

@@ -120,7 +120,7 @@
 
                 this.$loading(true);
 
-                this.$analytics.fbq.event('track', 'InitiateCheckout', {
+                this.$analytics.fbq.event( 'InitiateCheckout', {
                     value: this.dataCard.currency, currency: 'USD', content_type: 'product', content_ids: this.dataCard.id
                 })
                 try {
