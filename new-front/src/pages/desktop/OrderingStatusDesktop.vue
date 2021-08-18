@@ -97,13 +97,17 @@
                 clearTimeout(this.redirect);
             },
             fbMethod() {
+                let productsIds = [];
+                let sum = 0;
                 this.products.map(product => {
                     console.log('Purchase',{
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
-                    this.$analytics.fbq.event( 'Purchase', {
-                        value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
-                    })
+                    productsIds.push(product.id);
+                    sum = (sum + (product.currency * product.quantity));
+                })
+                this.$analytics.fbq.event( 'Purchase', {
+                    value: sum, currency: 'USD', content_ids: productsIds, content_type: 'product', content_category: product.category, product_catalog_id: productsIds
                 })
             }
         },
