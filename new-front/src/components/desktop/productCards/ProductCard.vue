@@ -114,7 +114,7 @@ export default {
             value: this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category,test_event_code: 'TEST60059'
         })
       this.$analytics.fbq.event('AddToCart', {
-          value: product.quantity * this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category,: this.dataCard.id
+          value: product.quantity * this.dataCard.currency, currency: 'USD', content_ids: this.dataCard.id, content_type: 'product', content_category: this.dataCard.category,product_catalog_id: this.dataCard.id
       })
         console.log(this.$analytics)
       this.addProduct(product)

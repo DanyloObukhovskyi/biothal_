@@ -195,7 +195,7 @@ export default {
             sum = (sum + (product.currency * product.quantity));
         })
         this.$analytics.fbq.event( 'InitiateCheckout', {
-            value: sum, currency: 'USD', content_ids: productsIds, content_type: 'product', : productsIds
+            value: sum, currency: 'USD', content_ids: productsIds, content_type: 'product', product_catalog_id: productsIds
         })
     },
   },

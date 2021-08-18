@@ -283,7 +283,7 @@ export default {
             value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug']
         })
       this.$analytics.fbq.event( 'ViewContent', {
-          value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug'], : this.productData["id"]
+          value: this.productData["currency"], currency: 'USD', content_ids: this.productData["id"], content_type: 'product', content_category: this.category['sub_category']['slug'], product_catalog_id: this.productData["id"]
       })
     },
     async getSubImages() {
