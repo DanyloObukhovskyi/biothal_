@@ -463,7 +463,7 @@
                         sum = (sum + (product.currency * product.quantity));
                     })
                     this.$analytics.fbq.event( 'InitiateCheckout', {
-                        value: sum, currency: 'USD', content_ids: productIds, content_type: 'product', content_category: product.category
+                        value: sum, currency: 'USD', content_ids: productIds, content_type: 'product'
                     })
 
                     this.clearValidation()
