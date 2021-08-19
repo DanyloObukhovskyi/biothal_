@@ -6,11 +6,13 @@ use App\Models\AccessoryProducts;
 use App\Models\Admin\Accessories\Accessories;
 use App\Models\Categories;
 use App\Models\CategoryProducts;
+use App\Models\Exchange_Rate;
 use App\Models\Image;
 use App\Models\Admin\Products\ProductDescription;
 use App\Models\StockStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Product extends Model
 {
@@ -88,7 +90,6 @@ class Product extends Model
 //                }
 //            }
 //        }
-
         $exchange = 26.7;
 
         return !isset($this->price_with_sale) ? round($this->price / $exchange) : round($this->price_with_sale / $exchange);
