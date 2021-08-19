@@ -13,7 +13,7 @@ class CreateExchangeRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('exchange__rates', function (Blueprint $table) {
+        Schema::create('exchange_rates', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('ccy');
@@ -30,6 +30,6 @@ class CreateExchangeRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exchange__rates');
+        Schema::dropIfExists('exchange_rates');
     }
 }

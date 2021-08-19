@@ -80,17 +80,8 @@ class Product extends Model
 
     public function getCurrencyAttribute()
     {
-//        $response = Http::get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
-//        $exchange = 0;
-//        $currencies = $response->json();
-//        if(!empty($currencies)){
-//            foreach($currencies as $currency){
-//                if($currency['ccy'] === 'USD'){
-//                    $exchange = $currency['buy'];
-//                }
-//            }
-//        }
-        $exchange = 26.7;
+        $rates = Exchange_Rate::where('id', 1)->first();
+        $exchange = $rates->buy;
 
         return !isset($this->price_with_sale) ? round($this->price / $exchange) : round($this->price_with_sale / $exchange);
     }

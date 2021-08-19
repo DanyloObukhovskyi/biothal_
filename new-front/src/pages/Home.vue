@@ -108,7 +108,6 @@
       </div>
     </div>
   </div>
-    <button>ацуацп</button>
 </template>
 
 <script>

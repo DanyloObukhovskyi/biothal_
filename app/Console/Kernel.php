@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Models\Exchange_Rate;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Http;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,7 +27,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $response = Http::get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
+            Exchange_Rate::where('id', 1)->update(['ccy' => $response[0]['ccy'], 'base_ccy' => $response[0]['base_ccy'], 'buy' => $response[0]['buy'], 'sale' => $response[0]['sale']]);
+        })->twiceDaily(8,16);
     }
 
     /**
