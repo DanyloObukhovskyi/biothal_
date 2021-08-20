@@ -29,9 +29,9 @@
         </div>
     </v-app-bar>
 
-      <div style="background-color: black; height: 34px; color: white; font-size: 14px; text-align: center; display: flex; justify-content: center;" ref="app-bar-info">
+      <div style="background-color: black; height: 55px; color: white; font-size: 14px; text-align: center; display: flex; justify-content: center;" ref="app-bar-info">
 <!--          Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.-->
-          <div style="margin-top: 7px;">Отправка заказов в течении 3-5 рабочих дней</div>
+          <div style="margin-top: 7px;" v-html="'Отправка заказов в течении 3-5 рабочих дней<br>23-24 числа не работаем, в связи с праздниками'"></div>
           <!--<div style="margin-top: 7px;">Бесплатная доставка при заказе от 1500грн.</div> -->
 <!--          <div><img class="package-mobile" src="../../../public/package.svg"/></div>-->
       </div>
