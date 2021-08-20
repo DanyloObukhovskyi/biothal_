@@ -8,8 +8,12 @@
             <br>уточнения деталей заказа и условий доставки.
             <br>Call - центр работает по будням: <b>10:00 — 17:00.</b>
             <br>Суббота / Воскресенье: <b>Выходной.</b>
-            <br>Остались вопросы? <br>Звони <b>+38 (099) 088-12-08</b><br><b>+38 (067) 568-08-13</b>
-            <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>
+<!--            <br>Остались вопросы? <br>Звони <b>+38 (099) 088-12-08</b><br><b>+38 (067) 568-08-13</b>-->
+<!--            <br>Или пиши нам в instagram <a class="text-decoration-none" href="https://www.instagram.com/biothal.ua/"><b>@biothal.ua</b></a>-->
+            <br><h2><b>Написать нам</b></h2>
+                <img class="mt-2" style="height: 85px; cursor: pointer" src="../../../public/viber.png" @click="toViber">
+                <img class="ml-2 mr-3" style="height: 82px; cursor: pointer" src="../../../public/t_logo.png" @click="toTelegram">
+                <img style="height: 80px; cursor: pointer" src="../../../public/instagram.png" @click="toInstagram">
         </div>
         <div class="button">
             <v-btn dark class="order-status__button" elevation="0" @click="toHome">
@@ -65,7 +69,7 @@
               function () {
                 this.toPage({name: 'home'});
               }.bind(this),
-                10000
+                30000
             );
         },
         beforeRouteLeave (to, from, next) {
@@ -105,6 +109,15 @@
                         value: product.currency, currency: 'USD', content_ids: product.id, content_type: 'product', content_category: product.category
                     })
                 })
+            },
+            toTelegram() {
+                window.location.href = 'http://t.me/Biothal_ua_bot';
+            },
+            toViber() {
+                window.location.href = 'viber://pa?chatURI=biothal';
+            },
+            toInstagram() {
+                window.location.href = 'https://www.instagram.com/biothal.ua';
             }
         },
         mounted() {
