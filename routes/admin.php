@@ -304,6 +304,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::post('/deleteOffer', 'DistributionController@deleteOffer')
             ->name('admin.distribution.offer.delete');
+        Route::get('/black_header', 'BlackHeaderController@view_of_black_header')->name('admin.layouts.header_content');
+        Route::post('/send_black_header', 'BlackHeaderController@send_black_line_to_data_base');
+        Route::get('/black_header_edit', 'BlackHeaderController@view_of_edition_black_header')->name('admin.layouts.change_header_content');
     });
 
 

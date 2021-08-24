@@ -1,8 +1,8 @@
 <template>
   <div class="menu-wrapper">
-    <v-system-bar class="menu-wrapper__system-bar default-cursor">
+    <v-system-bar class="menu-wrapper__system-bar default-cursor black_line_style">
 <!--        <div>Отправка заказов в течении 3-5 рабочих дней</div>-->
-        <div>Бесплатная доставка при заказе от 1500грн.</div>
+        <div class="text-center" v-html="black_line_content"></div>
 <!--        <div><img class="package" src="../../../public/package.svg"/></div>-->
 <!--        <div>Заказы в которых есть "Крем Жиросжигающий Антицеллюлитный с охлаждающим эффектом" - отправляются в течении 7 рабочих дней.</div>-->
     </v-system-bar>
@@ -170,6 +170,7 @@
       return {
         menuItemsCategory: [],
         menuItemsInfoPage: [],
+          black_line_content: null,
         orders: 0,
       }
     },
@@ -222,9 +223,10 @@
     methods: {
       async fetchMenuData() {
         let data = await this.axios.get('menu');
-
+        console.log(data);
         this.menuItemsCategory = data.data.categories;
         this.menuItemsInfoPage = data.data.info_categories;
+        this.black_line_content = data.data.black_header.content;
       },
       test() {
         this.orders = this.$refs['Basket'].products.length
@@ -358,6 +360,10 @@
 </style>
 
 <style lang="scss">
+.black_line_style {
+    height: 100%;
+    justify-content: center;
+}
   .menu-wrapper {
     & .v-toolbar__content {
       padding: 0 !important;

@@ -155,6 +155,12 @@
                         <span>Галерея</span>
                     </a>
                 </li>
+                <li class="{{@checkIsActive('admin.layouts.header_content')}}">
+                    <a href="{{route('admin.layouts.header_content')}}">
+                        <i class="fas fa-th-large"></i>
+                        <span>Чёрная полоска</span>
+                    </a>
+                </li>
               </ul>
         </div>
     </div>
