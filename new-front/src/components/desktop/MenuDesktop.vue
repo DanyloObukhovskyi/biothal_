@@ -226,7 +226,7 @@
         console.log(data);
         this.menuItemsCategory = data.data.categories;
         this.menuItemsInfoPage = data.data.info_categories;
-        this.black_line_content = data.data.black_header.content;
+        this.black_line_content = data.data.black_header.setting_content;
       },
       test() {
         this.orders = this.$refs['Basket'].products.length

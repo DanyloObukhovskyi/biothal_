@@ -4,11 +4,9 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BlackLine extends Model
+class Settings extends Model
 {
-    protected $table = 'black_lines';
-
+    protected $table = 'settings';
     protected $guarded = [];
-
     public $timestamps = false;
 }

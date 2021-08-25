@@ -143,23 +143,52 @@
                         <span>Дистрибьюторы</span>
                     </a>
                 </li>
-                <li class="{{@checkIsActive('admin.images.banner')}}">
-                    <a href="{{route('admin.images.banner')}}">
-                        <i class="far fa-images"></i>
-                        <span>Баннеры</span>
-                    </a>
-                </li>
-                <li class="{{@checkIsActive('admin.images.page')}}">
-                    <a href="{{route('admin.images.page')}}">
-                        <i class="fas fa-camera"></i>
-                        <span>Галерея</span>
-                    </a>
-                </li>
-                <li class="{{@checkIsActive('admin.layouts.header_content')}}">
-                    <a href="{{route('admin.layouts.header_content')}}">
+{{--                <li class="{{@checkIsActive('admin.images.banner')}}">--}}
+{{--                    <a href="{{route('admin.images.banner')}}">--}}
+{{--                        <i class="far fa-images"></i>--}}
+{{--                        <span>Баннеры</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="{{@checkIsActive('admin.images.page')}}">--}}
+{{--                    <a href="{{route('admin.images.page')}}">--}}
+{{--                        <i class="fas fa-camera"></i>--}}
+{{--                        <span>Галерея</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="{{@checkIsActive('admin.layouts.header_content')}}">--}}
+{{--                    <a href="{{route('admin.layouts.header_content')}}">--}}
+{{--                        <i class="fas fa-th-large"></i>--}}
+{{--                        <span>Чёрная полоска</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+                <li class="sidebar-dropdown">
+                    <a href="#">
                         <i class="fas fa-th-large"></i>
-                        <span>Чёрная полоска</span>
+                        <span>Дизайн</span>
+                        <span class="badge badge-pill badge-danger">3</span>
                     </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="{{@checkIsActive('admin.images.banner')}}">
+                                <a href="{{route('admin.images.banner')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Баннеры</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.images.page')}}">
+                                <a href="{{route('admin.images.page')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Галерея</span>
+                                </a>
+                            </li>
+                            <li class="{{@checkIsActive('admin.layouts.settings')}}">
+                                <a href="{{route('admin.layouts.settings')}}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <span>Настройки</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
               </ul>
         </div>

@@ -10,19 +10,19 @@
         <div class="row page-header">
             <div class="container-fluid col-sm-12" >
                 <div class="row">
-                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Чёрная полоска</div>
+                    <div class="h1-prod col-sm-6"><i class="fa fa-list"></i> Настройки</div>
                     <div class="pull-right col-sm-6">
                         <button type="button" title="Сохранить" class="btn btn-primary" id="save_black_header">
                             <i aria-hidden="true" class="fa fa-save"></i>
                         </button>
-                        <a href="/admin/black_header" title="Отменить" class="btn btn-default">
+                        <a href="/admin/settings" title="Отменить" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-reply"></i>
                         </a>
                     </div>
                     <div class="breadcrumb col-sm-12" style="background: none">
                         <div><a href="/admin/dashboard"><i class="fa fa-home fa-lg"></i></a></div>
                         <div style="margin-right: 5px">/ </div>
-                        <div><a href="{{route('admin.layouts.header_content')}}"> Чёрная полоска</a></div>
+                        <div><a href="{{route('admin.layouts.settings')}}"> Настройки</a></div>
                     </div>
                 </div>
             </div>

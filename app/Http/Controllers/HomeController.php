@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\BlackLine;
+use App\Models\Admin\Settings;
 use App\Models\Admin\Products\Information;
 use App\Models\Admin\Products\InformationAttributes;
 use App\Models\Admin\Products\InformationToLayout;
@@ -107,7 +107,7 @@ class HomeController extends Controller
             ])
             ->OrderBy('ordering', 'ASC')
             ->get();
-        $black_header = BlackLine::where('id', 1)->first();
+        $black_header = Settings::where('id', 1)->first();
         return response()->json([
             'categories' => $categories,
             'info_categories' => $info_categories,

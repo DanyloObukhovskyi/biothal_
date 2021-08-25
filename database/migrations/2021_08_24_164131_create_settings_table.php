@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlackLinesTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateBlackLinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('black_lines', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
+            $table->string('setting_name');
+            $table->text('setting_content');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateBlackLinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('black_lines');
+        Schema::dropIfExists('settings');
     }
 }
