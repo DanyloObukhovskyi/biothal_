@@ -143,11 +143,11 @@ class CheckoutController extends Controller
         $total = 0;
         $orderProducts = [];
         foreach ($request->get('products') as $product) {
-
+            $quantity = !empty($product['quantity']) ? $product['quantity'] : 1;
             $orderProduct = new OrderProduct();
             $orderProduct->product_id = $product['id'];
             $orderProduct->order_id = $order->id;
-            $orderProduct->quantity = $product['quantity'];
+            $orderProduct->quantity = $quantity;
             $orderProduct->price = $product['price'];
             $orderProduct->price_with_sales = $product['price_with_sale'];
             $orderProduct->sale_id = $product['sale_id'];
@@ -156,7 +156,7 @@ class CheckoutController extends Controller
             $orderProduct->save();
 
             $orderProducts[] = $orderProduct;
-            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $product['quantity'] : $product['price'] * $product['quantity'];
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $quantity : $product['price'] * $quantity;
         }
         $globalSale = GlobalSales::where([
             ['sum_modal', '<=', $total],
@@ -314,10 +314,11 @@ class CheckoutController extends Controller
         $total = 0;
         foreach ($request->get('products') as $product) {
 
+            $quantity = !empty($product['quantity']) ? $product['quantity'] : 1;
             $orderProduct = new OrderProduct();
             $orderProduct->product_id = $product['id'];
             $orderProduct->order_id = $order->id;
-            $orderProduct->quantity = $product['quantity'];
+            $orderProduct->quantity = $quantity;
             $orderProduct->price = $product['price'];
             $orderProduct->price_with_sales = $product['price_with_sale'];
             $orderProduct->sale_id = $product['sale_id'];
@@ -325,7 +326,7 @@ class CheckoutController extends Controller
             $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
             $orderProduct->save();
 
-            $total += !empty($product['sale_id']) ? $product['price_with_sale'] *  $product['quantity']: $product['price'] * $product['quantity'];
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] *  $quantity: $product['price'] * $quantity;
         }
         $globalSale = GlobalSales::where([
             ['sum_modal', '<=', $total],
@@ -405,10 +406,11 @@ class CheckoutController extends Controller
         $product = $request->get('product');
         $total = 0;
 
+        $quantity = !empty($product['quantity']) ? $product['quantity'] : 1;
         $orderProduct = new OrderProduct();
         $orderProduct->product_id = $product['id'];
         $orderProduct->order_id = $order->id;
-        $orderProduct->quantity = $product['quantity'];
+        $orderProduct->quantity = $quantity;
         $orderProduct->price = $product['price'];
         $orderProduct->price_with_sales = $product['price_with_sale'];
         $orderProduct->sale_id = $product['sale_id'];
@@ -416,7 +418,7 @@ class CheckoutController extends Controller
         $orderProduct->percent = !empty($product['sale_id']) ? $product['get_sale']['percent'] : null;
         $orderProduct->save();
         $total += !empty($product['sale_id']) ? $product['price_with_sale'] : $product['price'];
-        $total = $total * $product['quantity'];
+        $total = $total * $quantity;
         $globalSale = GlobalSales::where([
             ['sum_modal', '<=', $total],
             ['active', 1]
@@ -579,10 +581,11 @@ class CheckoutController extends Controller
 
         foreach ($request->get('products') as $product) {
 
+            $quantity = !empty($product['quantity']) ? $product['quantity'] : 1;
             $orderProduct = new OrderProduct();
             $orderProduct->product_id = $product['id'];
             $orderProduct->order_id = $order->id;
-            $orderProduct->quantity = $product['quantity'];
+            $orderProduct->quantity = $quantity;
             $orderProduct->price = $product['price'];
             $orderProduct->price_with_sales = $product['price_with_sale'];
             $orderProduct->sale_id = $product['sale_id'];
@@ -591,7 +594,7 @@ class CheckoutController extends Controller
             $orderProduct->save();
 
             $orderProducts[] = $orderProduct;
-            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $product['quantity'] : $product['price'] * $product['quantity'];
+            $total += !empty($product['sale_id']) ? $product['price_with_sale'] * $quantity : $product['price'] * $quantity;
         }
         $globalSale = GlobalSales::where([
             ['sum_modal', '<=', $total],
