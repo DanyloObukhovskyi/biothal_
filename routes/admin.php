@@ -31,11 +31,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         // Заказы
         Route::group(['prefix' => 'orders'], function () {
+
             Route::get('/', 'OrdersController@index')
                 ->name('admin.orders.orders');
 
             Route::get('/viewOrders/{id}', 'OrdersController@viewOrders')
                 ->name('admin.orders.viewOrders');
+
+            Route::post('/sort_orders_table', 'OrdersController@sortOrdersTable');
 
             Route::post('/save/history', 'OrdersController@saveHistory');
 

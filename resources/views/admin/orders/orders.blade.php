@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="input-customer">Клиент</label>
-                                    <input type="text" name="filter_customer" value="" placeholder="Клиент" id="input-customer" class="form-control" />
+                                    <input type="text" name="filter_client" value="" placeholder="Клиент" id="input-customer" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -51,7 +51,25 @@
                                     <select name="filter_order_status" id="input-order-status" class="form-control">
                                         <option value="*"></option>
                                         @foreach($order_statuses as $order_status)
-                                            <option value="{{$order_status['id']}}">{{$order_status['name']}}</option>
+                                            <option value="{{$order_status['id']}}">
+                                                @if ($order_status['name'] == 'active')
+                                                    Закупка
+                                                @elseif ($order_status['name'] == 'payment_process')
+                                                    В процессе оплаты
+                                                @elseif ($order_status['name'] == 'shipping_process')
+                                                    В прочессе доставки
+                                                @elseif ($order_status['name'] == 'finish')
+                                                    Закончен
+                                                @elseif ($order_status['name'] == 'pre_order')
+                                                    Предзаказ
+                                                @elseif ($order_status['name'] == 'paid')
+                                                    Оплачено
+                                                @elseif ($order_status['name'] == 'cancel')
+                                                    Отменен
+                                                @elseif ($order_status['name'] == 'unfinished')
+                                                    Не закончен
+                                                @endif
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,127 +96,38 @@
                                          </span>
                                     </div>
                                 </div>
-                                <button type="submit" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> Фильтр</button>
-                                @if (request()->has(['filter_customer', 'filter_order_id', 'filter_order_status', 'filter_date_modified', 'filter_total', 'filter_date_added']))
+                                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> Фильтр</button>
+                                @if (request()->has(['filter_order_id', 'filter_client', 'filter_order_status', 'filter_date_modified', 'filter_total', 'filter_date_added']))
                                     <a style="    margin: 23px 10px 2px 2px;" href="{{route('admin.orders.orders')}}" class="btn btn-default pull-right">Reset Filters</a>
                                 @endif
                             </div>
                         </form>
                     </div>
                 </div>
-                <form method="post" action="" enctype="multipart/form-data" id="form-order">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                                <td class="text-right">                    <a href="" class="desc">№ Заказа</a>
-                                </td>
-                                <td class="text-left">                    <a href="">Клиент</a>
-                                </td>
-                                <td class="text-left">                    <a href="">Статус</a>
-                                </td>
-                                <td class="text-right">                    <a href="">Итого</a>
-                                </td>
-                                <td class="text-left">                    <a href="">Дата добавления</a>
-                                </td>
-                                <td class="text-left">                    <a href="">Дата изменения</a>
-                                </td>
-                                <td class="text-right">Действие</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($orders as $order)
-                                    <tr>
-                                        <td class="text-center">
-                                            <input type="checkbox" name="selected[]" value="{{$order['id']}}" />
-                                        </td>
-                                        <td class="text-right">
-                                            {{$order['id']}}
-                                        </td>
-                                        <td class="text-left">
-                                            @if($order['user_address']['name'] && $order['user_address']['LastName'])
-                                                {{$order['user_address']['name']}} {{$order['user_address']['LastName']}}
-                                            @else
-                                                "N/a"
-                                            @endif
-                                        </td>
-                                        <td class="text-left">
-                                            @if($order['order_status']['name'] == 'active')
-                                                Закупка
-                                            @elseif($order['order_status']['name'] == 'payment_process')
-                                                В процессе оплаты
-                                            @elseif($order['order_status']['name'] == 'shipping_process')
-                                                Отправленна получателю
-                                            @elseif($order['order_status']['name'] == 'finish')
-                                                Получена
-                                            @elseif($order['order_status']['name'] == 'pre_order')
-                                                Предзаказ
-                                            @elseif($order['order_status']['name'] == 'paid')
-                                                Оплачен
-                                            @elseif($order['order_status']['name'] == 'cancel')
-                                                Отменен
-                                            @elseif($order['order_status']['name'] == 'unfinished')
-                                                Не закончен
-                                            @endif
-                                        </td>
-                                        <td class="text-right">{{ceil($order['total_sum'])}} грн</td>
-                                        <td class="text-left">
-                                            {{Carbon\Carbon::parse($order['created_at'])->format('Y-m-d')}}
-                                        </td>
-                                        <td class="text-left">
-                                            {{Carbon\Carbon::parse($order['updated_at'])->format('Y-m-d')}}
-                                        </td>
-                                        <td class="text-right">
-                                            <a
-                                                href="{{route('admin.orders.viewOrders', ['id' => $order['id']])}}"
-                                                data-toggle="tooltip" title="Посмотреть"
-                                                class="btn btn-info">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
+                <div class="container-fluid m-2">
+                    <table class="table table-bordered table-hover" id="orders-table" style="width:100%">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">№ Заказа</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Итого</th>
+                            <th scope="col">Дата добавления</th>
+                            <th scope="col">Дата изменения</th>
+                            <th scope="col">Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-    <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-            url = '#';
-            var filter_order_id = $('input[name=\'filter_order_id\']').val();
-            if (filter_order_id) {
-                url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
-            }
-            var filter_customer = $('input[name=\'filter_customer\']').val();
-            if (filter_customer) {
-                url += '&filter_customer=' + encodeURIComponent(filter_customer);
-            }
-            var filter_order_status = $('select[name=\'filter_order_status\']').val();
-            if (filter_order_status != '*') {
-                url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
-            }
-            var filter_total = $('input[name=\'filter_total\']').val();
-            if (filter_total) {
-                url += '&filter_total=' + encodeURIComponent(filter_total);
-            }
-            var filter_date_added = $('input[name=\'filter_date_added\']').val();
-            if (filter_date_added) {
-                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-            }
-            var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
-            if (filter_date_modified) {
-                url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
-            }
-            location = url;
-        });
-        </script>
-
     <script type="text/javascript">
         $('input[name^=\'selected\']').on('change', function() {
             $('#button-shipping, #button-invoice').prop('disabled', true);
@@ -238,5 +167,6 @@
         });
         </script>
     <script src="{{asset('js/products.js')}}"></script>
+    <script src="{{asset('js/orders.js')}}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 @endsection
